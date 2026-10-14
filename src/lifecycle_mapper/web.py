@@ -1,0 +1,273 @@
+"""Local research UI; background jobs reuse the classifier and benchmark commands."""
+
+import base64
+import json
+import threading
+import uuid
+from concurrent.futures import ThreadPoolExecutor
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from typing import Any, cast
+from urllib.parse import urlparse
+
+from . import MODES
+from .batch import predict_batch, read_inputs, records_from_rows, sample_records
+from .benchmark import run
+from .canonical import contained, json_bytes, read_json, sha256
+from .consensus import worksheet_cells
+
+
+class Application:
+    def __init__(self, root: Path, state_dir: Path):
+        self.root = root.resolve()
+        self.state_dir = state_dir.resolve()
+        self.state_dir.mkdir(parents=True, exist_ok=True)
+        self.jobs: dict[str, dict[str, Any]] = {}
+        self.lock = threading.Lock()
+        self.pool = ThreadPoolExecutor(max_workers=2)
+
+    def start(self, request: dict[str, Any]) -> dict[str, str]:
+        kind = request.get("kind", "repository")
+        if kind not in {"repository", "batch", "evaluation", "replay"}:
+            raise ValueError("Unknown job type")
+        mode = request.get("mode", "documentation-only")
+        if mode not in (*MODES, "all"):
+            raise ValueError("Unknown evidence mode")
+        modes = MODES if mode == "all" else (mode,)
+        job_id = uuid.uuid4().hex
+        directory = self.state_dir / "runs" / job_id
+        provenance: dict[str, Any] = {"kind": kind}
+        if kind == "repository":
+            records = records_from_rows(
+                [{"repository_url": request["url"], "ref": request.get("ref")}]
+            )
+        elif kind == "batch":
+            if request.get("upload_id"):
+                upload = contained(self.state_dir / "uploads", request["upload_id"])
+                records = read_inputs(
+                    upload,
+                    request.get("repository_column", "B"),
+                    request.get("worksheet", "Agreement Final"),
+                    int(request.get("header_row", 1)),
+                )
+                provenance.update(
+                    source_sha256=sha256(upload.read_bytes()),
+                    worksheet=request.get("worksheet", "Agreement Final"),
+                    repository_column=request.get("repository_column", "B"),
+                    header_row=int(request.get("header_row", 1)),
+                )
+            else:
+                records = records_from_rows(
+                    [
+                        {"repository_url": value}
+                        for value in request.get("urls", "").splitlines()
+                        if value.strip()
+                    ]
+                )
+            provenance.update(
+                population_count=len(records),
+                seed=str(request.get("seed", "rlm-ui-v1")),
+                requested_sample_size=request.get("sample_size"),
+            )
+            records = sample_records(
+                records,
+                int(request["sample_size"]) if request.get("sample_size") else None,
+                str(request.get("seed", "rlm-ui-v1")),
+            )
+        elif kind == "replay":
+            original = contained(self.state_dir / "runs", request["run_id"])
+            manifest = read_json(original / "manifest.json")
+            records = [row for row in manifest["repositories"] if row["status"] == "analyzed"]
+            if not records:
+                raise ValueError("This run has no captured repositories to replay")
+        else:
+            configuration = contained(self.root, request.get("config", "configs/benchmark.yaml"))
+            if not configuration.is_file():
+                raise ValueError("Benchmark configuration file does not exist")
+            records = []
+        job = {
+            "id": job_id,
+            "kind": kind,
+            "status": "queued",
+            "completed": 0,
+            "total": len(records),
+            "current_repository": "",
+            "result": None,
+            "error": None,
+        }
+        with self.lock:
+            self.jobs[job_id] = job
+
+        def progress(value: dict[str, Any]) -> None:
+            with self.lock:
+                self.jobs[job_id].update(value)
+
+        def execute() -> None:
+            progress({"status": "running"})
+            try:
+                if kind == "evaluation":
+                    run(configuration, directory)
+                    result = {"metrics": read_json(directory / "metrics.json"), "repositories": []}
+                else:
+                    result = predict_batch(
+                        records,
+                        directory,
+                        modes,
+                        original if kind == "replay" else None,
+                        progress,
+                        root=self.root,
+                        input_provenance=provenance,
+                    )
+                progress({"status": "completed", "result": result})
+            except Exception as exc:
+                progress({"status": "failed", "error": str(exc)})
+
+        self.pool.submit(execute)
+        return {"id": job_id}
+
+    def job(self, job_id: str) -> dict[str, Any]:
+        with self.lock:
+            if job_id in self.jobs:
+                return dict(self.jobs[job_id])
+        root = contained(self.state_dir / "runs", job_id)
+        if (root / "results.json").is_file():
+            return {
+                "id": job_id,
+                "kind": "batch",
+                "status": "completed",
+                "result": read_json(root / "results.json"),
+            }
+        raise ValueError("Run not found")
+
+    def history(self) -> list[dict[str, Any]]:
+        with self.lock:
+            rows = [
+                {key: job.get(key) for key in ["id", "kind", "status", "completed", "total"]}
+                for job in self.jobs.values()
+            ]
+        known = {row["id"] for row in rows}
+        directory = self.state_dir / "runs"
+        if directory.exists():
+            for root in sorted(directory.iterdir()):
+                if root.name not in known and (root / "results.json").is_file():
+                    result = read_json(root / "results.json")
+                    rows.append(
+                        {
+                            "id": root.name,
+                            "kind": "batch",
+                            "status": "completed",
+                            "completed": result["repository_count"],
+                            "total": result["repository_count"],
+                        }
+                    )
+        return rows
+
+    def upload(self, request: dict[str, Any]) -> dict[str, Any]:
+        suffix = Path(request["filename"]).suffix.lower()
+        if suffix not in {".xlsx", ".csv", ".json", ".txt"}:
+            raise ValueError("Upload an Excel workbook, CSV, JSON or URL text file")
+        data = base64.b64decode(request["content"], validate=True)
+        if len(data) > 15_000_000:
+            raise ValueError("Upload exceeds 15 MB")
+        upload_id = uuid.uuid4().hex + suffix
+        target = contained(self.state_dir / "uploads", upload_id)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+        preview: dict[str, Any] = {"upload_id": upload_id, "filename": request["filename"]}
+        if suffix == ".xlsx":
+            rows = worksheet_cells(target, "Agreement Final")
+            preview["preview_rows"] = [
+                {"row": number, "cells": cells} for number, cells in sorted(rows.items())[:5]
+            ]
+        else:
+            preview["repository_count"] = len(read_inputs(target))
+        return preview
+
+
+def make_server(app: Application, port: int = 8000) -> ThreadingHTTPServer:
+    class Handler(BaseHTTPRequestHandler):
+        def log_message(self, format: str, *args: Any) -> None:
+            pass
+
+        def send(self, status: int, data: bytes, content_type: str = "application/json") -> None:
+            self.send_response(status)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.end_headers()
+            self.wfile.write(data)
+
+        def do_GET(self) -> None:
+            path = urlparse(self.path).path
+            try:
+                if path == "/":
+                    self.send(
+                        200,
+                        Path(__file__).with_name("ui").joinpath("index.html").read_bytes(),
+                        "text/html; charset=utf-8",
+                    )
+                elif path == "/api/history":
+                    self.send(200, json_bytes(app.history()))
+                elif path.startswith("/api/jobs/"):
+                    self.send(200, json_bytes(app.job(path.removeprefix("/api/jobs/"))))
+                elif path.startswith("/api/download/"):
+                    relative = path.removeprefix("/api/download/")
+                    target = contained(app.state_dir / "runs", relative)
+                    if target.name not in {
+                        "predictions.csv",
+                        "evidence.jsonl",
+                        "errors.csv",
+                        "results.json",
+                        "manifest.json",
+                        "metrics.json",
+                        "metrics.csv",
+                        "report.md",
+                        "documentation_errors.csv",
+                        "coverage.csv",
+                        "mode_comparison.csv",
+                    }:
+                        raise ValueError("Download is not an exported result file")
+                    self.send(200, target.read_bytes(), "application/octet-stream")
+                else:
+                    self.send(404, json_bytes({"error": "Not found"}))
+            except (ValueError, OSError) as exc:
+                self.send(400, json_bytes({"error": str(exc)}))
+
+        def do_POST(self) -> None:
+            try:
+                origin = self.headers.get("Origin")
+                if origin and origin not in {
+                    f"http://127.0.0.1:{cast(ThreadingHTTPServer, self.server).server_port}",
+                    f"http://localhost:{cast(ThreadingHTTPServer, self.server).server_port}",
+                }:
+                    raise ValueError("Cross-origin requests are not permitted")
+                size = int(self.headers.get("Content-Length", 0))
+                if not 0 < size <= 21_000_000:
+                    raise ValueError("Invalid request size")
+                request = json.loads(self.rfile.read(size))
+                if not isinstance(request, dict):
+                    raise ValueError("Request must be a JSON object")
+                if self.path == "/api/jobs":
+                    result = app.start(request)
+                elif self.path == "/api/uploads":
+                    result = app.upload(request)
+                else:
+                    raise ValueError("Unknown endpoint")
+                self.send(200, json_bytes(result))
+            except Exception as exc:
+                self.send(400, json_bytes({"error": str(exc)}))
+
+    return ThreadingHTTPServer(("127.0.0.1", port), Handler)
+
+
+def serve(root: Path, state_dir: Path, port: int = 8000) -> None:
+    app = Application(root, state_dir)
+    server = make_server(app, port)
+    print(f"Research Lifecycle Mapper UI: http://127.0.0.1:{server.server_port}", flush=True)
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.server_close()
+        app.pool.shutdown(wait=True)

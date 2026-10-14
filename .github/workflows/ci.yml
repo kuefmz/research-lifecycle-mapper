@@ -17,4 +17,6 @@ jobs:
       - run: uv run --frozen ruff format --check src tests scripts
       - run: uv run --frozen mypy
       - run: uv run --frozen pytest -q --basetemp local/pytest
+      - run: uv run --frozen playwright install --with-deps chromium
+      - run: RLM_BROWSER_TEST=1 uv run --frozen pytest -q tests/browser --basetemp local/browser-tests
       - run: uv run --frozen python -m lifecycle_mapper benchmark verify --config configs/synthetic.yaml --workspace local/ci-reproduction --reference benchmark/results/synthetic-v2

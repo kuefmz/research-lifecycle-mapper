@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "research-lifecycle-mapper"
-version = "0.2.0"
+version = "0.3.0"
 description = "Deterministic, evidence-preserving research lifecycle classification"
 requires-python = "==3.12.*"
 dependencies = []
@@ -13,13 +13,13 @@ dependencies = []
 lifecycle-mapper = "lifecycle_mapper.cli:main"
 
 [dependency-groups]
-dev = ["pytest==8.4.2", "ruff==0.13.3", "mypy==1.18.2"]
+dev = ["pytest==8.4.2", "ruff==0.13.3", "mypy==1.18.2", "playwright==1.58.0"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-lifecycle_mapper = ["rules/*.yaml"]
+lifecycle_mapper = ["rules/*.yaml", "ui/*.html"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

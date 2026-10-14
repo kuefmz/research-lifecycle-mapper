@@ -2,6 +2,7 @@
 
 import argparse
 from pathlib import Path
+from . import MODES
 
 from .acquisition import acquire
 from .analysis import analyze
@@ -11,11 +12,16 @@ from .bundles import pack, unpack
 from .canonical import json_bytes, write_json
 from .consensus import import_final, publication_export
 from .protocol import create_split, freeze
+from .batch import predict_batch, read_inputs
+from .web import serve
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="lifecycle-mapper")
     commands = parser.add_subparsers(dest="command", required=True)
+    ui = commands.add_parser("ui", help="Start the local repository and benchmark UI")
+    ui.add_argument("--port", type=int, default=8000)
+    ui.add_argument("--state-dir", type=Path, default=Path("local/ui"))
     acquisition = commands.add_parser("acquire")
     acquisition.add_argument("url")
     acquisition.add_argument("--ref")
@@ -40,6 +46,13 @@ def main() -> None:
     restore.add_argument("--output", type=Path, required=True)
     benchmark = commands.add_parser("benchmark")
     actions = benchmark.add_subparsers(dest="action", required=True)
+    predicting = actions.add_parser("predict", help="Run benchmark heuristics without human labels")
+    predicting.add_argument("--input", type=Path, required=True)
+    predicting.add_argument("--output", type=Path, required=True)
+    predicting.add_argument("--repository-column", default="B")
+    predicting.add_argument("--worksheet", default="Agreement Final")
+    predicting.add_argument("--header-row", type=int, default=1)
+    predicting.add_argument("--mode", choices=[*MODES, "all"], default="all")
     execution = actions.add_parser("run")
     execution.add_argument("--config", type=Path, default=Path("configs/benchmark.yaml"))
     execution.add_argument("--output", type=Path)
@@ -75,7 +88,10 @@ def main() -> None:
     importer.add_argument("--expected-disagreements", type=int, default=247)
     args = parser.parse_args()
     try:
-        if args.command == "acquire":
+        if args.command == "ui":
+            serve(Path.cwd(), args.state_dir, args.port)
+            return
+        elif args.command == "acquire":
             result = acquire(args.url, args.snapshot, args.ref, args.max_bytes)
         elif args.command == "analyze":
             result = analyze(args.snapshot, args.mode, args.rules)
@@ -97,6 +113,13 @@ def main() -> None:
             else:
                 unpack(args.bundle, args.output)
             result = {"output": str(args.output)}
+        elif args.action == "predict":
+            records = read_inputs(
+                args.input, args.repository_column, args.worksheet, args.header_row
+            )
+            result = predict_batch(
+                records, args.output, MODES if args.mode == "all" else (args.mode,)
+            )
         elif args.action == "run":
             result = {"run_directory": str(run(args.config, args.output))}
         elif args.action == "import":

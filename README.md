@@ -1,15 +1,67 @@
 # Research Lifecycle Mapper
 
-Deterministic, explainable repository-level multi-label classification of six research lifecycle stages, in this order: **Collection, Processing, Method, Experimentation, Evaluation, Dissemination**.
+A local UI and command-line tool for running deterministic research lifecycle heuristics on GitHub repositories and your benchmark. The six stages are Collection, Processing, Method, Experimentation, Evaluation and Dissemination.
 
-This is a research implementation, not a web demo. The initial rules are **unadjudicated candidates**. The 100-repository human benchmark is **pending**; no human benchmark performance has been measured. Five explicitly synthetic repositories exercise the offline pipeline and its failure handling.
+## Start the UI
 
-## Install and verify
-
-Use Python **3.12.14** and uv **0.12.23**. The lockfile pins development dependencies; the classifier has no third-party runtime dependencies. Run from the repository root:
+With Git installed, run these commands in a macOS/Linux terminal:
 
 ```bash
+curl -LsSf https://astral.sh/uv/0.12.23/install.sh | sh
+export PATH="$HOME/.local/bin:$PATH"
+git clone --single-branch --branch main https://github.com/kuefmz/research-lifecycle-mapper.git
+cd research-lifecycle-mapper
+uv python install 3.12.14
 uv sync --frozen
+uv run --frozen python -m lifecycle_mapper ui
+```
+
+If already cloned, update with `git pull --ff-only`, then run the last two commands. Open **http://127.0.0.1:8000**.
+
+* **Analyze a repository:** paste any public GitHub repository URL, select evidence mode, run the heuristics, and inspect labels, original evidence excerpts, paths, rule IDs and commit-pinned links.
+* **Run the benchmark:** upload your original Excel workbook, CSV, JSON or text repository list, or paste URLs. Run the full list or a reproducible random subset. Approved human labels are not required to generate predictions.
+* **Previous runs:** reopen saved results, download CSV/JSON exports, and replay captured inputs offline.
+
+Excel batch prediction reads **Agreement Final**; select the repository URL column and header row after inspecting its preview. This extracts repository inputs, not gold labels. Formal consensus import and evaluation remain separate.
+
+Documentation-only is the primary classifier. Code-only and combined (logical OR) are independently traced comparison modes. The rules are candidate heuristics and have not yet been empirically validated against the unavailable approved human benchmark.
+
+See [UI and benchmark guide](docs/ui.md).
+
+## Batch benchmark execution from the CLI
+
+```bash
+uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/benchmark.xlsx --repository-column B --header-row 1 --output local/benchmark-predictions
+uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/repositories.csv --output local/csv-predictions
+```
+
+CSV columns may use `repository_url`, `github_repository_url` or `repository` (owner/name). JSON lists/manifests and one-URL-per-line text are also supported. The default runs all three modes; use `--mode documentation-only` for the primary method. Predictions, matched evidence, download/analysis errors, immutable snapshots and execution manifests are saved. Acquisition failures are not converted to negative labels. Use a new output directory for each run.
+
+## Single repository and offline replay
+
+```bash
+uv run --frozen python -m lifecycle_mapper acquire https://github.com/OWNER/REPO --snapshot local/snapshots/example
+uv run --frozen python -m lifecycle_mapper analyze --snapshot local/snapshots/example --mode documentation-only --output local/analysis.json
+```
+
+An optional `--ref` selects a commit, branch or tag during acquisition. The ref is resolved once to an immutable commit and blobs are captured by SHA. Replay verifies hashes and uses no GitHub network. `GITHUB_TOKEN` may be set in the shell before the UI/CLI for larger batches; it is not exposed to the browser or saved outputs. Inspected repository code is never executed.
+
+## Approved human comparison
+
+When the original workbook is available, adapt the unverified import mapping to its actual layout and supply exact-workbook/mapping approval:
+
+```bash
+uv run --frozen python -m lifecycle_mapper benchmark import original.xlsx --config configs/agreement-final-import.yaml --output local/imports/final-v1
+uv run --frozen python -m lifecycle_mapper benchmark run --config configs/benchmark.yaml
+```
+
+The first import is candidate without an approval record. The human evaluation config is currently pending and refuses to compute human performance until the real codebook, approved consensus, sampling provenance, revisions and snapshots are present. This does **not** block UI or batch prediction. The original Google Sheet/workbook is never modified.
+
+See [Agreement Final import](docs/agreement_final.md), [development/test and frozen evaluation](docs/evaluation_protocol.md), [methodology](docs/methodology.md), [rule-change review](docs/rule_change_protocol.md) and [limitations](docs/limitations.md).
+
+## Development verification
+
+```bash
 mkdir -p local
 uv run --frozen ruff check src tests scripts
 uv run --frozen ruff format --check src tests scripts
@@ -17,68 +69,6 @@ uv run --frozen mypy
 uv run --frozen pytest -q --basetemp local/pytest
 ```
 
-If installing uv, use the official installer with an explicitly selected version. Initial dependency installation can require network access; classification replay and tests do not. A wheel can be installed with `python -m pip install --no-deps dist/research_lifecycle_mapper-0.2.0-py3-none-any.whl` after `uv build --wheel`.
+CI also runs browser tests and offline regression fixtures. Historical synthetic artifacts are software checks only; they are not a prerequisite for normal use and are not human benchmark results. Python 3.12.14 and uv 0.12.23 are pinned; `uv.lock` pins all dependencies. Production classification and the local server use the Python standard library.
 
-## Analyze
-
-Replay is the analysis default. Live acquisition is an explicit, separate command:
-
-```bash
-uv run --frozen python -m lifecycle_mapper acquire https://github.com/OWNER/REPO --ref COMMIT_OR_REF --snapshot local/snapshots/example
-uv run --frozen python -m lifecycle_mapper analyze --snapshot local/snapshots/example --mode combined --output local/analysis.json
-uv run --frozen python -m lifecycle_mapper analyze --snapshot local/snapshots/example --mode documentation-only
-uv run --frozen python -m lifecycle_mapper analyze --snapshot local/snapshots/example --mode code-only
-```
-
-The acquisition resolves the ref once to an immutable commit and retrieves immutable Git blobs. It never executes repository code. `GITHUB_TOKEN` is optional, read from the environment, and excluded from all outputs. GitHub rate limits may require a token for large acquisitions.
-
-Try the included offline snapshot:
-
-```bash
-uv run --frozen python -m lifecycle_mapper analyze --snapshot benchmark/synthetic/snapshots/docs-positive
-```
-
-Results retain exact matched conditions, rule IDs, source categories, content hashes, original line ranges, and commit-pinned evidence links. Synthetic evidence links illustrate the URL format and deliberately do not identify real GitHub repositories.
-
-## Reproduce the synthetic benchmark
-
-```bash
-uv run --frozen python -m lifecycle_mapper benchmark run --config configs/synthetic.yaml --output local/runs/synthetic-check
-uv run --frozen python -m lifecycle_mapper benchmark verify --config configs/synthetic.yaml --workspace local/reproduction --reference benchmark/results/synthetic-v2
-```
-
-Use new output directories for each command. Verification runs the same inputs twice and compares every canonical artifact, including both current execution manifests. It also compares semantic result artifacts with the committed synthetic reference; the reference's execution manifest retains its original producing checkout metadata.
-
-## Human benchmark — Agreement Final is the candidate gold source
-
-```bash
-uv run --frozen python -m lifecycle_mapper benchmark import original.xlsx --config configs/agreement-final-import.yaml --output local/imports/final-v1
-uv run --frozen python -m lifecycle_mapper benchmark run --config configs/benchmark.yaml
-```
-
-The import mapping is an unverified template; adapt it explicitly to the supplied workbook. Consensus stays candidate without an exact-workbook approval record. The second command currently exits with an explicit pending-input error. It requires approved consensus, provenance, sampling documentation, an approved codebook, and pinned snapshots. The importer preserves the source file and its checksum; proposed consensus is never used as gold.
-
-See [benchmark import specification](benchmark/provenance/import_specification.md), [methodology](docs/methodology.md), [reproducibility](docs/reproducibility.md), [implementation audit](docs/implementation_provenance.md), and [limitations](docs/limitations.md).
-
-## Portable snapshots
-
-```bash
-uv run --frozen python -m lifecycle_mapper snapshot pack --snapshot benchmark/synthetic/snapshots/docs-positive --output local/docs-positive.tar
-uv run --frozen python -m lifecycle_mapper snapshot unpack --bundle local/docs-positive.tar --output local/replayed
-```
-
-Live snapshots default to `redistribution: not-reviewed`. After checking all relevant licenses and release policies, the snapshot custodian may explicitly set `approved-for-redistribution`, regenerate its canonical manifest, and record the new manifest hash. Unapproved live snapshots cannot be bundled. Manifests, pinned commits, and hashes can be shared independently where permitted, but later network reacquisition is not guaranteed to reproduce unavailable content.
-
-## Research status
-
-Implemented: versioned source-specific rules; deterministic classification; acquisition/replay; read-only CSV/XLSX import; gold/provenance gates; all three evaluation modes; confusion matrices and inspection tables; stable canonical reporting; snapshot bundles; CI and offline fixtures.
-
-Pending scientific work: final Method interpretation and adjudicated codebook; actual 100 repositories and historical revisions; independent annotations and disagreement records; human consensus approval; verified sampling provenance; redistribution review; independent held-out protocol; multilingual/multi-language coverage; digest-pinned release environment. See the freeze checklist in [limitations](docs/limitations.md).
-
-The upstream implementation was audited at commit `dfb22f9545860a99a57199975dd78a4d9cb80fea`. Its architecture and evidence concepts informed this independent implementation. No upstream code was copied because its inspected tree declares no license. The original repository and benchmark sheet were not modified.
-
-## Documentation-primary protocol (v0.2.0)
-
-Documentation-only is the default and primary classifier; documentation macro-F1 on development data is the selection metric. The catalog now contains 18 explicit/contextual/workflow documentation rules and six unchanged secondary Python rules. Every documentation candidate records activity, object, context, polarity, scope, heading and layer. Negation, future work, third-party scope and generic infrastructure are excluded. Combined remains logical OR.
-
-See [Agreement Final ingestion](docs/agreement_final.md), [split/freeze protocol](docs/evaluation_protocol.md) and [rule-change workflow](docs/rule_change_protocol.md). Development runs select only development repositories. Final research runs require an approved split, frozen implementation/configuration and an execution ledger; later runs are reproduction-only. No human agreement improvement or final test performance is claimed.
+The upstream repository was audited at `dfb22f9545860a99a57199975dd78a4d9cb80fea`. No upstream code was copied because that inspected tree declares no license. Its evidence concepts informed the independently authored foundation reused by the UI. See [implementation provenance](docs/implementation_provenance.md) and [reproducibility](docs/reproducibility.md). The maintained branch is `main`.
