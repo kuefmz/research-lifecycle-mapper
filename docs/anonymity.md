@@ -1,0 +1,9 @@
+# Preparing an anonymous submission artifact
+
+This repository and its history are **not anonymous**. The public owner URL, Git metadata, citation URL and upstream attribution/provenance links can identify contributors. An anonymous artifact requires a separately reviewed export, never just a personal GitHub repository with a changed README.
+
+Create a fresh export directory outside Git with only approved source, rules, configuration, documentation and redistributable snapshots. Do not include `.git`, CI credentials, tokens, cached private acquisition state, original annotation notes, source workbook metadata or author-identifying CITATION fields. Replace public project/upstream identifiers with review-safe references according to venue policy; where license notices require identification, keep the notices and document the resulting anonymity limit rather than violating licensing terms. This project contains no copied upstream code, but future adaptations may change those obligations.
+
+Replace annotator names with stable role identifiers in an anonymous copy, preserving the independent-label/adjudication distinction. Review commit-pinned evidence URLs and repository identities: they may be necessary research data or may reveal authors' own projects. Any anonymization changes data identity and hashes; derive a new versioned manifest and retain a private reversible mapping with the artifact custodian. Do not silently redact research inputs while claiming the original exact checksums.
+
+Check text and binary metadata, workbook document properties, PDF author fields, links, source comments and archive member metadata. Run the export's offline tests and canonical benchmark reproduction from a fresh directory, then manually inspect the complete file inventory. Publish the export through the venue's anonymous artifact service only after release approval. No anonymous artifact has been prepared or published by this implementation.

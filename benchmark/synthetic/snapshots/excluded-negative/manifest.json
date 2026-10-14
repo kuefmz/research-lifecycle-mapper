@@ -1,0 +1,34 @@
+{
+  "commit": "f7f3490b611cd4e094233436deb39db0f88efd24",
+  "files": [
+    {
+      "git_blob_sha": null,
+      "mode": "100644",
+      "path": "docs/roadmap.md",
+      "reason": null,
+      "sha256": "223f5c6dd7878ce7d402eb2cc5221f3676483f66282b69d12a7fa642fc36f40c",
+      "size": 341,
+      "source": "documentation",
+      "status": "captured"
+    },
+    {
+      "git_blob_sha": null,
+      "mode": "100644",
+      "path": "tests/test_research.py",
+      "reason": null,
+      "sha256": "d2d35816604ae3334d6eee45bc4a4de354f35459597ab584353c9be191163ce4",
+      "size": 492,
+      "source": "code",
+      "status": "captured"
+    }
+  ],
+  "inventory_complete": true,
+  "max_bytes": 250000,
+  "policy_version": "eligibility-1",
+  "redistribution": "synthetic-original-test-content",
+  "repository": "synthetic/excluded-negative",
+  "schema_version": 1,
+  "source_url": "https://github.com/synthetic/excluded-negative",
+  "synthetic": true,
+  "tree_sha": null
+}

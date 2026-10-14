@@ -1,0 +1,88 @@
+{
+  "approval_scope": "software-test-fixture-only",
+  "codebook_version": "candidate-synthetic-v1",
+  "kind": "synthetic",
+  "repositories": [
+    {
+      "commit": "e9a971bb7269c7261392dc58ff302a32d08e8248",
+      "labels": {
+        "Collection": 1,
+        "Dissemination": 1,
+        "Evaluation": 1,
+        "Experimentation": 1,
+        "Method": 1,
+        "Processing": 1
+      },
+      "repository": "synthetic/docs-positive",
+      "snapshot": "snapshots/docs-positive",
+      "snapshot_sha256": "d71d0b93a8904aefa20dbcaa125097352a635a6ba649eb26950e4392030aa9c4"
+    },
+    {
+      "commit": "ac46e29f0b5bdfa5b1ae635e3907fefbf832ae36",
+      "labels": {
+        "Collection": 1,
+        "Dissemination": 1,
+        "Evaluation": 1,
+        "Experimentation": 1,
+        "Method": 1,
+        "Processing": 1
+      },
+      "repository": "synthetic/code-positive",
+      "snapshot": "snapshots/code-positive",
+      "snapshot_sha256": "027159ae34e24b6102cafcf414743bb0238aa7aa2dc2985c95994a3ff77fb32d"
+    },
+    {
+      "commit": "91c4dfaf9ff8a28054bb73e3a6353d268682b412",
+      "labels": {
+        "Collection": 0,
+        "Dissemination": 0,
+        "Evaluation": 0,
+        "Experimentation": 0,
+        "Method": 0,
+        "Processing": 0
+      },
+      "repository": "synthetic/generic-negative",
+      "snapshot": "snapshots/generic-negative",
+      "snapshot_sha256": "99da018bb1222e17a59b07d19429939fea495d1f025fdf54f6802020e09332e2"
+    },
+    {
+      "commit": "f7f3490b611cd4e094233436deb39db0f88efd24",
+      "labels": {
+        "Collection": 0,
+        "Dissemination": 0,
+        "Evaluation": 0,
+        "Experimentation": 0,
+        "Method": 0,
+        "Processing": 0
+      },
+      "repository": "synthetic/excluded-negative",
+      "snapshot": "snapshots/excluded-negative",
+      "snapshot_sha256": "d6f8318d662cd8e77fadb44cb64b2b1c6bb8eeeb784091c6dbad1238fa1805bf"
+    },
+    {
+      "commit": "f1bd78ff0e246f2d81b8cac7cd2e749d514cc73f",
+      "labels": {
+        "Collection": 1,
+        "Dissemination": 1,
+        "Evaluation": 1,
+        "Experimentation": 1,
+        "Method": 1,
+        "Processing": 1
+      },
+      "repository": "synthetic/incomplete",
+      "snapshot": "snapshots/incomplete",
+      "snapshot_sha256": "c31bbffac9873ee8e583490c7432a420b95ba7e9a5d9a9d90fb33566def2fde4"
+    }
+  ],
+  "schema_version": 1,
+  "stages": [
+    "Collection",
+    "Processing",
+    "Method",
+    "Experimentation",
+    "Evaluation",
+    "Dissemination"
+  ],
+  "status": "approved",
+  "version": "synthetic-v1"
+}

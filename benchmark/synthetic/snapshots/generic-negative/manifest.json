@@ -1,0 +1,44 @@
+{
+  "commit": "91c4dfaf9ff8a28054bb73e3a6353d268682b412",
+  "files": [
+    {
+      "git_blob_sha": null,
+      "mode": "100644",
+      "path": "README.md",
+      "reason": null,
+      "sha256": "2b259694deedd7c8420366f1f904ac5fe8aafaa8eeab8c4aeca6b5e3c0bc94c3",
+      "size": 59,
+      "source": "documentation",
+      "status": "captured"
+    },
+    {
+      "git_blob_sha": null,
+      "mode": "100644",
+      "path": "requirements.txt",
+      "reason": null,
+      "sha256": "7cc4959877dbe6b6c63a8eb1bfe3bfb545fa8fe5b28b1b2c13e4a7c1c0d1c4d4",
+      "size": 9,
+      "source": "documentation",
+      "status": "captured"
+    },
+    {
+      "git_blob_sha": null,
+      "mode": "100644",
+      "path": "src/run.py",
+      "reason": null,
+      "sha256": "1ab64d1cb5724f7c1a6e13a8cb55fc50e985627f79e02b6aa7607fddf06ff8d2",
+      "size": 144,
+      "source": "code",
+      "status": "captured"
+    }
+  ],
+  "inventory_complete": true,
+  "max_bytes": 250000,
+  "policy_version": "eligibility-1",
+  "redistribution": "synthetic-original-test-content",
+  "repository": "synthetic/generic-negative",
+  "schema_version": 1,
+  "source_url": "https://github.com/synthetic/generic-negative",
+  "synthetic": true,
+  "tree_sha": null
+}

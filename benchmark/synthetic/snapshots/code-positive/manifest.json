@@ -1,0 +1,24 @@
+{
+  "commit": "ac46e29f0b5bdfa5b1ae635e3907fefbf832ae36",
+  "files": [
+    {
+      "git_blob_sha": null,
+      "mode": "100644",
+      "path": "src/methods.py",
+      "reason": null,
+      "sha256": "d2d35816604ae3334d6eee45bc4a4de354f35459597ab584353c9be191163ce4",
+      "size": 492,
+      "source": "code",
+      "status": "captured"
+    }
+  ],
+  "inventory_complete": true,
+  "max_bytes": 250000,
+  "policy_version": "eligibility-1",
+  "redistribution": "synthetic-original-test-content",
+  "repository": "synthetic/code-positive",
+  "schema_version": 1,
+  "source_url": "https://github.com/synthetic/code-positive",
+  "synthetic": true,
+  "tree_sha": null
+}

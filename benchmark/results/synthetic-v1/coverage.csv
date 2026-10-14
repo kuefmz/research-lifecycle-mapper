@@ -1,0 +1,16 @@
+repository,mode,scan_complete,inventory_complete,eligible_files,captured_files,unavailable_files
+synthetic/code-positive,documentation-only,True,True,0,0,0
+synthetic/code-positive,code-only,True,True,1,1,0
+synthetic/code-positive,combined,True,True,1,1,0
+synthetic/docs-positive,documentation-only,True,True,1,1,0
+synthetic/docs-positive,code-only,True,True,0,0,0
+synthetic/docs-positive,combined,True,True,1,1,0
+synthetic/excluded-negative,documentation-only,True,True,1,1,0
+synthetic/excluded-negative,code-only,True,True,1,1,0
+synthetic/excluded-negative,combined,True,True,2,2,0
+synthetic/generic-negative,documentation-only,True,True,2,2,0
+synthetic/generic-negative,code-only,True,True,1,1,0
+synthetic/generic-negative,combined,True,True,3,3,0
+synthetic/incomplete,documentation-only,False,True,1,0,1
+synthetic/incomplete,code-only,True,True,1,1,0
+synthetic/incomplete,combined,False,True,2,1,1

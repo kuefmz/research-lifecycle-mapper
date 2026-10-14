@@ -1,0 +1,24 @@
+{
+  "commit": "e9a971bb7269c7261392dc58ff302a32d08e8248",
+  "files": [
+    {
+      "git_blob_sha": null,
+      "mode": "100644",
+      "path": "README.md",
+      "reason": null,
+      "sha256": "5491f08065efe3536ef55084b46c90d12be32179e3f7ce12f118c7d30359ab73",
+      "size": 263,
+      "source": "documentation",
+      "status": "captured"
+    }
+  ],
+  "inventory_complete": true,
+  "max_bytes": 250000,
+  "policy_version": "eligibility-1",
+  "redistribution": "synthetic-original-test-content",
+  "repository": "synthetic/docs-positive",
+  "schema_version": 1,
+  "source_url": "https://github.com/synthetic/docs-positive",
+  "synthetic": true,
+  "tree_sha": null
+}

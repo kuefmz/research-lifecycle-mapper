@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "status": "pending",
+  "kind": "research",
+  "version": "pending-human-inputs",
+  "missing": [
+    "Agreement Final worksheet layout and exact-workbook consensus approval",
+    "pre-tuning development/test split and frozen evaluation protocol",
+    "original workbook and checksum",
+    "exact 100 repository identifiers and pinned revisions",
+    "independent labels and 247 disagreement records",
+    "actual sampling and selection documentation",
+    "adjudicated codebook and approved consensus",
+    "integrity-checked repository snapshots",
+    "release and redistribution approvals"
+  ]
+}

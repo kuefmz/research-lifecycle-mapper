@@ -1,0 +1,9 @@
+{
+  "worksheet": "Agreement Final", "layout": "wide", "version": "agreement-final-v1",
+  "expected_repositories": 100, "header_row": 1,
+  "row_id_column": "A", "repository_column": "B",
+  "stage_columns": {"Collection": "C", "Processing": "D", "Method": "E", "Experimentation": "F", "Evaluation": "G", "Dissemination": "H"},
+  "expected_headers": {"A": "Row ID", "B": "Repository URL", "C": "Collection", "D": "Processing", "E": "Method", "F": "Experimentation", "G": "Evaluation", "H": "Dissemination"},
+  "label_mapping": {"0": 0, "1": 1},
+  "note": "Unverified template: inspect the actual workbook and version its explicit mapping before import. No real sheet layout is asserted."
+}

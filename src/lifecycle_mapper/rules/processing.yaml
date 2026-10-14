@@ -1,0 +1,148 @@
+{
+  "rules": [
+    {
+      "description": "Prepare research data through cleaning or transformation.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "PRO_CODE_ACTIVITY_V1",
+      "justification": "A preparation operation scoped to research observations; generic parsing is insufficient.",
+      "positive": [
+        "^\\s*def\\s+(?:clean|preprocess|normalize)_(?:research_dataset|sensor_observations|experimental_measurements)\\s*\\(",
+        "\\.(?:dropna|fillna|transform|fit_transform)\\s*\\("
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Processing",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\\b",
+      "description": "Prepare research data through cleaning or transformation.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "PRO_DOC_EXPLICIT_V2",
+      "justification": "A preparation operation scoped to research observations; generic parsing is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "explicit",
+      "positive": [
+        "\\b(clean(?:s|ed|ing)?|preprocess(?:es|ed|ing)?|normaliz(?:e|es|ed|ing))\\b",
+        "\\b(research dataset|raw research data|sensor observations|experimental measurements)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Processing",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\\b",
+      "description": "Prepare research data through cleaning or transformation.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "PRO_DOC_CONTEXTUAL_V2",
+      "justification": "A preparation operation scoped to research observations; generic parsing is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "contextual",
+      "positive": [
+        "\\b(?:clean(?:s|ed|ing)?|filter(?:s|ed|ing)?|transform(?:s|ed|ing)?|normaliz(?:e|es|ed|ing)|preprocess(?:es|ed|ing)?|prepar(?:e|es|ed|ing)|extract(?:s|ed|ing)?\\s+features)\\b",
+        "\\b(?:research data(?:sets?)?|raw (?:research )?data|scientific datasets?|experimental measurements|sensor observations|features from research data)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Processing",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:run|use|execute)\\s+(?:this|the|our)\\s+(?:command|workflow|tutorial)\\b",
+      "description": "Prepare research data through cleaning or transformation.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "PRO_DOC_WORKFLOW_V2",
+      "justification": "A preparation operation scoped to research observations; generic parsing is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "workflow",
+      "positive": [
+        "\\b(?:clean(?:s|ed|ing)?|filter(?:s|ed|ing)?|transform(?:s|ed|ing)?|normaliz(?:e|es|ed|ing)|preprocess(?:es|ed|ing)?|prepar(?:e|es|ed|ing)|extract(?:s|ed|ing)?\\s+features)\\b",
+        "\\b(?:research data(?:sets?)?|raw (?:research )?data|scientific datasets?|experimental measurements|sensor observations|features from research data)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Processing",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    }
+  ],
+  "stage": "Processing",
+  "version": "0.2.0-candidate"
+}
