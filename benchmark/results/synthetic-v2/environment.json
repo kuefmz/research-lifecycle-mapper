@@ -1,0 +1,7 @@
+{
+  "classifier_version": "0.2.0",
+  "implementation": "CPython",
+  "machine": "x86_64",
+  "python": "3.12.14",
+  "system": "Linux"
+}

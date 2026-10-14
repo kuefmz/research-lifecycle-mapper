@@ -1,0 +1,7 @@
+repository,stage,human_label,documentation_prediction,rule_ids,document_paths,line_ranges,documentation_evidence,excluded_candidates,error_category,investigation_hypothesis,review_status
+synthetic/code-positive,Collection,1,0,,,,[],[],no-qualifying-evidence,missing-eligible-documentation,unreviewed; human label not presumed wrong
+synthetic/code-positive,Processing,1,0,,,,[],[],no-qualifying-evidence,missing-eligible-documentation,unreviewed; human label not presumed wrong
+synthetic/code-positive,Method,1,0,,,,[],[],no-qualifying-evidence,missing-eligible-documentation,unreviewed; human label not presumed wrong
+synthetic/code-positive,Experimentation,1,0,,,,[],[],no-qualifying-evidence,missing-eligible-documentation,unreviewed; human label not presumed wrong
+synthetic/code-positive,Evaluation,1,0,,,,[],[],no-qualifying-evidence,missing-eligible-documentation,unreviewed; human label not presumed wrong
+synthetic/code-positive,Dissemination,1,0,,,,[],[],no-qualifying-evidence,missing-eligible-documentation,unreviewed; human label not presumed wrong
