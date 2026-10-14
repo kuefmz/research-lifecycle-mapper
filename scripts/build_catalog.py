@@ -90,39 +90,100 @@ DEFINITIONS = [
         "External publication/deposition of research outputs; README presence and generic software releases do not suffice.",
     ),
 ]
+FAMILIES = {
+    "Collection": [
+        r"\b(?:download(?:s|ed|ing)?|collect(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|harvest(?:s|ed|ing)?|generat(?:e|es|ed|ing)|record(?:s|ed|ing)?)\b",
+        r"\b(?:research (?:data(?:sets?)?|observations|inputs)|raw (?:research )?data|experimental measurements|sensor (?:data|observations)|participant responses|scientific datasets?)\b",
+    ],
+    "Processing": [
+        r"\b(?:clean(?:s|ed|ing)?|filter(?:s|ed|ing)?|transform(?:s|ed|ing)?|normaliz(?:e|es|ed|ing)|preprocess(?:es|ed|ing)?|prepar(?:e|es|ed|ing)|extract(?:s|ed|ing)?\s+features)\b",
+        r"\b(?:research data(?:sets?)?|raw (?:research )?data|scientific datasets?|experimental measurements|sensor observations|features from research data)\b",
+    ],
+    "Method": [
+        r"\b(?:implement(?:s|ed|ing)?|provid(?:e|es|ed|ing)|estimat(?:e|es|ed|ing)|fit(?:s|ted|ting)|offer(?:s|ed|ing)?)\b",
+        r"\b(?:scientific models?|statistical models?|proposed algorithms?|research methods?|analytical methods?|statistical analysis|principal component analysis|linear regression|bayesian inference|finite element methods?)\b",
+    ],
+    "Experimentation": [
+        r"\b(?:run(?:s|ning)?|execut(?:e|es|ed|ing)|conduct(?:s|ed|ing)?|perform(?:s|ed|ing)?)\b",
+        r"\b(?:controlled experiments?|research trials?|experimental trials?|parameter sweeps?|scientific simulations?|experimental workflows?)\b",
+    ],
+    "Evaluation": [
+        r"\b(?:evaluat(?:e|es|ed|ing)|assess(?:es|ed|ing)?|compar(?:e|es|ed|ing)|measur(?:e|es|ed|ing))\b",
+        r"\b(?:predictive performance|research outputs?|scientific accuracy|research benchmarks?|ablation stud(?:y|ies)|scientific models?)\b[\s\S]{0,160}\b(?:baselines?|ground truth|reference data|reference labels|scientific metrics|statistical tests|f1|accuracy|precision|recall)\b",
+    ],
+    "Dissemination": [
+        r"\b(?:publish(?:es|ed|ing)?|deposit(?:s|ed|ing)?|archiv(?:e|es|ed|ing)|export(?:s|ed|ing)?|present(?:s|ed|ing)?|distribut(?:e|es|ed|ing)|prepar(?:e|es|ed|ing))\b",
+        r"\b(?:research (?:results|datasets?|software|artifacts)|scientific (?:findings|figures|results)|publication[- ]ready figures)\b",
+    ],
+}
+CONTEXT = r"\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\b"
+WORKFLOW_CONTEXT = r"\b(?:run|use|execute)\s+(?:this|the|our)\s+(?:command|workflow|tutorial)\b"
+POLARITY = r"\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\b"
+SCOPE = [
+    r"\b(?:other|another|external|third[- ]party)\s+(?:tool|package|repository|library|software)\b",
+    r"\b(?:we|this (?:tool|package|repository))\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\s+[^.!?]{1,100}\b(?:to|which|that)\b",
+]
+HEADINGS = [
+    r"\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\b"
+]
+COMMAND = r"^\s*(?:\$\s*)?[a-z][\w.-]*\s+(?:[a-z][\w./-]*|--[a-z][\w-]*)"
 for stage, prefix, description, documentation, code, justification in DEFINITIONS:
-    rules = []
-    for source, patterns in [("documentation", documentation), ("code", code)]:
+    common = {
+        "stage": stage,
+        "description": description,
+        "supporting": [],
+        "required_evidence_fields": [
+            "repository",
+            "commit",
+            "path",
+            "content_sha256",
+            "start_line",
+            "end_line",
+            "matched_conditions",
+            "url",
+        ],
+        "status": "unadjudicated-candidate",
+        "justification": justification,
+    }
+    rules = [
+        {
+            **common,
+            "id": f"{prefix}_CODE_ACTIVITY_V1",
+            "source": "code",
+            "positive": code,
+            "exclusions": [
+                r"\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\b"
+            ],
+            "version": "0.1.0-candidate",
+            "window_lines": 8,
+        }
+    ]
+    for layer, patterns in [
+        ("explicit", documentation),
+        ("contextual", FAMILIES[stage]),
+        ("workflow", FAMILIES[stage]),
+    ]:
         rules.append(
             {
-                "id": f"{prefix}_{'DOC' if source == 'documentation' else 'CODE'}_ACTIVITY_V1",
-                "stage": stage,
-                "source": source,
-                "description": description,
+                **common,
+                "id": f"{prefix}_DOC_{layer.upper()}_V2",
+                "source": "documentation",
                 "positive": patterns,
-                "supporting": [],
-                "exclusions": [
-                    r"\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\b"
-                ],
-                "required_evidence_fields": [
-                    "repository",
-                    "commit",
-                    "path",
-                    "content_sha256",
-                    "start_line",
-                    "end_line",
-                    "matched_conditions",
-                    "url",
-                ],
-                "version": "0.1.0-candidate",
-                "status": "unadjudicated-candidate",
-                "window_lines": 1 if source == "documentation" else 8,
-                "justification": justification,
+                "exclusions": [POLARITY],
+                "scope_exclusions": SCOPE,
+                "heading_exclusions": HEADINGS,
+                "context_pattern": WORKFLOW_CONTEXT if layer == "workflow" else CONTEXT,
+                "command_pattern": COMMAND,
+                "layer": layer,
+                "window_lines": 12,
+                "version": "0.2.0-candidate",
+                "justification": justification
+                + " Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
             }
         )
     (ROOT / "rules" / f"{stage.lower()}.yaml").write_text(
         json.dumps(
-            {"version": "0.1.0-candidate", "stage": stage, "rules": rules}, sort_keys=True, indent=2
+            {"version": "0.2.0-candidate", "stage": stage, "rules": rules}, sort_keys=True, indent=2
         )
         + "\n"
     )

@@ -5,34 +5,6 @@
       "exclusions": [
         "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
       ],
-      "id": "EXP_DOC_ACTIVITY_V1",
-      "justification": "An explicit research trial activity together with iteration over controlled conditions; run.py alone is insufficient.",
-      "positive": [
-        "\\b(run(?:s|ning)?|execut(?:e|es|ed|ing)|conduct(?:s|ed|ing)?)\\b",
-        "\\b(controlled experiments|parameter sweep|research trials|experimental trials)\\b"
-      ],
-      "required_evidence_fields": [
-        "repository",
-        "commit",
-        "path",
-        "content_sha256",
-        "start_line",
-        "end_line",
-        "matched_conditions",
-        "url"
-      ],
-      "source": "documentation",
-      "stage": "Experimentation",
-      "status": "unadjudicated-candidate",
-      "supporting": [],
-      "version": "0.1.0-candidate",
-      "window_lines": 1
-    },
-    {
-      "description": "Execute controlled research trials or parameter studies.",
-      "exclusions": [
-        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
-      ],
       "id": "EXP_CODE_ACTIVITY_V1",
       "justification": "An explicit research trial activity together with iteration over controlled conditions; run.py alone is insufficient.",
       "positive": [
@@ -55,8 +27,122 @@
       "supporting": [],
       "version": "0.1.0-candidate",
       "window_lines": 8
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\\b",
+      "description": "Execute controlled research trials or parameter studies.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "EXP_DOC_EXPLICIT_V2",
+      "justification": "An explicit research trial activity together with iteration over controlled conditions; run.py alone is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "explicit",
+      "positive": [
+        "\\b(run(?:s|ning)?|execut(?:e|es|ed|ing)|conduct(?:s|ed|ing)?)\\b",
+        "\\b(controlled experiments|parameter sweep|research trials|experimental trials)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Experimentation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\\b",
+      "description": "Execute controlled research trials or parameter studies.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "EXP_DOC_CONTEXTUAL_V2",
+      "justification": "An explicit research trial activity together with iteration over controlled conditions; run.py alone is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "contextual",
+      "positive": [
+        "\\b(?:run(?:s|ning)?|execut(?:e|es|ed|ing)|conduct(?:s|ed|ing)?|perform(?:s|ed|ing)?)\\b",
+        "\\b(?:controlled experiments?|research trials?|experimental trials?|parameter sweeps?|scientific simulations?|experimental workflows?)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Experimentation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:run|use|execute)\\s+(?:this|the|our)\\s+(?:command|workflow|tutorial)\\b",
+      "description": "Execute controlled research trials or parameter studies.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "EXP_DOC_WORKFLOW_V2",
+      "justification": "An explicit research trial activity together with iteration over controlled conditions; run.py alone is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "workflow",
+      "positive": [
+        "\\b(?:run(?:s|ning)?|execut(?:e|es|ed|ing)|conduct(?:s|ed|ing)?|perform(?:s|ed|ing)?)\\b",
+        "\\b(?:controlled experiments?|research trials?|experimental trials?|parameter sweeps?|scientific simulations?|experimental workflows?)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Experimentation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
     }
   ],
   "stage": "Experimentation",
-  "version": "0.1.0-candidate"
+  "version": "0.2.0-candidate"
 }

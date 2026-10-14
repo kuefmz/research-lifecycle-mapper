@@ -44,8 +44,9 @@ def test_mode_isolation_and_union():
 
 def test_exact_line_ranges_and_commit_links():
     result = analyze(BASE / "docs-positive", "combined")
-    assert [item["stage"] for item in result["evidence"]] == list(STAGES)
-    for index, item in enumerate(result["evidence"], 1):
+    assert set(item["stage"] for item in result["evidence"]) == set(STAGES)
+    for item in result["evidence"]:
+        index = STAGES.index(item["stage"]) + 1
         assert item["start_line"] == item["end_line"] == index
         assert f"/blob/{result['commit']}/README.md#L{index}-L{index}" in item["url"]
 
@@ -63,7 +64,7 @@ def test_catalog_packaging_and_stability():
     one, first = load_rules(root)
     two, second = load_rules()
     assert first == second and one == two
-    assert len(one) == 12
+    assert len(one) == 24
     assert all(rule["status"] == "unadjudicated-candidate" for rule in one)
 
 

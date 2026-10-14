@@ -19,3 +19,7 @@ The five synthetic repositories cover documentation positives, implementation po
 No human benchmark evaluation, full live repository acquisition, Docker build or anonymous publication was executed here. Live acquisition is tested through a mocked GitHub API. Remote GitHub Actions status should be inspected on the pull request; it is not substituted for the local results above.
 
 Run the README's verification commands in a fresh checkout and use new output directories. The baseline reference's classifier commit remains the original producing implementation commit even after documentation/reference-result commits are added.
+
+## v0.2.0 verification scope
+
+The v0.1 reference and results above are historical. The current revision adds Agreement Final import, structured documentation matching and split/freeze controls. Its current test count and producing source commit are recorded in verification_v2.md. Synthetic-v1 outputs remain unchanged for provenance; current CI compares synthetic-v2. No human performance results have been generated.

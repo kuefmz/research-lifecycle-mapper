@@ -9,6 +9,8 @@ from .annotations import import_annotations
 from .benchmark import run, verify
 from .bundles import pack, unpack
 from .canonical import json_bytes, write_json
+from .consensus import import_final, publication_export
+from .protocol import create_split, freeze
 
 
 def main() -> None:
@@ -22,7 +24,9 @@ def main() -> None:
     analysis = commands.add_parser("analyze")
     analysis.add_argument("--snapshot", type=Path, required=True)
     analysis.add_argument(
-        "--mode", choices=["documentation-only", "code-only", "combined"], default="combined"
+        "--mode",
+        choices=["documentation-only", "code-only", "combined"],
+        default="documentation-only",
     )
     analysis.add_argument("--rules", type=Path)
     analysis.add_argument("--output", type=Path)
@@ -43,6 +47,24 @@ def main() -> None:
     verification.add_argument("--config", type=Path, required=True)
     verification.add_argument("--workspace", type=Path, required=True)
     verification.add_argument("--reference", type=Path)
+    final_import = actions.add_parser("import")
+    final_import.add_argument("source", type=Path)
+    final_import.add_argument("--config", type=Path, required=True)
+    final_import.add_argument("--approval", type=Path)
+    final_import.add_argument("--output", type=Path, required=True)
+    splitting = actions.add_parser("split")
+    splitting.add_argument("--manifest", type=Path, required=True)
+    splitting.add_argument("--output", type=Path, required=True)
+    splitting.add_argument("--test-fraction", type=float, default=0.2)
+    splitting.add_argument("--seed", default="rlm-split-v1")
+    freezing = actions.add_parser("freeze")
+    freezing.add_argument("--config", type=Path, required=True)
+    freezing.add_argument("--output", type=Path, required=True)
+    freezing.add_argument("--approval-reference", required=True)
+    exporting = actions.add_parser("export")
+    exporting.add_argument("--imported", type=Path, required=True)
+    exporting.add_argument("--release-approval", type=Path, required=True)
+    exporting.add_argument("--output", type=Path, required=True)
     annotations = commands.add_parser("annotations")
     imports = annotations.add_subparsers(dest="action", required=True)
     importer = imports.add_parser("import")
@@ -77,6 +99,14 @@ def main() -> None:
             result = {"output": str(args.output)}
         elif args.action == "run":
             result = {"run_directory": str(run(args.config, args.output))}
+        elif args.action == "import":
+            result = import_final(args.source, args.output, args.config, args.approval)
+        elif args.action == "split":
+            result = create_split(args.manifest, args.output, args.test_fraction, args.seed)
+        elif args.action == "freeze":
+            result = freeze(args.config, args.output, args.approval_reference)
+        elif args.action == "export":
+            result = publication_export(args.imported, args.output, args.release_approval)
         else:
             result = verify(args.config, args.workspace, args.reference)
         print(json_bytes(result).decode(), end="")

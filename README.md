@@ -17,7 +17,7 @@ uv run --frozen mypy
 uv run --frozen pytest -q --basetemp local/pytest
 ```
 
-If installing uv, use the official installer with an explicitly selected version. Initial dependency installation can require network access; classification replay and tests do not. A wheel can be installed with `python -m pip install --no-deps dist/research_lifecycle_mapper-0.1.0-py3-none-any.whl` after `uv build --wheel`.
+If installing uv, use the official installer with an explicitly selected version. Initial dependency installation can require network access; classification replay and tests do not. A wheel can be installed with `python -m pip install --no-deps dist/research_lifecycle_mapper-0.2.0-py3-none-any.whl` after `uv build --wheel`.
 
 ## Analyze
 
@@ -44,19 +44,19 @@ Results retain exact matched conditions, rule IDs, source categories, content ha
 
 ```bash
 uv run --frozen python -m lifecycle_mapper benchmark run --config configs/synthetic.yaml --output local/runs/synthetic-check
-uv run --frozen python -m lifecycle_mapper benchmark verify --config configs/synthetic.yaml --workspace local/reproduction --reference benchmark/results/synthetic-v1
+uv run --frozen python -m lifecycle_mapper benchmark verify --config configs/synthetic.yaml --workspace local/reproduction --reference benchmark/results/synthetic-v2
 ```
 
 Use new output directories for each command. Verification runs the same inputs twice and compares every canonical artifact, including both current execution manifests. It also compares semantic result artifacts with the committed synthetic reference; the reference's execution manifest retains its original producing checkout metadata.
 
-## Human benchmark
+## Human benchmark — Agreement Final is the candidate gold source
 
 ```bash
-uv run --frozen python -m lifecycle_mapper annotations import original.xlsx --output local/imports/annotations-v1 --version annotations-v1
+uv run --frozen python -m lifecycle_mapper benchmark import original.xlsx --config configs/agreement-final-import.yaml --output local/imports/final-v1
 uv run --frozen python -m lifecycle_mapper benchmark run --config configs/benchmark.yaml
 ```
 
-The second command currently exits with an explicit pending-input error. It requires approved consensus, provenance, sampling documentation, an approved codebook, and pinned snapshots. The importer preserves the source file and its checksum; proposed consensus is never used as gold.
+The import mapping is an unverified template; adapt it explicitly to the supplied workbook. Consensus stays candidate without an exact-workbook approval record. The second command currently exits with an explicit pending-input error. It requires approved consensus, provenance, sampling documentation, an approved codebook, and pinned snapshots. The importer preserves the source file and its checksum; proposed consensus is never used as gold.
 
 See [benchmark import specification](benchmark/provenance/import_specification.md), [methodology](docs/methodology.md), [reproducibility](docs/reproducibility.md), [implementation audit](docs/implementation_provenance.md), and [limitations](docs/limitations.md).
 
@@ -76,3 +76,9 @@ Implemented: versioned source-specific rules; deterministic classification; acqu
 Pending scientific work: final Method interpretation and adjudicated codebook; actual 100 repositories and historical revisions; independent annotations and disagreement records; human consensus approval; verified sampling provenance; redistribution review; independent held-out protocol; multilingual/multi-language coverage; digest-pinned release environment. See the freeze checklist in [limitations](docs/limitations.md).
 
 The upstream implementation was audited at commit `dfb22f9545860a99a57199975dd78a4d9cb80fea`. Its architecture and evidence concepts informed this independent implementation. No upstream code was copied because its inspected tree declares no license. The original repository and benchmark sheet were not modified.
+
+## Documentation-primary protocol (v0.2.0)
+
+Documentation-only is the default and primary classifier; documentation macro-F1 on development data is the selection metric. The catalog now contains 18 explicit/contextual/workflow documentation rules and six unchanged secondary Python rules. Every documentation candidate records activity, object, context, polarity, scope, heading and layer. Negation, future work, third-party scope and generic infrastructure are excluded. Combined remains logical OR.
+
+See [Agreement Final ingestion](docs/agreement_final.md), [split/freeze protocol](docs/evaluation_protocol.md) and [rule-change workflow](docs/rule_change_protocol.md). Development runs select only development repositories. Final research runs require an approved split, frozen implementation/configuration and an execution ledger; later runs are reproduction-only. No human agreement improvement or final test performance is claimed.

@@ -11,6 +11,7 @@ from typing import Any
 from . import MODES, STAGES, __version__
 from .analysis import analyze, load_rules
 from .canonical import contained, json_bytes, ratio, read_json, sha256, write_csv, write_json
+from .protocol import frozen_guard, partition
 
 CANONICAL_OUTPUTS = (
     "manifest.json",
@@ -24,6 +25,9 @@ CANONICAL_OUTPUTS = (
     "report.md",
     "confusion_matrices.svg",
     "excluded_evidence.jsonl",
+    "documentation_errors.csv",
+    "mode_comparison.csv",
+    "selection.json",
 )
 
 
@@ -74,11 +78,15 @@ def validate_manifest(path: Path, role: str, development_repositories: list[str]
     if role == "held-out":
         if not manifest.get("held_out_approval_reference"):
             raise ValueError("Held-out evaluation requires documented split approval")
-        overlap = {repo.lower() for repo in ids} & {
-            repo.lower() for repo in development_repositories
-        }
-        if overlap or manifest.get("used_for_rule_development") is not False:
+        if (
+            manifest.get(
+                "test_used_for_rule_development", manifest.get("used_for_rule_development")
+            )
+            is not False
+        ):
             raise ValueError("Benchmark leakage: held-out repositories used for rule development")
+        if manifest.get("test_labels_inspected_during_tuning") is not False:
+            raise ValueError("Held-out label isolation must be explicitly attested")
     for item in repos:
         if not re.fullmatch(r"[0-9a-f]{40}", item.get("commit", "")):
             raise ValueError("Pinned repository revision missing")
@@ -138,6 +146,37 @@ def validate_manifest(path: Path, role: str, development_repositories: list[str]
             seen.add(pair)
         if seen != set(gold) or disagreements != 247:
             raise ValueError("Incomplete gold table or disagreement provenance mismatch")
+        consensus_path = contained(path.parent, manifest["consensus_provenance"])
+        consensus = read_json(consensus_path)
+        if (
+            sha256(consensus_path.read_bytes()) != manifest["consensus_provenance_sha256"]
+            or consensus.get("gold_status") != "approved"
+            or consensus.get("source_worksheet") != "Agreement Final"
+            or consensus.get("synthetic")
+            or not consensus.get("approval_reference")
+        ):
+            raise ValueError(
+                "Gold must come from approved, non-synthetic Agreement Final consensus"
+            )
+        table_path = contained(path.parent, manifest["consensus_table"])
+        if sha256(table_path.read_bytes()) != consensus["consensus_table_sha256"]:
+            raise ValueError("Agreement Final table integrity failure")
+        with table_path.open(newline="", encoding="utf-8") as stream:
+            final_rows = list(csv.DictReader(stream))
+        final_seen = set()
+        for row in final_rows:
+            pair = (row["repository"].lower(), row["stage"])
+            if (
+                pair in final_seen
+                or pair not in gold
+                or row["label"] != str(gold[pair])
+                or row["consensus_status"] != "approved"
+                or not row["approval_reference"]
+            ):
+                raise ValueError("Gold differs from approved Agreement Final worksheet")
+            final_seen.add(pair)
+        if final_seen != set(gold):
+            raise ValueError("Agreement Final labels are incomplete")
     return manifest
 
 
@@ -231,18 +270,29 @@ def matrices_svg(metrics: dict[str, Any]) -> str:
     return "\n".join(parts + ["</svg>"]) + "\n"
 
 
-def run(config_path: Path, output_override: Path | None = None) -> Path:
+def run(config_path: Path, output_override: Path | None = None, reproduction: bool = False) -> Path:
     # Configs are JSON-compatible YAML; rejecting arbitrary YAML avoids loader ambiguity.
     config = read_json(config_path)
     root = config_path.resolve().parent.parent
     manifest_path = contained(root, config["benchmark_manifest"])
-    benchmark = validate_manifest(
-        manifest_path, config["evaluation_role"], config.get("development_repositories", [])
-    )
+    benchmark = validate_manifest(manifest_path, config["evaluation_role"], [])
+    benchmark_hash = sha256(manifest_path.read_bytes())
+    selected_repositories = partition(config, root, benchmark, benchmark_hash)
+    benchmark = {**benchmark, "repositories": selected_repositories}
     rules_dir = contained(root, config["rules_dir"]) if config.get("rules_dir") else None
     _, catalog_hash = load_rules(rules_dir)
     state = git_state(root)
     lock_path = root / "uv.lock"
+    ledger = frozen_guard(
+        config,
+        root,
+        benchmark_hash,
+        catalog_hash,
+        state,
+        implementation_hash(root),
+        sha256(lock_path.read_bytes()) if lock_path.exists() else "",
+        reproduction,
+    )
     if (
         benchmark["kind"] == "research"
         and (root / ".python-version").read_text().strip() != platform.python_version()
@@ -262,6 +312,7 @@ def run(config_path: Path, output_override: Path | None = None) -> Path:
     evidence: list[dict[str, Any]] = []
     excluded_evidence: list[dict[str, Any]] = []
     errors = []
+    documentation_errors = []
     coverage = []
     metrics = {}
     snapshots = []
@@ -328,6 +379,39 @@ def run(config_path: Path, output_override: Path | None = None) -> Path:
                             "reason": "label-mismatch",
                         }
                     )
+                    if mode == "documentation-only":
+                        vetoed = [
+                            record
+                            for record in result["excluded_evidence"]
+                            if record["stage"] == stage
+                        ]
+                        documentation_errors.append(
+                            {
+                                "repository": item["repository"],
+                                "stage": stage,
+                                "human_label": gold,
+                                "documentation_prediction": predicted,
+                                "rule_ids": ";".join(record["rule_id"] for record in matches),
+                                "document_paths": ";".join(record["path"] for record in matches),
+                                "line_ranges": ";".join(
+                                    f"{record['start_line']}-{record['end_line']}"
+                                    for record in matches
+                                ),
+                                "documentation_evidence": json.dumps(
+                                    matches, sort_keys=True, ensure_ascii=False
+                                ),
+                                "excluded_candidates": json.dumps(
+                                    vetoed, sort_keys=True, ensure_ascii=False
+                                ),
+                                "error_category": "qualifying-evidence-disagrees"
+                                if predicted
+                                else "no-qualifying-evidence",
+                                "investigation_hypothesis": "missing-eligible-documentation"
+                                if result["captured_files"] == 0
+                                else "heuristic-insufficiency-or-codebook-ambiguity",
+                                "review_status": "unreviewed; human label not presumed wrong",
+                            }
+                        )
             for failure in result["analysis_errors"]:
                 errors.append(
                     {
@@ -401,6 +485,66 @@ def run(config_path: Path, output_override: Path | None = None) -> Path:
             encoding="utf-8",
         )
     write_json(output / "metrics.json", metrics)
+    write_csv(
+        output / "documentation_errors.csv",
+        [
+            "repository",
+            "stage",
+            "human_label",
+            "documentation_prediction",
+            "rule_ids",
+            "document_paths",
+            "line_ranges",
+            "documentation_evidence",
+            "excluded_candidates",
+            "error_category",
+            "investigation_hypothesis",
+            "review_status",
+        ],
+        documentation_errors,
+    )
+    primary = metrics["documentation-only"]
+    comparison = [
+        {
+            "mode": mode,
+            "role": "primary" if mode == "documentation-only" else "secondary",
+            "evaluated_repositories": metrics[mode]["repository_count"],
+            "macro_precision": metrics[mode]["macro"]["precision"],
+            "macro_recall": metrics[mode]["macro"]["recall"],
+            "macro_f1": metrics[mode]["macro"]["f1"],
+            "precision_delta_from_documentation": round(
+                metrics[mode]["macro"]["precision"] - primary["macro"]["precision"], 8
+            ),
+            "recall_delta_from_documentation": round(
+                metrics[mode]["macro"]["recall"] - primary["macro"]["recall"], 8
+            ),
+            "same_evaluated_cohort": {
+                row["repository"]
+                for row in coverage
+                if row["mode"] == mode and row["scan_complete"]
+            }
+            == {
+                row["repository"]
+                for row in coverage
+                if row["mode"] == "documentation-only" and row["scan_complete"]
+            },
+        }
+        for mode in MODES
+    ]
+    write_csv(output / "mode_comparison.csv", list(comparison[0]), comparison)
+    write_json(
+        output / "selection.json",
+        {
+            "primary_mode": "documentation-only",
+            "metric": "macro.f1",
+            "value": primary["macro"]["f1"],
+            "evaluation_role": config["evaluation_role"],
+            "partition": config.get("partition", "full"),
+            "eligible_for_model_selection": config["evaluation_role"] == "exploratory"
+            and config.get("partition") == "development",
+            "secondary_combination": "logical OR; compare recall and precision with cohort caveat",
+        },
+    )
     metric_rows = []
     matrices = []
     for mode in MODES:
@@ -458,6 +602,7 @@ def run(config_path: Path, output_override: Path | None = None) -> Path:
         "# Research Lifecycle Mapper evaluation",
         "",
         f"Benchmark: {benchmark['version']} ({benchmark['kind']}); role: {config['evaluation_role']}.",
+        "Primary method: documentation-only; development model-selection metric: documentation macro-F1. Code-only and OR-combined are secondary comparisons.",
         "",
         "Candidate rules are unadjudicated. Synthetic metrics test the software and are not research performance estimates.",
         "",
@@ -509,6 +654,22 @@ def run(config_path: Path, output_override: Path | None = None) -> Path:
         },
     }
     write_json(output / "manifest.json", execution)
+    if ledger is not None:
+        hashes = {
+            filename: sha256((output / filename).read_bytes()) for filename in CANONICAL_OUTPUTS
+        }
+        if reproduction:
+            if read_json(ledger)["canonical_hashes"] != hashes:
+                raise ValueError("Frozen final results differ; do not retune using test errors")
+        else:
+            write_json(
+                ledger,
+                {
+                    "canonical_hashes": hashes,
+                    "classifier_commit": state["commit"],
+                    "purpose": "single final evaluation; further executions are reproduction-only",
+                },
+            )
     return output
 
 
@@ -516,8 +677,8 @@ def verify(config_path: Path, workspace: Path, reference: Path | None = None) ->
     if workspace.exists():
         raise ValueError("Verification workspace must not exist")
     workspace.mkdir(parents=True)
-    first = run(config_path, workspace / "first")
-    second = run(config_path, workspace / "second")
+    first = run(config_path, workspace / "first", reproduction=True)
+    second = run(config_path, workspace / "second", reproduction=True)
     hashes = {}
     for filename in CANONICAL_OUTPUTS:
         one = (first / filename).read_bytes()

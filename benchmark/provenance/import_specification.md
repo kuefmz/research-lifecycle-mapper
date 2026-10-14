@@ -27,3 +27,7 @@ Paths are relative to the manifest directory and must stay inside it. Place prov
 For held-out evaluation, include `held_out_approval_reference` and `used_for_rule_development: false`; config must declare all development repository IDs. A benchmark used to refine rules must instead use `evaluation_role: exploratory`. The held-out declaration must be supported by real protocol records.
 
 Import alone does not generate the research manifest because the repository revisions, approved sampling/codebook and release decisions are currently absent. The team must supply those facts explicitly; they cannot be inferred safely from the workbook or current GitHub branches.
+
+## v0.2.0 protocol update
+
+Documentation-only is primary, with development macro-F1 for model selection. Documentation uses explicit, contextual and demonstrated-workflow families with activity/object/scope/polarity records; wrapped prose and inherited Markdown/AsciiDoc/reStructuredText headings are supported. Production matching is deterministic and uses no gold labels or external models. Agreement Final is the required candidate consensus worksheet; independent labels remain separate provenance. See `agreement_final.md`, `evaluation_protocol.md` and `rule_change_protocol.md` for the current importer, split, freeze, mismatch and final-run procedures. Historical one-line rules and unsplit held-out declarations are superseded. Human inputs are still missing; no human tuning or held-out run was performed.

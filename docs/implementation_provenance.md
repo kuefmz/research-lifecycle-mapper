@@ -32,3 +32,7 @@ Specific audit findings:
 The compiler identifies Zenodo record `12819872`, field `codeRepositoryUrl`, GitHub-host filtering, normalization, and case-insensitive repository deduplication. This supports documenting a **candidate sampling frame**, not inventing how the 100 human-annotated repositories were actually selected.
 
 These substantive differences are deliberate methodological changes. They are not claims that the original authors approved the new rule catalog.
+
+## v0.2.0 reuse/redesign
+
+The v0.1 acquisition, replay, source isolation, evidence linking, metric computation, bundles and canonical serialization were reused directly within this new repository. Documentation matching, benchmark import and evaluation protocol were redesigned for the revised specification. The source audit also inspected the upstream summary.json; candidate_sampling_frame.md records its documented hashes/counts with explicit unverified-sample limits. No new upstream code was copied.

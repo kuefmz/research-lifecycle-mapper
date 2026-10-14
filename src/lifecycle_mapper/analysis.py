@@ -12,6 +12,7 @@ from urllib.parse import quote
 from . import MODES, STAGES
 from .acquisition import replay
 from .canonical import json_bytes, sha256
+from .documentation import documentation_matches
 
 
 def default_rules() -> Path:
@@ -23,7 +24,10 @@ def load_rules(directory: Path | None = None) -> tuple[list[dict[str, Any]], str
     rules = []
     for stage in STAGES:
         catalog = json.loads((directory / f"{stage.lower()}.yaml").read_bytes())
-        if catalog["version"] != "0.1.0-candidate" or catalog["stage"] != stage:
+        if (
+            catalog["version"] not in {"0.1.0-candidate", "0.2.0-candidate"}
+            or catalog["stage"] != stage
+        ):
             raise ValueError("Invalid catalog version/stage")
         rules.extend(catalog["rules"])
     ids = [rule["id"] for rule in rules]
@@ -48,6 +52,12 @@ def load_rules(directory: Path | None = None) -> tuple[list[dict[str, Any]], str
             raise ValueError("Incomplete rule definition")
         if rule["source"] not in {"documentation", "code"} or len(rule["positive"]) < 2:
             raise ValueError("Rules require isolated sources and conjunctive positive conditions")
+        if rule["source"] == "documentation" and rule.get("layer") not in {
+            "explicit",
+            "contextual",
+            "workflow",
+        }:
+            raise ValueError("Documentation rules require an explicit detector layer")
         if not 1 <= rule["window_lines"] <= 12:
             raise ValueError("Invalid evidence window")
         for pattern in rule["positive"] + rule["supporting"] + rule["exclusions"]:
@@ -109,6 +119,28 @@ def analyze(
         if item["status"] != "captured" or source not in permitted:
             continue
         original_lines = contents[item["path"]].splitlines(keepends=True)
+        if source == "documentation":
+            for rule in rules:
+                if rule["source"] != source:
+                    continue
+                for match in documentation_matches(contents[item["path"]], rule):
+                    reasons = match.pop("exclusion_reasons")
+                    record = {
+                        "repository": manifest["repository"],
+                        "commit": manifest["commit"],
+                        "stage": rule["stage"],
+                        "source": source,
+                        "rule_id": rule["id"],
+                        "path": item["path"],
+                        "content_sha256": item["sha256"],
+                        **match,
+                        "url": f"{manifest['source_url']}/blob/{manifest['commit']}/{quote(item['path'], safe='/')}#L{match['start_line']}-L{match['end_line']}",
+                    }
+                    if reasons:
+                        excluded_evidence.append({**record, "exclusion_reasons": reasons})
+                    else:
+                        evidence.append(record)
+            continue
         try:
             view = (
                 implementation_view(contents[item["path"]], item["path"])

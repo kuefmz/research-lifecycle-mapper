@@ -9,3 +9,4 @@ build/
 dist/
 local/
 pytest-of-root/
+configs/local-*.yaml
