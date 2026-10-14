@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "description": "Communicate or deposit research outputs for external reuse.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "DIS_DOC_ACTIVITY_V1",
+      "justification": "External publication/deposition of research outputs; README presence and generic software releases do not suffice.",
+      "positive": [
+        "\\b(publish(?:es|ed|ing)?|deposit(?:s|ed|ing)?|archiv(?:e|es|ed|ing)|releas(?:e|es|ed|ing))\\b",
+        "\\b(research (?:results|dataset|software)|scientific findings)\\b[^\\n]{0,100}\\b(?:doi|zenodo|public repository|journal)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "documentation",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 1
+    },
+    {
+      "description": "Communicate or deposit research outputs for external reuse.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "DIS_CODE_ACTIVITY_V1",
+      "justification": "External publication/deposition of research outputs; README presence and generic software releases do not suffice.",
+      "positive": [
+        "^\\s*def\\s+(?:deposit_research_dataset|publish_research_results|archive_research_software)\\s*\\(",
+        "\\b(?:zenodo\\.deposit|repository\\.publish)\\s*\\("
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    }
+  ],
+  "stage": "Dissemination",
+  "version": "0.1.0-candidate"
+}

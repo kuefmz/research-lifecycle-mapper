@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "pending",
+  "kind": "research",
+  "version": "pending-human-inputs",
+  "missing": [
+    "original workbook and checksum",
+    "exact 100 repository identifiers and pinned revisions",
+    "independent labels and 247 disagreement records",
+    "actual sampling and selection documentation",
+    "adjudicated codebook and approved consensus",
+    "integrity-checked repository snapshots",
+    "release and redistribution approvals"
+  ]
+}

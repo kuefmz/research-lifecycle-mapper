@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "description": "Execute controlled research trials or parameter studies.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "EXP_DOC_ACTIVITY_V1",
+      "justification": "An explicit research trial activity together with iteration over controlled conditions; run.py alone is insufficient.",
+      "positive": [
+        "\\b(run(?:s|ning)?|execut(?:e|es|ed|ing)|conduct(?:s|ed|ing)?)\\b",
+        "\\b(controlled experiments|parameter sweep|research trials|experimental trials)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "documentation",
+      "stage": "Experimentation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 1
+    },
+    {
+      "description": "Execute controlled research trials or parameter studies.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "EXP_CODE_ACTIVITY_V1",
+      "justification": "An explicit research trial activity together with iteration over controlled conditions; run.py alone is insufficient.",
+      "positive": [
+        "^\\s*def\\s+(?:run_controlled_experiments|run_parameter_sweep|conduct_research_trials)\\s*\\(",
+        "^\\s*for\\s+\\w+\\s+in\\s+(?:parameter_grid|trial_seeds|experimental_conditions)\\s*:"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    }
+  ],
+  "stage": "Experimentation",
+  "version": "0.1.0-candidate"
+}

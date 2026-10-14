@@ -1,0 +1,7 @@
+{
+  "benchmark_manifest": "benchmark/synthetic/manifest.json",
+  "evaluation_role": "synthetic",
+  "development_repositories": [],
+  "rules_dir": "rules",
+  "output": "local/runs/synthetic-v1"
+}

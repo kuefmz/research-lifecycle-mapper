@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "description": "Acquire or generate raw observations for research.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "COL_DOC_ACTIVITY_V1",
+      "justification": "A declared raw research acquisition activity plus an acquisition operation; HTTP alone is insufficient.",
+      "positive": [
+        "\\b(collect(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|record(?:s|ed|ing)?)\\b",
+        "\\b(raw (?:research )?data|research dataset|sensor observations|participant responses)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "documentation",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 1
+    },
+    {
+      "description": "Acquire or generate raw observations for research.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "COL_CODE_ACTIVITY_V1",
+      "justification": "A declared raw research acquisition activity plus an acquisition operation; HTTP alone is insufficient.",
+      "positive": [
+        "^\\s*def\\s+(?:collect|acquire|record)_(?:research_data|sensor_observations|participant_responses)\\s*\\(",
+        "\\b(?:requests\\.get|sensor\\.read|survey\\.responses)\\s*\\("
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    }
+  ],
+  "stage": "Collection",
+  "version": "0.1.0-candidate"
+}

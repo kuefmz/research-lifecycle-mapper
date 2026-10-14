@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "description": "Prepare research data through cleaning or transformation.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "PRO_DOC_ACTIVITY_V1",
+      "justification": "A preparation operation scoped to research observations; generic parsing is insufficient.",
+      "positive": [
+        "\\b(clean(?:s|ed|ing)?|preprocess(?:es|ed|ing)?|normaliz(?:e|es|ed|ing))\\b",
+        "\\b(research dataset|raw research data|sensor observations|experimental measurements)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "documentation",
+      "stage": "Processing",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 1
+    },
+    {
+      "description": "Prepare research data through cleaning or transformation.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "PRO_CODE_ACTIVITY_V1",
+      "justification": "A preparation operation scoped to research observations; generic parsing is insufficient.",
+      "positive": [
+        "^\\s*def\\s+(?:clean|preprocess|normalize)_(?:research_dataset|sensor_observations|experimental_measurements)\\s*\\(",
+        "\\.(?:dropna|fillna|transform|fit_transform)\\s*\\("
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Processing",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    }
+  ],
+  "stage": "Processing",
+  "version": "0.1.0-candidate"
+}

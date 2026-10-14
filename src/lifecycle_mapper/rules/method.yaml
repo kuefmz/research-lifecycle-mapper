@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "description": "Implement a scientific model, algorithm, or analytical technique.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "MET_DOC_ACTIVITY_V1",
+      "justification": "Scientific method implementation, excluding packaging, entry points and software tests. Definition awaits human codebook.",
+      "positive": [
+        "\\b(implement(?:s|ed|ing)?|estimat(?:e|es|ed|ing)|fit(?:s|ted|ting)?)\\b",
+        "\\b(scientific model|proposed algorithm|statistical model|research method)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "documentation",
+      "stage": "Method",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 1
+    },
+    {
+      "description": "Implement a scientific model, algorithm, or analytical technique.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "MET_CODE_ACTIVITY_V1",
+      "justification": "Scientific method implementation, excluding packaging, entry points and software tests. Definition awaits human codebook.",
+      "positive": [
+        "^\\s*def\\s+(?:fit_statistical_model|implement_proposed_algorithm|estimate_scientific_model)\\s*\\(",
+        "\\b(?:minimize|optimizer\\.step|np\\.linalg\\.solve)\\s*\\("
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Method",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    }
+  ],
+  "stage": "Method",
+  "version": "0.1.0-candidate"
+}

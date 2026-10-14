@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "description": "Assess scientific performance against reference outcomes or baselines.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "EVA_DOC_ACTIVITY_V1",
+      "justification": "Explicit scientific assessment with reference-labelled metric computation; unit tests and isolated metrics are excluded.",
+      "positive": [
+        "\\b(evaluat(?:e|es|ed|ing)|compar(?:e|es|ed|ing)|assess(?:es|ed|ing)?)\\b",
+        "\\b(?:predictive performance against (?:a )?baseline|scientific accuracy against ground truth|ablation study|research benchmark against reference)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "documentation",
+      "stage": "Evaluation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 1
+    },
+    {
+      "description": "Assess scientific performance against reference outcomes or baselines.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "EVA_CODE_ACTIVITY_V1",
+      "justification": "Explicit scientific assessment with reference-labelled metric computation; unit tests and isolated metrics are excluded.",
+      "positive": [
+        "^\\s*def\\s+(?:evaluate_research_predictions|compare_scientific_baselines|evaluate_ablation_study)\\s*\\(",
+        "\\b(?:f1_score|mean_squared_error|accuracy_score)\\s*\\(\\s*(?:ground_truth|reference_labels)\\s*,"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    }
+  ],
+  "stage": "Evaluation",
+  "version": "0.1.0-candidate"
+}
