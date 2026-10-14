@@ -1,0 +1,15 @@
+repository,mode,stage,type,path,rule_ids,evidence_urls,reason
+synthetic/code-positive,documentation-only,Collection,FN,,,,label-mismatch
+synthetic/code-positive,documentation-only,Processing,FN,,,,label-mismatch
+synthetic/code-positive,documentation-only,Method,FN,,,,label-mismatch
+synthetic/code-positive,documentation-only,Experimentation,FN,,,,label-mismatch
+synthetic/code-positive,documentation-only,Evaluation,FN,,,,label-mismatch
+synthetic/code-positive,documentation-only,Dissemination,FN,,,,label-mismatch
+synthetic/docs-positive,code-only,Collection,FN,,,,label-mismatch
+synthetic/docs-positive,code-only,Processing,FN,,,,label-mismatch
+synthetic/docs-positive,code-only,Method,FN,,,,label-mismatch
+synthetic/docs-positive,code-only,Experimentation,FN,,,,label-mismatch
+synthetic/docs-positive,code-only,Evaluation,FN,,,,label-mismatch
+synthetic/docs-positive,code-only,Dissemination,FN,,,,label-mismatch
+synthetic/incomplete,documentation-only,,acquisition-failure,README.md,,,synthetic-download-error
+synthetic/incomplete,combined,,acquisition-failure,README.md,,,synthetic-download-error
