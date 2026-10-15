@@ -22,16 +22,29 @@ If already cloned, update with `git pull --ff-only`, then run the last two comma
 * **Run the benchmark:** upload your original Excel workbook, CSV, JSON or text repository list, or paste URLs. Run the full list or a reproducible random subset. Approved human labels are not required to generate predictions.
 * **Previous runs:** reopen saved results, download CSV/JSON exports, and replay captured inputs offline.
 
-Excel batch prediction reads **Agreement Final**; select the repository URL column and header row after inspecting its preview. This extracts repository inputs, not gold labels. Formal consensus import and evaluation remain separate.
+For the MSR 2027 workbook, use the **`final_agreement`** worksheet (100 repository URLs in column A, header row 1). Check the upload preview before running. The workbook's six gold-label columns must not be used as classifier inputs; they are reserved for evaluation. Note: older versions of the workbook and importer may call this sheet `Agreement Final`, so verify the importer supports the actual sheet name before launching a batch. This extracts repository inputs, not gold labels. Formal consensus import and evaluation remain separate.
 
 Documentation-only is the primary classifier. Code-only and combined (logical OR) are independently traced comparison modes. The rules are candidate heuristics and have not yet been empirically validated against the unavailable approved human benchmark.
 
 See [UI and benchmark guide](docs/ui.md).
 
+## GitHub API token (recommended for benchmark runs)
+
+Create a personal access token in GitHub **Settings → Developer settings → Personal access tokens**. For public repository analysis, use the least privileges required for public repository metadata and contents. Set it only in the terminal that launches the application:
+
+```bash
+# macOS/Linux; paste your token locally, never into a committed file
+read -rsp 'GitHub token: ' GITHUB_TOKEN; echo
+export GITHUB_TOKEN
+uv run --frozen python -m lifecycle_mapper ui
+```
+
+For a one-off CLI command, export `GITHUB_TOKEN` in that shell before running the command. The backend automatically sends it as a bearer token to GitHub's API; the UI does not need a token field. **Do not paste tokens into the web UI, commit them to Git, or include them in benchmark exports or screenshots.** Unset with `unset GITHUB_TOKEN` when finished. Authentication improves GitHub API rate limits but does not eliminate API errors or guarantee access to private repositories.
+
 ## Batch benchmark execution from the CLI
 
 ```bash
-uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/benchmark.xlsx --repository-column B --header-row 1 --output local/benchmark-predictions
+uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/benchmark.xlsx --repository-column A --header-row 1 --output local/benchmark-predictions
 uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/repositories.csv --output local/csv-predictions
 ```
 
