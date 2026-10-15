@@ -181,9 +181,22 @@ for stage, prefix, description, documentation, code, justification in DEFINITION
                 + " Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
             }
         )
-    (ROOT / "rules" / f"{stage.lower()}.yaml").write_text(
+    catalog = ROOT / "rules" / f"{stage.lower()}.yaml"
+    retained = (
+        [r for r in json.loads(catalog.read_text())["rules"] if r["version"] == "0.3.0-candidate"]
+        if catalog.exists()
+        else []
+    )
+    rules.extend(retained)
+    catalog.write_text(
         json.dumps(
-            {"version": "0.2.0-candidate", "stage": stage, "rules": rules}, sort_keys=True, indent=2
+            {
+                "version": "0.3.0-candidate" if retained else "0.2.0-candidate",
+                "stage": stage,
+                "rules": rules,
+            },
+            sort_keys=True,
+            indent=2,
         )
         + "\n"
     )

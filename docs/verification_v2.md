@@ -1,3 +1,5 @@
+> Historical V2 verification record. Superseded current status and measured reference comparisons: [V3 report](implementation_report_20261015.md).
+
 # Executed v0.2.0 verification and unfinished research gates
 
 Producing implementation commit: `4fbf34205e59834995cacd0968eb30ecfd834633`.

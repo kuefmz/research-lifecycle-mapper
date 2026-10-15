@@ -13,6 +13,8 @@ from .canonical import json_bytes, write_json
 from .consensus import import_final, publication_export
 from .protocol import create_split, freeze
 from .batch import predict_batch, read_inputs
+from .comparison import compare
+from .reference import final_reference, audit_workbook
 from .web import serve
 
 
@@ -49,10 +51,28 @@ def main() -> None:
     predicting = actions.add_parser("predict", help="Run benchmark heuristics without human labels")
     predicting.add_argument("--input", type=Path, required=True)
     predicting.add_argument("--output", type=Path, required=True)
-    predicting.add_argument("--repository-column", default="B")
-    predicting.add_argument("--worksheet", default="Agreement Final")
+    predicting.add_argument("--repository-column", default="A")
+    predicting.add_argument("--worksheet", default="final_agreement")
     predicting.add_argument("--header-row", type=int, default=1)
     predicting.add_argument("--mode", choices=[*MODES, "all"], default="all")
+    predicting.add_argument("--transport", choices=["api", "git"], default="api")
+    comparing = actions.add_parser(
+        "compare", help="Compare pinned captures to imported reference labels"
+    )
+    comparing.add_argument("--reference", type=Path, required=True)
+    comparing.add_argument("--run", type=Path, required=True)
+    comparing.add_argument("--split", type=Path, required=True)
+    comparing.add_argument("--rules", type=Path)
+    comparing.add_argument(
+        "--partition", choices=["development", "held_out", "full_exploratory"], action="append"
+    )
+    comparing.add_argument("--output", type=Path, required=True)
+    auditing = actions.add_parser(
+        "audit", help="Audit final labels and independent annotator cells"
+    )
+    auditing.add_argument("source", type=Path)
+    auditing.add_argument("--annotator-sheets", nargs=2, required=True)
+    auditing.add_argument("--output", type=Path, required=True)
     execution = actions.add_parser("run")
     execution.add_argument("--config", type=Path, default=Path("configs/benchmark.yaml"))
     execution.add_argument("--output", type=Path)
@@ -118,7 +138,29 @@ def main() -> None:
                 args.input, args.repository_column, args.worksheet, args.header_row
             )
             result = predict_batch(
-                records, args.output, MODES if args.mode == "all" else (args.mode,)
+                records,
+                args.output,
+                MODES if args.mode == "all" else (args.mode,),
+                reference=(
+                    final_reference(args.input)
+                    if args.input.suffix.lower() == ".xlsx" and args.worksheet == "final_agreement"
+                    else None
+                ),
+                transport=args.transport,
+            )
+        elif args.action == "audit":
+            result = audit_workbook(args.source, tuple(args.annotator_sheets))
+            if args.output.exists():
+                raise ValueError("Audit output already exists")
+            write_json(args.output, result)
+        elif args.action == "compare":
+            result = compare(
+                args.reference,
+                args.run,
+                args.split,
+                args.output,
+                args.rules,
+                tuple(args.partition or ["development"]),
             )
         elif args.action == "run":
             result = {"run_directory": str(run(args.config, args.output))}

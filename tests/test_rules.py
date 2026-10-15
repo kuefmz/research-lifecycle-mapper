@@ -64,7 +64,7 @@ def test_catalog_packaging_and_stability():
     one, first = load_rules(root)
     two, second = load_rules()
     assert first == second and one == two
-    assert len(one) == 24
+    assert len(one) == 42
     assert all(rule["status"] == "unadjudicated-candidate" for rule in one)
 
 

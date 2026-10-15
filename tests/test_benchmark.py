@@ -29,6 +29,7 @@ def test_known_metrics():
         "recall": 0.0,
         "f1": 0.0,
         "support": 1,
+        "accuracy": 0.0,
     }
     assert metrics["hamming_loss"] == round(2 / 12, 8)
     assert metrics["exact_match_accuracy"] == 0

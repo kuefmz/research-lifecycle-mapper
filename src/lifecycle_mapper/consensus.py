@@ -84,16 +84,19 @@ def import_final(
     if output.exists():
         raise ValueError("Import output must be new; original workbook remains unchanged")
     config = read_json(config_path)
-    if config.get("worksheet") != SHEET or config.get("layout") != "wide":
+    sheet = config.get("worksheet")
+    if sheet not in {SHEET, "final_agreement"} or config.get("layout") != "wide":
         raise ValueError("Explicit Agreement Final wide-layout mapping required")
     if set(config["stage_columns"]) != set(STAGES):
         raise ValueError("Map exactly six stage columns; never silently rename Implementation")
     columns = [
         config["repository_column"],
-        config["row_id_column"],
+        *([config["row_id_column"]] if config.get("row_id_column") else []),
         *config["stage_columns"].values(),
     ]
-    if len(set(columns)) != 8 or not all(re.fullmatch(r"[A-Z]+", value) for value in columns):
+    if len(set(columns)) != len(columns) or not all(
+        re.fullmatch(r"[A-Z]+", value) for value in columns
+    ):
         raise ValueError("Column mappings must be distinct Excel letter addresses")
     label_mapping = config.get("label_mapping", {"0": 0, "1": 1})
     if any(type(value) is not int or value not in (0, 1) for value in label_mapping.values()):
@@ -105,7 +108,7 @@ def import_final(
         approval = read_json(approval_path)
         if (
             approval.get("status") != "approved"
-            or approval.get("worksheet") != SHEET
+            or approval.get("worksheet") != sheet
             or approval.get("workbook_sha256") != raw_hash
             or approval.get("import_config_sha256") != sha256(config_path.read_bytes())
             or not approval.get("approval_reference")
@@ -115,7 +118,7 @@ def import_final(
             )
         approved = True
         approval_reference = approval["approval_reference"]
-    rows = worksheet_cells(source, SHEET)
+    rows = worksheet_cells(source, sheet)
     header_row = config.get("header_row", 1)
     headers = config["expected_headers"]
     if set(headers) != set(columns) or any(
@@ -133,7 +136,11 @@ def import_final(
             continue
         url = cells.get(config["repository_column"], "").strip()
         repo = repository_id(url)
-        row_id = cells.get(config["row_id_column"], "").strip()
+        row_id = (
+            cells.get(config["row_id_column"], "").strip()
+            if config.get("row_id_column")
+            else f"{sheet}!{number}"
+        )
         if not row_id or row_id == "__UNRESOLVED_FORMULA_OR_ERROR__" or row_id in seen_rows:
             raise ValueError("Missing, duplicate or invalid original row identifier")
         if repo.casefold() in seen_repos:
@@ -188,7 +195,7 @@ def import_final(
     provenance = {
         "schema_version": 1,
         "version": config["version"],
-        "source_worksheet": SHEET,
+        "source_worksheet": sheet,
         "workbook_sha256": raw_hash,
         "import_config": config,
         "import_config_sha256": sha256(config_path.read_bytes()),

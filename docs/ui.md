@@ -13,13 +13,13 @@ Open http://127.0.0.1:8000. The server runs locally and reads the same versioned
 
 Choose **Analyze a repository**, paste its public GitHub URL, choose documentation, code, combined, or all three, and click Analyze. Optionally select a branch, tag or commit. The acquisition resolves an immutable revision, captures its inventory/content, and stores a snapshot.
 
-The result table shows the six stages for each evidence mode. Click a row to inspect the original excerpts, rule IDs, paths, line numbers and revision-pinned GitHub links. Partial scans are marked explicitly; absent labels in partial scans are not reliable negatives. Download predictions, evidence, errors, complete results and execution manifests from the result panel.
+The result table has one row per repository; select the prediction mode above it. Each stage shows prediction, human reference when present, and documentation/code/overall unique occurrence counts. Filters and sorting support mismatch review. Click a row to inspect the original excerpts, rule IDs, paths, line numbers and revision-pinned GitHub links. Partial scans are marked explicitly; absent labels in partial scans are not reliable negatives. Download predictions, evidence, errors, complete results and execution manifests from the result panel.
 
 ## Run heuristics for the benchmark
 
 Choose **Run the benchmark**. Upload:
 
-* Original Excel workbook: the UI reads **Agreement Final**. Preview the first rows and specify the literal repository URL column and header row. This only extracts repositories for prediction, not approved gold labels.
+* Original Excel workbook: the UI reads **final_agreement** (legacy **Agreement Final** also supported). Preview the first rows and specify the literal repository URL column and header row. The final_agreement A:G schema also supplies reference labels for display after classification.
 * CSV: include `repository_url`, `github_repository_url`, `source_url`, `original_repository_url`, or `repository`. Owner/name identifiers are accepted in a repository column. Repeated repository-stage rows are deduplicated; conflicting revisions are rejected.
 * JSON: a list of URLs/repository objects or an object with a `repositories` array, including the candidate manifest produced by the consensus importer.
 * Text: one repository URL per line.
@@ -31,7 +31,7 @@ Or paste URLs directly. Leave sample size empty to execute the full list, or ent
 Equivalent batch CLI:
 
 ```bash
-uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/benchmark.xlsx --repository-column B --header-row 1 --output local/benchmark-predictions
+uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/benchmark.xlsx --worksheet final_agreement --repository-column A --header-row 1 --output local/benchmark-predictions
 uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/repositories.csv --output local/csv-predictions
 ```
 
@@ -43,4 +43,4 @@ Run data and uploads are stored under ignored `local/ui/` (change with `--state-
 
 For large batches, set `GITHUB_TOKEN` in the shell before starting the UI to use authenticated GitHub API limits. The token is read by the backend and is never included in browser responses or saved results. Repository acquisition never executes inspected code.
 
-The UI and batch workflow use the existing candidate heuristic definitions; this update does not establish human agreement or approve gold labels. The original human workbook is still not bundled. You can run its repository list immediately when you provide your file; human performance evaluation requires its separately approved labels and provenance.
+The UI uses candidate heuristics; measured reference comparisons and their limits are documented in the implementation report. The human workbook is not publicly bundled. Imported `results.json` files can be reopened under Previous runs; snapshots must be retained separately for offline replay.

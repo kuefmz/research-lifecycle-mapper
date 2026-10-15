@@ -141,8 +141,111 @@
       "supporting": [],
       "version": "0.2.0-candidate",
       "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|run|python|available|download|paper|publication|cite|citation)\\b",
+      "description": "Repository-scoped research activity and object using common disciplinary wording.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b",
+        "\\b(?:pip|dependencies|install(?:ation)?|health.check|software tests?)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "EXP_DOC_RESEARCH_V3",
+      "justification": "General activity/object conjunction; supports instructional and passive repository descriptions without requiring the literal word research.",
+      "layer": "contextual",
+      "positive": [
+        "(?<![-_./])\\b(?:run(?:s|ning)?|reproduc(?:e|es|ed|ing)|perform(?:s|ed|ing)?|conduct(?:s|ed|ing)?|launch(?:es|ed|ing)?)\\b",
+        "(?<![-_./])\\b(?:experiments?|simulations?|parameter sweeps?|hyperparameter|training)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Experimentation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "description": "Research-specific implementation operation with a contextual identifier.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "EXP_CODE_RESEARCH_V3",
+      "justification": "Conjunctive operation and contextual identifier in the same Python function; comments and strings masked. No repository identity or human label is a feature.",
+      "positive": [
+        "\\b(?:GridSearchCV|RandomizedSearchCV|ParameterGrid)\\s*\\(",
+        "\\b(?:fit|for|estimator|param_grid|param_distributions)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope": "statement",
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 3
+    },
+    {
+      "description": "Conjunctive research operation and contextual identifier in R, Julia, MATLAB or shell.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "extensions": [
+        ".r",
+        ".jl",
+        ".m",
+        ".sh"
+      ],
+      "id": "EXP_CODE_MULTILANG_V3",
+      "justification": "Lexically masked comments and strings cannot provide either condition; matched executable statements are evidence, without asserting scientific validity. Function/call context for method; research repetitions for experimentation.",
+      "positive": [
+        "\\b(?:for|parfor|expand\\.grid|Iterators\\.product)\\b",
+        "\\b(?:n_trials|num_trials|n_repeats|seeds|hyperparameters|param_grid|experiments)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope": "statement",
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 6
     }
   ],
   "stage": "Experimentation",
-  "version": "0.2.0-candidate"
+  "version": "0.3.0-candidate"
 }

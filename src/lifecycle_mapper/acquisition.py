@@ -4,6 +4,9 @@ import base64
 import json
 import os
 import re
+import time
+from datetime import datetime, timezone
+from urllib.error import HTTPError, URLError
 from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.parse import quote, urlparse
@@ -75,21 +78,61 @@ def repository_id(value: str) -> str:
     return f"{owner}/{name}"
 
 
+class GitHubAPIError(OSError):
+    """Sanitized failure; response bodies and authorization headers never persist."""
+
+    def __init__(self, code: str, status: int | None = None, reset: str | None = None):
+        self.code = code
+        self.status = status
+        self.reset = reset
+        super().__init__(code)
+
+
 def api_get(endpoint: str) -> Any:
+    if not endpoint.startswith("/") or endpoint.startswith("//"):
+        raise ValueError("Expected a relative GitHub API endpoint")
     headers = {
         "Accept": "application/vnd.github+json",
-        "User-Agent": "lifecycle-mapper/0.1",
+        "User-Agent": "lifecycle-mapper/0.3",
         "X-GitHub-Api-Version": "2022-11-28",
     }
     if os.environ.get("GITHUB_TOKEN"):
         headers["Authorization"] = "Bearer " + os.environ["GITHUB_TOKEN"]
     request = Request("https://api.github.com" + endpoint, headers=headers)
-    with urlopen(request, timeout=30) as response:
-        return json.loads(response.read())
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=30) as response:
+                return json.loads(response.read())
+        except HTTPError as exc:
+            if exc.code in {500, 502, 503, 504} and attempt < 2:
+                time.sleep(attempt + 1)
+                continue
+            rate_limited = exc.code == 429 or (
+                exc.code == 403 and exc.headers.get("X-RateLimit-Remaining") == "0"
+            )
+            code = (
+                "rate-limit"
+                if rate_limited
+                else "invalid-token"
+                if exc.code == 401
+                else "not-found-or-inaccessible"
+                if exc.code == 404
+                else "api-http-error"
+            )
+            raise GitHubAPIError(code, exc.code, exc.headers.get("X-RateLimit-Reset")) from None
+        except (URLError, TimeoutError):
+            raise GitHubAPIError("network-error") from None
+    raise GitHubAPIError("retry-exhausted")
 
 
 def tree_inventory(repo: str, tree_sha: str) -> list[dict[str, Any]]:
     """Explicit tree walking avoids GitHub's truncated recursive-tree response."""
+    recursive = api_get(f"/repos/{repo}/git/trees/{tree_sha}?recursive=1")
+    if not recursive.get("truncated"):
+        return sorted(
+            [item for item in recursive["tree"] if item["type"] != "tree"],
+            key=lambda item: item["path"],
+        )
     result: list[dict[str, Any]] = []
 
     def walk(tree: str, prefix: str) -> None:
@@ -122,7 +165,16 @@ def acquire(
     inventory = tree_inventory(repo, commit["commit"]["tree"]["sha"])
     output.mkdir(parents=True)
     files = []
-    for item in inventory:
+    rate_limited = False
+    acquisition_order = sorted(
+        inventory,
+        key=lambda item: (
+            not Path(item["path"]).name.lower().startswith("readme"),
+            source_kind(item["path"])[0] != "documentation",
+            item["path"],
+        ),
+    )
+    for item in acquisition_order:
         path = item["path"]
         source, reason = source_kind(path)
         record = {
@@ -139,6 +191,8 @@ def acquire(
             record["reason"] = "submodule-or-symlink"
         elif source is not None and item.get("size", max_bytes + 1) > max_bytes:
             record.update(status="unavailable", reason="size-limit")
+        elif source is not None and rate_limited:
+            record.update(status="unavailable", reason="rate-limit")
         elif source is not None:
             try:
                 blob = api_get(f"/repos/{repo}/git/blobs/{item['sha']}")
@@ -158,7 +212,10 @@ def acquire(
                 record.update(status="captured", reason=None, sha256=sha256(data))
             except Exception as exc:
                 # Stable error class; never persist response bodies/tokens or volatile messages.
-                record.update(status="unavailable", reason=type(exc).__name__)
+                rate_limited = getattr(exc, "code", None) == "rate-limit"
+                record.update(
+                    status="unavailable", reason=str(getattr(exc, "code", type(exc).__name__))
+                )
         files.append(record)
     manifest = {
         "schema_version": 1,
@@ -169,9 +226,12 @@ def acquire(
         "inventory_complete": True,
         "policy_version": POLICY_VERSION,
         "max_bytes": max_bytes,
-        "files": files,
+        "files": sorted(files, key=lambda item: item["path"]),
         "redistribution": "not-reviewed",
         "synthetic": False,
+        "transport": "github-api",
+        "requested_ref": ref,
+        "acquired_at": datetime.now(timezone.utc).isoformat(),
     }
     write_json(output / "manifest.json", manifest)
     return manifest

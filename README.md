@@ -1,14 +1,12 @@
 # Research Lifecycle Mapper
 
-A local UI and command-line tool for running deterministic research lifecycle heuristics on GitHub repositories and your benchmark. The six stages are Collection, Processing, Method, Experimentation, Evaluation and Dissemination.
+A local UI and CLI for deterministic, inspectable **evidence** of Collection, Processing, Method, Experimentation, Evaluation and Dissemination in GitHub repositories. These are six independent binary labels. A match does not establish that an activity actually occurred, that research is scientifically valid, or that a repository is reproducible.
 
-## Start the UI
+## Install and start
 
-With Git installed, run these commands in a macOS/Linux terminal:
+Requires Git and Python **3.12**. Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 
 ```bash
-curl -LsSf https://astral.sh/uv/0.12.23/install.sh | sh
-export PATH="$HOME/.local/bin:$PATH"
 git clone --single-branch --branch main https://github.com/kuefmz/research-lifecycle-mapper.git
 cd research-lifecycle-mapper
 uv python install 3.12.14
@@ -16,72 +14,103 @@ uv sync --frozen
 uv run --frozen python -m lifecycle_mapper ui
 ```
 
-If already cloned, update with `git pull --ff-only`, then run the last two commands. Open **http://127.0.0.1:8000**.
+Open **http://127.0.0.1:8000**. To update an existing checkout, use `git pull --ff-only` before `uv sync --frozen`. The maintained branch is `main`. Windows PowerShell uses the same Git/uv commands. Dependencies and Python/uv versions are pinned; production code uses the Python standard library.
 
-* **Analyze a repository:** paste any public GitHub repository URL, select evidence mode, run the heuristics, and inspect labels, original evidence excerpts, paths, rule IDs and commit-pinned links.
-* **Run the benchmark:** upload your original Excel workbook, CSV, JSON or text repository list, or paste URLs. Run the full list or a reproducible random subset. Approved human labels are not required to generate predictions.
-* **Previous runs:** reopen saved results, download CSV/JSON exports, and replay captured inputs offline.
+* **Analyze a repository:** paste a public repository URL, optionally choose a branch/tag/commit, and compare all three evidence modes. The revision resolves once to an immutable commit. Repository code is never executed.
+* **Run the benchmark:** upload the original workbook, CSV, JSON or URL text. The verified workbook uses `final_agreement`, URL column **A**, header row **1**, and labels **B:G**. Preview the mapping. The original workbook is never modified. The legacy `Agreement Final` upload is also supported.
+* **Review:** one overview row per repository, six predictions and human labels where available, mismatches, documentation/code/unique counts, status and errors. Filter by repository, stage-specific minimum count, mismatches or partial scans; sort by repository, mismatches or evidence. Click a row for the six-stage count table, file breakdown and complete evidence table.
+* **Previous runs:** reopen saved runs after restarting, or import an exported `results.json`. Imported JSON restores review, not missing snapshots. Offline replay requires the original run directory and captured snapshots.
 
-For the MSR 2027 workbook, use the **`final_agreement`** worksheet (100 repository URLs in column A, header row 1). Check the upload preview before running. The workbook's six gold-label columns must not be used as classifier inputs; they are reserved for evaluation. Note: older versions of the workbook and importer may call this sheet `Agreement Final`, so verify the importer supports the actual sheet name before launching a batch. This extracts repository inputs, not gold labels. Formal consensus import and evaluation remain separate.
+Reference labels are attached **after** classification and never become classifier features. No human labels are required for a new repository. CSV/JSON repository-list inputs do not automatically imply approved reference labels.
 
-Documentation-only is the primary classifier. Code-only and combined (logical OR) are independently traced comparison modes. The rules are candidate heuristics and have not yet been empirically validated against the unavailable approved human benchmark.
+## GitHub token
 
-See [UI and benchmark guide](docs/ui.md).
+The default API transport reads `GITHUB_TOKEN` only on the backend. Create a short-lived fine-grained token in GitHub **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**. For this public benchmark, public read access is sufficient; do not grant write permissions. If explicitly accessing selected private repositories, grant only the required read access, including Contents. Follow [GitHub's token instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) and [endpoint permission requirements](https://docs.github.com/en/rest/authentication/permissions-required-for-fine-grained-personal-access-tokens).
 
-## GitHub API token (recommended for benchmark runs)
-
-Create a personal access token in GitHub **Settings → Developer settings → Personal access tokens**. For public repository analysis, use the least privileges required for public repository metadata and contents. Set it only in the terminal that launches the application:
+macOS/Linux (Bash):
 
 ```bash
-# macOS/Linux; paste your token locally, never into a committed file
 read -rsp 'GitHub token: ' GITHUB_TOKEN; echo
 export GITHUB_TOKEN
 uv run --frozen python -m lifecycle_mapper ui
+unset GITHUB_TOKEN
 ```
 
-For a one-off CLI command, export `GITHUB_TOKEN` in that shell before running the command. The backend automatically sends it as a bearer token to GitHub's API; the UI does not need a token field. **Do not paste tokens into the web UI, commit them to Git, or include them in benchmark exports or screenshots.** Unset with `unset GITHUB_TOKEN` when finished. Authentication improves GitHub API rate limits but does not eliminate API errors or guarantee access to private repositories.
+Windows PowerShell:
 
-## Batch benchmark execution from the CLI
-
-```bash
-uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/benchmark.xlsx --repository-column A --header-row 1 --output local/benchmark-predictions
-uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/repositories.csv --output local/csv-predictions
+```powershell
+$tokenInput = Read-Host 'GitHub token' -AsSecureString
+$env:GITHUB_TOKEN = [System.Net.NetworkCredential]::new('', $tokenInput).Password
+Remove-Variable tokenInput
+uv run --frozen python -m lifecycle_mapper ui
+Remove-Item Env:GITHUB_TOKEN
 ```
 
-CSV columns may use `repository_url`, `github_repository_url` or `repository` (owner/name). JSON lists/manifests and one-URL-per-line text are also supported. The default runs all three modes; use `--mode documentation-only` for the primary method. Predictions, matched evidence, download/analysis errors, immutable snapshots and execution manifests are saved. Acquisition failures are not converted to negative labels. Use a new output directory for each run.
+Enter secrets only in your local terminal. Never paste them into chat or the browser, commit them, or include them in exports. Authentication headers and API response bodies are not logged or exported. Invalid credentials, rate limits and inaccessible repositories produce sanitized errors. Temporary 5xx failures receive at most two short retries; rate-limit failures do not wait indefinitely. Token reset metadata is available on the sanitized exception. The optional public Git transport does not consume `GITHUB_TOKEN`.
 
-## Single repository and offline replay
+## Run the full benchmark
 
 ```bash
-uv run --frozen python -m lifecycle_mapper acquire https://github.com/OWNER/REPO --snapshot local/snapshots/example
-uv run --frozen python -m lifecycle_mapper analyze --snapshot local/snapshots/example --mode documentation-only --output local/analysis.json
+uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/research_lifecycle_benchmark_100_msr27.xlsx --worksheet final_agreement --repository-column A --header-row 1 --output local/benchmark-run
 ```
 
-An optional `--ref` selects a commit, branch or tag during acquisition. The ref is resolved once to an immutable commit and blobs are captured by SHA. Replay verifies hashes and uses no GitHub network. `GITHUB_TOKEN` may be set in the shell before the UI/CLI for larger batches; it is not exposed to the browser or saved outputs. Inspected repository code is never executed.
-
-## Approved human comparison
-
-When the original workbook is available, adapt the unverified import mapping to its actual layout and supply exact-workbook/mapping approval:
+All three modes run by default. A token is recommended for API batches. Without one, an optional public Git partial-clone transport avoids API request limits:
 
 ```bash
-uv run --frozen python -m lifecycle_mapper benchmark import original.xlsx --config configs/agreement-final-import.yaml --output local/imports/final-v1
-uv run --frozen python -m lifecycle_mapper benchmark run --config configs/benchmark.yaml
+uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/benchmark.xlsx --transport git --output local/git-run
 ```
 
-The first import is candidate without an approval record. The human evaluation config is currently pending and refuses to compute human performance until the real codebook, approved consensus, sampling provenance, revisions and snapshots are present. This does **not** block UI or batch prediction. The original Google Sheet/workbook is never modified.
+Git transport requires a partial-clone-capable Git/server and can be slower for repositories with many small blobs. Git failures remain explicit. Use a new output directory for every run. The API transport remains the UI default.
 
-See [Agreement Final import](docs/agreement_final.md), [development/test and frozen evaluation](docs/evaluation_protocol.md), [methodology](docs/methodology.md), [rule-change review](docs/rule_change_protocol.md) and [limitations](docs/limitations.md).
-
-## Development verification
+## Single repository, modes and evidence
 
 ```bash
-mkdir -p local
+uv run --frozen python -m lifecycle_mapper acquire https://github.com/OWNER/REPO --ref main --snapshot local/snapshots/example
+uv run --frozen python -m lifecycle_mapper analyze --snapshot local/snapshots/example --mode combined --output local/example.json
+```
+
+Documentation-only and code-only are isolated; **combined is their logical OR**. Supporting conditions alone never trigger a label. Rules require conjunctive research activity/object or operation/context signals and apply exclusions. Markdown/reStructuredText/AsciiDoc/plain text are supported; Python uses AST/tokenization, while R, Julia, MATLAB and shell have conservative lexical rules. Other inventoried code languages, notebooks and binary formats have limited or no detector coverage. Lexical detection is not semantic program analysis.
+
+Each occurrence records repository URL/identifier, immutable commit, source, path, exact **1-based inclusive** line range, original excerpt, stable evidence ID, analysis run ID, rule ID/version, catalog hash and all matching rule attributions. Links use `/blob/COMMIT/path#Lstart-Lend`. Strength is a rule-match description, not a calibrated probability.
+
+Deduplication key: repository/commit/stage/source/path/start/end/excerpt. Identical passages matched by several rules count once; all rule IDs/versions remain in `matched_rules`. Different locations or stages remain distinct. Overlapping but different line spans remain separate. Combined counts use occurrence IDs, never the sum of documentation/code/combined mode exports. Counts are scoped to the analyzed modes; use all three for the complete source comparison.
+
+A complete scan with no match predicts 0. An incomplete scan with no match predicts **unknown** (`null` in JSON, empty CSV cell); observed positive evidence remains positive. Acquisition failures have errors and no fabricated six-negative prediction. Complete means complete under the documented eligibility/size/language policy, not complete scientific knowledge.
+
+## Exports and offline replay
+
+A batch run contains `results.json`, `predictions.csv`, `evidence_counts.csv`, `evidence.jsonl`, `excluded_evidence.jsonl`, `errors.csv`, a provenance manifest and hash-verified snapshots. JSONL includes mode-specific views; use `evidence_id` to avoid double-counting the same occurrence across views. Excluded candidates are separate from positive counts. Snapshot inventories preserve excluded/unavailable paths and acquisition errors. Run manifests record times, classifier commit/source hash, rule hash and parameters. Analysis IDs are content-addressed from snapshot/rules/mode, so identical replay retains identity.
+
+Keep the **whole run directory** to replay captured input. From the UI choose **Replay captured inputs**; this makes a new run using current rules without GitHub access. Failed acquisitions have no snapshot to replay. Individual snapshots can also use `snapshot pack` / `snapshot unpack`; see [reproducibility](docs/reproducibility.md).
+
+## Human reference audit and measured comparisons
+
+See [the implementation and evaluation report](docs/implementation_report_20261015.md) for actual measurements, acquisition coverage and limitations. The human workbook is not publicly bundled. The verified mapping is `configs/final-agreement-import.yaml`; the older mapping remains for legacy workbooks.
+
+```bash
+uv run --frozen python -m lifecycle_mapper benchmark import /path/to/benchmark.xlsx --config configs/final-agreement-import.yaml --approval /path/to/exact-reference-approval.json --output local/reference
+uv run --frozen python -m lifecycle_mapper benchmark audit /path/to/benchmark.xlsx --annotator-sheets research_lifecycle_benchmark_10 'Hoja 10' --output local/audit.json
+uv run --frozen python -m lifecycle_mapper benchmark compare --reference local/reference --run local/benchmark-run --split benchmark/versions/split-20261015.json --rules benchmark/versions/baseline-rules --output local/baseline-development
+uv run --frozen python -m lifecycle_mapper benchmark compare --reference local/reference --run local/benchmark-run --split benchmark/versions/split-20261015.json --output local/candidate-development
+```
+
+The Drive XLSX export renamed some long annotator tabs; use the names actually in your workbook for `audit`. It validates repository sets and joins annotations by identity. The exact-workbook approval schema and hashes are described in [the import guide](docs/agreement_final.md). The task's explicit instruction to use final_agreement authorizes this reference comparison; this does not invent a separately approved human codebook or sampling provenance.
+
+`compare` defaults to development only. Freeze rules before adding `--partition held_out`. Use `--partition full_exploratory` for a clearly exploratory all-repository view. It reports per-stage P/R/F1/accuracy/confusion counts, macro/micro metrics, exact match, Hamming loss, coverage and mismatch CSVs. Complete-case metrics exclude partial/failed scans independently per mode. Captured-evidence metrics include partial scans and are explicitly exploratory. Do not report them as an unbiased held-out evaluation. The older formal `benchmark run` retains its separate publication-provenance requirements.
+
+## Verify changes
+
+```bash
 uv run --frozen ruff check src tests scripts
 uv run --frozen ruff format --check src tests scripts
 uv run --frozen mypy
 uv run --frozen pytest -q --basetemp local/pytest
+uv run --frozen playwright install chromium
+RLM_BROWSER_TEST=1 uv run --frozen pytest tests/browser -q --basetemp local/browser-tests
 ```
 
-CI also runs browser tests and offline regression fixtures. Historical synthetic artifacts are software checks only; they are not a prerequisite for normal use and are not human benchmark results. Python 3.12.14 and uv 0.12.23 are pinned; `uv.lock` pins all dependencies. Production classification and the local server use the Python standard library.
+PowerShell: set `$env:RLM_BROWSER_TEST='1'` before the last command. Optional DOM checks (Node.js): `npm install --prefix local/ui-verification --ignore-scripts jsdom@30.1.3`, then set `NODE_PATH` to `local/ui-verification/node_modules` and run `node scripts/test_ui_dom.cjs`. They check table/filter/detail behavior and escaping, not visual browser layout. Synthetic fixture metrics are software checks, never human benchmark performance.
 
-The upstream repository was audited at `dfb22f9545860a99a57199975dd78a4d9cb80fea`. No upstream code was copied because that inspected tree declares no license. Its evidence concepts informed the independently authored foundation reused by the UI. See [implementation provenance](docs/implementation_provenance.md) and [reproducibility](docs/reproducibility.md). The maintained branch is `main`.
+[Methodology](docs/methodology.md) · [Evaluation protocol](docs/evaluation_protocol.md) · [Rule-change protocol](docs/rule_change_protocol.md) · [Limitations](docs/limitations.md) · [Implementation provenance](docs/implementation_provenance.md)
+
+The separate upstream `kuefmz/research_artefacts_and_processes` is not modified. Its previously inspected tree declared no license; no upstream source was copied.

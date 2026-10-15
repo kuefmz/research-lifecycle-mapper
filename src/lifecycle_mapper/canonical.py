@@ -50,3 +50,12 @@ def contained(root: Path, relative: str) -> Path:
     if not candidate.resolve().is_relative_to(root.resolve()):
         raise ValueError(f"Path escapes root: {relative!r}")
     return candidate
+
+
+def physical_lines(text: str, keepends: bool = False) -> list[str]:
+    """GitHub line anchors count LF/CRLF, not Unicode paragraph separators."""
+    parts = text.split("\n")
+    result = [line + "\n" if keepends else line.removesuffix("\r") for line in parts[:-1]]
+    if parts[-1]:
+        result.append(parts[-1] if keepends else parts[-1].removesuffix("\r"))
+    return result

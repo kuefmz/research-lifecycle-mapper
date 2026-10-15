@@ -27,7 +27,16 @@ def test_layered_rules_have_individual_positive_and_negative_examples(stage):
         "Dissemination": "We deposit research dataset on Zenodo with DOI.",
     }
     for rule in [r for r in rules if r["stage"] == stage and r["source"] == "documentation"]:
-        if rule["layer"] == "explicit":
+        if rule["id"].endswith("RESEARCH_V3"):
+            positive = {
+                "Collection": "This code downloads datasets.",
+                "Processing": "This code preprocesses datasets.",
+                "Method": "This code implements an inference algorithm.",
+                "Experimentation": "This code runs simulations.",
+                "Evaluation": "This code evaluates prediction accuracy.",
+                "Dissemination": "This code accompanies the paper described at https://arxiv.org/abs/1234.1234",
+            }[stage]
+        elif rule["layer"] == "explicit":
             positive = explicit[stage]
         elif rule["layer"] == "contextual":
             positive = CONTEXTUAL[stage]
@@ -103,5 +112,7 @@ def test_secondary_code_rules_individual_negative_context(tmp_path, stage):
     }
     text = "def generic_software_function():\n    return " + calls[stage] + "\n"
     result = analyze(make_snapshot(tmp_path, text), "code-only")
-    assert stage not in result["labels"]
+    # A named F1 calculation on ground truth and predictions is direct evaluation
+    # evidence under V3, even when the enclosing function has a generic name.
+    assert (stage in result["labels"]) == (stage == "Evaluation")
     assert all(item["rule_id"] != rule["id"] for item in result["evidence"])

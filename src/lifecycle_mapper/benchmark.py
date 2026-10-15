@@ -212,6 +212,7 @@ def calculate_metrics(gold: list[dict[str, int]], predictions: list[list[str]]) 
                 "recall": ratio(tp, tp + fn),
                 "f1": ratio(2 * tp, 2 * tp + fp + fn),
                 "support": tp + fn,
+                "accuracy": ratio(tp + tn, len(gold)),
             }
         )
     tp = sum(row["TP"] for row in stage_metrics)

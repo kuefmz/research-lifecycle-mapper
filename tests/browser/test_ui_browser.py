@@ -49,7 +49,14 @@ def test_repository_benchmark_replay_and_history_in_browser(ui):
         page.locator("#repo-mode").select_option("all")
         page.get_by_role("button", name="Analyze repository", exact=True).click()
         page.locator("#results").wait_for(state="visible")
-        assert page.locator("tr[data-repo]").count() == 3
+        assert page.locator("tr[data-repo]").count() == 1
+        assert page.get_by_role("heading", name="Six-stage summary").is_visible()
+        assert page.get_by_role("heading", name="Files with evidence").is_visible()
+        page.locator("#review-query").fill("absent-repository")
+        assert page.locator("tr[data-repo]").count() == 0
+        page.locator("#review-query").fill("")
+        assert page.locator("tr[data-repo]").count() == 1
+        page.locator("tr[data-repo]").click()
         assert page.locator(".evidence").count() > 0
         page.get_by_role("button", name="Run the benchmark", exact=True).click()
         page.locator("#batch-file").set_input_files(

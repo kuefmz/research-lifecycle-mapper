@@ -5,6 +5,7 @@ import io
 import json
 import random
 import shutil
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -14,6 +15,7 @@ from .analysis import analyze, load_rules
 from .benchmark import git_state, implementation_hash
 from .canonical import contained, json_bytes, read_json, sha256, write_csv, write_json
 from .consensus import worksheet_cells
+from .git_acquisition import acquire_git
 
 URL_FIELDS = (
     "repository_url",
@@ -101,16 +103,22 @@ def predict_batch(
     max_bytes: int = 250_000,
     root: Path | None = None,
     input_provenance: dict[str, Any] | None = None,
+    reference: dict[str, dict[str, int]] | None = None,
+    transport: str = "api",
 ) -> dict[str, Any]:
     if output.exists():
         raise ValueError("Batch output must be a new directory")
     if not records or any(mode not in MODES for mode in modes):
         raise ValueError("Supply repositories and valid prediction modes")
+    if transport not in {"api", "git"}:
+        raise ValueError("Transport must be api or git")
+    started_at = datetime.now(timezone.utc).isoformat()
     root = root or Path.cwd()
     output.mkdir(parents=True)
     results = []
     predictions = []
     evidence: list[dict[str, Any]] = []
+    excluded: list[dict[str, Any]] = []
     errors = []
     inventory = []
     _, catalog_hash = load_rules()
@@ -126,7 +134,8 @@ def predict_batch(
                 manifest, _ = replay(original_snapshot, record["snapshot_sha256"])
                 shutil.copytree(original_snapshot, snapshot)
             else:
-                manifest = acquire(url, snapshot, ref=record.get("ref"), max_bytes=max_bytes)
+                acquire_fn = acquire_git if transport == "git" else acquire
+                manifest = acquire_fn(url, snapshot, ref=record.get("ref"), max_bytes=max_bytes)
             snapshot_hash = sha256((snapshot / "manifest.json").read_bytes())
             analyzed = [analyze(snapshot, mode, expected_hash=snapshot_hash) for mode in modes]
             results.append(
@@ -155,11 +164,18 @@ def predict_batch(
                             "commit": result["commit"],
                             "mode": result["mode"],
                             "stage": stage,
-                            "prediction": int(stage in result["labels"]),
+                            "prediction": (
+                                int(stage in result["labels"])
+                                if stage in result["labels"] or result["scan_complete"]
+                                else ""
+                            ),
                             "scan_complete": result["scan_complete"],
                         }
                     )
                 evidence.extend({"mode": result["mode"], **item} for item in result["evidence"])
+                excluded.extend(
+                    {"mode": result["mode"], **item} for item in result["excluded_evidence"]
+                )
                 if not result["scan_complete"]:
                     allowed = (
                         {"documentation"}
@@ -212,6 +228,8 @@ def predict_batch(
             )
         if progress:
             progress({"completed": index + 1, "total": len(records), "current_repository": url})
+    for row, original in zip(results, records, strict=True):
+        row["human_labels"] = (reference or {}).get(repository_id(original["url"]).casefold())
     write_csv(
         output / "predictions.csv",
         ["repository", "commit", "mode", "stage", "prediction", "scan_complete"],
@@ -221,6 +239,27 @@ def predict_batch(
     (output / "evidence.jsonl").write_text(
         "".join(json.dumps(row, sort_keys=True, ensure_ascii=False) + "\n" for row in evidence),
         encoding="utf-8",
+    )
+    (output / "excluded_evidence.jsonl").write_text(
+        "".join(json.dumps(row, sort_keys=True, ensure_ascii=False) + "\n" for row in excluded),
+        encoding="utf-8",
+    )
+    counts = [
+        {
+            "repository": row["repository"],
+            "commit": row.get("commit", ""),
+            "mode": m["mode"],
+            "stage": stage,
+            **m["evidence_counts"][stage],
+        }
+        for row in results
+        for m in row["modes"]
+        for stage in STAGES
+    ]
+    write_csv(
+        output / "evidence_counts.csv",
+        ["repository", "commit", "mode", "stage", "documentation", "code", "overall"],
+        counts,
     )
     payload = {
         "repositories": results,
@@ -234,6 +273,9 @@ def predict_batch(
         {
             "schema_version": 1,
             "purpose": "batch-prediction",
+            "started_at": started_at,
+            "finished_at": datetime.now(timezone.utc).isoformat(),
+            "transport": transport,
             "repositories": inventory,
             "modes": list(modes),
             "rule_catalog_hash": catalog_hash,

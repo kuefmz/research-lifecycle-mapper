@@ -11,8 +11,8 @@ from urllib.parse import quote
 
 from . import MODES, STAGES
 from .acquisition import replay
-from .canonical import json_bytes, sha256
-from .documentation import documentation_matches
+from .canonical import json_bytes, sha256, physical_lines
+from .documentation import documentation_matches, document_units
 
 
 def default_rules() -> Path:
@@ -25,7 +25,7 @@ def load_rules(directory: Path | None = None) -> tuple[list[dict[str, Any]], str
     for stage in STAGES:
         catalog = json.loads((directory / f"{stage.lower()}.yaml").read_bytes())
         if (
-            catalog["version"] not in {"0.1.0-candidate", "0.2.0-candidate"}
+            catalog["version"] not in {"0.1.0-candidate", "0.2.0-candidate", "0.3.0-candidate"}
             or catalog["stage"] != stage
         ):
             raise ValueError("Invalid catalog version/stage")
@@ -76,14 +76,20 @@ def unit_test_path(path: str) -> bool:
 def implementation_view(text: str, path: str) -> str:
     """Mask Python comments and docstrings while retaining exact source line positions.
 
-    The initial implementation rules only support Python. Other source languages
-    remain inventoried but have no candidate code rules; this is a coverage limit.
+    Python uses AST/tokenization; R, Julia, MATLAB and shell use lexical masking.
+    Other source languages remain inventoried without rule coverage.
     Never execute inspected repository code.
     """
-    if Path(path).suffix.lower() != ".py":
+    suffix = Path(path).suffix.lower()
+    if suffix in {".r", ".jl", ".m", ".sh"}:
+        # Lexical, not semantic parsing. Preserve every physical newline exactly.
+        comment = r"%[^\n]*" if suffix == ".m" else r"\#[^\n]*"
+        lexical_pattern = r"\"\"\"[\s\S]*?\"\"\"|\"(?:\\.|[^\"\\])*\"|'(?:\\.|[^'\\])*'|" + comment
+        return re.sub(lexical_pattern, lambda m: re.sub(r"[^\r\n]", " ", m.group()), text)
+    if suffix != ".py":
         return ""
     ast.parse(text)
-    lines = text.splitlines(keepends=True)
+    lines = physical_lines(text, keepends=True)
     masks = []
     for token in tokenize.generate_tokens(io.StringIO(text).readline):
         if token.type in {tokenize.COMMENT, tokenize.STRING}:
@@ -98,7 +104,11 @@ def implementation_view(text: str, path: str) -> str:
 
 
 def analyze(
-    snapshot: Path, mode: str, rules_dir: Path | None = None, expected_hash: str | None = None
+    snapshot: Path,
+    mode: str,
+    rules_dir: Path | None = None,
+    expected_hash: str | None = None,
+    run_id: str | None = None,
 ) -> dict[str, Any]:
     if mode not in MODES:
         raise ValueError(f"Unknown mode: {mode}")
@@ -118,12 +128,13 @@ def analyze(
         source = item["source"]
         if item["status"] != "captured" or source not in permitted:
             continue
-        original_lines = contents[item["path"]].splitlines(keepends=True)
+        original_lines = physical_lines(contents[item["path"]], keepends=True)
         if source == "documentation":
+            units = document_units(contents[item["path"]])
             for rule in rules:
                 if rule["source"] != source:
                     continue
-                for match in documentation_matches(contents[item["path"]], rule):
+                for match in documentation_matches(contents[item["path"]], rule, units):
                     reasons = match.pop("exclusion_reasons")
                     record = {
                         "repository": manifest["repository"],
@@ -131,6 +142,7 @@ def analyze(
                         "stage": rule["stage"],
                         "source": source,
                         "rule_id": rule["id"],
+                        "rule_version": rule["version"],
                         "path": item["path"],
                         "content_sha256": item["sha256"],
                         **match,
@@ -150,9 +162,29 @@ def analyze(
         except (SyntaxError, tokenize.TokenError, IndentationError):
             analysis_errors.append({"path": item["path"], "reason": "python-parse-error"})
             continue
-        lines = view.splitlines(keepends=True)
+        lines = physical_lines(view, keepends=True)
         function_spans = []
+        statement_spans = []
         if source == "code" and Path(item["path"]).suffix.lower() == ".py":
+            syntax = ast.parse(contents[item["path"]])
+            statement_spans = [
+                (node.lineno, node.end_lineno or node.lineno)
+                for node in ast.walk(syntax)
+                if isinstance(node, ast.stmt)
+                and not isinstance(
+                    node,
+                    (
+                        ast.FunctionDef,
+                        ast.AsyncFunctionDef,
+                        ast.ClassDef,
+                        ast.If,
+                        ast.For,
+                        ast.While,
+                        ast.Try,
+                        ast.With,
+                    ),
+                )
+            ]
             function_spans = [
                 (node.lineno, node.end_lineno or node.lineno)
                 for node in ast.walk(ast.parse(contents[item["path"]]))
@@ -160,6 +192,15 @@ def analyze(
             ]
         for rule in rules:
             if rule["source"] != source:
+                continue
+            if (
+                rule.get("extensions")
+                and Path(item["path"]).suffix.lower() not in rule["extensions"]
+            ):
+                continue
+            if not rule.get("extensions") and Path(item["path"]).suffix.lower() != ".py":
+                continue
+            if not all(re.search(pattern, view, re.I | re.M) for pattern in rule["positive"]):
                 continue
             seen = set()
             for offset in range(len(lines)):
@@ -172,8 +213,20 @@ def analyze(
                 end = max(match.end() for match in actual)
                 start_line = offset + window.count("\n", 0, start) + 1
                 end_line = offset + window.count("\n", 0, max(start, end - 1)) + 1
-                if source == "code" and not any(
-                    left == start_line and end_line <= right for left, right in function_spans
+                if (
+                    source == "code"
+                    and rule.get("scope") != "statement"
+                    and not any(
+                        left == start_line and end_line <= right for left, right in function_spans
+                    )
+                ):
+                    continue
+                if (
+                    Path(item["path"]).suffix.lower() == ".py"
+                    and rule.get("scope") == "statement"
+                    and not any(
+                        left <= start_line <= end_line <= right for left, right in statement_spans
+                    )
                 ):
                     continue
                 identity = (start_line, end_line)
@@ -191,6 +244,7 @@ def analyze(
                     "stage": rule["stage"],
                     "source": source,
                     "rule_id": rule["id"],
+                    "rule_version": rule["version"],
                     "path": item["path"],
                     "start_line": start_line,
                     "end_line": end_line,
@@ -218,6 +272,45 @@ def analyze(
             record["end_line"],
         )
 
+    snapshot_hash = sha256((snapshot / "manifest.json").read_bytes())
+    run_id = run_id or sha256(json_bytes([snapshot_hash, rules_hash, mode]))
+    # One occurrence per stage/source/file/physical span/excerpt. All matching
+    # rule attributions survive; overlaps with different spans are not collapsed.
+    unique: dict[str, dict[str, Any]] = {}
+    for record in evidence:
+        occurrence_id = sha256(
+            json_bytes(
+                [
+                    record["repository"].casefold(),
+                    record["commit"],
+                    record["stage"],
+                    record["source"],
+                    record["path"],
+                    record["start_line"],
+                    record["end_line"],
+                    record["excerpt"],
+                ]
+            )
+        )
+        attribution = {"id": record["rule_id"], "version": record["rule_version"]}
+        if occurrence_id in unique:
+            if attribution not in unique[occurrence_id]["matched_rules"]:
+                unique[occurrence_id]["matched_rules"].append(attribution)
+        else:
+            unique[occurrence_id] = {
+                **record,
+                "evidence_id": occurrence_id,
+                "run_id": run_id,
+                "repository_url": manifest["source_url"],
+                "rule_catalog_hash": rules_hash,
+                "matched_rules": [attribution],
+                "strength": "conjunctive-rule-match; not a probability",
+            }
+    evidence = list(unique.values())
+    for record in excluded_evidence:
+        record.update(
+            run_id=run_id, repository_url=manifest["source_url"], rule_catalog_hash=rules_hash
+        )
     evidence.sort(key=order)
     excluded_evidence.sort(key=order)
     labels = [stage for stage in STAGES if any(record["stage"] == stage for record in evidence)]
@@ -226,8 +319,23 @@ def analyze(
     complete = manifest["inventory_complete"] is True and not unavailable and not analysis_errors
     return {
         "repository": manifest["repository"],
+        "repository_url": manifest["source_url"],
+        "run_id": run_id,
         "commit": manifest["commit"],
         "mode": mode,
+        "predictions": {
+            stage: True if stage in labels else False if complete else None for stage in STAGES
+        },
+        "evidence_counts": {
+            stage: {
+                "documentation": sum(
+                    e["stage"] == stage and e["source"] == "documentation" for e in evidence
+                ),
+                "code": sum(e["stage"] == stage and e["source"] == "code" for e in evidence),
+                "overall": sum(e["stage"] == stage for e in evidence),
+            }
+            for stage in STAGES
+        },
         "labels": labels,
         "evidence": evidence,
         "excluded_evidence": excluded_evidence,

@@ -23,3 +23,11 @@ uv run --frozen python -m lifecycle_mapper benchmark export --imported local/imp
 ```
 
 The clean export includes repository, stage and approved label only, plus checksums/release provenance. Private notes, original row IDs, annotator names and workbook metadata are excluded. Repository identities can still reveal projects/authors; publication/anonymity review remains mandatory. The command prepares local files and does not publish them. No real benchmark import, consensus approval or public benchmark export has occurred.
+
+## Verified final_agreement layout (2026-10-15)
+
+The connected workbook's final table uses URL column A (`GitHub URL`) and B:G (`Collection`, `Processing`, `Method`, `Experimentation`, `Evaluation`, `Dissemination`), header row 1, data rows 2:101. There is no separate row-ID column. `configs/final-agreement-import.yaml` uses worksheet/physical-row identifiers and explicitly accepts Excel numeric representations `0`, `1`, `0.0`, `1.0`. It does not substitute a missing label. The legacy mapping above remains supported.
+
+The explicit instruction in the supplied implementation brief to use `final_agreement` as the human reference is the reference-approval basis for this work. An approval JSON has `status: approved`, `worksheet: final_agreement`, the exact `workbook_sha256`, exact `import_config_sha256`, and an `approval_reference` identifying that instruction. This authorizes observed reference comparisons; the separate formal publication workflow still requires its sampling/codebook provenance. Do not fabricate those records.
+
+The independent annotations contain one missing Method label (worksheet row 61, D61 in the second annotator sheet) for `michael135/count-vector-paper-experiments`. Compare valid binary pairs separately from missing annotations. The reconciliation report explains the manuscript's 246 versus the earlier 247 count without filling the blank.

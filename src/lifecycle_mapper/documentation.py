@@ -7,7 +7,7 @@ import re
 import unicodedata
 from typing import Any
 
-from .canonical import sha256
+from .canonical import sha256, physical_lines
 
 VERSION = "documentation-units-1"
 
@@ -29,7 +29,7 @@ def document_units(text: str) -> list[dict[str, Any]]:
     each other. Fences remain documentation, never leak into implementation mode.
     """
     masked = re.sub(r"<!--.*?-->", lambda m: re.sub(r"[^\n\r]", " ", m.group()), text, flags=re.S)
-    lines = masked.splitlines()
+    lines = physical_lines(masked)
     units: list[dict[str, Any]] = []
     heading = ""
     heading_stack: list[tuple[int, str]] = []
@@ -105,10 +105,12 @@ def document_units(text: str) -> list[dict[str, Any]]:
     return units
 
 
-def documentation_matches(text: str, rule: dict[str, Any]) -> list[dict[str, Any]]:
+def documentation_matches(
+    text: str, rule: dict[str, Any], units: list[dict[str, Any]] | None = None
+) -> list[dict[str, Any]]:
     records = []
-    original_lines = text.splitlines(keepends=True)
-    for unit in document_units(text):
+    original_lines = physical_lines(text, keepends=True)
+    for unit in document_units(text) if units is None else units:
         if rule["layer"] == "workflow" and unit["kind"] != "workflow":
             continue
         if rule["layer"] != "workflow" and unit["kind"] != "prose":
