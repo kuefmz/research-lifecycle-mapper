@@ -9,11 +9,12 @@ from .analysis import analyze
 from .annotations import import_annotations
 from .benchmark import run, verify
 from .bundles import pack, unpack
-from .canonical import json_bytes, write_json
+from .canonical import json_bytes, write_json, read_json
 from .consensus import import_final, publication_export
 from .protocol import create_split, freeze
 from .batch import predict_batch, read_inputs
 from .comparison import compare
+from .dataset import DEFAULT_DATASET, convert_workbook, execute_dataset, dataset_reference
 from .reference import final_reference, audit_workbook
 from .web import serve
 
@@ -56,6 +57,18 @@ def main() -> None:
     predicting.add_argument("--header-row", type=int, default=1)
     predicting.add_argument("--mode", choices=[*MODES, "all"], default="all")
     predicting.add_argument("--transport", choices=["api", "git"], default="api")
+    dataset_import = actions.add_parser(
+        "dataset", help="Convert the final workbook to a reusable JSON dataset"
+    )
+    dataset_import.add_argument("source", type=Path)
+    dataset_import.add_argument("--output", type=Path, default=DEFAULT_DATASET)
+    executing = actions.add_parser(
+        "execute", help="Run the bundled benchmark and checkpoint results in its JSON"
+    )
+    executing.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
+    executing.add_argument("--output", type=Path)
+    executing.add_argument("--transport", choices=["api", "git"], default="api")
+    executing.add_argument("--mode", choices=[*MODES, "all"], default="all")
     comparing = actions.add_parser(
         "compare", help="Compare pinned captures to imported reference labels"
     )
@@ -133,6 +146,15 @@ def main() -> None:
             else:
                 unpack(args.bundle, args.output)
             result = {"output": str(args.output)}
+        elif args.action == "dataset":
+            result = convert_workbook(args.source, args.output)
+        elif args.action == "execute":
+            result = execute_dataset(
+                args.dataset,
+                args.output,
+                args.transport,
+                MODES if args.mode == "all" else (args.mode,),
+            )
         elif args.action == "predict":
             records = read_inputs(
                 args.input, args.repository_column, args.worksheet, args.header_row
@@ -144,6 +166,10 @@ def main() -> None:
                 reference=(
                     final_reference(args.input)
                     if args.input.suffix.lower() == ".xlsx" and args.worksheet == "final_agreement"
+                    else dataset_reference(read_json(args.input))
+                    if args.input.suffix.lower() == ".json"
+                    and isinstance(read_json(args.input), dict)
+                    and read_json(args.input).get("kind") == "lifecycle-benchmark-dataset"
                     else None
                 ),
                 transport=args.transport,

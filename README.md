@@ -50,8 +50,19 @@ Enter secrets only in your local terminal. Never paste them into chat or the bro
 
 ## Run the full benchmark
 
+The Excel workbook and its JSON equivalent are bundled under [`data/`](data/README.md). To run all 100 repositories and save each repository's results back into the same JSON, preserving earlier run history:
+
 ```bash
-uv run --frozen python -m lifecycle_mapper benchmark predict --input /path/to/research_lifecycle_benchmark_100_msr27.xlsx --worksheet final_agreement --repository-column A --header-row 1 --output local/benchmark-run
+uv run --frozen python -m lifecycle_mapper benchmark execute --transport git
+```
+
+The UI includes **Run bundled benchmark and save results to JSON**. Keep the generated snapshot folders for offline replay. See [the dataset schema and persistence guide](data/README.md).
+
+For a separate export without changing the JSON dataset:
+
+
+```bash
+uv run --frozen python -m lifecycle_mapper benchmark predict --input data/research_lifecycle_benchmark_100_msr27.xlsx --worksheet final_agreement --repository-column A --header-row 1 --output local/benchmark-run
 ```
 
 All three modes run by default. A token is recommended for API batches. Without one, an optional public Git partial-clone transport avoids API request limits:

@@ -105,6 +105,7 @@ def predict_batch(
     input_provenance: dict[str, Any] | None = None,
     reference: dict[str, dict[str, int]] | None = None,
     transport: str = "api",
+    on_result: Callable[[dict[str, Any], dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     if output.exists():
         raise ValueError("Batch output must be a new directory")
@@ -226,6 +227,8 @@ def predict_batch(
                     "detail": detail,
                 }
             )
+        if on_result:
+            on_result(results[-1], inventory[-1])
         if progress:
             progress({"completed": index + 1, "total": len(records), "current_repository": url})
     for row, original in zip(results, records, strict=True):

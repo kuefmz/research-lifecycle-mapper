@@ -16,6 +16,7 @@ from .benchmark import run
 from .canonical import contained, json_bytes, read_json, sha256, write_json
 from .consensus import worksheet_cells
 from .reference import final_reference
+from .dataset import dataset_reference, DEFAULT_DATASET, execute_dataset, dataset_results
 
 
 class Application:
@@ -29,7 +30,7 @@ class Application:
 
     def start(self, request: dict[str, Any]) -> dict[str, str]:
         kind = request.get("kind", "repository")
-        if kind not in {"repository", "batch", "evaluation", "replay"}:
+        if kind not in {"repository", "batch", "evaluation", "replay", "dataset"}:
             raise ValueError("Unknown job type")
         mode = request.get("mode", "documentation-only")
         if mode not in (*MODES, "all"):
@@ -58,6 +59,10 @@ class Application:
                 )
                 if upload.suffix == ".xlsx" and selected_sheet == "final_agreement":
                     reference = final_reference(upload)
+                elif upload.suffix == ".json":
+                    data = read_json(upload)
+                    if isinstance(data, dict) and data.get("kind") == "lifecycle-benchmark-dataset":
+                        reference = dataset_reference(data)
                 provenance.update(
                     source_sha256=sha256(upload.read_bytes()),
                     worksheet=selected_sheet,
@@ -82,6 +87,9 @@ class Application:
                 int(request["sample_size"]) if request.get("sample_size") else None,
                 str(request.get("seed", "rlm-ui-v1")),
             )
+        elif kind == "dataset":
+            dataset_path = self.root / DEFAULT_DATASET
+            records = read_inputs(dataset_path)
         elif kind == "replay":
             original = contained(self.state_dir / "runs", request["run_id"])
             manifest = read_json(original / "manifest.json")
@@ -119,7 +127,10 @@ class Application:
         def execute() -> None:
             progress({"status": "running"})
             try:
-                if kind == "evaluation":
+                if kind == "dataset":
+                    execute_dataset(dataset_path, directory, transport, modes, progress)
+                    result = read_json(directory / "results.json")
+                elif kind == "evaluation":
                     run(configuration, directory)
                     result = {"metrics": read_json(directory / "metrics.json"), "repositories": []}
                 else:
@@ -180,6 +191,8 @@ class Application:
 
     def import_results(self, request: dict[str, Any]) -> dict[str, str]:
         result = request.get("result")
+        if isinstance(result, dict) and result.get("kind") == "lifecycle-benchmark-dataset":
+            result = dataset_results(result)
         if not isinstance(result, dict) or not isinstance(result.get("repositories"), list):
             raise ValueError("Choose an exported results.json")
         for row in result["repositories"]:

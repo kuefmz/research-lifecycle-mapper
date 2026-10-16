@@ -10,3 +10,5 @@ dist/
 local/
 pytest-of-root/
 configs/local-*.yaml
+data/*.json.lock
+data/*.json.*.tmp
