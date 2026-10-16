@@ -1,6 +1,8 @@
 """Research CLI; replay is the default and benchmark never acquires live inputs."""
 
 import argparse
+import sys
+from typing import Any
 from pathlib import Path
 from . import MODES
 
@@ -17,6 +19,12 @@ from .comparison import compare
 from .dataset import DEFAULT_DATASET, convert_workbook, execute_dataset, dataset_reference
 from .reference import final_reference, audit_workbook
 from .web import serve
+
+
+def show_progress(value: dict[str, Any]) -> None:
+    completed, total = value["completed"], value["total"]
+    repository = value.get("current_repository", "")
+    print(f"[{completed}/{total}] {repository}", file=sys.stderr, flush=True)
 
 
 def main() -> None:
@@ -154,6 +162,7 @@ def main() -> None:
                 args.output,
                 args.transport,
                 MODES if args.mode == "all" else (args.mode,),
+                progress=show_progress,
             )
         elif args.action == "predict":
             records = read_inputs(
@@ -173,6 +182,7 @@ def main() -> None:
                     else None
                 ),
                 transport=args.transport,
+                progress=show_progress,
             )
         elif args.action == "audit":
             result = audit_workbook(args.source, tuple(args.annotator_sheets))

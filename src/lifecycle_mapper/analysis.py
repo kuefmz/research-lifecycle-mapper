@@ -5,7 +5,9 @@ import io
 import json
 import re
 import tokenize
+import warnings
 from pathlib import Path
+from threading import Lock
 from typing import Any
 from urllib.parse import quote
 
@@ -73,6 +75,22 @@ def unit_test_path(path: str) -> bool:
     ).name.lower().startswith("test_")
 
 
+_PARSE_LOCK = Lock()
+
+
+def parse_python(text: str, path: str) -> ast.Module:
+    """Ignore only invalid-escape warnings from inspected string literals.
+
+    Those strings are masked by the detector. Syntax errors still propagate and
+    other warning categories/messages retain their normal behavior.
+    """
+    with _PARSE_LOCK, warnings.catch_warnings():
+        warnings.filterwarnings(
+            "ignore", message=r"invalid escape sequence", category=SyntaxWarning
+        )
+        return ast.parse(text, filename=path)
+
+
 def implementation_view(text: str, path: str) -> str:
     """Mask Python comments and docstrings while retaining exact source line positions.
 
@@ -88,7 +106,7 @@ def implementation_view(text: str, path: str) -> str:
         return re.sub(lexical_pattern, lambda m: re.sub(r"[^\r\n]", " ", m.group()), text)
     if suffix != ".py":
         return ""
-    ast.parse(text)
+    parse_python(text, path)
     lines = physical_lines(text, keepends=True)
     masks = []
     for token in tokenize.generate_tokens(io.StringIO(text).readline):
@@ -166,7 +184,7 @@ def analyze(
         function_spans = []
         statement_spans = []
         if source == "code" and Path(item["path"]).suffix.lower() == ".py":
-            syntax = ast.parse(contents[item["path"]])
+            syntax = parse_python(contents[item["path"]], item["path"])
             statement_spans = [
                 (node.lineno, node.end_lineno or node.lineno)
                 for node in ast.walk(syntax)
@@ -187,7 +205,7 @@ def analyze(
             ]
             function_spans = [
                 (node.lineno, node.end_lineno or node.lineno)
-                for node in ast.walk(ast.parse(contents[item["path"]]))
+                for node in ast.walk(syntax)
                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
             ]
         for rule in rules:

@@ -25,6 +25,8 @@ Reference labels are attached **after** classification and never become classifi
 
 ## GitHub token
 
+`GITHUB_TOKEN` is used by `--transport api`; it does not authenticate `--transport git`. After setting the token in the same terminal, run `uv run --frozen python -m lifecycle_mapper benchmark execute --transport api`. CLI benchmark commands display `[completed/total] repository` progress on stderr while keeping their final JSON on stdout. Invalid-escape SyntaxWarnings in inspected Python string literals are suppressed narrowly; genuine syntax errors remain recorded as analysis failures.
+
 The default API transport reads `GITHUB_TOKEN` only on the backend. Create a short-lived fine-grained token in GitHub **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**. For this public benchmark, public read access is sufficient; do not grant write permissions. If explicitly accessing selected private repositories, grant only the required read access, including Contents. Follow [GitHub's token instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) and [endpoint permission requirements](https://docs.github.com/en/rest/authentication/permissions-required-for-fine-grained-personal-access-tokens).
 
 macOS/Linux (Bash):
