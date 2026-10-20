@@ -268,7 +268,7 @@ def test_api_pacing_respects_server_cooldown(monkeypatch):
         sleeps.append(delay)
         clock[0] += delay
 
-    def fake(endpoint):
+    def fake(endpoint, **kwargs):
         calls.append(endpoint)
         if len(calls) == 1:
             raise acquisition.GitHubAPIError("rate-limit", 429, retry_after="7")

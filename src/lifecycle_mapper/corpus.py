@@ -28,43 +28,79 @@ def atomic_json(path: Path, payload: Any) -> None:
 
 
 class PacedAPI:
-    """One process-wide API gate; primary and Retry-After limits are respected."""
+    """Serialize REST traffic and honor shared primary/secondary cooldowns."""
 
     def __init__(self, interval: float = 0.8):
         self.interval = interval
-        self.lock = threading.Lock()
+        self.lock = threading.RLock()
         self.next_request = 0.0
         self.local = threading.local()
+        self.network_calls = 0
+        self.rate_limit_wait_seconds = 0.0
+        self.rate_limit_until = 0.0
+
+    def requested(self) -> None:
+        self.wait_gate()
+        self.next_request = time.monotonic() + self.interval
+        self.network_calls += 1
+        self.local.calls = getattr(self.local, "calls", 0) + 1
+
+    def wait_gate(self) -> None:
+        while (delay := self.next_request - time.monotonic()) > 0:
+            chunk = min(60.0, delay)
+            self.rate_limit_wait_seconds += max(
+                0.0, min(chunk, self.rate_limit_until - time.monotonic())
+            )
+            time.sleep(chunk)
+
+    def response(self, headers: Any) -> None:
+        if headers.get("X-RateLimit-Remaining") == "0":
+            try:
+                delay = max(1.0, float(headers.get("X-RateLimit-Reset")) - time.time() + 2)
+            except (TypeError, ValueError):
+                delay = 60.0
+            self.cooldown(delay, "primary quota exhausted")
+
+    def cooldown(self, delay: float, reason: str) -> None:
+        self.next_request = max(self.next_request, time.monotonic() + delay)
+        self.rate_limit_until = max(self.rate_limit_until, time.monotonic() + delay)
+        print(
+            f"GitHub: {reason}; waiting at least {delay:.0f}s before the next REST request.",
+            file=sys.stderr,
+            flush=True,
+        )
 
     def __call__(self, endpoint: str) -> Any:
-        for attempt in range(5):
+        secondary_attempt = 0
+        while True:
+            # Hold the gate through response handling so another worker cannot
+            # issue a request between quota exhaustion and its cooldown update.
             with self.lock:
-                delay = self.next_request - time.monotonic()
-                if delay > 0:
-                    time.sleep(delay)
-                self.next_request = time.monotonic() + self.interval
-            self.local.calls = getattr(self.local, "calls", 0) + 1
-            try:
-                return acquisition.api_get(endpoint)
-            except acquisition.GitHubAPIError as exc:
-                if exc.code != "rate-limit" or attempt == 4:
-                    raise
+                self.wait_gate()
                 try:
-                    delay = (
-                        float(exc.retry_after)
-                        if exc.retry_after
-                        else max(1, float(exc.reset) - time.time() + 2)
-                        if exc.reset
-                        else 60 * (attempt + 1)
+                    return acquisition.api_get(
+                        endpoint, on_response=self.response, on_request=self.requested
                     )
-                except ValueError:
-                    delay = 60 * (attempt + 1)
-                # A cooldown applies to all workers, never rotate tokens/IPs.
-                with self.lock:
-                    self.next_request = max(
-                        self.next_request, time.monotonic() + min(3602, max(1, delay))
+                except acquisition.GitHubAPIError as exc:
+                    if exc.code != "rate-limit":
+                        raise
+                    try:
+                        reset_delay = (
+                            max(1.0, float(exc.reset) - time.time() + 2) if exc.reset else 0.0
+                        )
+                        retry_delay = float(exc.retry_after) if exc.retry_after else 0.0
+                    except ValueError:
+                        reset_delay, retry_delay = 0.0, 0.0
+                    if not exc.reset:
+                        secondary_attempt += 1
+                        if secondary_attempt > 5:
+                            raise
+                    delay = max(
+                        reset_delay,
+                        retry_delay,
+                        60.0 * 2 ** max(0, secondary_attempt - 1) if not exc.reset else 0.0,
                     )
-        raise acquisition.GitHubAPIError("retry-exhausted")
+                    self.cooldown(delay, "rate limit")
 
 
 def selected_records(
@@ -306,6 +342,11 @@ def run_corpus(
                     submit_next()
         # Includes cached results; do not extrapolate a resumed session as a fresh pilot.
         totals["timing_note"] = "Fresh pilots only: resumed checkpoints distort session throughput"
+        totals["session_api_network_calls"] = api.network_calls
+        totals["rate_limit_wait_seconds"] = api.rate_limit_wait_seconds
+        totals["api_calls_note"] = (
+            "api_calls includes saved checkpoint request counts; session_api_network_calls counts actual REST attempts this invocation"
+        )
         atomic_json(output / "summary.json", totals)
         return totals
     finally:

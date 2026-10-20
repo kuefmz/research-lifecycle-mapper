@@ -96,7 +96,12 @@ class GitHubAPIError(OSError):
         super().__init__(code)
 
 
-def api_get(endpoint: str) -> Any:
+def api_get(
+    endpoint: str,
+    *,
+    on_response: Callable[[Any], None] | None = None,
+    on_request: Callable[[], None] | None = None,
+) -> Any:
     if not endpoint.startswith("/") or endpoint.startswith("//"):
         raise ValueError("Expected a relative GitHub API endpoint")
     headers = {
@@ -109,17 +114,29 @@ def api_get(endpoint: str) -> Any:
     request = Request("https://api.github.com" + endpoint, headers=headers)
     for attempt in range(3):
         try:
+            if on_request:
+                on_request()
             with urlopen(request, timeout=30) as response:
+                if on_response:
+                    on_response(response.headers)
                 return json.loads(response.read())
         except HTTPError as exc:
+            if on_response:
+                on_response(exc.headers)
             if exc.code in {500, 502, 503, 504} and attempt < 2:
                 time.sleep(attempt + 1)
                 continue
+            secondary = False
+            if exc.code == 403:
+                # Inspect only to classify the error; never persist its body.
+                message = exc.read(65536).lower()
+                secondary = b"secondary rate limit" in message or b"abuse detection" in message
             rate_limited = exc.code == 429 or (
                 exc.code == 403
                 and (
                     exc.headers.get("X-RateLimit-Remaining") == "0"
                     or exc.headers.get("Retry-After") is not None
+                    or secondary
                 )
             )
             code = (
@@ -134,7 +151,9 @@ def api_get(endpoint: str) -> Any:
             raise GitHubAPIError(
                 code,
                 exc.code,
-                exc.headers.get("X-RateLimit-Reset"),
+                exc.headers.get("X-RateLimit-Reset")
+                if exc.headers.get("X-RateLimit-Remaining") == "0"
+                else None,
                 exc.headers.get("Retry-After"),
             ) from None
         except (URLError, TimeoutError):
@@ -154,9 +173,25 @@ def tree_inventory(
             key=lambda item: item["path"],
         )
     result: list[dict[str, Any]] = []
+    cache: dict[str, dict[str, Any]] = {}
 
-    def walk(tree: str, prefix: str) -> None:
-        payload = getter(f"/repos/{repo}/git/trees/{tree}")
+    def fetch(tree: str, recursive: bool) -> dict[str, Any]:
+        endpoint = f"/repos/{repo}/git/trees/{tree}" + ("?recursive=1" if recursive else "")
+        if endpoint not in cache:
+            cache[endpoint] = getter(endpoint)
+        return cache[endpoint]
+
+    def walk(tree: str, prefix: str, known_truncated: bool = False) -> None:
+        if not known_truncated:
+            payload = fetch(tree, True)
+            if not payload.get("truncated"):
+                result.extend(
+                    {**entry, "path": prefix + entry["path"]}
+                    for entry in payload["tree"]
+                    if entry["type"] != "tree"
+                )
+                return
+        payload = fetch(tree, False)
         if payload.get("truncated"):
             raise ValueError("Incomplete GitHub tree: acquisition aborted")
         for entry in sorted(payload["tree"], key=lambda item: item["path"]):
@@ -166,7 +201,7 @@ def tree_inventory(
             else:
                 result.append({**entry, "path": path})
 
-    walk(tree_sha, "")
+    walk(tree_sha, "", known_truncated=True)
     return sorted(result, key=lambda item: item["path"])
 
 
