@@ -27,7 +27,8 @@ def load_rules(directory: Path | None = None) -> tuple[list[dict[str, Any]], str
     for stage in STAGES:
         catalog = json.loads((directory / f"{stage.lower()}.yaml").read_bytes())
         if (
-            catalog["version"] not in {"0.1.0-candidate", "0.2.0-candidate", "0.3.0-candidate"}
+            catalog["version"]
+            not in {"0.1.0-candidate", "0.2.0-candidate", "0.3.0-candidate", "0.4.0-candidate"}
             or catalog["stage"] != stage
         ):
             raise ValueError("Invalid catalog version/stage")
@@ -373,6 +374,7 @@ def analyze_modes(
     snapshot: Path,
     modes: tuple[str, ...],
     expected_hash: str | None = None,
+    rules_dir: Path | None = None,
 ) -> list[dict[str, Any]]:
     """Match each source once, projecting identical per-mode evidence and IDs."""
     from copy import deepcopy
@@ -380,8 +382,8 @@ def analyze_modes(
     if not modes or any(mode not in MODES for mode in modes):
         raise ValueError("Supply valid prediction modes")
     if len(modes) == 1:
-        return [analyze(snapshot, modes[0], expected_hash=expected_hash)]
-    combined = analyze(snapshot, "combined", expected_hash=expected_hash)
+        return [analyze(snapshot, modes[0], rules_dir=rules_dir, expected_hash=expected_hash)]
+    combined = analyze(snapshot, "combined", rules_dir=rules_dir, expected_hash=expected_hash)
     manifest = json.loads((snapshot / "manifest.json").read_bytes())
     results = []
     for mode in modes:
