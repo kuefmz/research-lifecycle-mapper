@@ -1,5 +1,9 @@
 # Commands for tonight
 
+For the current **software.tar-only metadata evidence audit**, use
+[metadata_selection.md](metadata_selection.md). It does not require relation
+downloads and does not label unreviewed references as verified paper links.
+
 Run from the maintained main checkout after updating it. Use one live API runner at a time: different processes do not share the quota gate.
 
 ## Setup

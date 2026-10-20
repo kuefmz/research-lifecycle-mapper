@@ -203,6 +203,11 @@ def select_publications(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--candidates", type=Path, required=True)
+    parser.add_argument(
+        "--software-tar",
+        type=Path,
+        help="Inspect embedded metadata paper-association evidence; no relation downloads",
+    )
     parser.add_argument("--relations-dir", type=Path)
     parser.add_argument("--relations-tar", type=Path, action="append", default=[])
     parser.add_argument("--publication-tar", type=Path, action="append", default=[])
@@ -214,6 +219,20 @@ def main() -> None:
         sorted(args.relations_dir.glob("*.tar")) if args.relations_dir else []
     )
     try:
+        if args.software_tar:
+            if relations or args.publication_tar or args.relation_name:
+                raise ValueError("Choose software metadata or graph relations, not both")
+            from .metadata_publications import select_metadata
+
+            print(
+                json.dumps(
+                    select_metadata(
+                        args.candidates, args.software_tar, args.output, args.source_record
+                    ),
+                    indent=2,
+                )
+            )
+            return
         print(
             json.dumps(
                 select_publications(

@@ -126,30 +126,43 @@ def build_funnel(
         stage(name, len(cohort), "repositories", "set reconciliation; not sequential exclusions")
     evidenced = set(evidence)
     graph_publication_count = None
+    publication_status = ""
     if publication_extraction:
         graph_summary, graph_selected = extraction(publication_extraction)
         if graph_summary.get("candidate_summary_sha256") != file_hash(filtered / "summary.json"):
             raise ValueError("Publication selection must derive from this filtered extraction")
         if not graph_selected <= selected:
             raise ValueError("Publication selection is not a subset of description candidates")
-        graph_publication_count = len(graph_selected)
+        metadata_only = (
+            graph_summary["selection"].get("publication_evidence_mode")
+            == "software-metadata-text-v1"
+        )
+        graph_publication_count = None if metadata_only else len(graph_selected)
+        prefix = (
+            "metadata_association_candidates" if metadata_only else "publication_linked_description"
+        )
+        publication_status = (
+            "Unreviewed software metadata association candidates; publication linkage remains unverified"
+            if metadata_only
+            else "Explicit graph publication endpoints in supplied archives; archive coverage must be reported"
+        )
         stage(
-            "publication_linked_description",
+            prefix,
             len(graph_selected),
             "repositories",
-            "explicit graph publication endpoints in supplied archives",
+            publication_status,
         )
         stage(
-            "publication_linked_description_in_legacy",
+            prefix + "_in_legacy",
             len(graph_selected & old),
             "repositories",
-            "graph-selected overlap with historical cohort",
+            "selected overlap with historical cohort",
         )
         stage(
-            "publication_linked_description_in_benchmark",
+            prefix + "_in_benchmark",
             len(graph_selected & annotated),
             "repositories",
-            "graph-selected overlap with annotated cohort",
+            "selected overlap with annotated cohort",
         )
         if paper_links:
             raise ValueError("Use either graph publication extraction or supplied paper links")
@@ -281,14 +294,14 @@ def build_funnel(
             else len(selected & evidenced)
             if paper_links
             else None,
-            "publication_linkage_status": "Explicit graph publication endpoints in supplied archives; archive coverage must be reported"
+            "publication_linkage_status": publication_status
             if publication_extraction
             else "Supplied evidence; verify publication identifiers and relation semantics"
             if paper_links
             else "Pending; candidate count is not final eligible count",
             "union_role": "Exploratory reconciliation only; union does not establish all four eligibility criteria.",
         },
-        "paper_evidence_status": "Explicit graph publication endpoints in supplied archives"
+        "paper_evidence_status": publication_status
         if publication_extraction
         else "Supplied identifiers; not independently verified"
         if paper_links
