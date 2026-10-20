@@ -16,3 +16,30 @@ New corpus sizes come from the archive actually used, not a forced target count.
 Large raw software archives may exceed GitHub's ordinary per-file limit. Use Git LFS for data/raw/software.tar if retaining that archive in this repository. The exact upstream archive is already referenced by release and checksum. Generated results, snapshots and provenance remain under data/ for now. Never commit token files or private authentication material.
 
 No completed 105k run is distributed merely because the runner exists. Coverage and output inventories must reflect what has actually completed. See ../docs/data_availability.md for the anonymous review artifact and planned preserved DOI release.
+
+## Historical cohort and measured overlap
+
+`corpus/legacy_386_source.json` preserves the supplied historical JSON; it contains
+386 distinct normalized GitHub repositories and 1,732 `related_to` entries.
+These are supplied publication associations, not independently validated links.
+`corpus/legacy_386.txt` is the normalized list used by the funnel command.
+`corpus/legacy_paper_links.csv` exports supplied DOI/OpenAIRE identifiers for that
+command's optional evidence input. `corpus/metadata_association_repositories.txt`
+is the supplied new 322-repository list, byte-identical to its uploaded version.
+`corpus/overlap_legacy_metadata/` records exact inputs' hashes, membership, shared
+and exclusive lists: 36 shared, 350 historical-only, 286 current-only, 672 union.
+Case/deep links/.git are normalized; live rename aliases are not resolved.
+
+Reproduce the comparison without API access:
+
+```bash
+uv run --frozen python scripts/compare_repository_cohorts.py \
+  --legacy data/corpus/legacy_386_source.json \
+  --current data/corpus/metadata_association_repositories.txt \
+  --output data/corpus/overlap_legacy_metadata
+```
+
+This low overlap does not support an exact-reproduction claim. The new text
+filter and historical publication associations differ in evidence source; source
+release and intermediate selection differences have not been isolated. Repository
+membership does not establish accuracy or full acquisition coverage.
