@@ -1,18 +1,18 @@
 {
   "version": "2026-10-20-corrected-anonymous",
-  "workbook_sha256": "f4b43c905fde67735b82ebc5561a499041751917fd5cb5dc90bfc73741caa131",
+  "workbook_sha256": "fdf36c1e44a418c3dd7c2616e4c62e16b5e0d1bfef083917c50349ab65802a27",
   "sheet_count": 10,
   "sheet_names": [
     "reviewer1",
     "reviewer2",
     "agreement",
     "final_agreement",
-    "Hoja 11",
-    "Hoja 12",
-    "Hoja 13",
-    "Hoja 14",
-    "Hoja 15",
-    "Hoja 16"
+    "chatgpt_documentation",
+    "chatgpt_code",
+    "chatgpt_combined",
+    "heuristics_documentation",
+    "heuristics_code",
+    "heuristics_combined"
   ],
   "valid_independent_pairs": 600,
   "agreements": 354,
@@ -57,5 +57,5 @@
     }
   },
   "reference_scope": "documentation-only; jointly adjudicated final_agreement",
-  "preservation": "all ten sheets, cell values/formulas and style IDs preserved except requested pseudonyms and sheet-name references"
+  "preservation": "All ten sheets and all cell values, formulas and style IDs preserved; generic archive tabs renamed descriptively."
 }

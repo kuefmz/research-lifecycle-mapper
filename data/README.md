@@ -1,7 +1,7 @@
 # Data inventory and provenance
 
 - research_lifecycle_benchmark_100_msr27.xlsx: anonymous, corrected workbook with all ten source sheets. reviewer1 and reviewer2 are the two independent human annotations. agreement retains the source agreement calculations. final_agreement is the jointly adjudicated documentation-only reference.
-- Hoja 11 / Hoja 12 / Hoja 13 in the workbook: archived language-model documentation / code / combined tables, respectively. Hoja 14 / Hoja 15 / Hoja 16: archived heuristic documentation / code / combined tables. These source tabs are retained as supplied; they are not new results under the current branch policy.
+- chatgpt_documentation / chatgpt_code / chatgpt_combined in the workbook: archived language-model documentation / code / combined tables, respectively. heuristics_documentation / heuristics_code / heuristics_combined: archived heuristic documentation / code / combined tables. These source tables are retained with descriptive sheet names; they are not new results under the current branch policy.
 - research_lifecycle_benchmark_100_msr27.json: the same 100 repositories and 600 final labels, with the anonymous workbook checksum. Initial run histories are empty. Use a separate run directory to preserve the reference.
 - annotation_audit_20261020.json: corrected independent counts, per-stage agreement/kappa, workbook hash and preservation checks.
 - annotations_independent.csv: normalized independent labels, separate from final consensus labels.
