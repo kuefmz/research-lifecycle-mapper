@@ -8,7 +8,6 @@ import argparse
 import csv
 import gzip
 import hashlib
-import io
 import json
 import re
 import tarfile
@@ -24,6 +23,20 @@ RESERVED = set(
     "issues join login marketplace new notifications orgs organizations pricing pulls "
     "search security settings site sponsors topics trending users".split()
 )
+EXPERIMENT_MENTION = re.compile(r"\bexperiments?\b", re.IGNORECASE)
+
+
+def description_texts(value: Any) -> Iterator[str]:
+    """Read description strings, lists and explicit text/value wrappers only."""
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, list):
+        for item in value:
+            yield from description_texts(item)
+    elif isinstance(value, dict):
+        for key in ("text", "value", "$", "description"):
+            if key in value:
+                yield from description_texts(value[key])
 
 
 def file_hash(path: Path) -> str:
@@ -101,8 +114,9 @@ def software_records(path: Path) -> Iterator[tuple[str, int, dict[str, Any]]]:
                     if member.name.lower().endswith(".gz")
                     else extracted
                 )
-                with io.TextIOWrapper(source, encoding="utf-8", errors="strict") as stream:
-                    for line_no, line in enumerate(stream, 1):
+                with source:
+                    for line_no, raw_line in enumerate(source, 1):
+                        line = raw_line.decode("utf-8", errors="strict")
                         if not line.strip():
                             continue
                         try:
@@ -114,11 +128,27 @@ def software_records(path: Path) -> Iterator[tuple[str, int, dict[str, Any]]]:
                         yield member.name, line_no, record
 
 
-def extract(source: Path, output: Path, source_record: str) -> dict[str, Any]:
+def extract(
+    source: Path, output: Path, source_record: str, description_experiments: bool = False
+) -> dict[str, Any]:
     if not source.is_file():
         raise ValueError("Input software.tar does not exist")
     output.mkdir(parents=True, exist_ok=False)
     counts: Counter[str] = Counter()
+    if description_experiments:
+        counts.update(
+            dict.fromkeys(
+                [
+                    "records_with_description_text",
+                    "records_matching_description",
+                    "records_excluded_by_description",
+                    "selected_records_with_repository_field",
+                    "github_record_links",
+                    "rejected_url_values",
+                ],
+                0,
+            )
+        )
     repos: Counter[str] = Counter()
     links_path = output / "software_links.csv"
     with links_path.open("w", encoding="utf-8", newline="") as stream:
@@ -130,6 +160,19 @@ def extract(source: Path, output: Path, source_record: str) -> dict[str, Any]:
             values = [raw] if isinstance(raw, str) else raw if isinstance(raw, list) else []
             values = [v for v in values if isinstance(v, str) and v.strip()]
             counts["records_with_repository_field"] += bool(values)
+            if description_experiments:
+                texts = [
+                    text
+                    for field in ("description", "descriptions")
+                    for text in description_texts(record.get(field))
+                    if text.strip()
+                ]
+                counts["records_with_description_text"] += bool(texts)
+                if not any(EXPERIMENT_MENTION.search(text) for text in texts):
+                    counts["records_excluded_by_description"] += 1
+                    continue
+                counts["records_matching_description"] += 1
+                counts["selected_records_with_repository_field"] += bool(values)
             seen = set()
             for value in values:
                 url = normalize_github(value)
@@ -162,6 +205,17 @@ def extract(source: Path, output: Path, source_record: str) -> dict[str, Any]:
             for name in ("software_links.csv", "repositories.csv", "repositories.txt")
         },
     }
+    if description_experiments:
+        summary["selection"] = {
+            "fields": ["description", "descriptions"],
+            "pattern": EXPERIMENT_MENTION.pattern,
+            "case_sensitive": False,
+            "policy": "Match software record descriptions before repository deduplication; "
+            "missing/empty descriptions excluded; any matching record includes its repositories.",
+            "scope": "Experiment-mentioned software; not representative of all research software.",
+            "count_scope": "software_records and records_with_repository_field count all records; "
+            "github_record_links and rejected_url_values count selected records only.",
+        }
     write_json(output / "summary.json", summary)
     return summary
 
@@ -173,9 +227,22 @@ def main() -> None:
     parser.add_argument(
         "--source-record", required=True, help="Exact Zenodo release actually downloaded"
     )
+    parser.add_argument(
+        "--description-experiments",
+        action="store_true",
+        help="Keep records whose description mentions whole-word experiment or experiments "
+        "(case-insensitive), then deduplicate GitHub repositories",
+    )
     args = parser.parse_args()
     try:
-        print(json.dumps(extract(args.software_tar, args.output, args.source_record), indent=2))
+        print(
+            json.dumps(
+                extract(
+                    args.software_tar, args.output, args.source_record, args.description_experiments
+                ),
+                indent=2,
+            )
+        )
     except (ValueError, OSError) as exc:
         parser.exit(2, f"error: {exc}\n")
 

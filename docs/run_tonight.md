@@ -115,3 +115,41 @@ git push origin main
 The .gitattributes file already selects raw TAR archives for LFS. Verify that the anonymous mirror actually serves LFS-backed files before depending on those downloads for reviewers. A source URL/checksum is still required.
 
 See writing_tonight.md for the writing schedule and data_availability.md for truthful DOI wording.
+
+## Optional experiment-mentioned corpus
+
+Keep the full extraction unchanged. To select OpenAIRE software descriptions that
+mention the whole word `experiment` or `experiments` (case-insensitive), run:
+
+```bash
+uv run --frozen python -m lifecycle_mapper.openaire \
+  --software-tar data/raw/software.tar \
+  --source-record https://zenodo.org/records/20428976 \
+  --description-experiments \
+  --output data/corpus/openaire-experiments
+```
+
+Use the exact source record for your archive. The output directory must be new.
+This streams the local archive and does not use a GitHub token. Selection reads
+`description`/`descriptions` strings, lists, or explicit text/value wrappers;
+missing/empty descriptions are excluded. Titles, repository READMEs and heuristic
+predictions are not selection inputs. Matching happens before repository
+deduplication: any matching software record includes its linked repositories.
+`summary.json` records the selection rule, counts and hashes. A zero-match result
+is valid; inspect its counts before starting acquisition. This corpus represents
+experiment-mentioned software, not all research software. Do not apply this
+selection to the independently annotated accuracy benchmark.
+
+After checking the count, and after any other API runner has finished:
+
+```bash
+nohup uv run --frozen python -m lifecycle_mapper.corpus run \
+  --input data/corpus/openaire-experiments/repositories.csv \
+  --output data/runs/openaire-experiments-main-master \
+  --workers 2 --transport hybrid \
+  > data/runs/openaire-experiments-main-master.log 2>&1 &
+```
+
+Create `data/runs` first if it does not exist. Keep the `main`, otherwise `master`,
+branch policy. Repeat the run command to resume; do not overwrite extraction or
+mix differently selected inputs in one run directory.
