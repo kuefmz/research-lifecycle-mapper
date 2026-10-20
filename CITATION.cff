@@ -4,6 +4,5 @@ title: "Research Lifecycle Mapper"
 type: software
 version: 0.3.0
 license: MIT
-repository-code: "https://github.com/kuefmz/research-lifecycle-mapper"
 authors:
   - name: "Research Lifecycle Mapper contributors"

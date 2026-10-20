@@ -1,6 +1,6 @@
 # Candidate codebook — not human-adjudicated
 
-Jenifer and Esteban confirm jointly adjudicated final documentation labels (2026-10-20). The original human coding instructions have not been supplied as a versioned codebook, so the candidate operational definitions below must not be described as the approved human instructions. Stage order is fixed. Human annotation considers documentation only; code and other supported files form a separate evidence-expansion review. Final-label consensus is established even though this implementation-to-human-definition mapping remains to be documented.
+reviewer2 and reviewer1 confirm jointly adjudicated final documentation labels (2026-10-20). The original human coding instructions have not been supplied as a versioned codebook, so the candidate operational definitions below must not be described as the approved human instructions. Stage order is fixed. Human annotation considers documentation only; code and other supported files form a separate evidence-expansion review. Final-label consensus is established even though this implementation-to-human-definition mapping remains to be documented.
 
 | Stage | Candidate conceptual definition | Insufficient evidence |
 | --- | --- | --- |

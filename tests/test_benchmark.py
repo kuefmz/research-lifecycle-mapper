@@ -85,8 +85,8 @@ def annotation_source(tmp_path, change=None):
         row = dict(
             repository="owner/repo",
             stage=stage,
-            jenifer="1",
-            esteban="0" if index == 0 else "1",
+            reviewer2="1",
+            reviewer1="0" if index == 0 else "1",
             proposed_consensus="1",
             approved_consensus="",
             approval_reference="",
@@ -113,7 +113,7 @@ def test_annotation_import_preserves_source_and_provisional_status(tmp_path):
 @pytest.mark.parametrize(
     "mutation",
     [
-        lambda row, index: row.update(jenifer="maybe") if index == 0 else None,
+        lambda row, index: row.update(reviewer2="maybe") if index == 0 else None,
         lambda row, index: row.update(stage="Implementation") if index == 0 else None,
         lambda row, index: row.update(approved_consensus="1") if index == 0 else None,
         lambda row, index: row.update(stage="Collection") if index == 1 else None,

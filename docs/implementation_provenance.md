@@ -1,6 +1,6 @@
 # Upstream audit and implementation provenance
 
-Audited repository: https://github.com/kuefmz/research_artefacts_and_processes
+Audited repository: (upstream source withheld during anonymous review)
 
 Exact audited commit: `dfb22f9545860a99a57199975dd78a4d9cb80fea` (root commit).
 

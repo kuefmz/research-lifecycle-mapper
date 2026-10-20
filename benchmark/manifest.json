@@ -6,7 +6,6 @@
   "missing": [
     "actual sampling and 105k/386/100 selection/overlap documentation",
     "versioned human codebook and mapping to operational definitions",
-    "corrected original independent annotation version for refreshed reliability statistics",
     "annotation-time repository revisions or an explicit revision-drift limitation",
     "complete integrity-checked snapshot/provenance publication package",
     "independently blinded evaluation if confirmatory accuracy is claimed",

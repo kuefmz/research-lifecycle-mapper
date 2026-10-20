@@ -1,6 +1,8 @@
-# Research Lifecycle Mapper: implementation and measured comparison
+# Research Lifecycle Mapper: historical implementation and measured comparison
 
 Historical measurements/audit: retain the source version and denominators below. For current jointly adjudicated documentation reference status and source/code interpretation, see [2026-10-20 annotation status](annotation_status_20261020.md). No historical scores have been relabeled as new measurements.
+
+Current correction: the anonymous workbook now has 600 valid independent pairs, 354 agreements, 246 disagreements and no missing values. See annotation_status_20261020.md. The measurements below retain the earlier source version and acquisition policy.
 
 Run date: 2026-10-15 UTC. Reference: the user-approved `final_agreement` worksheet. These measurements concern detectable repository evidence, not whether research activities occurred or whether results are valid or reproducible.
 
@@ -14,7 +16,7 @@ Run date: 2026-10-15 UTC. Reference: the user-approved `final_agreement` workshe
 
 ## Human reference audit
 
-The connected [benchmark spreadsheet](https://docs.google.com/spreadsheets/d/1LZvDotVmgFIGUGCA8x8UD75cqVTNtlB1iWPX0Z6TV3M/edit) was exported read-only. `final_agreement` has header row 1, repository URLs in A2:A101 and six labels in B2:G101. Strict parsing verified 100 unique repositories and 600 binary labels, with no missing final labels or duplicate canonical identifiers. The source workbook was not modified. Notes/legend cells outside A:G are not label inputs.
+The connected [benchmark spreadsheet](data/research_lifecycle_benchmark_100_msr27.xlsx) was exported read-only. `final_agreement` has header row 1, repository URLs in A2:A101 and six labels in B2:G101. Strict parsing verified 100 unique repositories and 600 binary labels, with no missing final labels or duplicate canonical identifiers. The source workbook was not modified. Notes/legend cells outside A:G are not label inputs.
 
 | Stage | Positive | Negative | Prevalence |
 |---|---:|---:|---:|
@@ -40,7 +42,7 @@ Co-occurrence below counts repositories positive for both stages (diagonal = pre
 
 ### The 246 versus 247 discrepancy
 
-The two independent annotator sheets contain **599 valid binary pairs: 353 agreements and 246 disagreements**, plus one missing Method annotation. The missing cell is D61 in the second annotator sheet (`Hoja 10` in the XLSX export; Jenifer in the live spreadsheet), for `michael135/count-vector-paper-experiments`. The first annotation is 0; the second is blank. The `agreement` sheet marks this pair as 1 (agreement).
+The two independent annotator sheets contain **599 valid binary pairs: 353 agreements and 246 disagreements**, plus one missing Method annotation. The missing cell is D61 in the second annotator sheet (`Hoja 10` in the XLSX export; reviewer2 in the live spreadsheet), for `michael135/count-vector-paper-experiments`. The first annotation is 0; the second is blank. The `agreement` sheet marks this pair as 1 (agreement).
 
 Thus 247 arises if blank-versus-0 is counted as a disagreement; 246 counts only binary disagreements. The manuscript Table 2 reports 246 disagreements and 354 agreements over 600 decisions, reproducing the agreement-sheet treatment of the blank. The defensible observed result is 246/599 = 41.0684% disagreement on valid pairs, with one separately reported missing pair. Neither an agreement nor a disagreement can be inferred for that missing independent annotation. No source cell or consensus label was changed.
 

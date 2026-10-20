@@ -144,6 +144,8 @@ def predict_batch(
                     "repository": manifest["repository"],
                     "source_url": manifest["source_url"],
                     "commit": manifest["commit"],
+                    "selected_branch": manifest.get("selected_branch"),
+                    "branch_policy": manifest.get("branch_policy"),
                     "modes": analyzed,
                 }
             )

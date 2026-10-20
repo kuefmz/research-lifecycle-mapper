@@ -1,6 +1,9 @@
 # Final documentation reference ingestion
 
-Current status (2026-10-20): Jenifer and Esteban jointly reviewed and agreed on final_agreement after independent labeling. All 600 final labels are complete. See annotation_status_20261020.md. Earlier statements below describe the historical legacy importer, not unresolved current consensus.
+Current reference: the corrected anonymous workbook has 600 valid independent decisions, 354 agreements, 246 disagreements and no missing values. reviewer1 and reviewer2 jointly adjudicated final_agreement. See docs/annotation_status_20261020.md and data/annotation_audit_20261020.json. Live acquisitions use main, otherwise master, pinned to an immutable commit. Historical protocol descriptions below retain their original context.
+
+
+Current status (2026-10-20): reviewer2 and reviewer1 jointly reviewed and agreed on final_agreement after independent labeling. All 600 final labels are complete. See annotation_status_20261020.md. Earlier statements below describe the historical legacy importer, not unresolved current consensus.
 
 ## Historical legacy Agreement Final importer
 

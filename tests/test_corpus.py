@@ -107,10 +107,14 @@ def test_hybrid_uses_api_only_for_metadata_and_tree(monkeypatch, tmp_path):
 
     def api(endpoint):
         calls.append(endpoint)
-        if endpoint == "/repos/a/b":
-            return {"full_name": "a/b", "default_branch": "main"}
-        if "/commits/" in endpoint:
-            return {"sha": "a" * 40, "commit": {"tree": {"sha": "b" * 40}}}
+        if endpoint == "/repos/a/b/branches/main":
+            return {
+                "commit": {
+                    "sha": "a" * 40,
+                    "commit": {"tree": {"sha": "b" * 40}},
+                    "html_url": "https://github.com/a/b/commit/" + "a" * 40,
+                }
+            }
         if "/git/trees/" in endpoint:
             return {
                 "truncated": False,
@@ -131,7 +135,7 @@ def test_hybrid_uses_api_only_for_metadata_and_tree(monkeypatch, tmp_path):
     manifest = acquisition.acquire(
         "https://github.com/a/b", snapshot, blob_transport="raw", api_client=api
     )
-    assert len(calls) == 3
+    assert len(calls) == 2
     assert manifest["transport"] == "github-api-raw"
     acquisition.replay(snapshot)
 
@@ -213,11 +217,13 @@ def test_direct_head_resolution_and_documentation_only_download(monkeypatch, tmp
 
     def api(endpoint):
         calls.append(endpoint)
-        if "/commits/HEAD" in endpoint:
+        if "/branches/main" in endpoint:
             return {
-                "sha": "a" * 40,
-                "html_url": "https://github.com/renamed/repo/commit/" + "a" * 40,
-                "commit": {"tree": {"sha": "b" * 40}},
+                "commit": {
+                    "sha": "a" * 40,
+                    "html_url": "https://github.com/renamed/repo/commit/" + "a" * 40,
+                    "commit": {"tree": {"sha": "b" * 40}},
+                }
             }
         assert endpoint.startswith("/repos/renamed/repo/git/trees/")
         return {
@@ -322,8 +328,8 @@ def test_independent_import_computes_count_without_historical_constant(tmp_path)
             {
                 "repository": "a/b",
                 "stage": stage,
-                "jenifer": "1",
-                "esteban": "0" if i == 0 else "1",
+                "reviewer2": "1",
+                "reviewer1": "0" if i == 0 else "1",
                 "proposed_consensus": "",
                 "approved_consensus": "",
                 "approval_reference": "",

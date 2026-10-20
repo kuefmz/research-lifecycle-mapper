@@ -1,5 +1,8 @@
 # Research methodology and implementation status
 
+Current reference: the corrected anonymous workbook has 600 valid independent decisions, 354 agreements, 246 disagreements and no missing values. reviewer1 and reviewer2 jointly adjudicated final_agreement. See docs/annotation_status_20261020.md and data/annotation_audit_20261020.json. Live acquisitions use main, otherwise master, pinned to an immutable commit. Historical protocol descriptions below retain their original context.
+
+
 ## Task and evidence
 
 The unit of prediction is a GitHub software repository at one immutable commit. The output is a six-bit multi-label vector ordered Collection, Processing, Method, Experimentation, Evaluation, Dissemination. Zero positive labels is allowed. Stage definitions in `codebook.md` are candidates, not approved human definitions.
@@ -14,7 +17,7 @@ Rules and evidence are evaluated with fixed ordering. Qualifying file evidence i
 
 ## Human benchmark construction
 
-Jenifer and Esteban independently annotated 100 repositories over six stages and then reviewed the annotations together to create final_agreement, which both agree with (researcher confirmation, 2026-10-20). The final table is complete: 100 repositories, 600 binary labels. It is a documentation-only reference, not a source-code reference. See annotation_status_20261020.md for live verification, the still-visible original independent-cell discrepancy, and the distinction between initial reliability and final adjudication.
+reviewer2 and reviewer1 independently annotated 100 repositories over six stages and then reviewed the annotations together to create final_agreement, which both agree with (researcher confirmation, 2026-10-20). The final table is complete: 100 repositories, 600 binary labels. It is a documentation-only reference, not a source-code reference. See annotation_status_20261020.md for live verification, the still-visible original independent-cell discrepancy, and the distinction between initial reliability and final adjudication.
 
 The exact relationship among the OpenAIRE frame, 386 candidates and 100 annotated repositories still requires selection/overlap provenance. The older upstream frame identifies release 12819872, while a later researcher link identifies 20428976; use the archive actually downloaded and record its checksum. Historical annotation-time commits remain unknown.
 

@@ -1407,7 +1407,7 @@
   "source": {
     "file": "research_lifecycle_benchmark_100_msr27.xlsx",
     "repository_column": "A",
-    "sha256": "f47d9e85170b4b1db1c454bc3b7b9b033b6553cef001a7a518d3b3ded5c4b3ca",
+    "sha256": "f4b43c905fde67735b82ebc5561a499041751917fd5cb5dc90bfc73741caa131",
     "stage_columns": {
       "Collection": "B",
       "Dissemination": "G",

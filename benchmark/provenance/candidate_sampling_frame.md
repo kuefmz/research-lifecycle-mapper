@@ -2,7 +2,7 @@
 
 Inspected source documentation at commit `dfb22f9545860a99a57199975dd78a4d9cb80fea`:
 
-https://github.com/kuefmz/research_artefacts_and_processes/blob/dfb22f9545860a99a57199975dd78a4d9cb80fea/data/openaire_zenodo_12819872/summary.json
+(upstream source withheld during anonymous review)
 
 The upstream summary reports an OpenAIRE software archive from Zenodo record https://zenodo.org/records/12819872, named `software.tar`, size 122337280 bytes, SHA-256 `e4d47e3ff113cc324446634a1fb60090b44044a8395b2e374f77eadddc74378e`.
 

@@ -14,8 +14,8 @@ from .canonical import sha256, write_csv, write_json
 FIELDS = [
     "repository",
     "stage",
-    "jenifer",
-    "esteban",
+    "reviewer1",
+    "reviewer2",
     "proposed_consensus",
     "approved_consensus",
     "approval_reference",
@@ -109,7 +109,7 @@ def import_annotations(
             raise ValueError("Annotation repository must be owner/name")
         if item["stage"] not in STAGES:
             raise ValueError("Unknown lifecycle stage; Implementation is not Method")
-        for field in ["jenifer", "esteban"]:
+        for field in ["reviewer2", "reviewer1"]:
             if item[field] not in {"0", "1"}:
                 raise ValueError("Independent labels must be literal 0 or 1")
         for field in ["proposed_consensus", "approved_consensus"]:
@@ -125,7 +125,7 @@ def import_annotations(
     repositories = {row["repository"].lower() for row in normalized}
     if len(repositories) != expected_repositories or len(normalized) != expected_repositories * 6:
         raise ValueError("Annotation set must contain six labels per expected repository")
-    disagreements = [row for row in normalized if row["jenifer"] != row["esteban"]]
+    disagreements = [row for row in normalized if row["reviewer2"] != row["reviewer1"]]
     if expected_disagreements is not None and len(disagreements) != expected_disagreements:
         raise ValueError("Independent disagreement count differs from declared provenance")
     normalized.sort(key=lambda row: (row["repository"].lower(), STAGES.index(row["stage"])))
@@ -143,7 +143,7 @@ def import_annotations(
         "version": version,
         "original_checksum": sha256(raw),
         "original_filename": source.name,
-        "annotators": ["Jenifer", "Esteban"],
+        "annotators": ["reviewer1", "reviewer2"],
         "process": "independent-labeling-followed-by-human-adjudication",
         "repository_count": len(repositories),
         "pair_count": len(normalized),

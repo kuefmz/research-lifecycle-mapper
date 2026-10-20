@@ -1,30 +1,13 @@
-# Annotation status and evidence scope — 2026-10-20
+# Corrected annotation reference
 
-This note supersedes earlier statements that the final reference has not been adjudicated.
+Two independent reviewers annotated 100 repositories across six research-lifecycle stages using documentation only. They then reviewed the annotations jointly and agreed on final_agreement. The final 600 binary labels are the primary documentation reference.
 
-## Confirmed by the researchers
+The corrected reviewer2 Method value for michael135/count-vector-paper-experiments is 0. The current independent table has 600 valid pairs, 354 agreements (59%), 246 disagreements (41%) and no missing pairs. The corrected Method Cohen kappa is 0.07334385. Initial independent agreement remains separate from final consensus; do not report joint adjudication as independent 100% agreement.
 
-Jenifer states that, after the initial independent annotation/agreement phase, Jenifer and Esteban reviewed the annotations together and agreed on the final_agreement worksheet. Treat those final labels as the jointly adjudicated documentation reference. Human annotation considers documentation only. This confirmation does not establish that an operational classifier codebook is identical to the original human instructions, that sampling is random, or that historical repository commits are known.
+The workbook has all ten sheets. Human reviewer tabs are reviewer1 and reviewer2. The other eight tabs, their cells, formulas, styles, notes/legends, and final labels are retained. Spreadsheet export shortened several original tab names; their purposes are documented in data/README.md. No mapping from pseudonyms to personal identities is distributed. The original connected workbook was not modified.
 
-## Verified against the exact connected source
+The anonymous workbook hash, corrected independent counts and per-stage kappas are in data/annotation_audit_20261020.json. The bundled JSON is regenerated from the anonymous workbook and checksum-bound to it; every final label is unchanged.
 
-Read final_agreement!A1:G101 and both named independent annotator tabs on 2026-10-20. The final table has 100 unique repository identities and 600 literal binary labels, with stage positives 36, 44, 71, 88, 66, 79. Every final label matches the bundled JSON. No reference labels or source cells were changed.
+Primary evaluation compares documentation-only predictions against final_agreement. Code evidence is separately reviewed. A documentation detector false negative remains a detector error even if code supports the stage. A code-positive/documentation-negative pair is a candidate omission, confirmed only after human review of both the source evidence and the full documentation scope. Unknown acquisition status is not absence.
 
-Jenifer reports that the missing record has been fixed. In the connected source read during this update, research_lifecycle_benchmark_100_jenifer!D61 still returns an empty value for Method at michael135/count-vector-paper-experiments. This is an unresolved source/version discrepancy, not an unresolved final consensus label. The current observed independent table yields 599 valid pairs, 353 agreements, 246 disagreements and one missing pair. Do not infer whether its eventual correction is 0 or 1. Re-audit the corrected original before updating initial agreement/kappa. A later correction informed by adjudication must not be described as an original independent judgment unless that history is established.
-
-The current final labels are complete and agreed regardless of that historical independent-cell issue. They are the primary documentation reference. Historical 2026-10-15 measurements retain their original denominators and source checksum.
-
-## What the evaluation means
-
-1. Compare documentation-only predictions with final_agreement. A disagreement is a documentation classifier error (or unknown when acquisition is incomplete), subject to manual evidence review.
-2. Review source-code detections separately. No documentation classifier match is not sufficient proof that documentation contains no relevant information.
-3. A human documentation label of 0 plus manually validated relevant source evidence is a candidate documentation omission. Review the full documentation scope before confirming it.
-4. A human label of 1 with documentation prediction 0 remains a documentation false negative even if code detects the activity.
-5. Code-only or combined agreement against documentation labels is not independently validated code accuracy. Use those modes for evidence expansion; do not optimize them to erase documentation errors.
-6. Other files are supplementary only to the extent actually supported. The current classifier does not cover notebooks, PDFs, configuration files or all programming languages. A research activity match is not evidence of execution or reproducibility.
-
-Keep initial inter-rater agreement separate from final adjudication. Joint consensus does not make the initial independent agreement 100%.
-
-## Evidence review table
-
-For each repository-stage, retain the documentation label/prediction, documentation completeness, code prediction, commit-pinned path/lines/excerpt, reviewer decisions, and final category: documentation detector error; confirmed additional source evidence; irrelevant/static-code false positive; ambiguous; unsupported/unavailable. Count repository-stage discoveries separately from multiple matching occurrences.
+Historical measurements remain dated and retain their original input versions; they must not be relabeled as results under the current branch policy.

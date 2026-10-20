@@ -73,6 +73,11 @@ def selected_records(
     if shard_count < 1 or not 0 <= shard_index < shard_count:
         raise ValueError("Require 0 <= shard-index < shard-count")
     records = read_inputs(input_path)
+    if any(row.get("ref") not in {None, "", "main"} for row in records):
+        raise ValueError(
+            "Corpus acquisition uses main, otherwise master; input refs cannot override it"
+        )
+    records = [{**row, "ref": "main"} for row in records]
     if sample is not None:
         if not 1 <= sample <= len(records):
             raise ValueError("Invalid pilot/sample size")
@@ -95,7 +100,10 @@ def run_repository(
     api: PacedAPI,
     retry_failed: bool,
 ) -> dict[str, Any]:
-    key = sha256(json_bytes([record["url"].casefold(), record.get("ref")]))
+    if record.get("ref") not in {None, "", "main"}:
+        raise ValueError("Corpus acquisition uses main, otherwise master")
+    record = {**record, "ref": "main"}
+    key = sha256(json_bytes([record["url"].casefold(), "main-then-master-v1"]))
     directory = output / "repositories" / key
     directory.mkdir(parents=True, exist_ok=True)
     result_path = directory / "result.json"
@@ -126,6 +134,8 @@ def run_repository(
     try:
         if (snapshot / "manifest.json").exists():
             manifest, _ = acquisition.replay(snapshot)
+            if manifest.get("branch_policy") != "main-then-master-v1":
+                raise ValueError("Snapshot does not attest the current branch policy")
         elif transport == "git":
             manifest = acquire_git(record["url"], snapshot, record.get("ref"), max_bytes)
         else:
@@ -150,6 +160,8 @@ def run_repository(
         result.update(
             repository=manifest["repository"],
             commit=manifest["commit"],
+            selected_branch=manifest.get("selected_branch"),
+            branch_policy=manifest.get("branch_policy"),
             snapshot=str(snapshot.relative_to(output)),
             snapshot_sha256=snapshot_hash,
             inventory_entries=len(manifest["files"]),
@@ -201,6 +213,7 @@ def run_corpus(
         "selection_sha256": sha256(json_bytes(records)),
         "repository_count": len(records),
         "transport": transport,
+        "branch_policy": "main-then-master-v1",
         "modes": list(modes),
         "max_bytes": max_bytes,
         "catalog_sha256": load_rules()[1],
@@ -320,7 +333,15 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
         pw, cw, aw = csv.writer(predictions), csv.writer(comparison), csv.writer(additions)
         pw.writerow(["repository", "commit", "mode", "stage", "prediction", "scan_complete"])
         cw.writerow(
-            ["repository", "commit", "stage", "human_documentation", "prediction", "outcome"]
+            [
+                "repository",
+                "commit",
+                "stage",
+                "human_documentation",
+                "prediction",
+                "outcome",
+                "scan_complete",
+            ]
         )
         aw.writerow(
             [
@@ -388,6 +409,7 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
                             expected,
                             "" if observed is None else int(observed),
                             outcome,
+                            docs["scan_complete"],
                         ]
                     )
                 if code and observed is not True:

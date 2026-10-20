@@ -18,6 +18,8 @@ from .canonical import contained, sha256, write_json
 def acquire_git(
     url: str, output: Path, ref: str | None = None, max_bytes: int = 250_000
 ) -> dict[str, Any]:
+    if ref not in {None, "", "main"}:
+        raise ValueError("Live acquisition uses main, otherwise master; no other ref is accepted")
     repo = repository_id(url)
     if output.exists() or max_bytes < 1:
         raise ValueError("Snapshot must be new and max_bytes positive")
@@ -40,22 +42,45 @@ def acquire_git(
             except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
                 raise OSError("Git acquisition failed or timed out") from exc
 
+        heads = (
+            git(
+                "ls-remote",
+                "--heads",
+                "--",
+                f"https://github.com/{repo}.git",
+                "refs/heads/main",
+                "refs/heads/master",
+            )
+            .decode()
+            .splitlines()
+        )
+        names = {line.split()[1] for line in heads if len(line.split()) == 2}
+        selected_branch = (
+            "main"
+            if "refs/heads/main" in names
+            else "master"
+            if "refs/heads/master" in names
+            else None
+        )
+        if selected_branch is None:
+            raise OSError("Neither main nor master branch is available")
         git(
             "clone",
             "--quiet",
             "--depth=1",
+            "--single-branch",
+            f"--branch={selected_branch}",
             f"--filter=blob:limit={max_bytes}",
             "--no-checkout",
             "--",
             f"https://github.com/{repo}.git",
             str(checkout),
         )
-        if ref:
-            if ref.startswith("-") or any(c in ref for c in "\r\n\x00"):
-                raise ValueError("Invalid Git ref")
-            git("-C", str(checkout), "fetch", "--quiet", "--depth=1", "origin", ref)
+        # A tag with the same name cannot substitute for this remote branch.
         commit = (
-            git("-C", str(checkout), "rev-parse", "FETCH_HEAD" if ref else "HEAD").decode().strip()
+            git("-C", str(checkout), "rev-parse", f"refs/remotes/origin/{selected_branch}")
+            .decode()
+            .strip()
         )
         tree = git("-C", str(checkout), "rev-parse", f"{commit}^{{tree}}").decode().strip()
         raw = git("-C", str(checkout), "ls-tree", "-r", "-l", "-z", commit)
@@ -109,7 +134,9 @@ def acquire_git(
             "redistribution": "not-reviewed",
             "synthetic": False,
             "transport": "git-partial-clone",
-            "requested_ref": ref,
+            "requested_ref": selected_branch,
+            "selected_branch": selected_branch,
+            "branch_policy": "main-then-master-v1",
             "acquired_at": datetime.now(timezone.utc).isoformat(),
         }
         write_json(output / "manifest.json", manifest)

@@ -12,3 +12,7 @@ pytest-of-root/
 configs/local-*.yaml
 data/*.json.lock
 data/*.json.*.tmp
+
+# Generated scientific data stay versionable; only transient state is ignored.
+data/**/.corpus.lock
+data/**/*.tmp

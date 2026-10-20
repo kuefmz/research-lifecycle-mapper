@@ -1,5 +1,8 @@
 # Benchmark protocol
 
+Current reference: the corrected anonymous workbook has 600 valid independent decisions, 354 agreements, 246 disagreements and no missing values. reviewer1 and reviewer2 jointly adjudicated final_agreement. See docs/annotation_status_20261020.md and data/annotation_audit_20261020.json. Live acquisitions use main, otherwise master, pinned to an immutable commit. Historical protocol descriptions below retain their original context.
+
+
 The executable research benchmark lives in `benchmark/manifest.json` and is currently explicitly pending. This is the historical formal publication manifest. The current workbook/reference and pinned captures are available in the private result package, with an observed comparison route described in the V3 report; independently approved codebook and original sampling provenance remain absent. Synthetic data is located under `benchmark/synthetic/` and its outputs under `benchmark/results/synthetic-v1/`.
 
 Required research manifest fields are described in `benchmark/provenance/import_specification.md`. Config paths are relative to the project root; configs must live directly in `<project>/configs/`. Snapshot/provenance paths are relative to the manifest directory. Traversal outside these roots is rejected; place input files under the benchmark directory instead of using `..` paths. Outputs are new directories and never overwrite existing runs.

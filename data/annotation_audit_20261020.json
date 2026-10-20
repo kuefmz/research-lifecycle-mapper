@@ -1,0 +1,61 @@
+{
+  "version": "2026-10-20-corrected-anonymous",
+  "workbook_sha256": "f4b43c905fde67735b82ebc5561a499041751917fd5cb5dc90bfc73741caa131",
+  "sheet_count": 10,
+  "sheet_names": [
+    "reviewer1",
+    "reviewer2",
+    "agreement",
+    "final_agreement",
+    "Hoja 11",
+    "Hoja 12",
+    "Hoja 13",
+    "Hoja 14",
+    "Hoja 15",
+    "Hoja 16"
+  ],
+  "valid_independent_pairs": 600,
+  "agreements": 354,
+  "disagreements": 246,
+  "missing_pairs": 0,
+  "stages": {
+    "Collection": {
+      "valid_pairs": 100,
+      "agreements": 53,
+      "disagreements": 47,
+      "cohen_kappa": 0.20661715057393654
+    },
+    "Processing": {
+      "valid_pairs": 100,
+      "agreements": 55,
+      "disagreements": 45,
+      "cohen_kappa": 0.13925019127773536
+    },
+    "Method": {
+      "valid_pairs": 100,
+      "agreements": 53,
+      "disagreements": 47,
+      "cohen_kappa": 0.07334384858044167
+    },
+    "Experimentation": {
+      "valid_pairs": 100,
+      "agreements": 72,
+      "disagreements": 28,
+      "cohen_kappa": 0.12554653341661465
+    },
+    "Evaluation": {
+      "valid_pairs": 100,
+      "agreements": 53,
+      "disagreements": 47,
+      "cohen_kappa": 0.10510281797410516
+    },
+    "Dissemination": {
+      "valid_pairs": 100,
+      "agreements": 68,
+      "disagreements": 32,
+      "cohen_kappa": 0.1756826378155591
+    }
+  },
+  "reference_scope": "documentation-only; jointly adjudicated final_agreement",
+  "preservation": "all ten sheets, cell values/formulas and style IDs preserved except requested pseudonyms and sheet-name references"
+}

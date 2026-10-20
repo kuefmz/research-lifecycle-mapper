@@ -141,9 +141,9 @@ def validate_manifest(path: Path, role: str, development_repositories: list[str]
                 or row["approved_consensus"] != str(gold[pair])
             ):
                 raise ValueError("Manifest labels differ from approved annotation table")
-            if row["jenifer"] not in {"0", "1"} or row["esteban"] not in {"0", "1"}:
+            if row["reviewer2"] not in {"0", "1"} or row["reviewer1"] not in {"0", "1"}:
                 raise ValueError("Invalid independent annotation")
-            disagreements += row["jenifer"] != row["esteban"]
+            disagreements += row["reviewer2"] != row["reviewer1"]
             seen.add(pair)
         if seen != set(gold) or disagreements != provenance["initial_disagreements"]:
             raise ValueError("Incomplete gold table or disagreement provenance mismatch")

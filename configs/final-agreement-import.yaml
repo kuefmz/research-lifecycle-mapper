@@ -1,7 +1,7 @@
 {
   "worksheet": "final_agreement",
   "layout": "wide",
-  "version": "final-agreement-2026-10-15-v1",
+  "version": "final-agreement-2026-10-20-anonymous-v1",
   "expected_repositories": 100,
   "header_row": 1,
   "repository_column": "A",
@@ -29,5 +29,5 @@
     "0.0": 0,
     "1.0": 1
   },
-  "note": "Verified against connected workbook on 2026-10-15; row identity is worksheet plus physical row. Numeric Excel 0.0/1.0 accepted explicitly."
+  "note": "Verified against the corrected anonymous workbook on 2026-10-20; row identity is worksheet plus physical row. Numeric Excel 0.0/1.0 accepted explicitly."
 }

@@ -2,12 +2,20 @@
 
 A local UI and CLI for deterministic, inspectable **evidence** of Collection, Processing, Method, Experimentation, Evaluation and Dissemination in GitHub repositories. These are six independent binary labels. A match does not establish that an activity actually occurred, that research is scientifically valid, or that a repository is reproducible.
 
+## Submission and overnight runs
+
+Start with [the exact run commands](docs/run_tonight.md) and [the six-hour writing plan](docs/writing_tonight.md). Live acquisition uses **main, otherwise master only**, resolved once to an immutable commit. See [branch policy](docs/branch_policy.md).
+
+The corrected workbook contains **all ten sheets**, with human tabs reviewer1 and reviewer2. There are 600 valid independent decisions: 354 agreements and 246 disagreements, with no missing values. Final documentation labels were jointly adjudicated. See [data inventory](data/README.md), [annotation audit](data/annotation_audit_20261020.json) and [research workflow](docs/research_workflow.md).
+
+Generated scientific inputs/results stay under versionable data/ paths. This source tree uses anonymous identifiers; its original hosting account and historical Git metadata remain identifying. Use the [anonymous artifact instructions](docs/anonymity.md) for the submission and [truthful DOI availability wording](docs/data_availability.md).
+
 ## Install and start
 
 Requires Git and Python **3.12**. Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 
 ```bash
-git clone --single-branch --branch main https://github.com/kuefmz/research-lifecycle-mapper.git
+# Download and extract the anonymous submission archive.
 cd research-lifecycle-mapper
 uv python install 3.12.14
 uv sync --frozen
@@ -16,7 +24,7 @@ uv run --frozen python -m lifecycle_mapper ui
 
 Open **http://127.0.0.1:8000**. To update an existing checkout, use `git pull --ff-only` before `uv sync --frozen`. The maintained branch is `main`. Windows PowerShell uses the same Git/uv commands. Dependencies and Python/uv versions are pinned; production code uses the Python standard library.
 
-* **Analyze a repository:** paste a public repository URL, optionally choose a branch/tag/commit, and compare all three evidence modes. The revision resolves once to an immutable commit. Repository code is never executed.
+* **Analyze a repository:** paste a public repository URL, use main, falling back only to master, and compare all three evidence modes. The selected branch resolves once to an immutable commit; no other branch, tag or HEAD is substituted. Repository code is never executed.
 * **Run the benchmark:** upload the original workbook, CSV, JSON or URL text. The verified workbook uses `final_agreement`, URL column **A**, header row **1**, and labels **B:G**. Preview the mapping. The original workbook is never modified. The legacy `Agreement Final` upload is also supported.
 * **Review:** one overview row per repository, six predictions and human labels where available, mismatches, documentation/code/unique counts, status and errors. Filter by repository, stage-specific minimum count, mismatches or partial scans; sort by repository, mismatches or evidence. Click a row for the six-stage count table, file breakdown and complete evidence table.
 * **Previous runs:** reopen saved runs after restarting, or import an exported `results.json`. Imported JSON restores review, not missing snapshots. Offline replay requires the original run directory and captured snapshots.
@@ -78,7 +86,7 @@ Git transport requires a partial-clone-capable Git/server and can be slower for 
 ## Single repository, modes and evidence
 
 ```bash
-uv run --frozen python -m lifecycle_mapper acquire https://github.com/OWNER/REPO --ref main --snapshot local/snapshots/example
+uv run --frozen python -m lifecycle_mapper acquire https://github.com/OWNER/REPO --snapshot local/snapshots/example
 uv run --frozen python -m lifecycle_mapper analyze --snapshot local/snapshots/example --mode combined --output local/example.json
 ```
 
@@ -98,7 +106,7 @@ Keep the **whole run directory** to replay captured input. From the UI choose **
 
 ## Current research scope and corpus execution
 
-Jenifer and Esteban jointly reviewed and agreed on final_agreement after independent annotation. The 600 final labels describe documentation only. Documentation-only predictions are the primary accuracy evaluation; source-code matches are separate evidence-expansion candidates, not automatic corrections to gold. See [current annotation status](docs/annotation_status_20261020.md), including the discrepancy between the reported historical-cell correction and the connected original tab.
+reviewer2 and reviewer1 jointly reviewed and agreed on final_agreement after independent annotation. The 600 final labels describe documentation only. Documentation-only predictions are the primary accuracy evaluation; source-code matches are separate evidence-expansion candidates, not automatic corrections to gold. See [current annotation status](docs/annotation_status_20261020.md), including the discrepancy between the reported historical-cell correction and the connected original tab.
 
 For the local software.tar extractor, two-call API/raw acquisition, bounded resumable corpus execution, pilot commands and runtime estimates, see [corpus execution](docs/corpus.md). The new runner preserves existing detector rules and computes all requested source modes in one matching pass. See [the ten-page MSR paper plan](docs/paper_plan_msr2027.md).
 
@@ -132,4 +140,4 @@ PowerShell: set `$env:RLM_BROWSER_TEST='1'` before the last command. Optional DO
 
 [Methodology](docs/methodology.md) · [Evaluation protocol](docs/evaluation_protocol.md) · [Rule-change protocol](docs/rule_change_protocol.md) · [Limitations](docs/limitations.md) · [Implementation provenance](docs/implementation_provenance.md)
 
-The separate upstream `kuefmz/research_artefacts_and_processes` is not modified. Its previously inspected tree declared no license; no upstream source was copied.
+The separate upstream `upstream research-software prototype` is not modified. Its previously inspected tree declared no license; no upstream source was copied.

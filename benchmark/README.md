@@ -1,8 +1,11 @@
 # Benchmark inputs and status
 
+Current reference: the corrected anonymous workbook has 600 valid independent decisions, 354 agreements, 246 disagreements and no missing values. reviewer1 and reviewer2 jointly adjudicated final_agreement. See docs/annotation_status_20261020.md and data/annotation_audit_20261020.json. Live acquisitions use main, otherwise master, pinned to an immutable commit. Historical protocol descriptions below retain their original context.
+
+
 The 100-repository human benchmark is **not available** in this repository. Its manifest is pending and the research command fails explicitly. Do not replace it with synthetic labels or upstream heuristic caches.
 
-The research brief reports independent labeling by Jenifer and Esteban, 600 repository-stage pairs and 247 initial disagreements. These counts are not yet verified from original data. Human adjudication and approval are required before final gold labels can be evaluated.
+The research brief reports independent labeling by reviewer2 and reviewer1, 600 repository-stage pairs and 247 initial disagreements. These counts are not yet verified from original data. Human adjudication and approval are required before final gold labels can be evaluated.
 
 Available inputs: a five-repository synthetic benchmark, original test-content snapshots, synthetic labels, configuration and generated synthetic reference artifacts. Synthetic SHA-shaped revisions and repository identifiers are explicitly fabricated fixture identities, not historical research revisions. Their evidence links are format examples, not live evidence locations.
 

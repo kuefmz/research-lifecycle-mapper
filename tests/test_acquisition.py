@@ -71,10 +71,14 @@ def test_live_resolves_commit_and_captures_errors(monkeypatch, tmp_path):
 
     def fake(endpoint):
         calls.append(endpoint)
-        if endpoint == "/repos/owner/repo":
-            return {"full_name": "Owner/Repo", "default_branch": "main"}
-        if endpoint == "/repos/Owner/Repo/commits/main":
-            return {"sha": immutable, "commit": {"tree": {"sha": "b" * 40}}}
+        if endpoint == "/repos/owner/repo/branches/main":
+            return {
+                "commit": {
+                    "sha": immutable,
+                    "commit": {"tree": {"sha": "b" * 40}},
+                    "html_url": "https://github.com/Owner/Repo/commit/" + immutable,
+                }
+            }
         if "/git/trees/" in endpoint:
             return {
                 "tree": [
@@ -114,10 +118,14 @@ def test_truncated_tree_aborts(monkeypatch, tmp_path):
     from lifecycle_mapper import acquisition
 
     def fake(endpoint):
-        if endpoint.endswith("/owner/repo"):
-            return {"full_name": "owner/repo", "default_branch": "main"}
-        if "/commits/" in endpoint:
-            return {"sha": "a" * 40, "commit": {"tree": {"sha": "b" * 40}}}
+        if "/branches/main" in endpoint:
+            return {
+                "commit": {
+                    "sha": "a" * 40,
+                    "commit": {"tree": {"sha": "b" * 40}},
+                    "html_url": "https://github.com/owner/repo/commit/" + "a" * 40,
+                }
+            }
         return {"truncated": True}
 
     monkeypatch.setattr(acquisition, "api_get", fake)

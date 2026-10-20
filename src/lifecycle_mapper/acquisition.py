@@ -230,27 +230,31 @@ def acquire(
         raise ValueError("max_bytes must be positive")
     if blob_transport not in {"api", "raw"}:
         raise ValueError("Blob transport must be api or raw")
+    if ref not in {None, "", "main"}:
+        raise ValueError("Live acquisition uses main, otherwise master; no other ref is accepted")
     getter = api_client or api_get
     requested = repository_id(url)
     if not sources or any(source not in {"documentation", "code"} for source in sources):
         raise ValueError("Invalid acquisition sources")
-    if resolve_head_direct:
-        commit = getter(f"/repos/{requested}/commits/{quote(ref or 'HEAD', safe='')}")
-        link = urlparse(commit["html_url"])
-        suffix = "/commit/" + commit["sha"]
-        if (
-            link.scheme != "https"
-            or link.hostname != "github.com"
-            or not link.path.endswith(suffix)
-        ):
-            raise ValueError("Invalid canonical commit URL")
-        repo = repository_id("https://github.com" + link.path[: -len(suffix)])
-    else:
-        metadata = getter(f"/repos/{requested}")
-        repo = metadata["full_name"]
-        commit = getter(
-            f"/repos/{repo}/commits/{quote(ref or metadata['default_branch'], safe='')}"
-        )
+    selected_branch = "main"
+    try:
+        branch = getter(f"/repos/{requested}/branches/main")
+    except GitHubAPIError as exc:
+        if exc.status != 404:
+            raise
+        selected_branch = "master"
+        try:
+            branch = getter(f"/repos/{requested}/branches/master")
+        except GitHubAPIError as fallback_exc:
+            if fallback_exc.status == 404:
+                raise GitHubAPIError("main-and-master-not-found-or-inaccessible", 404) from None
+            raise
+    commit = branch["commit"]
+    link = urlparse(commit["html_url"])
+    suffix = "/commit/" + commit["sha"]
+    if link.scheme != "https" or link.hostname != "github.com" or not link.path.endswith(suffix):
+        raise ValueError("Invalid canonical commit URL")
+    repo = repository_id("https://github.com" + link.path[: -len(suffix)])
     commit_sha = commit["sha"]
     inventory = tree_inventory(repo, commit["commit"]["tree"]["sha"], getter)
     output.mkdir(parents=True)
@@ -325,7 +329,9 @@ def acquire(
         "redistribution": "not-reviewed",
         "synthetic": False,
         "transport": "github-api-raw" if blob_transport == "raw" else "github-api",
-        "requested_ref": ref,
+        "requested_ref": selected_branch,
+        "selected_branch": selected_branch,
+        "branch_policy": "main-then-master-v1",
         "acquired_at": datetime.now(timezone.utc).isoformat(),
     }
     write_json(output / "manifest.json", manifest)

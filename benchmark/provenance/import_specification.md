@@ -5,7 +5,7 @@
 XLSX requires a worksheet named `annotations` with these exact headers in this order. CSV uses UTF-8 and the same schema:
 
 ```csv
-repository,stage,jenifer,esteban,proposed_consensus,approved_consensus,approval_reference
+repository,stage,reviewer2,reviewer1,proposed_consensus,approved_consensus,approval_reference
 ```
 
 No actual annotation rows are included in this specification. `repository` is `owner/name`; stage is exactly one of Collection, Processing, Method, Experimentation, Evaluation, Dissemination. There must be one row per repository-stage, no duplicates, exactly 100 repositories/600 rows, and all six stages per repository. Independent labels are literal `0` or `1`. Proposed/approved consensus may be empty, `0` or `1`. Approved values require an explicit nonempty approval reference, and a reference without an approved label is rejected. Formulas are rejected rather than reading potentially stale cached values. A workbook in a different layout must first be explicitly mapped to this schema; retain its original checksum and the transformation provenance separately.

@@ -275,7 +275,9 @@ def test_git_transport_immutable_capture_and_replay(tmp_path, monkeypatch):
 
     def fake_run(args, **kwargs):
         calls.append(args)
-        if "clone" in args:
+        if "ls-remote" in args:
+            value = ("a" * 40 + "\trefs/heads/main\n").encode()
+        elif "clone" in args:
             Path(args[-1]).mkdir(parents=True)
             value = b""
         elif "rev-parse" in args:
