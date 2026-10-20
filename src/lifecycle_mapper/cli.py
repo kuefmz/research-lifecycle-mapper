@@ -126,7 +126,7 @@ def main() -> None:
     importer.add_argument("--output", type=Path, required=True)
     importer.add_argument("--version", required=True)
     importer.add_argument("--expected-repositories", type=int, default=100)
-    importer.add_argument("--expected-disagreements", type=int, default=247)
+    importer.add_argument("--expected-disagreements", type=int)
     args = parser.parse_args()
     try:
         if args.command == "ui":

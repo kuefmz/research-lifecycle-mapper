@@ -367,3 +367,69 @@ def analyze(
         "inventory_complete": manifest["inventory_complete"],
         "interpretation": "candidate; absence of a match is not proof of absence of an activity",
     }
+
+
+def analyze_modes(
+    snapshot: Path,
+    modes: tuple[str, ...],
+    expected_hash: str | None = None,
+) -> list[dict[str, Any]]:
+    """Match each source once, projecting identical per-mode evidence and IDs."""
+    from copy import deepcopy
+
+    if not modes or any(mode not in MODES for mode in modes):
+        raise ValueError("Supply valid prediction modes")
+    if len(modes) == 1:
+        return [analyze(snapshot, modes[0], expected_hash=expected_hash)]
+    combined = analyze(snapshot, "combined", expected_hash=expected_hash)
+    manifest = json.loads((snapshot / "manifest.json").read_bytes())
+    results = []
+    for mode in modes:
+        if mode == "combined":
+            results.append(combined)
+            continue
+        source = "documentation" if mode == "documentation-only" else "code"
+        run_id = sha256(
+            json_bytes([combined["snapshot_hash"], combined["rule_catalog_hash"], mode])
+        )
+        evidence = deepcopy([e for e in combined["evidence"] if e["source"] == source])
+        excluded = deepcopy([e for e in combined["excluded_evidence"] if e["source"] == source])
+        for record in evidence + excluded:
+            record["run_id"] = run_id
+        eligible = [f for f in manifest["files"] if f["source"] == source]
+        unavailable = [f for f in eligible if f["status"] == "unavailable"]
+        errors = combined["analysis_errors"] if source == "code" else []
+        complete = manifest["inventory_complete"] is True and not unavailable and not errors
+        labels = [s for s in STAGES if any(e["stage"] == s for e in evidence)]
+        results.append(
+            {
+                **combined,
+                "run_id": run_id,
+                "mode": mode,
+                "predictions": {
+                    stage: True if stage in labels else False if complete else None
+                    for stage in STAGES
+                },
+                "evidence_counts": {
+                    stage: {
+                        "documentation": sum(
+                            e["stage"] == stage and e["source"] == "documentation" for e in evidence
+                        ),
+                        "code": sum(
+                            e["stage"] == stage and e["source"] == "code" for e in evidence
+                        ),
+                        "overall": sum(e["stage"] == stage for e in evidence),
+                    }
+                    for stage in STAGES
+                },
+                "labels": labels,
+                "evidence": evidence,
+                "excluded_evidence": excluded,
+                "scan_complete": complete,
+                "analysis_errors": errors,
+                "eligible_files": len(eligible),
+                "captured_files": sum(f["status"] == "captured" for f in eligible),
+                "unavailable_files": len(unavailable),
+            }
+        )
+    return results

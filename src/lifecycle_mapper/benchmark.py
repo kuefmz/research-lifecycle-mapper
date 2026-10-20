@@ -108,7 +108,8 @@ def validate_manifest(path: Path, role: str, development_repositories: list[str]
             provenance.get("gold_status") != "approved"
             or provenance.get("repository_count") != 100
             or provenance.get("pair_count") != 600
-            or provenance.get("initial_disagreements") != 247
+            or type(provenance.get("initial_disagreements")) is not int
+            or not 0 <= provenance["initial_disagreements"] <= 600
         ):
             raise ValueError(
                 "Human annotation provenance is not approved or does not match declared benchmark"
@@ -144,14 +145,14 @@ def validate_manifest(path: Path, role: str, development_repositories: list[str]
                 raise ValueError("Invalid independent annotation")
             disagreements += row["jenifer"] != row["esteban"]
             seen.add(pair)
-        if seen != set(gold) or disagreements != 247:
+        if seen != set(gold) or disagreements != provenance["initial_disagreements"]:
             raise ValueError("Incomplete gold table or disagreement provenance mismatch")
         consensus_path = contained(path.parent, manifest["consensus_provenance"])
         consensus = read_json(consensus_path)
         if (
             sha256(consensus_path.read_bytes()) != manifest["consensus_provenance_sha256"]
             or consensus.get("gold_status") != "approved"
-            or consensus.get("source_worksheet") != "Agreement Final"
+            or consensus.get("source_worksheet") not in {"Agreement Final", "final_agreement"}
             or consensus.get("synthetic")
             or not consensus.get("approval_reference")
         ):

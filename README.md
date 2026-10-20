@@ -96,9 +96,15 @@ A batch run contains `results.json`, `predictions.csv`, `evidence_counts.csv`, `
 
 Keep the **whole run directory** to replay captured input. From the UI choose **Replay captured inputs**; this makes a new run using current rules without GitHub access. Failed acquisitions have no snapshot to replay. Individual snapshots can also use `snapshot pack` / `snapshot unpack`; see [reproducibility](docs/reproducibility.md).
 
+## Current research scope and corpus execution
+
+Jenifer and Esteban jointly reviewed and agreed on final_agreement after independent annotation. The 600 final labels describe documentation only. Documentation-only predictions are the primary accuracy evaluation; source-code matches are separate evidence-expansion candidates, not automatic corrections to gold. See [current annotation status](docs/annotation_status_20261020.md), including the discrepancy between the reported historical-cell correction and the connected original tab.
+
+For the local software.tar extractor, two-call API/raw acquisition, bounded resumable corpus execution, pilot commands and runtime estimates, see [corpus execution](docs/corpus.md). The new runner preserves existing detector rules and computes all requested source modes in one matching pass. See [the ten-page MSR paper plan](docs/paper_plan_msr2027.md).
+
 ## Human reference audit and measured comparisons
 
-See [the implementation and evaluation report](docs/implementation_report_20261015.md) for actual measurements, acquisition coverage and limitations. The human workbook is not publicly bundled. The verified mapping is `configs/final-agreement-import.yaml`; the older mapping remains for legacy workbooks.
+See [the implementation and evaluation report](docs/implementation_report_20261015.md) for actual measurements, acquisition coverage and limitations. The read-only workbook export and final-label JSON are bundled under data/. The verified mapping is `configs/final-agreement-import.yaml`; the older mapping remains for legacy workbooks.
 
 ```bash
 uv run --frozen python -m lifecycle_mapper benchmark import /path/to/benchmark.xlsx --config configs/final-agreement-import.yaml --approval /path/to/exact-reference-approval.json --output local/reference

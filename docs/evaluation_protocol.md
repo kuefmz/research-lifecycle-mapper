@@ -1,5 +1,7 @@
 # Documentation-primary development and frozen evaluation
 
+Current scope (2026-10-20): final_agreement is the jointly adjudicated documentation reference. Code-only and combined evidence are secondary discovery analyses; their disagreement with documentation labels is not automatically an error or a confirmed omission. See annotation_status_20261020.md.
+
 The primary classifier is documentation-only. The primary model-selection metric is its six-stage macro-F1 **on development data only**. Per-stage precision/recall/F1 and secondary code-only/OR-combined results remain mandatory; unfavorable results are not suppressed. Combined deltas are accompanied by an explicit same-evaluated-cohort flag because partial scans can change denominators.
 
 The custodian workflow below is the historical formal publication protocol. The current workbook has now been inspected and `benchmark compare` supports observed, checksum-bound reference comparisons. Its deterministic hash split and measured development/operational-held-out/full exploratory results are documented in [the V3 implementation report](implementation_report_20261015.md). They do not satisfy an independently blinded publication evaluation, and do not manufacture missing sampling/codebook approvals. The older formal manifest validation assumes a complete independent annotation table; the observed workbook has one missing pair, so its protocol/provenance must be adjudicated before that formal route is used.

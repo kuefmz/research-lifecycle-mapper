@@ -2,13 +2,14 @@
 
 import base64
 import json
+import hashlib
 import os
 import re
 import time
 from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
 from pathlib import Path, PurePosixPath
-from typing import Any
+from typing import Any, Callable
 from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
@@ -81,10 +82,17 @@ def repository_id(value: str) -> str:
 class GitHubAPIError(OSError):
     """Sanitized failure; response bodies and authorization headers never persist."""
 
-    def __init__(self, code: str, status: int | None = None, reset: str | None = None):
+    def __init__(
+        self,
+        code: str,
+        status: int | None = None,
+        reset: str | None = None,
+        retry_after: str | None = None,
+    ):
         self.code = code
         self.status = status
         self.reset = reset
+        self.retry_after = retry_after
         super().__init__(code)
 
 
@@ -108,7 +116,11 @@ def api_get(endpoint: str) -> Any:
                 time.sleep(attempt + 1)
                 continue
             rate_limited = exc.code == 429 or (
-                exc.code == 403 and exc.headers.get("X-RateLimit-Remaining") == "0"
+                exc.code == 403
+                and (
+                    exc.headers.get("X-RateLimit-Remaining") == "0"
+                    or exc.headers.get("Retry-After") is not None
+                )
             )
             code = (
                 "rate-limit"
@@ -119,15 +131,23 @@ def api_get(endpoint: str) -> Any:
                 if exc.code == 404
                 else "api-http-error"
             )
-            raise GitHubAPIError(code, exc.code, exc.headers.get("X-RateLimit-Reset")) from None
+            raise GitHubAPIError(
+                code,
+                exc.code,
+                exc.headers.get("X-RateLimit-Reset"),
+                exc.headers.get("Retry-After"),
+            ) from None
         except (URLError, TimeoutError):
             raise GitHubAPIError("network-error") from None
     raise GitHubAPIError("retry-exhausted")
 
 
-def tree_inventory(repo: str, tree_sha: str) -> list[dict[str, Any]]:
+def tree_inventory(
+    repo: str, tree_sha: str, getter: Callable[[str], Any] | None = None
+) -> list[dict[str, Any]]:
     """Explicit tree walking avoids GitHub's truncated recursive-tree response."""
-    recursive = api_get(f"/repos/{repo}/git/trees/{tree_sha}?recursive=1")
+    getter = getter or api_get
+    recursive = getter(f"/repos/{repo}/git/trees/{tree_sha}?recursive=1")
     if not recursive.get("truncated"):
         return sorted(
             [item for item in recursive["tree"] if item["type"] != "tree"],
@@ -136,7 +156,7 @@ def tree_inventory(repo: str, tree_sha: str) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
 
     def walk(tree: str, prefix: str) -> None:
-        payload = api_get(f"/repos/{repo}/git/trees/{tree}")
+        payload = getter(f"/repos/{repo}/git/trees/{tree}")
         if payload.get("truncated"):
             raise ValueError("Incomplete GitHub tree: acquisition aborted")
         for entry in sorted(payload["tree"], key=lambda item: item["path"]):
@@ -150,19 +170,89 @@ def tree_inventory(repo: str, tree_sha: str) -> list[dict[str, Any]]:
     return sorted(result, key=lambda item: item["path"])
 
 
+def raw_get(repo: str, commit: str, path: str, blob_sha: str, max_bytes: int) -> bytes:
+    """Public, commit-pinned content; no bearer token is sent to the raw host."""
+    repository_id("https://github.com/" + repo)
+    if not re.fullmatch(r"[0-9a-f]{40}", commit):
+        raise ValueError("Raw acquisition requires an immutable commit")
+    request = Request(
+        f"https://raw.githubusercontent.com/{repo}/{commit}/{quote(path, safe='/')}",
+        headers={"User-Agent": "lifecycle-mapper/0.3"},
+    )
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=30) as response:
+                data = response.read(max_bytes + 1)
+            if len(data) > max_bytes:
+                raise ValueError("Raw file exceeds acquisition size limit")
+            actual = hashlib.sha1(
+                b"blob " + str(len(data)).encode() + b"\0" + data, usedforsecurity=False
+            ).hexdigest()
+            if actual != blob_sha:
+                raise ValueError("Raw Git blob checksum mismatch")
+            return data
+        except HTTPError as exc:
+            if exc.code in {429, 500, 502, 503, 504} and attempt < 2:
+                try:
+                    delay = max(1.0, float(exc.headers.get("Retry-After", attempt + 1)))
+                except ValueError:
+                    delay = 60.0
+                if delay <= 60:
+                    time.sleep(delay)
+                    continue
+            raise GitHubAPIError(
+                "rate-limit" if exc.code in {403, 429} else "raw-http-error",
+                exc.code,
+                retry_after=exc.headers.get("Retry-After"),
+            ) from None
+        except (URLError, TimeoutError):
+            if attempt < 2:
+                time.sleep(attempt + 1)
+                continue
+            raise GitHubAPIError("raw-network-error") from None
+    raise GitHubAPIError("raw-retry-exhausted")
+
+
 def acquire(
-    url: str, output: Path, ref: str | None = None, max_bytes: int = 250_000
+    url: str,
+    output: Path,
+    ref: str | None = None,
+    max_bytes: int = 250_000,
+    *,
+    blob_transport: str = "api",
+    api_client: Callable[[str], Any] | None = None,
+    resolve_head_direct: bool = False,
+    sources: tuple[str, ...] = ("documentation", "code"),
 ) -> dict[str, Any]:
     if output.exists():
         raise ValueError("Snapshot output must not already exist")
     if max_bytes < 1:
         raise ValueError("max_bytes must be positive")
+    if blob_transport not in {"api", "raw"}:
+        raise ValueError("Blob transport must be api or raw")
+    getter = api_client or api_get
     requested = repository_id(url)
-    metadata = api_get(f"/repos/{requested}")
-    repo = metadata["full_name"]
-    commit = api_get(f"/repos/{repo}/commits/{quote(ref or metadata['default_branch'], safe='')}")
+    if not sources or any(source not in {"documentation", "code"} for source in sources):
+        raise ValueError("Invalid acquisition sources")
+    if resolve_head_direct:
+        commit = getter(f"/repos/{requested}/commits/{quote(ref or 'HEAD', safe='')}")
+        link = urlparse(commit["html_url"])
+        suffix = "/commit/" + commit["sha"]
+        if (
+            link.scheme != "https"
+            or link.hostname != "github.com"
+            or not link.path.endswith(suffix)
+        ):
+            raise ValueError("Invalid canonical commit URL")
+        repo = repository_id("https://github.com" + link.path[: -len(suffix)])
+    else:
+        metadata = getter(f"/repos/{requested}")
+        repo = metadata["full_name"]
+        commit = getter(
+            f"/repos/{repo}/commits/{quote(ref or metadata['default_branch'], safe='')}"
+        )
     commit_sha = commit["sha"]
-    inventory = tree_inventory(repo, commit["commit"]["tree"]["sha"])
+    inventory = tree_inventory(repo, commit["commit"]["tree"]["sha"], getter)
     output.mkdir(parents=True)
     files = []
     rate_limited = False
@@ -189,16 +279,21 @@ def acquire(
         }
         if item["type"] != "blob" or item["mode"] == "120000":
             record["reason"] = "submodule-or-symlink"
+        elif source is not None and source not in sources:
+            record.update(status="unavailable", reason="source-not-requested")
         elif source is not None and item.get("size", max_bytes + 1) > max_bytes:
             record.update(status="unavailable", reason="size-limit")
         elif source is not None and rate_limited:
             record.update(status="unavailable", reason="rate-limit")
         elif source is not None:
             try:
-                blob = api_get(f"/repos/{repo}/git/blobs/{item['sha']}")
-                if blob.get("encoding") != "base64":
-                    raise ValueError("Unsupported GitHub blob encoding")
-                data = base64.b64decode(blob["content"].replace("\n", ""), validate=True)
+                if blob_transport == "raw":
+                    data = raw_get(repo, commit_sha, path, item["sha"], max_bytes)
+                else:
+                    blob = getter(f"/repos/{repo}/git/blobs/{item['sha']}")
+                    if blob.get("encoding") != "base64":
+                        raise ValueError("Unsupported GitHub blob encoding")
+                    data = base64.b64decode(blob["content"].replace("\n", ""), validate=True)
                 if len(data) > max_bytes:
                     raise ValueError("Blob exceeds acquisition size limit")
                 if len(data) != item["size"]:
@@ -229,7 +324,7 @@ def acquire(
         "files": sorted(files, key=lambda item: item["path"]),
         "redistribution": "not-reviewed",
         "synthetic": False,
-        "transport": "github-api",
+        "transport": "github-api-raw" if blob_transport == "raw" else "github-api",
         "requested_ref": ref,
         "acquired_at": datetime.now(timezone.utc).isoformat(),
     }

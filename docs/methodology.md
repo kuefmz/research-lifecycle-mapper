@@ -14,11 +14,11 @@ Rules and evidence are evaluated with fixed ordering. Qualifying file evidence i
 
 ## Human benchmark construction
 
-The research brief reports two independent annotators, Jenifer and Esteban, each labeling the same 100 repositories over six stages: 600 repository-stage pairs and 247 initial disagreements. These are user-supplied provenance claims awaiting verification against the source workbook, not computed findings. Independent labels do not constitute adjudicated gold.
+Jenifer and Esteban independently annotated 100 repositories over six stages and then reviewed the annotations together to create final_agreement, which both agree with (researcher confirmation, 2026-10-20). The final table is complete: 100 repositories, 600 binary labels. It is a documentation-only reference, not a source-code reference. See annotation_status_20261020.md for live verification, the still-visible original independent-cell discrepancy, and the distinction between initial reliability and final adjudication.
 
-The audited source repository documents an OpenAIRE/Zenodo-derived GitHub corpus. Its exact relationship to the human sample, selection procedure, inclusion/exclusion criteria and historical analyzed revisions are not available. No sample or revision is inferred from cached classifier results or the upstream default random-batch command.
+The exact relationship among the OpenAIRE frame, 386 candidates and 100 annotated repositories still requires selection/overlap provenance. The older upstream frame identifies release 12819872, while a later researcher link identifies 20428976; use the archive actually downloaded and record its checksum. Historical annotation-time commits remain unknown.
 
-The importer reads a provided workbook or normalized CSV without modifying it, stores its original checksum, preserves both independent labels and proposed consensus, and enumerates disagreements. Approval references are required for approved labels. Human adjudicators must resolve disagreements and approve the codebook and final labels. The benchmark validator verifies annotation counts/checksums, per-stage approved-label agreement with the manifest, sampling/codebook documentation and snapshot identities before research evaluation.
+Importers preserve source data and separate original independent labels from final adjudication. The researcher's explicit confirmation establishes final-label consensus; machine-readable checksums bind an imported version. Separate sampling and human codebook provenance must not be inferred from consensus. The legacy formal publication workflow requires complete normalized independent labels and supporting manifests; the observed comparison route can evaluate complete final labels without filling a historical blank.
 
 ## Evaluation
 
@@ -36,7 +36,7 @@ Acquisition resolves a ref once, traverses immutable Git trees and downloads blo
 
 Threats include incomplete retrieval, conservative rule false negatives, documentation overclaims, static dead code, non-English documentation, narrow Python naming assumptions, inaccessible historical commits, sample selection bias, disagreement/adjudication choices, codebook drift and benchmark-driven tuning. A detected activity is evidence that the repository supports that activity, not proof of scientific correctness. No-match is not proof of activity absence.
 
-Implemented software behavior is exercised by synthetic tests. Human benchmark import, final gold approval, experimental protocol freeze, release permissions, container digest pinning and scientific validation remain planned work. No human performance results have been fabricated.
+Implemented software behavior is exercised by synthetic tests. The final documentation reference is jointly adjudicated and has been inspected. Sampling/codebook documentation, an independently blinded evaluation, release packaging and container digest pinning remain distinct outstanding tasks. No human performance results have been fabricated.
 
 ## v0.2.0 protocol update
 

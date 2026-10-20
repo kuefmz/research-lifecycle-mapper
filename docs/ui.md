@@ -43,4 +43,4 @@ Run data and uploads are stored under ignored `local/ui/` (change with `--state-
 
 For large batches, set `GITHUB_TOKEN` in the shell before starting the UI to use authenticated GitHub API limits. The token is read by the backend and is never included in browser responses or saved results. Repository acquisition never executes inspected code.
 
-The UI uses candidate heuristics; measured reference comparisons and their limits are documented in the implementation report. The human workbook is not publicly bundled. Imported `results.json` files can be reopened under Previous runs; snapshots must be retained separately for offline replay.
+The UI uses candidate heuristics; measured reference comparisons and their limits are documented in the implementation report. The read-only workbook export and final-label JSON are bundled under data/. Imported `results.json` files can be reopened under Previous runs; snapshots must be retained separately for offline replay.

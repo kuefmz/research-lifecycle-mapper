@@ -1,5 +1,7 @@
 # Executed verification
 
+Historical measurements/audit: retain the source version and denominators below. For current jointly adjudicated documentation reference status and source/code interpretation, see [2026-10-20 annotation status](annotation_status_20261020.md). No historical scores have been relabeled as new measurements.
+
 The implementation and committed synthetic reference were verified in Python 3.12.14 with uv 0.12.23 and frozen dependencies.
 
 Executed successfully:

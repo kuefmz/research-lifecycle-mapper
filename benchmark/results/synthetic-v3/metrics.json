@@ -1,0 +1,284 @@
+{
+  "code-only": {
+    "analysis_failure_rate": 0.0,
+    "coverage": 1.0,
+    "exact_match_accuracy": 0.8,
+    "failure_policy": "exclude incomplete repositories per mode; keep predictions and coverage",
+    "hamming_loss": 0.2,
+    "macro": {
+      "f1": 0.8,
+      "precision": 1.0,
+      "recall": 0.66666667
+    },
+    "micro": {
+      "f1": 0.8,
+      "precision": 1.0,
+      "recall": 0.66666667
+    },
+    "per_stage": [
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 0.8,
+        "f1": 0.8,
+        "precision": 1.0,
+        "recall": 0.66666667,
+        "stage": "Collection",
+        "support": 3
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 0.8,
+        "f1": 0.8,
+        "precision": 1.0,
+        "recall": 0.66666667,
+        "stage": "Processing",
+        "support": 3
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 0.8,
+        "f1": 0.8,
+        "precision": 1.0,
+        "recall": 0.66666667,
+        "stage": "Method",
+        "support": 3
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 0.8,
+        "f1": 0.8,
+        "precision": 1.0,
+        "recall": 0.66666667,
+        "stage": "Experimentation",
+        "support": 3
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 0.8,
+        "f1": 0.8,
+        "precision": 1.0,
+        "recall": 0.66666667,
+        "stage": "Evaluation",
+        "support": 3
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 0.8,
+        "f1": 0.8,
+        "precision": 1.0,
+        "recall": 0.66666667,
+        "stage": "Dissemination",
+        "support": 3
+      }
+    ],
+    "repository_count": 5,
+    "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+    "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0"
+  },
+  "combined": {
+    "analysis_failure_rate": 0.2,
+    "coverage": 0.8,
+    "exact_match_accuracy": 1.0,
+    "failure_policy": "exclude incomplete repositories per mode; keep predictions and coverage",
+    "hamming_loss": 0.0,
+    "macro": {
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "micro": {
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "per_stage": [
+      {
+        "FN": 0,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "stage": "Collection",
+        "support": 2
+      },
+      {
+        "FN": 0,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "stage": "Processing",
+        "support": 2
+      },
+      {
+        "FN": 0,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "stage": "Method",
+        "support": 2
+      },
+      {
+        "FN": 0,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "stage": "Experimentation",
+        "support": 2
+      },
+      {
+        "FN": 0,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "stage": "Evaluation",
+        "support": 2
+      },
+      {
+        "FN": 0,
+        "FP": 0,
+        "TN": 2,
+        "TP": 2,
+        "accuracy": 1.0,
+        "f1": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "stage": "Dissemination",
+        "support": 2
+      }
+    ],
+    "repository_count": 4,
+    "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+    "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0"
+  },
+  "documentation-only": {
+    "analysis_failure_rate": 0.2,
+    "coverage": 0.8,
+    "exact_match_accuracy": 0.75,
+    "failure_policy": "exclude incomplete repositories per mode; keep predictions and coverage",
+    "hamming_loss": 0.25,
+    "macro": {
+      "f1": 0.66666667,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "micro": {
+      "f1": 0.66666667,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "per_stage": [
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 1,
+        "accuracy": 0.75,
+        "f1": 0.66666667,
+        "precision": 1.0,
+        "recall": 0.5,
+        "stage": "Collection",
+        "support": 2
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 1,
+        "accuracy": 0.75,
+        "f1": 0.66666667,
+        "precision": 1.0,
+        "recall": 0.5,
+        "stage": "Processing",
+        "support": 2
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 1,
+        "accuracy": 0.75,
+        "f1": 0.66666667,
+        "precision": 1.0,
+        "recall": 0.5,
+        "stage": "Method",
+        "support": 2
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 1,
+        "accuracy": 0.75,
+        "f1": 0.66666667,
+        "precision": 1.0,
+        "recall": 0.5,
+        "stage": "Experimentation",
+        "support": 2
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 1,
+        "accuracy": 0.75,
+        "f1": 0.66666667,
+        "precision": 1.0,
+        "recall": 0.5,
+        "stage": "Evaluation",
+        "support": 2
+      },
+      {
+        "FN": 1,
+        "FP": 0,
+        "TN": 2,
+        "TP": 1,
+        "accuracy": 0.75,
+        "f1": 0.66666667,
+        "precision": 1.0,
+        "recall": 0.5,
+        "stage": "Dissemination",
+        "support": 2
+      }
+    ],
+    "repository_count": 4,
+    "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+    "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0"
+  }
+}

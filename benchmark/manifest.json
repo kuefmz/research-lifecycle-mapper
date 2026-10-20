@@ -2,16 +2,15 @@
   "schema_version": 1,
   "status": "pending",
   "kind": "research",
-  "version": "pending-human-inputs",
+  "version": "publication-package-pending",
   "missing": [
-    "Agreement Final worksheet layout and exact-workbook consensus approval",
-    "pre-tuning development/test split and frozen evaluation protocol",
-    "original workbook and checksum",
-    "exact 100 repository identifiers and pinned revisions",
-    "independent labels and 247 disagreement records",
-    "actual sampling and selection documentation",
-    "adjudicated codebook and approved consensus",
-    "integrity-checked repository snapshots",
-    "release and redistribution approvals"
-  ]
+    "actual sampling and 105k/386/100 selection/overlap documentation",
+    "versioned human codebook and mapping to operational definitions",
+    "corrected original independent annotation version for refreshed reliability statistics",
+    "annotation-time repository revisions or an explicit revision-drift limitation",
+    "complete integrity-checked snapshot/provenance publication package",
+    "independently blinded evaluation if confirmatory accuracy is claimed",
+    "release/redistribution and anonymized artifact packaging"
+  ],
+  "reference_status": "final_agreement jointly adjudicated; documentation-only; 600 complete labels"
 }

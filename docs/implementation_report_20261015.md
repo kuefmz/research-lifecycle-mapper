@@ -1,5 +1,7 @@
 # Research Lifecycle Mapper: implementation and measured comparison
 
+Historical measurements/audit: retain the source version and denominators below. For current jointly adjudicated documentation reference status and source/code interpretation, see [2026-10-20 annotation status](annotation_status_20261020.md). No historical scores have been relabeled as new measurements.
+
 Run date: 2026-10-15 UTC. Reference: the user-approved `final_agreement` worksheet. These measurements concern detectable repository evidence, not whether research activities occurred or whether results are valid or reproducible.
 
 ## Completed implementation

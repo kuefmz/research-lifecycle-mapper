@@ -85,7 +85,7 @@ def import_annotations(
     output: Path,
     version: str,
     expected_repositories: int = 100,
-    expected_disagreements: int | None = 247,
+    expected_disagreements: int | None = None,
 ) -> dict[str, Any]:
     if output.exists():
         raise ValueError("Import output must be a new directory; source is never modified")

@@ -1,6 +1,6 @@
 # Benchmark inputs and persistent results
 
-`research_lifecycle_benchmark_100_msr27.xlsx` is the unchanged read-only export of the supplied Google Drive workbook. It includes the original annotator and comparison sheets. The reference for this application is **final_agreement**, A2:A101 for URLs and B:G for six binary labels. The source has one missing independent annotation; do not fill it or change the consensus to improve classifier agreement.
+`research_lifecycle_benchmark_100_msr27.xlsx` is the unchanged read-only export of the supplied Google Drive workbook. It includes the original annotator and comparison sheets. The reference for this application is **final_agreement**, A2:A101 for URLs and B:G for six binary labels. The final documentation labels are jointly adjudicated by Jenifer and Esteban (confirmed 2026-10-20). The historical export has one missing independent annotation; a reported correction was not visible in the connected original tab during this update. See ../docs/annotation_status_20261020.md. Do not infer the independent value or change consensus to improve classifier agreement.
 
 `research_lifecycle_benchmark_100_msr27.json` contains the same 100 repositories and final human labels, their worksheet rows, the workbook checksum and a versioned schema. It starts with empty run histories. Human labels and previous results never enter the matching algorithm.
 

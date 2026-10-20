@@ -11,7 +11,7 @@ from typing import Any, Callable
 
 from . import MODES, STAGES
 from .acquisition import acquire, replay, repository_id
-from .analysis import analyze, load_rules
+from .analysis import analyze_modes, load_rules
 from .benchmark import git_state, implementation_hash
 from .canonical import contained, json_bytes, read_json, sha256, write_csv, write_json
 from .consensus import worksheet_cells
@@ -138,7 +138,7 @@ def predict_batch(
                 acquire_fn = acquire_git if transport == "git" else acquire
                 manifest = acquire_fn(url, snapshot, ref=record.get("ref"), max_bytes=max_bytes)
             snapshot_hash = sha256((snapshot / "manifest.json").read_bytes())
-            analyzed = [analyze(snapshot, mode, expected_hash=snapshot_hash) for mode in modes]
+            analyzed = analyze_modes(snapshot, modes, expected_hash=snapshot_hash)
             results.append(
                 {
                     "repository": manifest["repository"],
