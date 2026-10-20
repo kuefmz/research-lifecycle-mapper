@@ -153,3 +153,151 @@ nohup uv run --frozen python -m lifecycle_mapper.corpus run \
 Create `data/runs` first if it does not exist. Keep the `main`, otherwise `master`,
 branch policy. Repeat the run command to resume; do not overwrite extraction or
 mix differently selected inputs in one run directory.
+
+## Reconcile the legacy cohort and show the complete funnel
+
+Save the original 386-candidate list as `data/corpus/legacy_386.txt`, one full GitHub
+repository URL per line. Do not include researcher names in filenames or contents.
+CSV (a `repository_url` or `github_repository_url` column), JSON, and XLSX are also
+supported. For XLSX supply `--legacy-worksheet` and `--legacy-column` explicitly.
+The actual deduplicated count is reported, never forced to 386.
+
+```bash
+uv run --frozen python -m lifecycle_mapper.funnel \
+  --full-extraction data/corpus/openaire \
+  --filtered-extraction data/corpus/openaire-experiments \
+  --legacy-repositories data/corpus/legacy_386.txt \
+  --output data/corpus/funnel
+```
+
+Read `data/corpus/funnel/funnel.md`. JSON and CSV versions accompany it. The report
+shows software records, descriptions present/missing/nonmatching, selected links,
+unique candidates, original cohort, intersection, exclusive sets, union, original
+candidates absent from the current dump, and overlap with the annotated benchmark.
+`membership.csv` retains flags for each repository. These are overlapping cohorts,
+not a claim that the original 386 are a subset of the new 3,211. The union is
+available as `data/corpus/funnel/union_repositories.csv` for `corpus run --input`.
+Use a new run output directory for that different input.
+
+The original cohort is reported as supplied paper-related candidates, not verified
+paper links. Optionally provide `--paper-links data/corpus/paper_links.csv` with
+`repository_url,paper_identifier` columns (one relation per row; full GitHub URLs
+and nonempty DOI/arXiv/OpenAIRE publication identifiers). These are supplied
+bibliographic evidence, not independently verified. Their absence is reported as
+unknown, not zero. A software DOI or an experiment mention alone is not proof of
+a relationship to a paper. OpenAIRE graph relation archives are separate from
+software.tar; reproducing a graph-based publication filter requires the original
+relation types, archives and endpoint types. Do not infer that historical rule.
+
+To include checkpointed acquisition/analysis counts, repeat the funnel command
+with `--run data/runs/openaire-experiments-main-master`. Multiple `--run` arguments
+produce separately labeled sections: requested/pending, checkpointed, acquired,
+main/master, complete, partial and failed. Overlapping runs are not added together.
+Run manifests and checkpoint hashes are checked; regenerate after the run finishes
+for final paper counts. The report may be refreshed in the same output directory.
+It never modifies input data, snapshots, labels or predictions. Requested URLs
+are normalized; renamed repository aliases are not resolved by this offline step.
+
+Source layout documentation: https://zenodo.org/records/20428976 (relations are
+published separately by source entity type and semantics).
+
+Do not update the checkout during an active analysis. Finish that run first;
+resume requires an unchanged implementation hash. The reporting module works
+offline and does not consume GitHub API quota.
+
+### Eligibility clarification
+
+The collector reports that the original cohort required all four conditions:
+OpenAIRE software classification, experimental context in the description or
+associated metadata, a GitHub repository, and at least one linked research
+publication. Preserve this as the reported historical protocol. Its exact query,
+metadata fields, relation semantics and release still need provenance; membership
+alone does not reconstruct them.
+
+The new description-only rule is a narrower operationalization of experimental
+context. Its 3,211 candidates are before publication linkage, not the final cohort.
+When `--paper-links` is supplied, the report adds
+`paper_linked_description` and its overlap with the historical cohort, and writes
+`paper_linked_description_repositories.csv`. This is the selection output to use
+for the four-criterion study after checking the supplied publication evidence.
+Without evidence the final eligible count is null/pending, never assumed to equal
+3,211 or zero. The union remains an exploratory reconciliation list, not an
+eligibility-certified population. The historical 386 are shown alongside the new
+funnel; they are not treated as its final stage unless measured overlap supports
+that interpretation. Missing evidence in the new file is not evidence that a
+historical repository lacked a publication link.
+
+## Apply publication linkage to the experimental-context candidates
+
+This is the fourth eligibility condition in one selection pipeline, not a second
+study. Reuse the existing description-selected extraction; do not rerun GitHub
+heuristics to determine inclusion. Put the OpenAIRE **product relation** TAR files
+from the same release under `data/raw/relations/` (all parts and relevant relation
+semantics, e.g. `product_IsRelatedTo_*.tar`, `product_References.tar`,
+`product_IsSupplementTo.tar`, `product_Documents.tar`, and citation parts).
+The filenames and available parts are listed at
+https://zenodo.org/records/20428976. Include all product-to-product relation
+archives if the rule is any software-publication relation; supplying just one
+semantics archive is an explicitly restricted search, not complete coverage.
+No archive is automatically downloaded: relation archives can be very large.
+
+```bash
+mkdir -p data/raw/relations
+uv run --frozen python -m lifecycle_mapper.publications \
+  --candidates data/corpus/openaire-experiments \
+  --relations-dir data/raw/relations \
+  --source-record https://zenodo.org/records/20428976 \
+  --output data/corpus/openaire-experiments-publications
+```
+
+No GitHub token is needed. An empty relation directory fails instead of silently
+skipping this condition. The output directory must be new. Relations are streamed;
+only candidate-matching software/publication edges are retained. Both directions
+qualify and original direction/name/archive/member/line are saved. By default any
+named relation to a confirmed publication qualifies. If the historical query used
+specific semantics, repeat `--relation-name NAME` to restrict them, recording the
+actual names rather than assuming `IsRelatedTo` alone reproduces the old query.
+Flat current and nested historical endpoint serialization are supported.
+
+Publication endpoints must be explicitly typed `publication`. If the relation
+files type them only as `product`/`result`, supply all corresponding publication
+entity TAR parts with repeated `--publication-tar data/raw/publication_1.tar`
+arguments. Those inputs confirm publication membership by ID; a DOI alone does
+not. Unconfirmed endpoints and software IDs without a link in the supplied inputs
+are counted separately. Missing archive coverage is not a negative publication
+finding. The source-release declaration is recorded alongside every input hash.
+
+Read `data/corpus/openaire-experiments-publications/funnel.md` and `summary.json`.
+The latter carries upstream extraction counts and relation scan/exclusion counts.
+`publication_links.csv` preserves inclusion evidence and `repositories.csv` is
+the final selected repository list. The count is measured, not forced to 386.
+The new dump and uncertain historical metadata/relation rules prevent a claim of
+bit-for-bit historical reproduction merely because the four criteria are applied.
+
+For measured overlap with the original 386 and annotated 100, place the original
+list in `data/corpus/legacy_386.txt` as full GitHub URLs, one per line, and run:
+
+```bash
+uv run --frozen python -m lifecycle_mapper.funnel \
+  --full-extraction data/corpus/openaire \
+  --filtered-extraction data/corpus/openaire-experiments \
+  --publication-extraction data/corpus/openaire-experiments-publications \
+  --legacy-repositories data/corpus/legacy_386.txt \
+  --output data/corpus/funnel
+```
+
+Add `--run PATH` to include completed/partial acquisition counts. For analysis of
+the final selection use the publications output, not the union reconciliation:
+
+```bash
+nohup uv run --frozen python -m lifecycle_mapper.corpus run \
+  --input data/corpus/openaire-experiments-publications/repositories.csv \
+  --output data/runs/experiment-publication-main-master \
+  --workers 2 --transport hybrid \
+  > data/runs/experiment-publication-main-master.log 2>&1 &
+```
+
+Run only after other API runners finish, with GITHUB_TOKEN exported and data/runs
+present. Do not update code underneath an active or resumable analysis. The
+collection, eligibility and observed analysis counts belong in a single funnel;
+original-cohort overlap is an audit of reproduction, not a separate experiment.
