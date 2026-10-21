@@ -1,6 +1,6 @@
 # Data inventory and provenance
 
-- research_lifecycle_benchmark_100_msr27.xlsx: anonymous, corrected workbook with all ten source sheets. reviewer1 and reviewer2 are the two independent human annotations. agreement retains the source agreement calculations. final_agreement is the jointly adjudicated documentation-only reference.
+- research_lifecycle_benchmark_100_msr27.xlsx: anonymous, corrected workbook with all ten source sheets. reviewer1 and reviewer2 are the two independent human annotations. agreement retains the source agreement calculations. final_agreement contains the jointly adjudicated reference labels; evidence scopes must be distinguished when interpreting mode comparisons.
 - chatgpt_documentation / chatgpt_code / chatgpt_combined in the workbook: archived language-model documentation / code / combined tables, respectively. heuristics_documentation / heuristics_code / heuristics_combined: archived heuristic documentation / code / combined tables. These source tables are retained with descriptive sheet names; they are not new results under the current branch policy.
 - research_lifecycle_benchmark_100_msr27.json: the same 100 repositories and 600 final labels, with the anonymous workbook checksum. Initial run histories are empty. Use a separate run directory to preserve the reference.
 - annotation_audit_20261020.json: corrected independent counts, per-stage agreement/kappa, workbook hash and preservation checks.
@@ -43,3 +43,7 @@ This low overlap does not support an exact-reproduction claim. The new text
 filter and historical publication associations differ in evidence source; source
 release and intermediate selection differences have not been isolated. Repository
 membership does not establish accuracy or full acquisition coverage.
+
+## Authoritative final agreement
+
+`final_agreement.csv` transcribes the user-supplied authoritative table received on 2026-10-21: 100 repository URLs and 600 binary stage labels. URL spelling/case and row order follow that table. All labels match the existing workbook final_agreement sheet and benchmark JSON after case-insensitive repository matching; therefore neither workbook labels nor independent reviewer sheets required changes. `final_agreement_correction.json` records this verification (zero changed labels). Use `--reference data/final_agreement.csv` for corpus run/logs/export and assess. Reference labels are comparison/display inputs only and never classifier features. Existing predictions can be reassessed without acquisition or replay.

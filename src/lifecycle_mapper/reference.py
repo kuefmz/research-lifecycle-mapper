@@ -1,5 +1,6 @@
 """Strict reference-label reading, independent from prediction feature inputs."""
 
+import csv
 from pathlib import Path
 from typing import Any
 
@@ -9,7 +10,17 @@ from .consensus import worksheet_cells
 
 
 def final_reference(path: Path) -> dict[str, dict[str, int]]:
-    rows = worksheet_cells(path, "final_agreement")
+    if path.suffix.lower() == ".csv":
+        with path.open(newline="", encoding="utf-8-sig") as stream:
+            table = list(csv.reader(stream))
+        if any(len(row) != 7 for row in table if any(value.strip() for value in row)):
+            raise ValueError("Final agreement CSV requires exactly seven columns")
+        rows = {
+            number: {chr(65 + i): value for i, value in enumerate(row)}
+            for number, row in enumerate(table, 1)
+        }
+    else:
+        rows = worksheet_cells(path, "final_agreement")
     headers = {"A": "GitHub URL", **{chr(66 + i): s for i, s in enumerate(STAGES)}}
     if any(rows.get(1, {}).get(c) != title for c, title in headers.items()):
         raise ValueError("final_agreement headers must be GitHub URL and the six stage names")

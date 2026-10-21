@@ -505,7 +505,7 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
 
     reference = (
         final_reference(reference_path)
-        if reference_path and reference_path.suffix == ".xlsx"
+        if reference_path and reference_path.suffix.lower() in {".xlsx", ".csv"}
         else dataset_reference(read_json(reference_path))
         if reference_path
         else {}
@@ -697,7 +697,7 @@ def main() -> None:
     run.add_argument(
         "--reference",
         type=Path,
-        help="Final agreement workbook; display only, never prediction input",
+        help="Final agreement CSV/workbook; display only, never prediction input",
     )
     logs = commands.add_parser(
         "logs", help="Display saved results with final agreement; no acquisition or replay"

@@ -54,7 +54,7 @@ def assess(
         raise ValueError("--rules-dir requires --replay")
     gold = (
         final_reference(reference)
-        if reference.suffix.lower() == ".xlsx"
+        if reference.suffix.lower() in {".xlsx", ".csv"}
         else dataset_reference(read_json(reference))
     )
     if output.exists():

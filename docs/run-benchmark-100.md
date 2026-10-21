@@ -28,7 +28,7 @@ Do not paste the token into a command, log or repository file. Then run:
 uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
-  --reference data/research_lifecycle_benchmark_100_msr27.xlsx \
+  --reference data/final_agreement.csv \
   --output data/runs/benchmark-100-workflow-v52 \
   --transport hybrid \
   --workers 2 \
@@ -38,11 +38,11 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
   --output data/runs/benchmark-100-workflow-v52 \
-  --reference data/research_lifecycle_benchmark_100_msr27.xlsx
+  --reference data/final_agreement.csv
 
 uv run --frozen python -m lifecycle_mapper.assess \
   --run data/runs/benchmark-100-workflow-v52 \
-  --reference data/research_lifecycle_benchmark_100_msr27.xlsx \
+  --reference data/final_agreement.csv \
   --rules-dir configs/workflow-development-v5.2 \
   --output data/reports/benchmark-100-workflow-v52
 ```
@@ -191,7 +191,7 @@ For an existing run, after processing finishes, display saved checkpoints alongs
 ```bash
 uv run --frozen python -m lifecycle_mapper.corpus logs \
   --output data/runs/benchmark-100-workflow-v52 \
-  --reference data/research_lifecycle_benchmark_100_msr27.xlsx
+  --reference data/final_agreement.csv
 ```
 
 This also writes agreement.log in the run directory. It does not change predictions or manifests. Finish an active run before pulling implementation changes; implementation fingerprints intentionally prevent resuming a run with changed classifier code.
