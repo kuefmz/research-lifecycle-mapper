@@ -114,3 +114,38 @@ def test_assessment_separates_modes_and_replays_without_network(tmp_path, monkey
     assert (tmp_path / "assessment/documentation_errors_development.csv").is_file()
     with pytest.raises(ValueError, match="new assessment"):
         assess(run, reference, tmp_path / "assessment")
+
+
+def test_assessment_keeps_missing_repositories_unknown(tmp_path):
+    run = tmp_path / "empty-run"
+    run.mkdir()
+    write_json(run / "manifest.json", {"configuration": {"repository_count": 2}})
+    reference = tmp_path / "reference.json"
+    write_json(
+        reference,
+        {
+            "kind": "lifecycle-benchmark-dataset",
+            "schema_version": 1,
+            "stages": list(STAGES),
+            "runs": [],
+            "repositories": [
+                {
+                    "source_url": "https://github.com/a/" + name,
+                    "human_labels": {s: 1 for s in STAGES},
+                    "results": {},
+                }
+                for name in ["one", "two"]
+            ],
+        },
+    )
+    out = tmp_path / "assessment"
+    report = assess(run, reference, out)
+    assert all(row["evaluated_repositories"] == 0 for row in report["modes"])
+    import csv
+
+    rows = list(csv.DictReader((out / "all_modes_comparison.csv").open()))
+    assert len(rows) == 2 * 3 * 6
+    assert all(row["prediction"] == "" and row["scan_complete"] == "False" for row in rows)
+    summaries = list(csv.DictReader((out / "repository_summary.csv").open()))
+    assert len(summaries) == 6
+    assert all(len(json.loads(row["unknown_stages"])) == 6 for row in summaries)

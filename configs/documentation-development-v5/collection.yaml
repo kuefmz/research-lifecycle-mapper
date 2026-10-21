@@ -1,0 +1,371 @@
+{
+  "rules": [
+    {
+      "description": "Acquire or generate raw observations for research.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "COL_CODE_ACTIVITY_V1",
+      "justification": "A declared raw research acquisition activity plus an acquisition operation; HTTP alone is insufficient.",
+      "positive": [
+        "^\\s*def\\s+(?:collect|acquire|record)_(?:research_data|sensor_observations|participant_responses)\\s*\\(",
+        "\\b(?:requests\\.get|sensor\\.read|survey\\.responses)\\s*\\("
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\\b",
+      "description": "Acquire or generate raw observations for research.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "COL_DOC_EXPLICIT_V2",
+      "justification": "A declared raw research acquisition activity plus an acquisition operation; HTTP alone is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "explicit",
+      "positive": [
+        "\\b(collect(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|record(?:s|ed|ing)?)\\b",
+        "\\b(raw (?:research )?data|research dataset|sensor observations|participant responses)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\\b",
+      "description": "Acquire or generate raw observations for research.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "COL_DOC_CONTEXTUAL_V2",
+      "justification": "A declared raw research acquisition activity plus an acquisition operation; HTTP alone is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "contextual",
+      "positive": [
+        "\\b(?:download(?:s|ed|ing)?|collect(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|harvest(?:s|ed|ing)?|generat(?:e|es|ed|ing)|record(?:s|ed|ing)?)\\b",
+        "\\b(?:research (?:data(?:sets?)?|observations|inputs)|raw (?:research )?data|experimental measurements|sensor (?:data|observations)|participant responses|scientific datasets?)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:run|use|execute)\\s+(?:this|the|our)\\s+(?:command|workflow|tutorial)\\b",
+      "description": "Acquire or generate raw observations for research.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "COL_DOC_WORKFLOW_V2",
+      "justification": "A declared raw research acquisition activity plus an acquisition operation; HTTP alone is insufficient. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "workflow",
+      "positive": [
+        "\\b(?:download(?:s|ed|ing)?|collect(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|harvest(?:s|ed|ing)?|generat(?:e|es|ed|ing)|record(?:s|ed|ing)?)\\b",
+        "\\b(?:research (?:data(?:sets?)?|observations|inputs)|raw (?:research )?data|experimental measurements|sensor (?:data|observations)|participant responses|scientific datasets?)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|run|python|available|download|paper|publication|cite|citation)\\b",
+      "description": "Repository-scoped research activity and object using common disciplinary wording.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b",
+        "\\b(?:pip|dependencies|install(?:ation)?|health.check|software tests?)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "COL_DOC_RESEARCH_V3",
+      "justification": "General activity/object conjunction; supports instructional and passive repository descriptions without requiring the literal word research.",
+      "layer": "contextual",
+      "positive": [
+        "(?<![-_./])\\b(?:download(?:s|ed|ing)?|collect(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|scrap(?:e|es|ed|ing)|harvest(?:s|ed|ing)?)\\b",
+        "(?<![-_./])\\b(?:data(?:sets?)?|corpus|corpora|measurements|observations|samples|responses)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "description": "Research-specific implementation operation with a contextual identifier.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "COL_CODE_RESEARCH_V3",
+      "justification": "Conjunctive operation and contextual identifier in the same Python function; comments and strings masked. No repository identity or human label is a feature.",
+      "positive": [
+        "^\\s*def\\s+(?:download|fetch|collect|scrape|acquire)_(?:data(?:set)?|corpus|observations|measurements)\\w*\\s*\\(",
+        "\\b(?:requests\\.get|urlretrieve|urlopen|download\\.file|read_sensor)\\s*\\("
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 8
+    },
+    {
+      "description": "Conjunctive research operation and contextual identifier in R, Julia, MATLAB or shell.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "extensions": [
+        ".r",
+        ".jl",
+        ".m",
+        ".sh"
+      ],
+      "id": "COL_CODE_MULTILANG_V3",
+      "justification": "Lexically masked comments and strings cannot provide either condition; matched executable statements are evidence, without asserting scientific validity. Function/call context for method; research repetitions for experimentation.",
+      "positive": [
+        "\\b(?:download\\.file|Downloads\\.download|wget|curl)\\b",
+        "\\b(?:destfile|dataset|corpus|data_url|raw_data)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope": "statement",
+      "source": "code",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 6
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our|this\\s+(?:tool|package|software|repository|code|library|implementation)|the\\s+(?:tool|package|software|repository|code|library))\\b",
+      "description": "Candidate extended wording for collection.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b",
+        "\\b(?:pip|dependencies|install(?:ation)?|health.check|software tests?)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "COL_DOC_EXTENDED_V4",
+      "justification": "General activity/object wording from the conceptual stage definition; no benchmark identity, labels or unique repository phrase used. Synthetic tests only; empirical benefit unverified.",
+      "layer": "contextual",
+      "positive": [
+        "\\b(?:generat(?:e|es|ed|ing)|simulat(?:e|es|ed|ing)|sampl(?:e|es|ed|ing))\\b",
+        "\\b(?:synthetic|simulated|raw|experimental)\\s+(?:data(?:sets?)?|observations|measurements|samples)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.4.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
+      "description": "Development candidate: documentation-described collection activities and artifacts.",
+      "exclusions": [
+        "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|installation|dependencies|acknowledgments|credits|license|related work)\\b",
+        "\\b(?:references|bibliography)\\b"
+      ],
+      "id": "COL_DOC_WORKFLOW_V5_1",
+      "justification": "General heading/paragraph/workflow evidence motivated by development-only error review; no repository identity or label enters matching. Stage proxies need codebook review; not an independent evaluation.",
+      "layer": "contextual",
+      "positive": [
+        "\\b(?:download\\w*|fetch\\w*|collect\\w*|acquir\\w*|obtain\\w*|gather\\w*|record\\w*|generat\\w*|survey\\w*)\\b",
+        "\\b(?:data(?:sets?)?|corpus|corpora|observations|measurements|samples|responses|participants|subjects)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:unit|integration|software) tests?\\b"
+      ],
+      "source": "documentation",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.5.0-development",
+      "window_lines": 12,
+      "unit_policy": "documented-workflow-v5",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
+      "description": "Development candidate: documentation-described collection activities and artifacts.",
+      "exclusions": [
+        "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|installation|dependencies|acknowledgments|credits|license|related work)\\b",
+        "\\b(?:references|bibliography)\\b"
+      ],
+      "id": "COL_DOC_WORKFLOW_V5_2",
+      "justification": "General heading/paragraph/workflow evidence motivated by development-only error review; no repository identity or label enters matching. Stage proxies need codebook review; not an independent evaluation.",
+      "layer": "contextual",
+      "positive": [
+        "\\b(?:raw data|data collected|collected data|participant responses|survey responses)\\b",
+        "\\b(?:contain\\w*|provid\\w*|includ\\w*|collect\\w*|record\\w*|from|stored|files?)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:unit|integration|software) tests?\\b"
+      ],
+      "source": "documentation",
+      "stage": "Collection",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.5.0-development",
+      "window_lines": 12,
+      "unit_policy": "documented-workflow-v5",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+    }
+  ],
+  "stage": "Collection",
+  "version": "0.5.0-development"
+}

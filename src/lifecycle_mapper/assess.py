@@ -161,6 +161,10 @@ def assess(
                         ],
                     }
                 )
+        if snapshot and manifest is None:
+            manifest = read_json(snapshot / "manifest.json")
+            if file_hash(snapshot / "manifest.json") != result["snapshot_sha256"]:
+                raise ValueError("Snapshot manifest checksum mismatch")
         doc = next((m for m in modes if m["mode"] == "documentation-only"), None)
         if doc:
             diagnostics.append(
@@ -169,6 +173,19 @@ def assess(
                     "partition": partition[repo],
                     "documentation_scan_complete": doc["scan_complete"],
                     "analysis_errors": doc.get("analysis_errors", []),
+                    "captured_documentation_files": sum(
+                        f["source"] == "documentation" and f["status"] == "captured"
+                        for f in manifest["files"]
+                    )
+                    if manifest
+                    else None,
+                    "unavailable_documentation_files": [
+                        {"path": f["path"], "reason": f.get("reason")}
+                        for f in manifest["files"]
+                        if f["source"] == "documentation" and f["status"] == "unavailable"
+                    ]
+                    if manifest
+                    else [],
                     "excluded_reason_counts": dict(
                         Counter(
                             reason
@@ -178,6 +195,23 @@ def assess(
                     ),
                 }
             )
+    observed = {(row["repository"], row["mode"], row["stage"]) for row in predictions}
+    for repo in sorted(gold):
+        for mode in MODES:
+            for stage in STAGES:
+                if (repo, mode, stage) not in observed:
+                    predictions.append(
+                        {
+                            "repository": repo,
+                            "commit": "",
+                            "partition": partition[repo],
+                            "mode": mode,
+                            "stage": stage,
+                            "human_documentation": gold[repo][stage],
+                            "prediction": "",
+                            "scan_complete": False,
+                        }
+                    )
     common = set.intersection(*(set(collected[m]) for m in MODES))
     report: dict[str, Any] = {
         "schema_version": 1,
@@ -239,6 +273,30 @@ def assess(
             [r for r in errors if r["partition"] == part],
         )
     write_json(output / "documentation_diagnostics.json", diagnostics)
+    repository_rows = []
+    by_repo_mode: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for row in predictions:
+        by_repo_mode.setdefault((row["repository"], row["mode"]), []).append(row)
+    for (repo, mode), stage_rows in sorted(by_repo_mode.items()):
+        repository_rows.append(
+            {
+                "repository": repo,
+                "mode": mode,
+                "partition": partition[repo],
+                "checkpoint_present": repo in seen,
+                "scan_complete": all(row["scan_complete"] for row in stage_rows),
+                "positive_stages": json.dumps(
+                    [row["stage"] for row in stage_rows if row["prediction"] == 1]
+                ),
+                "negative_stages": json.dumps(
+                    [row["stage"] for row in stage_rows if row["prediction"] == 0]
+                ),
+                "unknown_stages": json.dumps(
+                    [row["stage"] for row in stage_rows if row["prediction"] == ""]
+                ),
+            }
+        )
+    write_csv(output / "repository_summary.csv", list(repository_rows[0]), repository_rows)
     summary: list[dict[str, Any]] = []
     per_stage: list[dict[str, Any]] = []
     for mode in MODES:

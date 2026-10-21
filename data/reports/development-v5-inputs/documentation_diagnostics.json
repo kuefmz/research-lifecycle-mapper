@@ -1,0 +1,839 @@
+[
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "michael135/count-vector-paper-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "sind/compression-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "ihincks/nv-adaptive"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "isti-fmt-nlp/ambiguitytovariability"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "liusi2019/ocd"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "jebyrnes/ext-meta"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "pimdh/relie"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "lacerbi/comprob"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "operational_holdout",
+    "repository": "matejbalog/gumbel-relatives"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "veleslavia/eusipco2017"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "palmaleandro/iterativelstm"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "jmschrei/pypore"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "jkeiren/pbesstategraph-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2
+    },
+    "partition": "development",
+    "repository": "shobeir/fakhraei_tcbb2014"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "gmarceaucaron/natural-langevin-dynamics-for-neural-networks"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 19,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "srndic/hidost-reproduction"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "maidens/acc-2016"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "operational_holdout",
+    "repository": "dobriban/high-dim-risk-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "vered1986/unsupervisedhypernymy"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "pierrejacob/unbiasedpathsampling"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "flowersteam/rl-difference-testing"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "dmlb2000/eetup"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "lcsl/dpp-vfx"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "matrix-factorization-bandit/imfb-kdd2019"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 4
+    },
+    "partition": "development",
+    "repository": "aviranlab/sleq"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 9,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "alfredomg/adapt-mwe17"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 17
+    },
+    "partition": "operational_holdout",
+    "repository": "aquemy/dpso_experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "operational_holdout",
+    "repository": "paper-submission-anonymous/rvamp"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "cog-imperial/gpdoemd"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 3
+    },
+    "partition": "operational_holdout",
+    "repository": "lcartwright94/bayesianat"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 4
+    },
+    "partition": "development",
+    "repository": "jermp/rdf_indexes"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "vodolan/denotationidentification"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "qtb-hhu/integrasemodel"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "yiyiliu1/bdchemo"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "kjetilk/doe-sparql"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "operational_holdout",
+    "repository": "ot/partitioned_elias_fano"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "ettwiller/tss"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 4,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 3
+    },
+    "partition": "operational_holdout",
+    "repository": "ikmlab/arct2"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 3
+    },
+    "partition": "development",
+    "repository": "christopherwilks/snaptron-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "operational_holdout",
+    "repository": "white-link/unsupervisedscalablerepresentationlearningtimeseries"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "mwcvitkovic/mass-learning"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "smitdaniel/bfptool"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "michschli/tensor-lstm"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2
+    },
+    "partition": "development",
+    "repository": "svissicchio/repetita"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "operational_holdout",
+    "repository": "numpi/markov-measures"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "sss1/convolutional-dictionary"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "operational_holdout",
+    "repository": "gzanella/multigrid"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 7,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "operational_holdout",
+    "repository": "wmbedmands/simextargid"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 6,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 2
+    },
+    "partition": "operational_holdout",
+    "repository": "drbenvincent/darc-experiments-matlab"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "allenai/openbookqa"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "irit-melodi/irit-rst-dt"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "ushaham/rbmpaper"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "eglxiang/ytf"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2
+    },
+    "partition": "development",
+    "repository": "pietrobraione/sushi-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2
+    },
+    "partition": "development",
+    "repository": "duvenaud/additive-gps"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1,
+      "polarity:\\b(?:pip|dependencies|install(?:ation)?|health.check|software tests?)\\b": 1
+    },
+    "partition": "development",
+    "repository": "freedisciplina/collisionoffset"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "elibol/amle"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "rehmanzafar/dlime_experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "research-submissions/iclr20"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "diversify-project/autojmh-validation-data"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 2
+    },
+    "partition": "operational_holdout",
+    "repository": "deezer/musicgenretranslation"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "sss1/sobolev-estimation"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "kapelner/optdesignslopeint"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "operational_holdout",
+    "repository": "sisl/grammarexpts.jl"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "operational_holdout",
+    "repository": "rlaboiss/vextab-data"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "emergent-behaviors-in-biology/community-simulator"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "h4rm/threephotons.jl"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2964,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1547,
+      "polarity:\\b(?:pip|dependencies|install(?:ation)?|health.check|software tests?)\\b": 116
+    },
+    "partition": "development",
+    "repository": "yakazimir/code-datasets"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "gavento/swap-sorting-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "shobeir/fakhraei_kdd2015"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 5
+    },
+    "partition": "development",
+    "repository": "diglesia/delaiglesiaetal_data"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "cristal-smac/atom"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "pal-uh/transferal"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "heading-scope:\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "mspeich/forhytm"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "tuw-cpsg/paper-shsa-monitor-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 6,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 5
+    },
+    "partition": "development",
+    "repository": "f0k/ismir2015"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "joefresna/plosone-reina2015"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "taochen/all-versus-one"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "pamattei/bmasbic"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2
+    },
+    "partition": "development",
+    "repository": "marksbrown/processingctrdata"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "akshay-r/autoencoders_dictionaries"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "ztangent/norms-cogsci19"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 5,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "operational_holdout",
+    "repository": "huji-deep/generative-convacs"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "b5strbal/macaw"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 3
+    },
+    "partition": "operational_holdout",
+    "repository": "steveash/netransliteration-coling2018"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2
+    },
+    "partition": "development",
+    "repository": "pkuzhf/bidding-at-risk-experiment"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 3,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "vanheeringen-lab/gimmemotifs"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "irit-melodi/irit-stac"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "operational_holdout",
+    "repository": "sirusb/r3cpet"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "vitorenesduarte/exp"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "operational_holdout",
+    "repository": "marcotcr/anchor-experiments"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 5
+    },
+    "partition": "development",
+    "repository": "jwcarr/flatlanders"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {},
+    "partition": "development",
+    "repository": "anguelos/embedding_map"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "operational_holdout",
+    "repository": "garrafao/metaphoricchange"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "drgriffis/sbd-evaluation"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "ciaranm/cp2015-subgraph-isomorphism"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "onurgu/joint-ner-and-md-tagger"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 2,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "dtrckd/pymake"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": false,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1,
+      "polarity:\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b": 1
+    },
+    "partition": "development",
+    "repository": "md-k-sarker/ecii-expr"
+  },
+  {
+    "analysis_errors": [],
+    "documentation_scan_complete": true,
+    "excluded_reason_counts": {
+      "ambiguous-repository-scope": 1
+    },
+    "partition": "development",
+    "repository": "mantiuk/pwcmp"
+  }
+]

@@ -106,14 +106,26 @@ def document_units(text: str) -> list[dict[str, Any]]:
 
 
 def documentation_matches(
-    text: str, rule: dict[str, Any], units: list[dict[str, Any]] | None = None
+    text: str,
+    rule: dict[str, Any],
+    units: list[dict[str, Any]] | None = None,
+    *,
+    first_only: bool = False,
 ) -> list[dict[str, Any]]:
     records = []
+    workflow_policy = rule.get("unit_policy") == "documented-workflow-v5"
+    if workflow_policy and units is None:
+        units = workflow_units(text)
     original_lines = physical_lines(text, keepends=True)
+    fallback_scope = (
+        re.search(rule["document_context_pattern"], normalize(text[:6000]), re.I)
+        if workflow_policy
+        else None
+    )
     for unit in document_units(text) if units is None else units:
-        if rule["layer"] == "workflow" and unit["kind"] != "workflow":
+        if not workflow_policy and rule["layer"] == "workflow" and unit["kind"] != "workflow":
             continue
-        if rule["layer"] != "workflow" and unit["kind"] != "prose":
+        if not workflow_policy and rule["layer"] != "workflow" and unit["kind"] != "prose":
             continue
         window = unit["text"]
         matches = [re.search(pattern, window, re.I | re.M) for pattern in rule["positive"]]
@@ -135,6 +147,8 @@ def documentation_matches(
             if re.search(pattern, window, re.I)
         ]
         scope_match = re.search(rule["context_pattern"], window, re.I)
+        if scope_match is None and workflow_policy:
+            scope_match = fallback_scope
         if scope_match is None:
             reasons.append("ambiguous-repository-scope")
         if rule["layer"] == "workflow" and not re.search(rule["command_pattern"], window, re.M):
@@ -149,7 +163,7 @@ def documentation_matches(
             "scope": "unresolved-or-excluded" if reasons else "repository",
             "layer": rule["layer"],
             "heading": unit["heading"],
-            "unit_version": VERSION,
+            "unit_version": "documented-workflow-v5" if workflow_policy else VERSION,
         }
         records.append(
             {
@@ -163,4 +177,78 @@ def documentation_matches(
                 "excerpt_sha256": sha256(excerpt.encode()),
             }
         )
+        if first_only and not reasons:
+            return records
     return records
+
+
+def workflow_units(text: str) -> list[dict[str, Any]]:
+    """Opt-in paragraph/heading+command units for documented scientific workflows.
+
+    All evidence is a contiguous original-document range of at most 12 lines.
+    Scope headings are tracked even when they are outside that range.
+    """
+    masked = re.sub(r"<!--.*?-->", lambda m: re.sub(r"[^\n\r]", " ", m.group()), text, flags=re.S)
+    lines = physical_lines(masked)
+    headings: list[tuple[int, str]] = []
+    units = []
+    fence = False
+    consumed_until = 0
+    for index, line in enumerate(lines):
+        if re.match(r"^\s*(?:```|~~~)", line):
+            fence = not fence
+        md = None if fence else re.match(r"^\s*(#{1,6})\s+(.+)$", line)
+        rst = (
+            not fence
+            and index + 1 < len(lines)
+            and bool(re.fullmatch(r"\s*[-=~^]{3,}\s*", lines[index + 1]))
+        )
+        special = not fence and re.fullmatch(
+            r"\s*(?:\d+[.)]\s*)?(?:references|bibliography|credits|license|installation|dependencies|future work)\s*[:.]?\s*",
+            line,
+            re.I,
+        )
+        if md or rst or special:
+            level = len(md[1]) if md else (1 if rst and "=" in lines[index + 1] else 2)
+            title = md[2] if md else line.strip()
+            headings = [(depth, value) for depth, value in headings if depth < level]
+            headings.append((level, title))
+        if index < consumed_until:
+            continue
+        if not line.strip() or re.fullmatch(r"\s*[-=~^]{3,}\s*", line):
+            continue
+        end = index + 1
+        # Keep a paragraph and an immediately following command; never borrow
+        # positive features across the next section heading.
+        while end < min(len(lines), index + 12):
+            if re.match(r"^\s*#{1,6}\s", lines[end]):
+                break
+            if end + 1 < len(lines) and re.fullmatch(r"\s*[-=~^]{3,}\s*", lines[end + 1]):
+                break
+            if not lines[end].strip():
+                if md or rst:
+                    end += 1
+                    continue
+                if end + 1 < len(lines) and re.match(
+                    r"^\s*(?:```|~~~|`|(?:python|Rscript|bash|sh|make)\b)", lines[end + 1]
+                ):
+                    end += 1
+                    continue
+                break
+            end += 1
+        consumed_until = end
+        block = "\n".join(lines[index:end])
+        # Strip presentation markup only for matching; evidence remains original.
+        visible = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1 \2", block)
+        visible = re.sub(r"<[^>]+>", " ", visible)
+        visible = re.sub(r"[*_`]+", " ", visible)
+        units.append(
+            {
+                "text": normalize(visible),
+                "start_line": index + 1,
+                "end_line": end,
+                "heading": normalize(" / ".join(title for _, title in headings)),
+                "kind": "workflow-context",
+            }
+        )
+    return units

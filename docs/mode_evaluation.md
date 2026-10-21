@@ -68,3 +68,9 @@ aggregate inspection its remaining subset cannot be claimed as a blinded test.
 No generalization claim follows from tuning/retesting these same 100 repositories.
 Human codebook definitions and real development errors are required for further
 rule changes; preserve baseline and unfavorable candidate results.
+
+For the newer development-error-informed v5 candidate and explicit all-reference
+repository coverage, see [development_v5.md](development_v5.md). Neither candidate
+has achieved the requested accuracy/F1 targets. Keep the constant baselines in
+view; a high-positive-label cohort can yield substantial F1 from always-positive
+predictions without detecting any lifecycle evidence.

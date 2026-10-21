@@ -14,7 +14,7 @@ from urllib.parse import quote
 from . import MODES, STAGES
 from .acquisition import replay
 from .canonical import json_bytes, sha256, physical_lines
-from .documentation import documentation_matches, document_units
+from .documentation import documentation_matches, document_units, workflow_units
 
 
 def default_rules() -> Path:
@@ -28,7 +28,13 @@ def load_rules(directory: Path | None = None) -> tuple[list[dict[str, Any]], str
         catalog = json.loads((directory / f"{stage.lower()}.yaml").read_bytes())
         if (
             catalog["version"]
-            not in {"0.1.0-candidate", "0.2.0-candidate", "0.3.0-candidate", "0.4.0-candidate"}
+            not in {
+                "0.1.0-candidate",
+                "0.2.0-candidate",
+                "0.3.0-candidate",
+                "0.4.0-candidate",
+                "0.5.0-development",
+            }
             or catalog["stage"] != stage
         ):
             raise ValueError("Invalid catalog version/stage")
@@ -150,10 +156,21 @@ def analyze(
         original_lines = physical_lines(contents[item["path"]], keepends=True)
         if source == "documentation":
             units = document_units(contents[item["path"]])
+            extended_units = (
+                workflow_units(contents[item["path"]])
+                if any(r.get("unit_policy") == "documented-workflow-v5" for r in rules)
+                else None
+            )
             for rule in rules:
                 if rule["source"] != source:
                     continue
-                for match in documentation_matches(contents[item["path"]], rule, units):
+                for match in documentation_matches(
+                    contents[item["path"]],
+                    rule,
+                    extended_units
+                    if rule.get("unit_policy") == "documented-workflow-v5"
+                    else units,
+                ):
                     reasons = match.pop("exclusion_reasons")
                     record = {
                         "repository": manifest["repository"],
