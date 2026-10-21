@@ -1,7 +1,7 @@
 """Offline, separate-mode evaluation and documentation error review.
 
-The human reference is documentation-only. Code/combined comparisons are
-cross-scope agreement diagnostics, not code-ground-truth accuracy.
+The final agreement contains mixed-source evidence hyperlinks. Each mode measures
+agreement with those labels, not independently validated source-specific accuracy.
 """
 
 import argparse
@@ -19,6 +19,7 @@ from .canonical import contained, read_json, sha256, write_csv, write_json
 from .dataset import dataset_reference
 from .openaire import file_hash
 from .reference import final_reference
+from .notebooks import expand_notebooks
 
 
 def mode_metrics(rows: list[dict[str, Any]], expected: int) -> dict[str, Any]:
@@ -144,6 +145,7 @@ def assess(
             mismatches = [e["stage"] for e in errors if e["repository"] == repo]
             if mismatches:
                 review_manifest, contents = replay(snapshot, result["snapshot_sha256"])
+                review_manifest, contents = expand_notebooks(review_manifest, contents)
                 review_rows.append(
                     {
                         "repository": repo,
@@ -155,6 +157,11 @@ def assess(
                                 "path": item["path"],
                                 "sha256": item["sha256"],
                                 "text": contents[item["path"]],
+                                **{
+                                    key: item[key]
+                                    for key in ("notebook_path", "notebook_cell")
+                                    if key in item
+                                },
                             }
                             for item in review_manifest["files"]
                             if item["source"] == "documentation" and item["status"] == "captured"
@@ -165,6 +172,9 @@ def assess(
             manifest = read_json(snapshot / "manifest.json")
             if file_hash(snapshot / "manifest.json") != result["snapshot_sha256"]:
                 raise ValueError("Snapshot manifest checksum mismatch")
+        if snapshot and manifest and any(f["source"] == "notebook" for f in manifest["files"]):
+            manifest, contents = replay(snapshot, result["snapshot_sha256"])
+            manifest, _ = expand_notebooks(manifest, contents)
         doc = next((m for m in modes if m["mode"] == "documentation-only"), None)
         if doc:
             diagnostics.append(
@@ -216,7 +226,8 @@ def assess(
     report: dict[str, Any] = {
         "schema_version": 1,
         "reference_sha256": file_hash(reference),
-        "reference_scope": "joint final_agreement; documentation-only annotations",
+        "reference_scope": "joint final_agreement; mixed-source evidence links verified in live-sheet audit",
+        "legacy_field_note": "human_documentation is a legacy column name for final_agreement, not a source-scope guarantee",
         "expected_repositories": len(gold),
         "reference_repositories_with_checkpoints": len(seen),
         "replayed_offline": reanalyze,
@@ -225,11 +236,11 @@ def assess(
             Path(__file__).resolve().parents[2]
         ),
         "rule_catalog_hashes": sorted(catalogs),
-        "partition_policy": "Deterministic 80/20 split for operational development review only; not independent or blinded validation after prior aggregate inspection.",
+        "partition_policy": "Legacy operational 80/20 grouping retained for compatibility; all 100 final-agreement evidence rows have now been inspected. No untouched holdout claim.",
         "mode_scope": {
-            "documentation-only": "primary documentation-reference evaluation",
-            "code-only": "cross-scope agreement against documentation labels; no code-ground-truth accuracy claim",
-            "combined": "union of documentation/code evidence, not an average; cross-scope reference agreement",
+            "documentation-only": "documentation evidence agreement with mixed-source final agreement; no documentation-only ground-truth claim",
+            "code-only": "cross-scope code evidence agreement with mixed-source final agreement; no code-ground-truth accuracy claim",
+            "combined": "union of documentation/code evidence, not an average; mixed-source reference agreement",
         },
         "per_mode": {},
         "common_complete_cohort": {},

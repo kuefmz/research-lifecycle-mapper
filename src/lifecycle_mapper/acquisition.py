@@ -15,7 +15,7 @@ from urllib.request import Request, urlopen
 
 from .canonical import contained, json_bytes, read_json, sha256, write_json
 
-POLICY_VERSION = "eligibility-1"
+POLICY_VERSION = "eligibility-2-notebook-cells"
 DOC_SUFFIXES = {".md", ".rst", ".adoc", ".txt"}
 CODE_SUFFIXES = {
     ".py",
@@ -50,7 +50,7 @@ EXCLUDED_PARTS = {
 }
 
 
-def source_kind(path: str) -> tuple[str | None, str | None]:
+def source_kind(path: str, policy: str = POLICY_VERSION) -> tuple[str | None, str | None]:
     parts = PurePosixPath(path.lower()).parts
     if any(part in EXCLUDED_PARTS for part in parts):
         return None, "vendored-generated-or-fixture"
@@ -58,6 +58,8 @@ def source_kind(path: str) -> tuple[str | None, str | None]:
     suffix = PurePosixPath(path).suffix.lower()
     if name in {"license", "license.txt", "license.md", "copying", "authors.txt"}:
         return None, "administrative"
+    if suffix == ".ipynb" and policy == POLICY_VERSION:
+        return "notebook", None
     if suffix in DOC_SUFFIXES:
         return "documentation", None
     if suffix in CODE_SUFFIXES:
@@ -318,7 +320,7 @@ def acquire(
         }
         if item["type"] != "blob" or item["mode"] == "120000":
             record["reason"] = "submodule-or-symlink"
-        elif source is not None and source not in sources:
+        elif source is not None and source != "notebook" and source not in sources:
             record.update(status="unavailable", reason="source-not-requested")
         elif source is not None and item.get("size", max_bytes + 1) > max_bytes:
             record.update(status="unavailable", reason="size-limit")
@@ -380,7 +382,10 @@ def replay(root: Path, expected_hash: str | None = None) -> tuple[dict[str, Any]
     manifest = read_json(root / "manifest.json")
     if raw != json_bytes(manifest):
         raise ValueError("Snapshot manifest must use canonical serialization")
-    if manifest.get("schema_version") != 1 or manifest.get("policy_version") != POLICY_VERSION:
+    if manifest.get("schema_version") != 1 or manifest.get("policy_version") not in {
+        "eligibility-1",
+        POLICY_VERSION,
+    }:
         raise ValueError("Unsupported snapshot schema or eligibility policy")
     if not re.fullmatch(r"[0-9a-f]{40}", manifest.get("commit", "")):
         raise ValueError("Snapshot requires an immutable 40-character commit SHA")
@@ -393,7 +398,7 @@ def replay(root: Path, expected_hash: str | None = None) -> tuple[dict[str, Any]
     contents = {}
     for item in files:
         target = contained(root / "content", item["path"])
-        source, _ = source_kind(item["path"])
+        source, _ = source_kind(item["path"], manifest["policy_version"])
         if item["source"] != source or item["status"] not in {
             "captured",
             "excluded",

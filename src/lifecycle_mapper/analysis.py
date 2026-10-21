@@ -15,6 +15,7 @@ from . import MODES, STAGES
 from .acquisition import replay
 from .canonical import json_bytes, sha256, physical_lines
 from .documentation import documentation_matches, document_units, workflow_units
+from .notebooks import expand_notebooks
 
 
 def default_rules() -> Path:
@@ -138,6 +139,7 @@ def analyze(
     if mode not in MODES:
         raise ValueError(f"Unknown mode: {mode}")
     manifest, contents = replay(snapshot, expected_hash)
+    manifest, contents = expand_notebooks(manifest, contents)
     rules, rules_hash = load_rules(rules_dir)
     permitted = (
         {"documentation"}
@@ -299,6 +301,19 @@ def analyze(
                 else:
                     evidence.append(record)
 
+    cell_items = {item["path"]: item for item in manifest["files"] if "notebook_path" in item}
+    for record in evidence + excluded_evidence:
+        item = cell_items.get(record["path"])
+        if item is not None:
+            record.update(
+                path=item["notebook_path"],
+                notebook_cell=item["notebook_cell"],
+                notebook_cell_type=item["notebook_cell_type"],
+                notebook_language=item["notebook_language"],
+                line_scope="notebook-cell",
+                url=f"{manifest['source_url']}/blob/{manifest['commit']}/{quote(item['notebook_path'], safe='/')}",
+            )
+
     def order(record: dict[str, Any]) -> tuple[Any, ...]:
         return (
             STAGES.index(record["stage"]),
@@ -322,6 +337,7 @@ def analyze(
                     record["stage"],
                     record["source"],
                     record["path"],
+                    record.get("notebook_cell"),
                     record["start_line"],
                     record["end_line"],
                     record["excerpt"],
@@ -401,7 +417,8 @@ def analyze_modes(
     if len(modes) == 1:
         return [analyze(snapshot, modes[0], rules_dir=rules_dir, expected_hash=expected_hash)]
     combined = analyze(snapshot, "combined", rules_dir=rules_dir, expected_hash=expected_hash)
-    manifest = json.loads((snapshot / "manifest.json").read_bytes())
+    manifest, contents = replay(snapshot, expected_hash)
+    manifest, contents = expand_notebooks(manifest, contents)
     results = []
     for mode in modes:
         if mode == "combined":

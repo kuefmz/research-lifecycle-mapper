@@ -30,7 +30,8 @@ def test_repository_url_and_eligibility():
     assert source_kind("README.md")[0] == "documentation"
     assert source_kind("src/README.md")[0] == "documentation"
     assert source_kind("requirements.txt")[0] == "documentation"  # No rule fires from dependencies.
-    assert source_kind("notebook.ipynb")[0] is None
+    assert source_kind("notebook.ipynb")[0] == "notebook"
+    assert source_kind("notebook.ipynb", "eligibility-1")[0] is None
 
 
 def test_replay_hashes_and_inventory(tmp_path):

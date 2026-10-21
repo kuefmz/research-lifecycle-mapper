@@ -345,3 +345,12 @@ that main contains the version originally annotated or the paper's released code
 
 This is a specification amendment only: no runtime rule, benchmark prediction or
 performance result is changed by this review.
+
+
+## 13. Superseding notebook and reference correction
+
+See [notebook-and-reference-audit.md](notebook-and-reference-audit.md). Notebook
+Markdown/code routing is now implemented. The live final-agreement hyperlinks
+include source code, notebooks and R Markdown; earlier documentation-only
+reference claims are superseded. D-COL-01, D-COL-02 and D-DIS-01 require the
+explicit codebook clarifications recorded in that audit. No labels were changed.
