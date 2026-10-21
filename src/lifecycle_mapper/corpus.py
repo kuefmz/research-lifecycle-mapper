@@ -319,6 +319,7 @@ def run_repository(
         ]
         for mode in result["modes"]:
             issues.extend(mode["analysis_errors"])
+            issues.extend(mode.get("coverage_issues", []))
         result["coverage_issues"] = list({(i["path"], i["reason"]): i for i in issues}.values())
     except Exception as exc:
         result["error"] = str(getattr(exc, "code", type(exc).__name__))

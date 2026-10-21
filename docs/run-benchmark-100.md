@@ -1,6 +1,6 @@
 # Run all 100 benchmark repositories with notebooks
 
-This run uses simulation development v5.3: it fixes reported evidence-role errors and adds physical-equation, agent-simulation and experimental-design matching. See the profile README and exact rule catalogue. The proposed
+This run uses consolidated development v5.4, incorporating the 61-repository development audit, operational exclusions and scientific workflow rules. See the profile README and exact rule catalogue. The proposed
 v6 catalogue still contains unresolved codebook choices and is not the runtime
 classifier. No near-100% accuracy claim is warranted: the previous v5 development
 replay had micro-F1 about 0.749 on 72 complete documentation scans. The final
@@ -29,22 +29,22 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
   --reference data/final_agreement.csv \
-  --output data/runs/benchmark-100-v53-10mib-2min \
+  --output data/runs/benchmark-100-v54-final \
   --transport hybrid \
   --workers 1 \
   --mode all \
-  --rules-dir configs/simulation-development-v5.3 \
+  --rules-dir configs/consolidated-development-v5.4 \
   --max-bytes 10485760
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
-  --output data/runs/benchmark-100-v53-10mib-2min \
+  --output data/runs/benchmark-100-v54-final \
   --reference data/final_agreement.csv
 
 uv run --frozen python -m lifecycle_mapper.assess \
-  --run data/runs/benchmark-100-v53-10mib-2min \
+  --run data/runs/benchmark-100-v54-final \
   --reference data/final_agreement.csv \
-  --rules-dir configs/simulation-development-v5.3 \
-  --output data/reports/benchmark-100-v53-10mib-2min
+  --rules-dir configs/consolidated-development-v5.4 \
+  --output data/reports/benchmark-100-v54-final
 ```
 
 Use a new output directory for this implementation/policy/profile. Old snapshots
@@ -188,7 +188,7 @@ For an existing run, after processing finishes, display saved checkpoints alongs
 
 ```bash
 uv run --frozen python -m lifecycle_mapper.corpus logs \
-  --output data/runs/benchmark-100-v53-10mib-2min \
+  --output data/runs/benchmark-100-v54-final \
   --reference data/final_agreement.csv
 ```
 
@@ -208,6 +208,10 @@ Eligible text is decoded using strict UTF-8 first. If that fails, the decoder tr
 
 Snapshots retain original bytes, byte counts, Git blob identity and SHA-256. Each captured file records text_encoding and decoding_policy; replay uses the versioned decoder and verifies recorded provenance. Older snapshot policies retain strict UTF-8 behavior. Non-UTF-8 fallback files are recorded in each applicable mode's text_decodings field and counted in progress logs. Source excerpts use decoded characters with physical lines preserved. Binary/unsupported text remains an explicit acquisition failure, never fabricated negative evidence.
 
-Policy 5 includes the previously requested TXT-folder exclusion unchanged. It does not resolve dataset files using programming-language suffixes. For a fresh benchmark use output `data/runs/benchmark-100-v53-text-fixes` with `--rules-dir configs/simulation-development-v5.3`; heuristic rules and reference labels are unchanged. Do not mix checkpoints across policy/implementation versions.
+Policy 5 includes the previously requested TXT-folder exclusion unchanged. It does not resolve dataset files using programming-language suffixes. For a fresh benchmark use output `data/runs/benchmark-100-v53-text-fixes` with `--rules-dir configs/consolidated-development-v5.4`; heuristic rules and reference labels are unchanged. Do not mix checkpoints across policy/implementation versions.
 
 Current execution budget: 120 seconds per repository, including acquisition, analysis and quota waits. The benchmark commands use a 10 MiB per-file cap. Start a fresh output directory after this change; the manifest records the deadline. Timeout diagnostics and unknown-value reporting remain unchanged.
+
+## Consolidated v5.4 freeze
+
+Finish the existing baseline run before pulling changes. Use a fresh `data/runs/benchmark-100-v54-final` output. Exact rules and the paired README-only development check are documented in the profile README and `data/reports/consolidated-v54-development-audit.json`. This is a development freeze, not a guarantee of target F1. Both run and reference order remain unchanged.

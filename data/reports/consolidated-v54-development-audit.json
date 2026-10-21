@@ -1,0 +1,7576 @@
+{
+  "scope": "Development analysis of supplied 61-repository progress log plus paired classification of 56 fetched root READMEs. No independent test set. This is not a full v5.4 benchmark run. Reference labels never enter classifier matching.",
+  "source_log_sha256": "27a3f631f338d1de83c589ee3021881741f8edd87f4f79caa68b8f93818ef860",
+  "log_status_counts": {
+    "complete": 56,
+    "partial": 1,
+    "failed": 4
+  },
+  "log_complete_only": {
+    "documentation": {
+      "repositories": 56,
+      "labels": 336,
+      "true_positives": 127,
+      "false_positives": 23,
+      "false_negatives": 91,
+      "micro_precision": 0.8466666666666667,
+      "micro_recall": 0.5825688073394495,
+      "micro_f1": 0.6902173913043478,
+      "label_agreement": 0.6607142857142857,
+      "exact_repository_matches": 9
+    },
+    "combined": {
+      "repositories": 56,
+      "labels": 336,
+      "true_positives": 150,
+      "false_positives": 27,
+      "false_negatives": 68,
+      "micro_precision": 0.847457627118644,
+      "micro_recall": 0.6880733944954128,
+      "micro_f1": 0.759493670886076,
+      "label_agreement": 0.7172619047619048,
+      "exact_repository_matches": 12
+    },
+    "code": {
+      "repositories": 56,
+      "labels": 336,
+      "true_positives": 56,
+      "false_positives": 4,
+      "false_negatives": 162,
+      "micro_precision": 0.9333333333333333,
+      "micro_recall": 0.25688073394495414,
+      "micro_f1": 0.4028776978417266,
+      "label_agreement": 0.5059523809523809,
+      "exact_repository_matches": 1
+    }
+  },
+  "log_all_positive_baseline": {
+    "micro_f1": 0.7870036101083032
+  },
+  "code_interpretation": "Cross-scope reference agreement only, not code-ground-truth accuracy",
+  "paired_root_readme_development_check": {
+    "simulation-development-v5.3": {
+      "repositories": 56,
+      "labels": 336,
+      "true_positives": 117,
+      "false_positives": 15,
+      "false_negatives": 101,
+      "micro_precision": 0.8863636363636364,
+      "micro_recall": 0.536697247706422,
+      "micro_f1": 0.6685714285714286,
+      "label_agreement": 0.6547619047619048,
+      "exact_repository_matches": 9
+    },
+    "consolidated-development-v5.4": {
+      "repositories": 56,
+      "labels": 336,
+      "true_positives": 127,
+      "false_positives": 12,
+      "false_negatives": 91,
+      "micro_precision": 0.9136690647482014,
+      "micro_recall": 0.5825688073394495,
+      "micro_f1": 0.711484593837535,
+      "label_agreement": 0.6934523809523809,
+      "exact_repository_matches": 9
+    }
+  },
+  "remaining_limitations": [
+    "Root README evidence may omit information from other documentation or annotation-linked files.",
+    "No 80% or 90% F1 guarantee; existing always-positive baseline remains important.",
+    "Some reference distinctions are unresolved codebook questions, including publication/citation evidence.",
+    "Serialized Wolfram notebook boxes are not reconstructed; affected code scans are incomplete.",
+    "Minified/source-map and named corpus exclusions are methodological proxies, not proof of third-party status."
+  ],
+  "run_records": [
+    {
+      "index": 1,
+      "repository_url": "https://github.com/mspeich/forhytm",
+      "status": "complete",
+      "reference": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 2,
+      "repository_url": "https://github.com/cristal-smac/atom",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "documentation": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 3,
+      "repository_url": "https://github.com/taochen/all-versus-one",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "no_eligible_code": true
+    },
+    {
+      "index": 4,
+      "repository_url": "https://github.com/kjetilk/doe-sparql",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "documentation": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 5,
+      "repository_url": "https://github.com/yakazimir/Code-Datasets",
+      "status": "failed",
+      "reference": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "code": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "combined": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "no_eligible_code": false,
+      "stop_phase": "acquisition",
+      "current_file": "other_data/py27/orator/data_pseudo.f"
+    },
+    {
+      "index": 6,
+      "repository_url": "https://github.com/QTB-HHU/integraseModel",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 7,
+      "repository_url": "https://github.com/onurgu/joint-ner-and-md-tagger",
+      "status": "failed",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "code": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "combined": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "no_eligible_code": false,
+      "stop_phase": "analysis-tokenization",
+      "current_file": "web/public_html/js/jquery-3.2.1.min.js"
+    },
+    {
+      "index": 8,
+      "repository_url": "https://github.com/marcotcr/anchor-experiments",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 9,
+      "repository_url": "https://github.com/jkeiren/pbesstategraph-experiments",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 10,
+      "repository_url": "https://github.com/ushaham/RBMpaper",
+      "status": "complete",
+      "reference": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 11,
+      "repository_url": "https://github.com/flowersteam/rl-difference-testing",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 12,
+      "repository_url": "https://github.com/irit-melodi/irit-stac",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "code": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 13,
+      "repository_url": "https://github.com/drbenvincent/darc-experiments-matlab",
+      "status": "complete",
+      "reference": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "combined": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 14,
+      "repository_url": "https://github.com/dtrckd/pymake",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 15,
+      "repository_url": "https://github.com/Sind/compression-experiments",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 16,
+      "repository_url": "https://github.com/numpi/markov-measures",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 17,
+      "repository_url": "https://github.com/vered1986/UnsupervisedHypernymy",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 18,
+      "repository_url": "https://github.com/duvenaud/additive-gps",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 19,
+      "repository_url": "https://github.com/steveash/NETransliteration-COLING2018",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 20,
+      "repository_url": "https://github.com/mantiuk/pwcmp",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "documentation": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "combined": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 21,
+      "repository_url": "https://github.com/kapelner/optDesignSlopeInt",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 22,
+      "repository_url": "https://github.com/isti-fmt-nlp/AmbiguityToVariability",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "no_eligible_code": true
+    },
+    {
+      "index": 23,
+      "repository_url": "https://github.com/MichSchli/Tensor-LSTM",
+      "status": "complete",
+      "reference": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 24,
+      "repository_url": "https://github.com/akshay-r/autoencoders_dictionaries",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 25,
+      "repository_url": "https://github.com/sisl/GrammarExpts.jl",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 26,
+      "repository_url": "https://github.com/gmarceaucaron/natural-langevin-dynamics-for-neural-networks",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 27,
+      "repository_url": "https://github.com/lacerbi/comprob",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 28,
+      "repository_url": "https://github.com/pierrejacob/unbiasedpathsampling",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 29,
+      "repository_url": "https://github.com/PAL-UH/transferAL",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 30,
+      "repository_url": "https://github.com/IKMLab/arct2",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 31,
+      "repository_url": "https://github.com/AviranLab/SLEQ",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 32,
+      "repository_url": "https://github.com/sss1/sobolev-estimation",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 33,
+      "repository_url": "https://github.com/pietrobraione/sushi-experiments",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 34,
+      "repository_url": "https://github.com/srndic/hidost-reproduction",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 35,
+      "repository_url": "https://github.com/sirusb/R3CPET",
+      "status": "failed",
+      "reference": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "documentation": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "code": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "combined": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "no_eligible_code": false,
+      "stop_phase": "analysis-tokenization",
+      "current_file": "inst/www/d3.min.js"
+    },
+    {
+      "index": 36,
+      "repository_url": "https://github.com/jmschrei/PyPore",
+      "status": "partial",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "documentation": [
+        null,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "code": [
+        null,
+        null,
+        1,
+        null,
+        null,
+        null
+      ],
+      "combined": [
+        null,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 37,
+      "repository_url": "https://github.com/Ettwiller/TSS",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "documentation": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 38,
+      "repository_url": "https://github.com/eglxiang/ytf",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "documentation": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 39,
+      "repository_url": "https://github.com/jebyrnes/ext-meta",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 40,
+      "repository_url": "https://github.com/gavento/swap-sorting-experiments",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 41,
+      "repository_url": "https://github.com/cog-imperial/GPdoemd",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 42,
+      "repository_url": "https://github.com/jermp/rdf_indexes",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 43,
+      "repository_url": "https://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries",
+      "status": "complete",
+      "reference": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "combined": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 44,
+      "repository_url": "https://github.com/YiyiLiu1/bdChemo",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 45,
+      "repository_url": "https://github.com/matejbalog/gumbel-relatives",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 46,
+      "repository_url": "https://github.com/ztangent/norms-cogsci19",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "no_eligible_code": true
+    },
+    {
+      "index": 47,
+      "repository_url": "https://github.com/Matrix-Factorization-Bandit/IMFB-KDD2019",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "combined": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 48,
+      "repository_url": "https://github.com/vanheeringen-lab/gimmemotifs",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        0,
+        0,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "combined": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 49,
+      "repository_url": "https://github.com/ihincks/nv-adaptive",
+      "status": "failed",
+      "reference": [
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "documentation": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "code": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "combined": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "no_eligible_code": false,
+      "stop_phase": "analysis-tokenization",
+      "current_file": "src/EffectiveStrongMeasurments.nb"
+    },
+    {
+      "index": 50,
+      "repository_url": "https://github.com/b5strbal/macaw",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 51,
+      "repository_url": "https://github.com/HUJI-Deep/Generative-ConvACs",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 52,
+      "repository_url": "https://github.com/tuw-cpsg/paper-shsa-monitor-experiments",
+      "status": "complete",
+      "reference": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "combined": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 53,
+      "repository_url": "https://github.com/LCSL/dpp-vfx",
+      "status": "complete",
+      "reference": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "combined": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 54,
+      "repository_url": "https://github.com/anguelos/embedding_map",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 55,
+      "repository_url": "https://github.com/rehmanzafar/dlime_experiments",
+      "status": "complete",
+      "reference": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "combined": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 56,
+      "repository_url": "https://github.com/liusi2019/ocd",
+      "status": "complete",
+      "reference": [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 57,
+      "repository_url": "https://github.com/deezer/MusicGenreTranslation",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "combined": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 58,
+      "repository_url": "https://github.com/Veleslavia/EUSIPCO2017",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 59,
+      "repository_url": "https://github.com/alfredomg/ADAPT-MWE17",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "documentation": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "code": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 60,
+      "repository_url": "https://github.com/michael135/count-vector-paper-experiments",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "no_eligible_code": false
+    },
+    {
+      "index": 61,
+      "repository_url": "https://github.com/smitdaniel/BFPtool",
+      "status": "complete",
+      "reference": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "documentation": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "code": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "combined": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "no_eligible_code": false
+    }
+  ],
+  "root_readme_review": [
+    {
+      "repository": "AviranLab/SLEQ",
+      "source_url": "https://raw.githubusercontent.com/AviranLab/SLEQ/master/README.md",
+      "source_text_sha256": "e6e9cc4ceb99c4dab9888924ef8a2e9b4d36bc0de1a5e0b60cb7ad73dd415b53",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Method"
+      ],
+      "v54_labels": [
+        "Method"
+      ],
+      "v54_disagreements": [
+        "Processing",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54",
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            8,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "Ettwiller/TSS",
+      "source_url": "https://raw.githubusercontent.com/Ettwiller/TSS/master/README.md",
+      "source_text_sha256": "24a960c83de46e04069afb819d2fd6bb95200d7ef04e87e829d37783a6af6101",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Processing",
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Experimentation"
+      ],
+      "v54_disagreements": [
+        "Method"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            51,
+            62
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            151,
+            162
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "HUJI-Deep/Generative-ConvACs",
+      "source_url": "https://raw.githubusercontent.com/HUJI-Deep/Generative-ConvACs/master/README.md",
+      "source_text_sha256": "4bb2a137b10bfa3401b177e0f4ae8512a7cbc4528d4c7359e4b8f2467fe5d26f",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Method"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            30,
+            33
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            33,
+            33
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            13,
+            16
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            13,
+            16
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            31,
+            31
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            13,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "IKMLab/arct2",
+      "source_url": "https://raw.githubusercontent.com/IKMLab/arct2/master/README.md",
+      "source_text_sha256": "5edddf2e99843420db5ffce86cdee89c6eadc828eb77e2b6361e306944b982f9",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Processing",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Method"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            60,
+            68
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            29,
+            39
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            48,
+            59
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            102,
+            106
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            77,
+            78
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            70,
+            75
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54"
+          ],
+          "lines": [
+            107,
+            118
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            48,
+            59
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            80,
+            83
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            85,
+            86
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            119,
+            124
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_RESEARCH_EVALUATION_COMMAND_V54"
+          ],
+          "lines": [
+            70,
+            75
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            29,
+            39
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1",
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            48,
+            59
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            80,
+            83
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "LCSL/dpp-vfx",
+      "source_url": "https://raw.githubusercontent.com/LCSL/dpp-vfx/master/README.md",
+      "source_text_sha256": "947cec8099d768db70db50d9187d768ea0ed59a8962d07bd829662d18c4da352",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Method"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54",
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            47,
+            58
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            57,
+            58
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_IMPLEMENTED_METHOD_V52",
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            8,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            57,
+            58
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            6,
+            14
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            47,
+            58
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            60,
+            70
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            6,
+            14
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            8,
+            12
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1",
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            47,
+            58
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            60,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "Matrix-Factorization-Bandit/IMFB-KDD2019",
+      "source_url": "https://raw.githubusercontent.com/Matrix-Factorization-Bandit/IMFB-KDD2019/master/README.md",
+      "source_text_sha256": "79053d328746fcde28a0a284d7e66641501313424569dc88435e6e84a5228ec7",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Experimentation"
+      ],
+      "v54_disagreements": [
+        "Processing",
+        "Method",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "MichSchli/Tensor-LSTM",
+      "source_url": "https://raw.githubusercontent.com/MichSchli/Tensor-LSTM/master/README.md",
+      "source_text_sha256": "9429b0f0f4295e6db101856fb755df0d3ab32153b7b1520406c2f2cc1c8e6503",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "v53_labels": [],
+      "v54_labels": [
+        "Method",
+        "Experimentation"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_IMPLEMENTATION_OBJECT_V54",
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "PAL-UH/transferAL",
+      "source_url": "https://raw.githubusercontent.com/PAL-UH/transferAL/master/README.md",
+      "source_text_sha256": "31091ce612807d4efff9e39e90742411ec290c162a959dc2226342051aff9981",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_IMPLEMENTED_METHOD_V52",
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            9,
+            9
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_IMPLEMENTED_METHOD_V52"
+          ],
+          "lines": [
+            45,
+            45
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            11,
+            14
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            36,
+            43
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            13,
+            13
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            3,
+            10
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            36,
+            43
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            5,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            7,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "QTB-HHU/integraseModel",
+      "source_url": "https://raw.githubusercontent.com/QTB-HHU/integraseModel/master/README.md",
+      "source_text_sha256": "f056178946ff98a8b96dba69b421337298afa3f56d6b1130bc5d820d13ab30c8",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_IMPLEMENTATION_OBJECT_V54"
+          ],
+          "lines": [
+            1,
+            6
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            7,
+            15
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "Sind/compression-experiments",
+      "source_url": "https://raw.githubusercontent.com/Sind/compression-experiments/master/README.md",
+      "source_text_sha256": "a7565f36d33cb8ec0c424f8e8e0414a2364c46ef2edc0a156ecf2e722efea702",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            7
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            8,
+            13
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            14,
+            19
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "Veleslavia/EUSIPCO2017",
+      "source_url": "https://raw.githubusercontent.com/Veleslavia/EUSIPCO2017/master/README.md",
+      "source_text_sha256": "fb07eda4166e4928f0bbadde53ba8eb030a08c2f00705fd7890daecccb3f7677",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Processing",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Method",
+        "Experimentation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            6,
+            6
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            7
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            8,
+            11
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            12,
+            23
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            25,
+            34
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            7
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            12,
+            23
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_RESEARCH_EVALUATION_COMMAND_V54"
+          ],
+          "lines": [
+            35,
+            46
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            4
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "White-Link/UnsupervisedScalableRepresentationLearningTimeSeries",
+      "source_url": "https://raw.githubusercontent.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries/master/README.md",
+      "source_text_sha256": "bbf64657ed71c0f78352fb4e7660e5959bb50f75c7273d99e90affeff7f5d15d",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Method",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            53,
+            55
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            6,
+            17
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            43,
+            54
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            55,
+            57
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            53,
+            55
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            65,
+            68
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            71,
+            72
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            94,
+            94
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1",
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            59,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "YiyiLiu1/bdChemo",
+      "source_url": "https://raw.githubusercontent.com/YiyiLiu1/bdChemo/master/README.md",
+      "source_text_sha256": "dc315c7a4d916d37a1e56989bc6fbab3c28df50a789f6f0cd12c2890367ebdaf",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_IMPLEMENTED_METHOD_V52",
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            20,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "akshay-r/autoencoders_dictionaries",
+      "source_url": "https://raw.githubusercontent.com/akshay-r/autoencoders_dictionaries/master/README.md",
+      "source_text_sha256": "02d5de92027ab0bae3c4f6d6fe6c6580f5b1015f067d532abe4230f581d28823",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            7
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            7
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            5,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "alfredomg/ADAPT-MWE17",
+      "source_url": "https://raw.githubusercontent.com/alfredomg/ADAPT-MWE17/master/README.md",
+      "source_text_sha256": "c68b54c770c2c7418695d2dda9a36697a2e8f268600a491ae4a656149c21adef",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DATA_SUBSET_V53"
+          ],
+          "lines": [
+            120,
+            124
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            108,
+            108
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            70,
+            75
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_COMPUTATIONAL_STEPS_V52"
+          ],
+          "lines": [
+            108,
+            108
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            54,
+            59
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            62,
+            63
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            70,
+            75
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            70,
+            75
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            106,
+            117
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            54,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "anguelos/embedding_map",
+      "source_url": "https://raw.githubusercontent.com/anguelos/embedding_map/master/README.md",
+      "source_text_sha256": "8c1bfd3004428bd25dca48081bf8ac18a9ec9236d67047d771410c87660cb330",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            6,
+            17
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            18,
+            22
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            24,
+            28
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            29,
+            29
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            4
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            4
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            24,
+            28
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            29,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "b5strbal/macaw",
+      "source_url": "https://raw.githubusercontent.com/b5strbal/macaw/master/README.md",
+      "source_text_sha256": "74df06ac5b146479f64720f8b05ee3d51e6c98ab16336c85ad6038a59e1fcc3a",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Experimentation"
+      ],
+      "v54_disagreements": [
+        "Method",
+        "Experimentation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "cog-imperial/GPdoemd",
+      "source_url": "https://raw.githubusercontent.com/cog-imperial/GPdoemd/master/README.md",
+      "source_text_sha256": "7816cf881bf92ddbef3b5d180abe88a18311f2ca97b5fde13311f3e2768a157a",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "cristal-smac/atom",
+      "source_url": "https://raw.githubusercontent.com/cristal-smac/atom/master/README.md",
+      "source_text_sha256": "1095466878c3d5a25fec0a5263de38cc43f2339a3aa1c9c0db4820f80ef4f451",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Method",
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_AGENT_MECHANISM_V53"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            13,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "deezer/MusicGenreTranslation",
+      "source_url": "https://raw.githubusercontent.com/deezer/MusicGenreTranslation/master/README.md",
+      "source_text_sha256": "03b00b20ebb96921ef090478046da0d7108e838d26e2faeab135c8b6a81b3182",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Processing",
+        "Method",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            11,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            14,
+            25
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            6,
+            13
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            26,
+            35
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "drbenvincent/darc-experiments-matlab",
+      "source_url": "https://raw.githubusercontent.com/drbenvincent/darc-experiments-matlab/master/README.md",
+      "source_text_sha256": "427da3b85d1cf305e7d047be9fab3a389ef0ef6d07e475cb09f194875ac46a36",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Collection",
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Collection",
+          "rules": [
+            "COL_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            310,
+            321
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            310,
+            321
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            20,
+            20
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            23,
+            23
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            24,
+            24
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            27,
+            27
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            85,
+            85
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            412,
+            412
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54"
+          ],
+          "lines": [
+            247,
+            253
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            287,
+            298
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            310,
+            321
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            344,
+            355
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            418,
+            425
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            18,
+            21
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            22,
+            31
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            69,
+            74
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            75,
+            86
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            90,
+            99
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            100,
+            111
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            133,
+            136
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            137,
+            145
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            146,
+            156
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            157,
+            164
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            167,
+            178
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            203,
+            214
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            221,
+            232
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            257,
+            268
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            323,
+            334
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            361,
+            372
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            375,
+            386
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            400,
+            411
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            412,
+            414
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            416,
+            416
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            427,
+            430
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            431,
+            433
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            449,
+            459
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            4,
+            10
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1",
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            427,
+            430
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            478,
+            489
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "dtrckd/pymake",
+      "source_url": "https://raw.githubusercontent.com/dtrckd/pymake/master/README.md",
+      "source_text_sha256": "aca614827b1d7d649bdd16eb4fcfcfac7eb96468d436eabc60ac6579c908f83b",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Experimentation"
+      ],
+      "v54_disagreements": [
+        "Processing",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            42,
+            53
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            96,
+            96
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            328,
+            328
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54"
+          ],
+          "lines": [
+            257,
+            262
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            264,
+            267
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            42,
+            53
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            94,
+            105
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            226,
+            237
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            298,
+            307
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            322,
+            326
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            336,
+            347
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            349,
+            360
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            365,
+            376
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "duvenaud/additive-gps",
+      "source_url": "https://raw.githubusercontent.com/duvenaud/additive-gps/master/README.md",
+      "source_text_sha256": "a930c9f08c38058539b579bbe9ee0269e839effeb5b37661b3b1d9a066686f38",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            6,
+            6
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            6,
+            6
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1",
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "eglxiang/ytf",
+      "source_url": "https://raw.githubusercontent.com/eglxiang/ytf/master/README.md",
+      "source_text_sha256": "8ac5f493d595227e04f233e6febe43eb702698775db91fe00df5be1ad31b011d",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Collection",
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            36,
+            40
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            1
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1",
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            7,
+            7
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            9,
+            9
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            80,
+            81
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "flowersteam/rl-difference-testing",
+      "source_url": "https://raw.githubusercontent.com/flowersteam/rl-difference-testing/master/README.md",
+      "source_text_sha256": "596d3c3b25220ab94a58a873fba7980e611b81588a11141470a860ef566d38cd",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Method"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_IMPLEMENTATION_OBJECT_V54"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            14,
+            14
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            16,
+            16
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            4,
+            4
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1",
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "gavento/swap-sorting-experiments",
+      "source_url": "https://raw.githubusercontent.com/gavento/swap-sorting-experiments/master/README.md",
+      "source_text_sha256": "4e0a323f0fdb8f75068677638c09bd5100f6e4ee868c209ecd633f603dac4f90",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Experimentation"
+      ],
+      "v54_disagreements": [
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            9,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "gmarceaucaron/natural-langevin-dynamics-for-neural-networks",
+      "source_url": "https://raw.githubusercontent.com/gmarceaucaron/natural-langevin-dynamics-for-neural-networks/master/README.md",
+      "source_text_sha256": "14c822c8d7d1108454aafb665ffcbe706ed39f11afa1564cb08e392eaf4654e3",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            2,
+            2
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            2
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            2,
+            2
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "irit-melodi/irit-stac",
+      "source_url": "https://raw.githubusercontent.com/irit-melodi/irit-stac/master/README.md",
+      "source_text_sha256": "b0525a7f34e6abf86dfe2f8e84ea6f8c6a0416a6d993119eccab9a8bc934e906",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Evaluation"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Evaluation"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Processing",
+        "Method",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            186,
+            193
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            92,
+            103
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            142,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "isti-fmt-nlp/AmbiguityToVariability",
+      "source_url": "https://raw.githubusercontent.com/isti-fmt-nlp/AmbiguityToVariability/master/README.md",
+      "source_text_sha256": "d0ab4ab49201f58c4a28f71ccec7f46ccb17f2504cb6973b45d23061d046ee31",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 0,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Processing"
+      ],
+      "v54_labels": [
+        "Processing"
+      ],
+      "v54_disagreements": [
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "jebyrnes/ext-meta",
+      "source_url": "https://raw.githubusercontent.com/jebyrnes/ext-meta/master/README.md",
+      "source_text_sha256": "6b5561677d2131b748c033ff76eadc161a7d087fed48da6f5e1aa88f7c9b1add",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Processing"
+      ],
+      "v54_labels": [
+        "Processing"
+      ],
+      "v54_disagreements": [
+        "Method",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            22,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "jermp/rdf_indexes",
+      "source_url": "https://raw.githubusercontent.com/jermp/rdf_indexes/master/README.md",
+      "source_text_sha256": "106fe85a9ded9ab6ed3d14e7f271f9a880f3f7ef9933f1bb4b8e4a2c1e3d7478",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Processing"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Method",
+        "Experimentation",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54",
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            7,
+            18
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            51,
+            62
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54",
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            94,
+            105
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_EXTENDED_V4"
+          ],
+          "lines": [
+            54,
+            56
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            102,
+            103
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            107,
+            108
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54"
+          ],
+          "lines": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "jkeiren/pbesstategraph-experiments",
+      "source_url": "https://raw.githubusercontent.com/jkeiren/pbesstategraph-experiments/master/README.md",
+      "source_text_sha256": "2c2e59427e3b1b99eeea08faa9c38ec134a5288b9ddaf75189ea75beede812d5",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Processing",
+        "Method",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            13,
+            13
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            20,
+            20
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            6,
+            17
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            33,
+            36
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            4
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            18,
+            18
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            20,
+            20
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            155,
+            156
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            149,
+            156
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "kapelner/optDesignSlopeInt",
+      "source_url": "https://raw.githubusercontent.com/kapelner/optDesignSlopeInt/master/README.md",
+      "source_text_sha256": "28f6995fa4b9ab6138a3699d8bda8c52ee84bfae700000d056b2a4d89faa6b49",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Method",
+        "Experimentation",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "kjetilk/doe-sparql",
+      "source_url": "https://raw.githubusercontent.com/kjetilk/doe-sparql/master/README.md",
+      "source_text_sha256": "51fe5e36503f76dcb522c858e0875d052def0c06666500db4b8353b32cfdf327",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DATA_SUBSET_V53"
+          ],
+          "lines": [
+            99,
+            110
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_EXPERIMENTAL_DESIGN_V53"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            4,
+            6
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            13,
+            14
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            13,
+            16
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            160,
+            171
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            4,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "lacerbi/comprob",
+      "source_url": "https://raw.githubusercontent.com/lacerbi/comprob/master/README.md",
+      "source_text_sha256": "8c1f77e03894709d1f0029fa1591932fbb6aafa12a4d78a14e4a3d296fa40939",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [],
+      "v54_labels": [
+        "Method"
+      ],
+      "v54_disagreements": [
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "liusi2019/ocd",
+      "source_url": "https://raw.githubusercontent.com/liusi2019/ocd/master/README.md",
+      "source_text_sha256": "370b0086c88b5b4f417485e48400b0dc65d0d6c37ca871194b216e7268c3d3ba",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Method"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            2,
+            2
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            9
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            2,
+            2
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            9
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            10,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "mantiuk/pwcmp",
+      "source_url": "https://raw.githubusercontent.com/mantiuk/pwcmp/master/README.md",
+      "source_text_sha256": "5e0644c164cfae0f5c32a8334ee97498c4c93999e1435eb1b2a35daaec40cb2b",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Collection",
+        "Method",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            3,
+            14
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            37,
+            42
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            103,
+            114
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            103,
+            114
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            119,
+            119
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            3,
+            14
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            121,
+            132
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            15,
+            15
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            54,
+            58
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            60,
+            60
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            121,
+            132
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            123,
+            123
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            17,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "marcotcr/anchor-experiments",
+      "source_url": "https://raw.githubusercontent.com/marcotcr/anchor-experiments/master/README.md",
+      "source_text_sha256": "f14f4bf213b4a7d155a2b5b25a5a59960ce9dede38d7cc771599c2d94990aa6d",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Method",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "matejbalog/gumbel-relatives",
+      "source_url": "https://raw.githubusercontent.com/matejbalog/gumbel-relatives/master/README.md",
+      "source_text_sha256": "52f0cfe765591ac8bd7565e39b474af80c003435a039cffa2766e020b5cfb687",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            48,
+            48
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            10,
+            10
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            13,
+            15
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            10,
+            10
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            83,
+            92
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "michael135/count-vector-paper-experiments",
+      "source_url": "https://raw.githubusercontent.com/michael135/count-vector-paper-experiments/master/README.md",
+      "source_text_sha256": "b0ae4429f0a31941d332f1d4e530d9ed4ddcfffec29c792abf75896c74cb1eaa",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Processing",
+        "Method",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            17,
+            19
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            4
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "mspeich/forhytm",
+      "source_url": "https://raw.githubusercontent.com/mspeich/forhytm/master/README.md",
+      "source_text_sha256": "d7a7e7206052c4e5921fab5661e28935d9995e977e27f69e5363d6bfbe12b23b",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Collection",
+        "Processing",
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Processing"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Collection",
+          "rules": [
+            "COL_DOC_PROVIDED_MEASUREMENTS_V53"
+          ],
+          "lines": [
+            22,
+            22
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            4,
+            4
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            22,
+            22
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            49,
+            58
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            4,
+            4
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            36,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "numpi/markov-measures",
+      "source_url": "https://raw.githubusercontent.com/numpi/markov-measures/master/README.md",
+      "source_text_sha256": "5b007027aba52a0d660a89b54628a30caf5af930bd8f5a786f912346951d072b",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            9,
+            9
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "pierrejacob/unbiasedpathsampling",
+      "source_url": "https://raw.githubusercontent.com/pierrejacob/unbiasedpathsampling/master/README.md",
+      "source_text_sha256": "76e1133e329f6c5841415b58f32a8e3557ae29880fac1fecf39d98930d010bc9",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            4
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            9
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            9
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            6,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "pietrobraione/sushi-experiments",
+      "source_url": "https://raw.githubusercontent.com/pietrobraione/sushi-experiments/master/README.md",
+      "source_text_sha256": "8f14ae5422771c38eef5f06b25ea23b993e7009b064f693f4d8b6fc772fa7961",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Experimentation"
+      ],
+      "v54_disagreements": [
+        "Method"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            17,
+            17
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            11,
+            14
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            15,
+            26
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "rehmanzafar/dlime_experiments",
+      "source_url": "https://raw.githubusercontent.com/rehmanzafar/dlime_experiments/master/README.md",
+      "source_text_sha256": "3fa5b302556d3baac0dc5bd2c94a402fc0a899857fbdb00ee3137d637b045a86",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Method",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            5,
+            5
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            17,
+            17
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            4,
+            15
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            16,
+            27
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            39,
+            41
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            40,
+            40
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            69,
+            70
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            82,
+            93
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "sisl/GrammarExpts.jl",
+      "source_url": "https://raw.githubusercontent.com/sisl/GrammarExpts.jl/master/README.md",
+      "source_text_sha256": "cad6bc183b27cb5d2af663dc95305662343cf85b351c1a9a913bf5e5019ba448",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Processing"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Method"
+      ],
+      "v54_disagreements": [
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            58,
+            69
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54"
+          ],
+          "lines": [
+            108,
+            116
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            31,
+            34
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            160,
+            160
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_IMPLEMENTATION_OBJECT_V54",
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            96,
+            107
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            1,
+            6
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_NUMERICAL_TECHNIQUE_V54"
+          ],
+          "lines": [
+            7,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "smitdaniel/BFPtool",
+      "source_url": "https://raw.githubusercontent.com/smitdaniel/BFPtool/master/README",
+      "source_text_sha256": "37d1d2ab1083471206d7dc3013fd34142439dd2fed0904546ec9ffc2bf896b58",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "v53_labels": [
+        "Collection",
+        "Processing",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Method",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            30,
+            33
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            4,
+            4
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1",
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "srndic/hidost-reproduction",
+      "source_url": "https://raw.githubusercontent.com/srndic/hidost-reproduction/master/README.md",
+      "source_text_sha256": "57965aef0e5710cb8a0a16bfb237961ca9f72d6c18f8e1707ca63d89581c35c4",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Processing",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Processing",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Processing",
+        "Method",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DATA_SUBSET_V53"
+          ],
+          "lines": [
+            82,
+            93
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            10
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            22,
+            33
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            58,
+            69
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            70,
+            74
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            76,
+            81
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            82,
+            93
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            6,
+            8
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            84,
+            85
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1",
+            "DIS_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "sss1/sobolev-estimation",
+      "source_url": "https://raw.githubusercontent.com/sss1/sobolev-estimation/master/README.md",
+      "source_text_sha256": "b75930934d943de0bc4612e5280c2c6ae97dd68b393ca09250aa56083d9d12c8",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [],
+      "v54_labels": [],
+      "v54_disagreements": [
+        "Method",
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": []
+    },
+    {
+      "repository": "steveash/NETransliteration-COLING2018",
+      "source_url": "https://raw.githubusercontent.com/steveash/NETransliteration-COLING2018/master/README.md",
+      "source_text_sha256": "141c1f28d76da0c8f748b80e99b10a9599f138c11e6c84950029d7d389085ab9",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Processing",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Collection",
+        "Processing",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Method"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Collection",
+          "rules": [
+            "COL_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            98,
+            109
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54",
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            10
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54",
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            11,
+            22
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54",
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            98,
+            109
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            112,
+            112
+          ]
+        },
+        {
+          "stage": "Processing",
+          "rules": [
+            "PRO_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            114,
+            119
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            18,
+            18
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            43,
+            43
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            44,
+            44
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            50,
+            50
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            84,
+            84
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            85,
+            85
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            90,
+            90
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54"
+          ],
+          "lines": [
+            40,
+            51
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54"
+          ],
+          "lines": [
+            82,
+            93
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            10
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            23,
+            24
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            73,
+            76
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_REPORTED_METRIC_V54"
+          ],
+          "lines": [
+            56,
+            67
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1",
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            40,
+            51
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_1",
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            82,
+            93
+          ]
+        },
+        {
+          "stage": "Evaluation",
+          "rules": [
+            "EVA_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            98,
+            109
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            75,
+            75
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            10
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            11,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "taochen/all-versus-one",
+      "source_url": "https://raw.githubusercontent.com/taochen/all-versus-one/master/README.md",
+      "source_text_sha256": "b31ea9aed178bfb360bbc9a732c825113f550afd96f30b822c496a99a7d5c6f6",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 0,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Dissemination"
+      ],
+      "v54_disagreements": [],
+      "v54_rule_locations": [
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_RESULTS_ARCHIVE_V53"
+          ],
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "tuw-cpsg/paper-shsa-monitor-experiments",
+      "source_url": "https://raw.githubusercontent.com/tuw-cpsg/paper-shsa-monitor-experiments/master/README.md",
+      "source_text_sha256": "4966bd5c270a46f5d4b4fd0b012cd725662f8db81a9e3b1c8276df511e6b0327",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            7,
+            7
+          ]
+        },
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            3,
+            4
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "ushaham/RBMpaper",
+      "source_url": "https://raw.githubusercontent.com/ushaham/RBMpaper/master/README.md",
+      "source_text_sha256": "b4a4975c2a45a49d287bfefd288382260e38a86d72c5bab999f213010889747e",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1",
+            "EXP_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            1,
+            2
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_RESEARCH_V3",
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "vanheeringen-lab/gimmemotifs",
+      "source_url": "https://raw.githubusercontent.com/vanheeringen-lab/gimmemotifs/master/README.md",
+      "source_text_sha256": "99aecf31e79324c1fbbf6a60f2957e7654d67d4d2519686d52e49ef8016ddc53",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Dissemination"
+      ],
+      "v54_labels": [
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Processing",
+        "Method",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            80,
+            89
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "vered1986/UnsupervisedHypernymy",
+      "source_url": "https://raw.githubusercontent.com/vered1986/UnsupervisedHypernymy/master/README.md",
+      "source_text_sha256": "5c328c4adaf67027a9fff7fa561dabf8db8064430f8de6b07b10c67e9fc5b1ee",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Experimentation"
+      ],
+      "v54_labels": [
+        "Experimentation",
+        "Dissemination"
+      ],
+      "v54_disagreements": [
+        "Collection",
+        "Processing",
+        "Evaluation"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Experimentation",
+          "rules": [
+            "EXP_DOC_WORKFLOW_V5_1"
+          ],
+          "lines": [
+            1,
+            11
+          ]
+        },
+        {
+          "stage": "Dissemination",
+          "rules": [
+            "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54"
+          ],
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "ztangent/norms-cogsci19",
+      "source_url": "https://raw.githubusercontent.com/ztangent/norms-cogsci19/master/README.md",
+      "source_text_sha256": "6a2e34b2bbe1049f5338acee6cd3f1112f63b53a2ace44e737bbb2119df43a01",
+      "source_scope": "Fetched root README only; main/master branch URL, not pinned run snapshot",
+      "reference": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "v53_labels": [
+        "Collection",
+        "Method"
+      ],
+      "v54_labels": [
+        "Collection",
+        "Method"
+      ],
+      "v54_disagreements": [
+        "Processing",
+        "Experimentation",
+        "Evaluation",
+        "Dissemination"
+      ],
+      "v54_rule_locations": [
+        {
+          "stage": "Collection",
+          "rules": [
+            "COL_DOC_WORKFLOW_V5_2"
+          ],
+          "lines": [
+            8,
+            15
+          ]
+        },
+        {
+          "stage": "Method",
+          "rules": [
+            "MET_DOC_RESEARCH_V3"
+          ],
+          "lines": [
+            6,
+            6
+          ]
+        }
+      ]
+    }
+  ]
+}

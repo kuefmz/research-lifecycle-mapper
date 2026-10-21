@@ -57,6 +57,7 @@ def expand_notebooks(
                 "eligibility-3-programming-catalog",
                 "eligibility-4-txt-folder-density",
                 "eligibility-5-legacy-text-decoding",
+                "eligibility-6-generated-corpus-exclusions",
             }
             if suffix is None and broad_policy:
                 suffix = extension_for_language(str(language)) or ".unknown-code"

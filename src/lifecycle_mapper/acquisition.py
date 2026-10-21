@@ -18,9 +18,11 @@ from .telemetry import emit
 from .source_languages import language_names
 from .text_decoding import decode_text, POLICY as DECODING_POLICY
 
-POLICY_VERSION = "eligibility-5-legacy-text-decoding"
+POLICY_VERSION = "eligibility-6-generated-corpus-exclusions"
+DECODING_POLICIES = {POLICY_VERSION, "eligibility-5-legacy-text-decoding"}
 BROAD_POLICIES = {
     POLICY_VERSION,
+    "eligibility-5-legacy-text-decoding",
     "eligibility-4-txt-folder-density",
     "eligibility-3-programming-catalog",
 }
@@ -77,6 +79,15 @@ def source_kind(
     txt_counts: dict[str, int] | None = None,
 ) -> tuple[str | None, str | None]:
     parts = PurePosixPath(path.lower()).parts
+    if policy == POLICY_VERSION:
+        if re.search(r"\.min\.(?:js|css)(?:\.map)?$|\.(?:js|css)\.map$", path, re.I):
+            return None, "generated-minified-asset-or-source-map"
+        if any(
+            part in {"data", "other_data", "polyglot_data", "train", "test"} for part in parts[:-1]
+        ) and re.fullmatch(
+            r"(?:data_(?:pseudo|val|train|test)|polyglot(?:_[\w+-]+)?)\.[ef]", parts[-1]
+        ):
+            return None, "parallel-corpus-artifact"
     if any(part in EXCLUDED_PARTS for part in parts):
         return None, "vendored-generated-or-fixture"
     if policy in BROAD_POLICIES and any(
@@ -90,7 +101,12 @@ def source_kind(
     if suffix == ".ipynb" and policy in BROAD_POLICIES | {"eligibility-2-notebook-cells"}:
         return "notebook", None
     if (
-        policy in {POLICY_VERSION, "eligibility-4-txt-folder-density"}
+        policy
+        in {
+            POLICY_VERSION,
+            "eligibility-5-legacy-text-decoding",
+            "eligibility-4-txt-folder-density",
+        }
         and suffix == ".txt"
         and txt_counts is not None
         and txt_counts.get(str(PurePosixPath(path).parent), 0) > 5
@@ -471,6 +487,7 @@ def replay(root: Path, expected_hash: str | None = None) -> tuple[dict[str, Any]
         "eligibility-2-notebook-cells",
         "eligibility-3-programming-catalog",
         "eligibility-4-txt-folder-density",
+        "eligibility-5-legacy-text-decoding",
         POLICY_VERSION,
     }:
         raise ValueError("Unsupported snapshot schema or eligibility policy")
@@ -501,7 +518,7 @@ def replay(root: Path, expected_hash: str | None = None) -> tuple[dict[str, Any]
             data = target.read_bytes()
             if sha256(data) != item["sha256"] or len(data) != item["size"]:
                 raise ValueError(f"Content integrity failure: {item['path']}")
-            if manifest["policy_version"] == POLICY_VERSION:
+            if manifest["policy_version"] in DECODING_POLICIES:
                 text, encoding = decode_text(data)
                 if (
                     item.get("text_encoding", encoding) != encoding

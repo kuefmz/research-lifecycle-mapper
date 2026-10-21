@@ -43,6 +43,7 @@ def load_rules(directory: Path | None = None) -> tuple[list[dict[str, Any]], str
                 "0.5.1-development",
                 "0.5.2-development",
                 "0.5.3-development",
+                "0.5.4-development",
             }
             or catalog["stage"] != stage
         ):
@@ -196,6 +197,8 @@ def analyze(
                     **scan,
                 }
             )
+            if scan.get("coverage_gap"):
+                analysis_errors.append({"path": item["path"], "reason": scan["coverage_gap"]})
             if scan.get("error_tokens") or scan.get("lexer_failure"):
                 source_warnings.append(
                     {
@@ -538,6 +541,10 @@ def analyze(
         ],
         "eligible_files": len(eligible),
         "captured_files": sum(item["status"] == "captured" for item in eligible),
+        "coverage_issues": [
+            {"path": item["path"], "reason": item.get("reason") or "unavailable-artifact"}
+            for item in unavailable
+        ],
         "unavailable_files": len(unavailable),
         "inventory_complete": manifest["inventory_complete"],
         "interpretation": "candidate; absence of a match is not proof of absence of an activity",
@@ -613,6 +620,10 @@ def analyze_modes(
                 ],
                 "eligible_files": len(eligible),
                 "captured_files": sum(f["status"] == "captured" for f in eligible),
+                "coverage_issues": [
+                    {"path": item["path"], "reason": item.get("reason") or "unavailable-artifact"}
+                    for item in unavailable
+                ],
                 "unavailable_files": len(unavailable),
             }
         )
