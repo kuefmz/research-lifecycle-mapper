@@ -14,6 +14,7 @@ from typing import Any
 from .acquisition import POLICY_VERSION, repository_id, source_kind, txt_folder_counts
 from .canonical import contained, sha256, write_json
 from .telemetry import emit
+from .text_decoding import decode_text, POLICY as DECODING_POLICY
 
 
 def acquire_git(
@@ -138,13 +139,19 @@ def acquire_git(
             elif source is not None:
                 try:
                     data = git("-C", str(checkout), "cat-file", "blob", blob)
-                    data.decode("utf-8")
+                    _, text_encoding = decode_text(data)
                     if b"\0" in data or len(data) != size:
                         raise ValueError("Binary or mismatched blob")
                     target = contained(output / "content", path)
                     target.parent.mkdir(parents=True, exist_ok=True)
                     target.write_bytes(data)
-                    record.update(status="captured", reason=None, sha256=sha256(data))
+                    record.update(
+                        status="captured",
+                        reason=None,
+                        sha256=sha256(data),
+                        text_encoding=text_encoding,
+                        decoding_policy=DECODING_POLICY,
+                    )
                     captured += 1
                     captured_bytes += len(data)
                     emit(files_captured=captured, captured_bytes=captured_bytes)

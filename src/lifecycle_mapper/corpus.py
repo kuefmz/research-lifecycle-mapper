@@ -61,6 +61,13 @@ def repository_log(
                 "  code availability: no eligible source files; code zeros mean no available implementation evidence"
             )
         lines.append(f"  {mode}: " + " | ".join(values) + f"  (scan {scan})")
+    legacy_text = {
+        item["path"] for mode in result.get("modes", []) for item in mode.get("text_decodings", [])
+    }
+    if legacy_text:
+        lines.append(
+            f"  text decoding: windows-1252 fallback={len(legacy_text)} file(s); original bytes retained"
+        )
     if result.get("error"):
         lines.append("  error: " + result["error"])
         if result.get("error_location"):

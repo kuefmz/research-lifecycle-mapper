@@ -531,6 +531,11 @@ def analyze(
         "analysis_errors": analysis_errors,
         "source_scans": source_scans,
         "source_warnings": source_warnings,
+        "text_decodings": [
+            {"path": item["path"], "encoding": item["text_encoding"]}
+            for item in eligible
+            if item.get("text_encoding") == "windows-1252"
+        ],
         "eligible_files": len(eligible),
         "captured_files": sum(item["status"] == "captured" for item in eligible),
         "unavailable_files": len(unavailable),
@@ -601,6 +606,11 @@ def analyze_modes(
                 "analysis_errors": errors,
                 "source_scans": combined["source_scans"] if source == "code" else [],
                 "source_warnings": combined["source_warnings"] if source == "code" else [],
+                "text_decodings": [
+                    {"path": item["path"], "encoding": item["text_encoding"]}
+                    for item in eligible
+                    if item.get("text_encoding") == "windows-1252"
+                ],
                 "eligible_files": len(eligible),
                 "captured_files": sum(f["status"] == "captured" for f in eligible),
                 "unavailable_files": len(unavailable),

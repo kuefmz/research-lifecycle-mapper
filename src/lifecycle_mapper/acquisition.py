@@ -16,9 +16,14 @@ from urllib.request import Request, urlopen
 from .canonical import contained, json_bytes, read_json, sha256, write_json
 from .telemetry import emit
 from .source_languages import language_names
+from .text_decoding import decode_text, POLICY as DECODING_POLICY
 
-POLICY_VERSION = "eligibility-4-txt-folder-density"
-BROAD_POLICIES = {POLICY_VERSION, "eligibility-3-programming-catalog"}
+POLICY_VERSION = "eligibility-5-legacy-text-decoding"
+BROAD_POLICIES = {
+    POLICY_VERSION,
+    "eligibility-4-txt-folder-density",
+    "eligibility-3-programming-catalog",
+}
 DOC_SUFFIXES = {".md", ".rst", ".adoc", ".txt"}
 CODE_SUFFIXES = {
     ".py",
@@ -85,7 +90,7 @@ def source_kind(
     if suffix == ".ipynb" and policy in BROAD_POLICIES | {"eligibility-2-notebook-cells"}:
         return "notebook", None
     if (
-        policy == POLICY_VERSION
+        policy in {POLICY_VERSION, "eligibility-4-txt-folder-density"}
         and suffix == ".txt"
         and txt_counts is not None
         and txt_counts.get(str(PurePosixPath(path).parent), 0) > 5
@@ -404,13 +409,19 @@ def acquire(
                     raise ValueError("Blob exceeds acquisition size limit")
                 if len(data) != item["size"]:
                     raise ValueError("Blob size mismatch")
-                data.decode("utf-8")
+                _, text_encoding = decode_text(data)
                 if b"\x00" in data:
                     raise ValueError("Binary content")
                 target = contained(output / "content", path)
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(data)
-                record.update(status="captured", reason=None, sha256=sha256(data))
+                record.update(
+                    status="captured",
+                    reason=None,
+                    sha256=sha256(data),
+                    text_encoding=text_encoding,
+                    decoding_policy=DECODING_POLICY,
+                )
                 captured += 1
                 captured_bytes += len(data)
                 emit(files_captured=captured, captured_bytes=captured_bytes)
@@ -459,6 +470,7 @@ def replay(root: Path, expected_hash: str | None = None) -> tuple[dict[str, Any]
         "eligibility-1",
         "eligibility-2-notebook-cells",
         "eligibility-3-programming-catalog",
+        "eligibility-4-txt-folder-density",
         POLICY_VERSION,
     }:
         raise ValueError("Unsupported snapshot schema or eligibility policy")
@@ -489,7 +501,15 @@ def replay(root: Path, expected_hash: str | None = None) -> tuple[dict[str, Any]
             data = target.read_bytes()
             if sha256(data) != item["sha256"] or len(data) != item["size"]:
                 raise ValueError(f"Content integrity failure: {item['path']}")
-            text = data.decode("utf-8")
+            if manifest["policy_version"] == POLICY_VERSION:
+                text, encoding = decode_text(data)
+                if (
+                    item.get("text_encoding", encoding) != encoding
+                    or item.get("decoding_policy", DECODING_POLICY) != DECODING_POLICY
+                ):
+                    raise ValueError("Snapshot decoding provenance mismatch")
+            else:
+                text = data.decode("utf-8")
             if "\x00" in text:
                 raise ValueError("Binary captured artifact")
             contents[item["path"]] = text
