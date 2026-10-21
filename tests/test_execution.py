@@ -64,7 +64,7 @@ def test_timeout_checkpoint_exports_unknown_not_false_and_cleans_job(monkeypatch
         record, tmp_path, corpus.MODES, "hybrid", 0, corpus.PacedAPI(), False
     )
     assert result["error"] == "repository-timeout"
-    assert result["timeout_seconds"] == 300
+    assert result["timeout_seconds"] == 120
     assert result["modes"] == []
     assert len(list(tmp_path.glob("repositories/*/stop.json"))) == 1
     assert not list(tmp_path.glob("repositories/*/worker-job.json"))

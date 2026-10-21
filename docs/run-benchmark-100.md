@@ -29,28 +29,26 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
   --reference data/final_agreement.csv \
-  --output data/runs/benchmark-100-simulation-v53 \
+  --output data/runs/benchmark-100-v53-10mib-2min \
   --transport hybrid \
   --workers 1 \
   --mode all \
   --rules-dir configs/simulation-development-v5.3 \
-  --max-bytes 0
+  --max-bytes 10485760
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
-  --output data/runs/benchmark-100-simulation-v53 \
+  --output data/runs/benchmark-100-v53-10mib-2min \
   --reference data/final_agreement.csv
 
 uv run --frozen python -m lifecycle_mapper.assess \
-  --run data/runs/benchmark-100-simulation-v53 \
+  --run data/runs/benchmark-100-v53-10mib-2min \
   --reference data/final_agreement.csv \
   --rules-dir configs/simulation-development-v5.3 \
-  --output data/reports/benchmark-100-simulation-v53
+  --output data/reports/benchmark-100-v53-10mib-2min
 ```
 
 Use a new output directory for this implementation/policy/profile. Old snapshots
-cannot acquire notebooks through replay. There is no default file-size, file-count or total-download-size cap. The only
-repository resource cutoff is 300 seconds of wall-clock time. --max-bytes 0 is
-explicit here for reproducibility; 0 is also the new default.
+cannot acquire notebooks through replay. This command applies a 10 MiB per-file cap and a 120-second repository wall-clock deadline. There is no file-count or total-download-size cap. The CLI size default remains 0 (unlimited); the benchmark command sets 10485760 explicitly.
 
 Hybrid transport uses unauthenticated, direct raw HTTP downloads for file contents,
 verifies Git blob hashes and sends no bearer token to the raw host. REST is used
@@ -58,7 +56,7 @@ for branch/tree acquisition, normally two requests with main present and a
 nontruncated tree, plus a fallback request for master or additional subtree reads
 when required. Raw traffic has its own throttling constraints. REST primary quota
 exhaustion waits for reset and raw downloads honor Retry-After, but those waits
-count toward the same five-minute repository deadline. A quota wait can therefore
+count toward the same two-minute repository deadline. A quota wait can therefore
 time out; it must not be reported as a large-repository failure. Each isolated
 worker paces its own REST calls; two workers remain the recommended setting.
 Changing Python HTTP libraries alone does not reduce GitHub API usage.
@@ -115,9 +113,9 @@ not live correctness/F1 measurements against the reference. Logging adds no
 network requests and never prints the token.
 
 
-## Five-minute hard stop and paper-ready stop records
+## Two-minute hard stop and paper-ready stop records
 
-Each repository runs in a separate subprocess. The 300-second wall-clock budget
+Each repository runs in a separate subprocess. The 120-second wall-clock budget
 covers worker startup, branch/tree acquisition, downloads, integrity checking,
 notebook parsing, matching, result writing and rate-limit waits. On timeout the
 parent sends SIGKILL to the worker process group on POSIX, including Git child
@@ -180,7 +178,7 @@ A FileNotFoundError is an acquisition/local I/O failure, not a timeout or size
 exclusion. Its class alone is insufficient to infer the underlying cause. A
 python-parse-error is a detector compatibility gap, not a download failure and
 not evidence that the repository lacks research activities. Report these failure
-categories separately from the five-minute deadline in the paper.
+categories separately from the two-minute deadline in the paper.
 
 ## Display author agreement without rerunning
 
@@ -190,7 +188,7 @@ For an existing run, after processing finishes, display saved checkpoints alongs
 
 ```bash
 uv run --frozen python -m lifecycle_mapper.corpus logs \
-  --output data/runs/benchmark-100-simulation-v53 \
+  --output data/runs/benchmark-100-v53-10mib-2min \
   --reference data/final_agreement.csv
 ```
 
@@ -202,7 +200,7 @@ The benchmark input follows the supplied final-agreement row order. Corpus selec
 
 Before content acquisition, count regular files whose suffix is .txt (case-insensitive) within each immediate Git directory. If the count is greater than five, exclude all .txt files in that directory with inventory reason `txt-folder-more-than-5`. Exactly five remain eligible under the other rules. Nested directories are counted independently; the root is a directory too. README.txt has no exemption in a dense folder; README.md, code and notebooks are unaffected. Symlinks/submodules do not contribute to the count. Both Git and API/raw acquisition apply the same inventory policy. Replay recomputes the directory counts from the manifest; previous eligibility policies retain their original behavior.
 
-This is an explicit user-selected data-content proxy, not proof that excluded TXT files are datasets. It can exclude real documentation and must be reported as a selection limitation. It does not exclude data using other suffixes, such as .f files mistaken for Fortran. The 300-second repository deadline and no size caps remain unchanged. Use a fresh output directory, e.g. `data/runs/benchmark-100-v53-txt-policy4`; earlier checkpoints cannot be resumed across the changed implementation/policy. The v5.3 heuristic profile is unchanged.
+This is an explicit user-selected data-content proxy, not proof that excluded TXT files are datasets. It can exclude real documentation and must be reported as a selection limitation. It does not exclude data using other suffixes, such as .f files mistaken for Fortran. The current benchmark uses a 120-second repository deadline and an explicit 10 MiB per-file cap. Use a fresh output directory, e.g. `data/runs/benchmark-100-v53-txt-policy4`; earlier checkpoints cannot be resumed across the changed implementation/policy. The v5.3 heuristic profile is unchanged.
 
 ## Legacy text decoding (eligibility policy 5)
 
@@ -211,3 +209,5 @@ Eligible text is decoded using strict UTF-8 first. If that fails, the decoder tr
 Snapshots retain original bytes, byte counts, Git blob identity and SHA-256. Each captured file records text_encoding and decoding_policy; replay uses the versioned decoder and verifies recorded provenance. Older snapshot policies retain strict UTF-8 behavior. Non-UTF-8 fallback files are recorded in each applicable mode's text_decodings field and counted in progress logs. Source excerpts use decoded characters with physical lines preserved. Binary/unsupported text remains an explicit acquisition failure, never fabricated negative evidence.
 
 Policy 5 includes the previously requested TXT-folder exclusion unchanged. It does not resolve dataset files using programming-language suffixes. For a fresh benchmark use output `data/runs/benchmark-100-v53-text-fixes` with `--rules-dir configs/simulation-development-v5.3`; heuristic rules and reference labels are unchanged. Do not mix checkpoints across policy/implementation versions.
+
+Current execution budget: 120 seconds per repository, including acquisition, analysis and quota waits. The benchmark commands use a 10 MiB per-file cap. Start a fresh output directory after this change; the manifest records the deadline. Timeout diagnostics and unknown-value reporting remain unchanged.

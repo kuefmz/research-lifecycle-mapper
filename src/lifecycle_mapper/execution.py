@@ -11,10 +11,10 @@ from typing import Any
 from .canonical import json_bytes, read_json, sha256
 from .openaire import file_hash
 
-REPOSITORY_TIMEOUT_SECONDS = 300
+REPOSITORY_TIMEOUT_SECONDS = 120
 
 
-def worker_process(command: list[str], directory: Path, timeout: float = 300) -> dict[str, Any]:
+def worker_process(command: list[str], directory: Path, timeout: float = REPOSITORY_TIMEOUT_SECONDS) -> dict[str, Any]:
     """Kill the entire POSIX process group, including Git, on deadline or interruption."""
     started = time.monotonic()
     with (directory / "worker.log").open("a") as log:
