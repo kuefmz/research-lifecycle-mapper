@@ -96,6 +96,11 @@ def matches(
         chunk = view[unit["start"] : unit["end"]]
         lines = physical_lines(chunk, keepends=True)
         for rule in rules:
+            if any(
+                not re.search(pattern, view, re.I | re.M)
+                for pattern in rule.get("file_context_patterns", [])
+            ):
+                continue
             seen = set()
             start = unit["start"]
             for index, line in enumerate(lines):

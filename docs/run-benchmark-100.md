@@ -1,6 +1,6 @@
 # Run all 100 benchmark repositories with notebooks
 
-This run uses multilanguage development v5.1: the v5 documentation rules are unchanged; source scanning adds brace-language and portable lexical rules. The proposed
+This run uses workflow development v5.2: it tightens documentation Method proxies and extends executable workflow matching. See the profile README and exact rule catalogue. The proposed
 v6 catalogue still contains unresolved codebook choices and is not the runtime
 classifier. No near-100% accuracy claim is warranted: the previous v5 development
 replay had micro-F1 about 0.749 on 72 complete documentation scans. The final
@@ -29,22 +29,22 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx \
-  --output data/runs/benchmark-100-all-languages-v51 \
+  --output data/runs/benchmark-100-workflow-v52 \
   --transport hybrid \
   --workers 2 \
   --mode all \
-  --rules-dir configs/multilanguage-development-v5.1 \
+  --rules-dir configs/workflow-development-v5.2 \
   --max-bytes 0
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
-  --output data/runs/benchmark-100-all-languages-v51 \
+  --output data/runs/benchmark-100-workflow-v52 \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx
 
 uv run --frozen python -m lifecycle_mapper.assess \
-  --run data/runs/benchmark-100-all-languages-v51 \
+  --run data/runs/benchmark-100-workflow-v52 \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx \
-  --rules-dir configs/multilanguage-development-v5.1 \
-  --output data/reports/benchmark-100-all-languages-v51
+  --rules-dir configs/workflow-development-v5.2 \
+  --output data/reports/benchmark-100-workflow-v52
 ```
 
 Use a new output directory for this implementation/policy/profile. Old snapshots
@@ -190,7 +190,7 @@ For an existing run, after processing finishes, display saved checkpoints alongs
 
 ```bash
 uv run --frozen python -m lifecycle_mapper.corpus logs \
-  --output data/runs/benchmark-100-all-languages-v51 \
+  --output data/runs/benchmark-100-workflow-v52 \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx
 ```
 
