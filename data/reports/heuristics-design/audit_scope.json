@@ -1,0 +1,17 @@
+{
+  "interpretation": "The CSV is an inventory of reference labels and existing automated v5 candidates, not a manual verification of all 600 decisions. Selected passages were manually examined for the design; absent matches do not establish absent evidence. Operational-holdout error files were not used to select rules.",
+  "positive_labels": {
+    "Collection": 36,
+    "Dissemination": 79,
+    "Evaluation": 66,
+    "Experimentation": 88,
+    "Method": 71,
+    "Processing": 44
+  },
+  "reference_sheet": "final_agreement",
+  "repositories": 100,
+  "repositories_with_supplied_documentation": 72,
+  "repositories_without_supplied_documentation": 28,
+  "stage_decisions": 600,
+  "workbook_sha256": "fdf36c1e44a418c3dd7c2616e4c62e16b5e0d1bfef083917c50349ab65802a27"
+}
