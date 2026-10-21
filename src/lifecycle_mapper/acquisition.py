@@ -229,16 +229,21 @@ def raw_get(repo: str, commit: str, path: str, blob_sha: str, max_bytes: int) ->
                 raise ValueError("Raw Git blob checksum mismatch")
             return data
         except HTTPError as exc:
-            if exc.code in {429, 500, 502, 503, 504} and attempt < 2:
+            throttled = exc.code == 429 or (
+                exc.code == 403 and exc.headers.get("Retry-After") is not None
+            )
+            if (throttled or exc.code in {500, 502, 503, 504}) and attempt < 2:
                 try:
                     delay = max(1.0, float(exc.headers.get("Retry-After", attempt + 1)))
                 except ValueError:
                     delay = 60.0
-                if delay <= 60:
-                    time.sleep(delay)
-                    continue
+                while delay > 0:
+                    chunk = min(60.0, delay)
+                    time.sleep(chunk)
+                    delay -= chunk
+                continue
             raise GitHubAPIError(
-                "rate-limit" if exc.code in {403, 429} else "raw-http-error",
+                "rate-limit" if throttled else "raw-http-error",
                 exc.code,
                 retry_after=exc.headers.get("Retry-After"),
             ) from None
@@ -348,7 +353,11 @@ def acquire(
                 record.update(status="captured", reason=None, sha256=sha256(data))
             except Exception as exc:
                 # Stable error class; never persist response bodies/tokens or volatile messages.
-                rate_limited = getattr(exc, "code", None) == "rate-limit"
+                # A raw-host failure must not suppress every subsequent file.
+                # REST cooldowns are shared by the paced API client.
+                rate_limited = (
+                    blob_transport == "api" and getattr(exc, "code", None) == "rate-limit"
+                )
                 record.update(
                     status="unavailable", reason=str(getattr(exc, "code", type(exc).__name__))
                 )

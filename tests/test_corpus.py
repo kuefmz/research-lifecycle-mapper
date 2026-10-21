@@ -294,7 +294,12 @@ def test_failed_run_never_exports_six_negative_predictions(monkeypatch, tmp_path
     summary = run_corpus(source, output, transport="git", workers=1)
     assert summary["failed"] == 1
     export_tables(output)
-    assert len((output / "predictions.csv").read_text().splitlines()) == 1
+    import csv
+
+    rows = list(csv.DictReader((output / "predictions.csv").open()))
+    assert len(rows) == 18
+    assert all(row["prediction"] == "" and row["scan_complete"] == "False" for row in rows)
+    assert "failed" in (output / "repository_status.csv").read_text()
 
 
 @pytest.mark.parametrize(

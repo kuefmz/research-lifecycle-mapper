@@ -27,6 +27,33 @@ def atomic_json(path: Path, payload: Any) -> None:
     temporary.replace(path)
 
 
+def repository_log(result: dict[str, Any], totals: dict[str, Any], modes: tuple[str, ...]) -> str:
+    """One flushed block per result; missing evidence is unknown, never zero."""
+    status = "failed" if result.get("error") else "complete" if result["complete"] else "partial"
+    lines = [
+        f"[{totals['finished']}/{totals['repository_count']}] {result['requested_url']} | {status}"
+        + (" | cached checkpoint" if result.get("checkpoint_reused") else ""),
+        "  stages: " + " | ".join(STAGES),
+    ]
+    payloads = {payload["mode"]: payload for payload in result.get("modes", [])}
+    for mode in modes:
+        payload = payloads.get(mode)
+        values = []
+        for stage in STAGES:
+            value = payload["predictions"].get(stage) if payload else None
+            values.append("1" if value is True else "0" if value is False else "?")
+        scan = "complete" if payload and payload["scan_complete"] else "incomplete"
+        lines.append(f"  {mode}: " + " | ".join(values) + f"  (scan {scan})")
+    if result.get("error"):
+        lines.append("  error: " + result["error"])
+    lines.append(
+        f"  totals: complete={totals['complete']} partial={totals['partial']} failed={totals['failed']}"
+        + f" | repo={result.get('elapsed_seconds', 0):.1f}s"
+        + f" | REST calls={result.get('api_calls', 0)}"
+    )
+    return "\n".join(lines)
+
+
 class PacedAPI:
     """Serialize REST traffic and honor shared primary/secondary cooldowns."""
 
@@ -135,6 +162,7 @@ def run_repository(
     max_bytes: int,
     api: PacedAPI,
     retry_failed: bool,
+    rules_dir: Path | None = None,
 ) -> dict[str, Any]:
     if record.get("ref") not in {None, "", "main"}:
         raise ValueError("Corpus acquisition uses main, otherwise master")
@@ -149,7 +177,7 @@ def run_repository(
             raise ValueError("Checkpoint checksum mismatch")
         saved = json.loads(raw)
         if not retry_failed or saved.get("complete"):
-            return saved
+            return {**saved, "checkpoint_reused": True}
     started = time.monotonic()
     api.local.calls = 0
     result: dict[str, Any] = {
@@ -206,7 +234,9 @@ def run_repository(
             acquisition_seconds=acquired - started,
         )
         # Preserve precisely the existing classifier and its three mode semantics.
-        result["modes"] = analyze_modes(snapshot, modes, expected_hash=snapshot_hash)
+        result["modes"] = analyze_modes(
+            snapshot, modes, expected_hash=snapshot_hash, rules_dir=rules_dir
+        )
         result["analysis_seconds"] = time.monotonic() - acquired
         result["complete"] = all(m["scan_complete"] for m in result["modes"])
     except Exception as exc:
@@ -231,6 +261,8 @@ def run_corpus(
     max_bytes: int = 250_000,
     retry_failed: bool = False,
     api_interval: float = 0.8,
+    rules_dir: Path | None = None,
+    expected_repositories: int | None = None,
 ) -> dict[str, Any]:
     if workers not in range(1, 9) or max_bytes < 1 or api_interval < 0.8:
         raise ValueError("Use 1..8 workers, positive max-bytes and api-interval >= 0.8")
@@ -241,6 +273,8 @@ def run_corpus(
     records = selected_records(input_path, sample, seed, shard_index, shard_count)
     if not records:
         raise ValueError("Empty selected corpus")
+    if expected_repositories is not None and len(records) != expected_repositories:
+        raise ValueError(f"Expected {expected_repositories} repositories; selected {len(records)}")
     output.mkdir(parents=True, exist_ok=True)
     root = Path(__file__).resolve().parents[2]
     config = {
@@ -252,7 +286,7 @@ def run_corpus(
         "branch_policy": "main-then-master-v1",
         "modes": list(modes),
         "max_bytes": max_bytes,
-        "catalog_sha256": load_rules()[1],
+        "catalog_sha256": load_rules(rules_dir)[1],
         "implementation_sha256": implementation_hash(root),
         "sample": sample,
         "seed": seed,
@@ -312,6 +346,7 @@ def run_corpus(
                             max_bytes,
                             api,
                             retry_failed,
+                            rules_dir,
                         )
                     )
 
@@ -334,11 +369,10 @@ def run_corpus(
                     totals["api_calls"] += result.get("api_calls", 0)
                     totals["session_wall_seconds"] = time.monotonic() - started
                     atomic_json(output / "progress.json", totals)
-                    print(
-                        f"[{totals['finished']}/{len(records)}] {result['requested_url']}",
-                        file=sys.stderr,
-                        flush=True,
-                    )
+                    block = repository_log(result, totals, modes)
+                    with (output / "progress.log").open("a") as log:
+                        log.write(block + "\n")
+                    print(block, file=sys.stderr, flush=True)
                     submit_next()
         # Includes cached results; do not extrapolate a resumed session as a fresh pilot.
         totals["timing_note"] = "Fresh pilots only: resumed checkpoints distort session throughput"
@@ -347,6 +381,7 @@ def run_corpus(
         totals["api_calls_note"] = (
             "api_calls includes saved checkpoint request counts; session_api_network_calls counts actual REST attempts this invocation"
         )
+        totals["all_repositories_accounted_for"] = totals["finished"] == len(records)
         atomic_json(output / "summary.json", totals)
         return totals
     finally:
@@ -366,12 +401,17 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
         else {}
     )
     count = candidates = 0
+    configuration = read_json(output / "manifest.json")["configuration"]
+    requested_modes = configuration["modes"]
     with (
         (output / "predictions.csv").open("w", newline="") as predictions,
         (output / "documentation_comparison.csv").open("w", newline="") as comparison,
         (output / "additional_evidence_candidates.csv").open("w", newline="") as additions,
+        (output / "repository_status.csv").open("w", newline="") as statuses,
     ):
         pw, cw, aw = csv.writer(predictions), csv.writer(comparison), csv.writer(additions)
+        sw = csv.writer(statuses)
+        sw.writerow(["requested_url", "repository", "status", "error", "commit"])
         pw.writerow(["repository", "commit", "mode", "stage", "prediction", "scan_complete"])
         cw.writerow(
             [
@@ -414,9 +454,23 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
                     result["requested_url"].removeprefix("https://github.com/").casefold(), {}
                 ),
             )
-            for mode, payload in modes.items():
+            sw.writerow(
+                [
+                    result["requested_url"],
+                    repo,
+                    "failed"
+                    if result.get("error")
+                    else "complete"
+                    if result["complete"]
+                    else "partial",
+                    result.get("error", ""),
+                    result.get("commit", ""),
+                ]
+            )
+            for mode in requested_modes:
+                payload = modes.get(mode)
                 for stage in STAGES:
-                    value = payload["predictions"][stage]
+                    value = payload["predictions"][stage] if payload else None
                     pw.writerow(
                         [
                             repo,
@@ -424,7 +478,7 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
                             mode,
                             stage,
                             "" if value is None else int(value),
-                            payload["scan_complete"],
+                            payload["scan_complete"] if payload else False,
                         ]
                     )
             docs = modes.get("documentation-only")
@@ -432,7 +486,7 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
             for stage in STAGES:
                 expected = gold.get(stage)
                 observed = docs["predictions"][stage] if docs else None
-                if expected is not None and docs:
+                if expected is not None:
                     outcome = (
                         "unknown"
                         if observed is None
@@ -445,12 +499,12 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
                     cw.writerow(
                         [
                             repo,
-                            result["commit"],
+                            result.get("commit", ""),
                             stage,
                             expected,
                             "" if observed is None else int(observed),
                             outcome,
-                            docs["scan_complete"],
+                            docs["scan_complete"] if docs else False,
                         ]
                     )
                 if code and observed is not True:
@@ -494,6 +548,8 @@ def main() -> None:
     run.add_argument("--max-bytes", type=int, default=250_000)
     run.add_argument("--api-interval", type=float, default=0.8)
     run.add_argument("--retry-failed", action="store_true")
+    run.add_argument("--rules-dir", type=Path)
+    run.add_argument("--expected-repositories", type=int)
     export = commands.add_parser("export")
     export.add_argument("--output", type=Path, required=True)
     export.add_argument("--reference", type=Path)
@@ -515,6 +571,8 @@ def main() -> None:
                 args.max_bytes,
                 args.retry_failed,
                 args.api_interval,
+                args.rules_dir,
+                args.expected_repositories,
             )
         print(json.dumps(result, indent=2))
     except (ValueError, OSError) as exc:
