@@ -263,3 +263,85 @@ Answers must be recorded as the human operational codebook. Exact agreement is
 not a valid design requirement when these distinctions cannot be recovered from
 the available input. The valid requirement is transparent, testable, general rules
 that faithfully implement the agreed coding definitions.
+
+
+## 12. Repository structure and predecessor review (design amendment)
+
+This amendment takes precedence over earlier source-routing descriptions where
+necessary. Structure is a third evidence channel, never documentation or code
+content. Keep the original combined result D OR C for comparability; report
+structural observations alongside it. Do not silently add folder proxies to the
+six stage labels. A future expanded aggregation requires an explicit frozen policy
+and separate results, not accuracy against a documentation-only reference.
+
+### Source routing before any rule runs
+
+1. Classify by extension/name into documentation, code, data, mixed or other.
+2. Never scan data content or run any path-based stage rule on a data file.
+   This covers .ttl, .rdf, .owl, .nt, .nq, .trig, .csv, .tsv, .jsonl,
+   .ndjson, .parquet, .feather, .arrow, .h5, .hdf5, .npy, .npz, .arff,
+   and domain-specific payload formats added to the versioned allow/deny policy.
+   Generic JSON/XML/text requires classification; it is not automatically prose.
+3. Documentation content produces D evidence; executable code produces C evidence.
+   Configuration is not code merely because it is human readable. Notebook cells
+   require explicit mixed-source parsing; do not scan raw notebook JSON.
+4. Inventory observations produce S findings only. Data payload names, extensions,
+   and text never assign lifecycle stages. Directory occupancy can be recorded
+   from tree metadata without downloading or interpreting payloads.
+
+### Structural findings (not automatic stage predictions)
+
+| ID | Observation and exact condition | Interpretation / safeguard |
+|---|---|---|
+| S-DATA-01 | A project-owned data/dataset/raw_data directory has at least one descendant blob of known size >0, excluding documentation, licenses, .gitkeep, .gitignore, pointers, symlinks, fixtures, vendor/generated directories and placeholders. | Data directory occupied. Record directory, qualifying count and inventory completeness; no content or semantic inference. A data file contributes only to anonymous occupancy count, never an individual stage-evidence record. |
+| S-SCRIPT-01 | A project-owned acquisition/preprocessing/experiment/evaluation directory contains a nonempty recognized source file. | Workflow candidate; require accepted D or C evidence to assign the corresponding stage. |
+| S-OUTPUT-01 | A results/figures/tables directory is occupied by non-placeholder project artifacts. | Output availability only; not proof of scientific Evaluation or Dissemination. |
+| S-PUBLICATION-01 | Project publication/citation metadata or a manuscript artifact exists. | Publication-support candidate; mere README presence does not establish Dissemination. |
+
+For S-DATA-01 a directory with only README or .gitkeep does not qualify. A directory
+with payload blobs including TTL may be recorded as physically occupied, but TTL
+is never inspected, matched, quoted or used to set any stage. This explicitly
+separates the requested nonempty-folder check from prohibited data-file evidence.
+If inventory is incomplete or sizes unavailable, occupancy is unknown rather than
+empty. Store no fabricated line numbers for directory observations.
+
+### What the older heuristic actually does
+
+Reviewed predecessor files: src/research_process_steps/heuristics.py,
+analyzer.py and tests/test_heuristics.py. Reviewed tree:
+dfb22f9545860a99a57199975dd78a4d9cb80fea. Rule-file blob:
+2789db6d627e938385a086801b68c4e2db84a6bd.
+
+Its per-file detection threshold is 2; specific paths generally weigh 3,
+weaker paths 2 and content rules 1. Each matching rule adds its weight once,
+not once per keyword. Thus a single path can set a label, whereas a single
+content rule alone cannot. Content extensions include TTL and other data formats.
+Type compatibility suppresses generic implementation src/tests rules on data,
+but does not block all other stage rules on data. Existing tests verify this
+limited suppression, not a global exclusion of data from evidence.
+
+| Predecessor rule IDs | Design disposition |
+|---|---|
+| COL_PATH_ACQUIRE_DIR, COL_PATH_ACQUIRE_FILE | Retain as S-SCRIPT-01 candidates on eligible code only; corroborate acquisition of research inputs. |
+| COL_CONTENT_ACQUIRE | Adapt to C-COL rules: network calls alone may download dependencies. |
+| PRO_PATH_PROCESS_DIR, PRO_PATH_PROCESS_FILE | Structural candidates; require actual research-data transformation. |
+| PRO_CONTENT_PROCESS | Adapt with operation/object context; a token such as normalize alone is insufficient. |
+| IMP_PATH_SOURCE_DIR, IMP_PATH_TESTS, IMP_PACKAGE_FILE, IMP_CLI_FILE, IMP_CONTENT_ENTRYPOINT | Inventory software implementation support; do not equate packaging/tests with the benchmark Method label. |
+| EXP_PATH_EXPERIMENT_DIR, EXP_PATH_EXPERIMENT_FILE, EXP_CONFIG_FILE | Structural workflow candidates; no automatic label for arbitrary files inside experiments/. |
+| EXP_CONTENT_RUN | Require controlled/repeated research runs; a random seed alone is insufficient. |
+| EVA_PATH_EVAL_DIR, EVA_PATH_EVAL_FILE | Structural candidates on eligible artifacts, with scientific assessment corroboration. |
+| EVA_CONTENT_METRIC | Require an assessment relationship, not bare precision/accuracy vocabulary. |
+| DIS_PATH_DOC_DIR, DIS_CITATION_FILE, DIS_README, DIS_DOC_BUILD | Keep publication/documentation inventory; do not automatically assign benchmark Dissemination. |
+| DIS_CONTENT_CITATION | Keep paper-association candidate pending the documented annotation definition. |
+
+Retain deterministic rule IDs, evidence provenance, multiple labels and unclassified
+files. Replace unrestricted weighted keyword/path accumulation with explicit
+acceptance conditions. The predecessor stage implementation is not automatically
+equivalent to this benchmark's Method. Its default-branch selection also does not
+implement the required main, then master only policy. Resolve and pin a commit
+from main or, only if main is absent, master; neither branch existing is an explicit
+unsupported case. Branch choice is a reproducibility convention, not a guarantee
+that main contains the version originally annotated or the paper's released code.
+
+This is a specification amendment only: no runtime rule, benchmark prediction or
+performance result is changed by this review.

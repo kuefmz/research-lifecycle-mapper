@@ -302,5 +302,35 @@
     }
   ],
   "status": "design_only_not_implemented",
-  "version": "proposed-v6"
+  "version": "proposed-v6",
+  "source_policy_amendment": "design.md section 12",
+  "data_content_scanning": false,
+  "data_file_stage_evidence": false,
+  "structure_affects_stage_predictions": false,
+  "structural_findings": [
+    {
+      "id": "S-DATA-01",
+      "source": "structure",
+      "status": "observation_only",
+      "definition": "Nonempty project data directory using inventory metadata only; no data-file stage inference."
+    },
+    {
+      "id": "S-SCRIPT-01",
+      "source": "structure",
+      "status": "observation_only",
+      "definition": "Nonempty eligible workflow source directory; corroboration required."
+    },
+    {
+      "id": "S-OUTPUT-01",
+      "source": "structure",
+      "status": "observation_only",
+      "definition": "Nonempty research output directory; no automatic stage."
+    },
+    {
+      "id": "S-PUBLICATION-01",
+      "source": "structure",
+      "status": "observation_only",
+      "definition": "Publication support artifact exists; no automatic stage."
+    }
+  ]
 }
