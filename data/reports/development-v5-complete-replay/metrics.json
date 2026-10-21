@@ -1,0 +1,663 @@
+{
+  "baseline": {
+    "exact_match_accuracy": 0.02777778,
+    "hamming_loss": 0.46990741,
+    "macro": {
+      "f1": 0.38150669,
+      "precision": 0.88173401,
+      "recall": 0.26271426
+    },
+    "micro": {
+      "f1": 0.42165242,
+      "precision": 0.87058824,
+      "recall": 0.27819549
+    },
+    "per_stage": [
+      {
+        "FN": 18,
+        "FP": 4,
+        "TN": 45,
+        "TP": 5,
+        "accuracy": 0.69444444,
+        "f1": 0.3125,
+        "precision": 0.55555556,
+        "recall": 0.2173913,
+        "stage": "Collection",
+        "support": 23
+      },
+      {
+        "FN": 23,
+        "FP": 0,
+        "TN": 42,
+        "TP": 7,
+        "accuracy": 0.68055556,
+        "f1": 0.37837838,
+        "precision": 1.0,
+        "recall": 0.23333333,
+        "stage": "Processing",
+        "support": 30
+      },
+      {
+        "FN": 41,
+        "FP": 1,
+        "TN": 19,
+        "TP": 11,
+        "accuracy": 0.41666667,
+        "f1": 0.34375,
+        "precision": 0.91666667,
+        "recall": 0.21153846,
+        "stage": "Method",
+        "support": 52
+      },
+      {
+        "FN": 43,
+        "FP": 0,
+        "TN": 8,
+        "TP": 21,
+        "accuracy": 0.40277778,
+        "f1": 0.49411765,
+        "precision": 1.0,
+        "recall": 0.328125,
+        "stage": "Experimentation",
+        "support": 64
+      },
+      {
+        "FN": 42,
+        "FP": 0,
+        "TN": 27,
+        "TP": 3,
+        "accuracy": 0.41666667,
+        "f1": 0.125,
+        "precision": 1.0,
+        "recall": 0.06666667,
+        "stage": "Evaluation",
+        "support": 45
+      },
+      {
+        "FN": 25,
+        "FP": 6,
+        "TN": 14,
+        "TP": 27,
+        "accuracy": 0.56944444,
+        "f1": 0.63529412,
+        "precision": 0.81818182,
+        "recall": 0.51923077,
+        "stage": "Dissemination",
+        "support": 52
+      }
+    ],
+    "repository_count": 72,
+    "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+    "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0"
+  },
+  "baselines": {
+    "always_negative": {
+      "exact_match_accuracy": 0.0,
+      "hamming_loss": 0.61574074,
+      "macro": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "micro": {
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "per_stage": [
+        {
+          "FN": 23,
+          "FP": 0,
+          "TN": 49,
+          "TP": 0,
+          "accuracy": 0.68055556,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "stage": "Collection",
+          "support": 23
+        },
+        {
+          "FN": 30,
+          "FP": 0,
+          "TN": 42,
+          "TP": 0,
+          "accuracy": 0.58333333,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "stage": "Processing",
+          "support": 30
+        },
+        {
+          "FN": 52,
+          "FP": 0,
+          "TN": 20,
+          "TP": 0,
+          "accuracy": 0.27777778,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "stage": "Method",
+          "support": 52
+        },
+        {
+          "FN": 64,
+          "FP": 0,
+          "TN": 8,
+          "TP": 0,
+          "accuracy": 0.11111111,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "stage": "Experimentation",
+          "support": 64
+        },
+        {
+          "FN": 45,
+          "FP": 0,
+          "TN": 27,
+          "TP": 0,
+          "accuracy": 0.375,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "stage": "Evaluation",
+          "support": 45
+        },
+        {
+          "FN": 52,
+          "FP": 0,
+          "TN": 20,
+          "TP": 0,
+          "accuracy": 0.27777778,
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "stage": "Dissemination",
+          "support": 52
+        }
+      ],
+      "repository_count": 72,
+      "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+      "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0"
+    },
+    "always_positive": {
+      "exact_match_accuracy": 0.08333333,
+      "hamming_loss": 0.38425926,
+      "macro": {
+        "f1": 0.74337874,
+        "precision": 0.61574074,
+        "recall": 1.0
+      },
+      "micro": {
+        "f1": 0.76217765,
+        "precision": 0.61574074,
+        "recall": 1.0
+      },
+      "per_stage": [
+        {
+          "FN": 0,
+          "FP": 49,
+          "TN": 0,
+          "TP": 23,
+          "accuracy": 0.31944444,
+          "f1": 0.48421053,
+          "precision": 0.31944444,
+          "recall": 1.0,
+          "stage": "Collection",
+          "support": 23
+        },
+        {
+          "FN": 0,
+          "FP": 42,
+          "TN": 0,
+          "TP": 30,
+          "accuracy": 0.41666667,
+          "f1": 0.58823529,
+          "precision": 0.41666667,
+          "recall": 1.0,
+          "stage": "Processing",
+          "support": 30
+        },
+        {
+          "FN": 0,
+          "FP": 20,
+          "TN": 0,
+          "TP": 52,
+          "accuracy": 0.72222222,
+          "f1": 0.83870968,
+          "precision": 0.72222222,
+          "recall": 1.0,
+          "stage": "Method",
+          "support": 52
+        },
+        {
+          "FN": 0,
+          "FP": 8,
+          "TN": 0,
+          "TP": 64,
+          "accuracy": 0.88888889,
+          "f1": 0.94117647,
+          "precision": 0.88888889,
+          "recall": 1.0,
+          "stage": "Experimentation",
+          "support": 64
+        },
+        {
+          "FN": 0,
+          "FP": 27,
+          "TN": 0,
+          "TP": 45,
+          "accuracy": 0.625,
+          "f1": 0.76923077,
+          "precision": 0.625,
+          "recall": 1.0,
+          "stage": "Evaluation",
+          "support": 45
+        },
+        {
+          "FN": 0,
+          "FP": 20,
+          "TN": 0,
+          "TP": 52,
+          "accuracy": 0.72222222,
+          "f1": 0.83870968,
+          "precision": 0.72222222,
+          "recall": 1.0,
+          "stage": "Dissemination",
+          "support": 52
+        }
+      ],
+      "repository_count": 72,
+      "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+      "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0"
+    }
+  },
+  "candidate": {
+    "exact_match_accuracy": 0.09722222,
+    "hamming_loss": 0.30092593,
+    "macro": {
+      "f1": 0.70213799,
+      "precision": 0.73712289,
+      "recall": 0.68886624
+    },
+    "micro": {
+      "f1": 0.74903475,
+      "precision": 0.76984127,
+      "recall": 0.72932331
+    },
+    "per_stage": [
+      {
+        "FN": 11,
+        "FP": 14,
+        "TN": 35,
+        "TP": 12,
+        "accuracy": 0.65277778,
+        "f1": 0.48979592,
+        "precision": 0.46153846,
+        "recall": 0.52173913,
+        "stage": "Collection",
+        "support": 23
+      },
+      {
+        "FN": 13,
+        "FP": 9,
+        "TN": 33,
+        "TP": 17,
+        "accuracy": 0.69444444,
+        "f1": 0.60714286,
+        "precision": 0.65384615,
+        "recall": 0.56666667,
+        "stage": "Processing",
+        "support": 30
+      },
+      {
+        "FN": 8,
+        "FP": 12,
+        "TN": 8,
+        "TP": 44,
+        "accuracy": 0.72222222,
+        "f1": 0.81481481,
+        "precision": 0.78571429,
+        "recall": 0.84615385,
+        "stage": "Method",
+        "support": 52
+      },
+      {
+        "FN": 11,
+        "FP": 6,
+        "TN": 2,
+        "TP": 53,
+        "accuracy": 0.76388889,
+        "f1": 0.86178862,
+        "precision": 0.89830508,
+        "recall": 0.828125,
+        "stage": "Experimentation",
+        "support": 64
+      },
+      {
+        "FN": 24,
+        "FP": 4,
+        "TN": 23,
+        "TP": 21,
+        "accuracy": 0.61111111,
+        "f1": 0.6,
+        "precision": 0.84,
+        "recall": 0.46666667,
+        "stage": "Evaluation",
+        "support": 45
+      },
+      {
+        "FN": 5,
+        "FP": 13,
+        "TN": 7,
+        "TP": 47,
+        "accuracy": 0.75,
+        "f1": 0.83928571,
+        "precision": 0.78333333,
+        "recall": 0.90384615,
+        "stage": "Dissemination",
+        "support": 52
+      }
+    ],
+    "repository_count": 72,
+    "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+    "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0"
+  },
+  "comparison_sha256": "bb784b09503c7e86f6aa27804acbd02463e8849c665bef54879652ab5e887489",
+  "complete_development_reference_count": 72,
+  "provenance": [
+    {
+      "repository": "akshay-r/autoencoders_dictionaries",
+      "snapshot_sha256": "098c00d59035b4829a3e6b0224de26e5c384840945ef8b228e5113bcd3c7ae0e"
+    },
+    {
+      "repository": "alfredomg/adapt-mwe17",
+      "snapshot_sha256": "0b733f521fbb5edeee1fd0623b8a2208b1a6ea3c795b49d35ad4c7cd40c156c0"
+    },
+    {
+      "repository": "allenai/openbookqa",
+      "snapshot_sha256": "8aeb2692876f2195a672d7c85a4dd8167238cf45ce75eb47ddf3d98a5c2b4be0"
+    },
+    {
+      "repository": "anguelos/embedding_map",
+      "snapshot_sha256": "eb27e238887f7b95c16ad01e422e577e8fb77c811c114d7b92c11c2141e6614e"
+    },
+    {
+      "repository": "aviranlab/sleq",
+      "snapshot_sha256": "ab03fdda3710653296e120667e6a9982bc6892d5a0f92ae44c9f07b00ad95b6f"
+    },
+    {
+      "repository": "b5strbal/macaw",
+      "snapshot_sha256": "6a059d35a6edb535fd42c5ff6eaafd1412bae8e2c23ee4f8f4a81ff320ebdee4"
+    },
+    {
+      "repository": "christopherwilks/snaptron-experiments",
+      "snapshot_sha256": "91365fb9fefc97bd92f11ad63b47acc08b4660e52cead8af0ab6380d366a55cb"
+    },
+    {
+      "repository": "cog-imperial/gpdoemd",
+      "snapshot_sha256": "d1466747fa0e3e518b3cdbd2e25e52fff27c039059e10ce85bda00363e35e991"
+    },
+    {
+      "repository": "cristal-smac/atom",
+      "snapshot_sha256": "11cff65c86629b040fce3321ebe63fb5f77c83008c89fe9b41295f0e817d526c"
+    },
+    {
+      "repository": "diglesia/delaiglesiaetal_data",
+      "snapshot_sha256": "b8143cd4fdd8222f8016728c04f36b815bbbce0a4d91e57c7e3531220e3a9ee9"
+    },
+    {
+      "repository": "diversify-project/autojmh-validation-data",
+      "snapshot_sha256": "44105bfa39cbecfef5814c4adc3dacc849e9232bc718c2859f797da5c4243565"
+    },
+    {
+      "repository": "dmlb2000/eetup",
+      "snapshot_sha256": "655f5ff91c2188c773e2e8d8e0dca7b8bf5755ce49be2a2fa5205cb6fbf888bf"
+    },
+    {
+      "repository": "drgriffis/sbd-evaluation",
+      "snapshot_sha256": "9e7313281ea173e7a9b1a608acd0938a4dc25bbe0e7f2f9a16c8b200741c1284"
+    },
+    {
+      "repository": "dtrckd/pymake",
+      "snapshot_sha256": "9164f74bcc1ae9460ee82c1f1b5a3320dc214b556794c9eb1577c25920bc7437"
+    },
+    {
+      "repository": "duvenaud/additive-gps",
+      "snapshot_sha256": "29eb52c20119466223c3b73f1ae248c938bbcf893b98c618e01f1b606bb0885f"
+    },
+    {
+      "repository": "eglxiang/ytf",
+      "snapshot_sha256": "bdeb0728e11fb19d83dbf88c7cf504689d201621c359369c948bc51580d4af5b"
+    },
+    {
+      "repository": "elibol/amle",
+      "snapshot_sha256": "c79bea46ae960bef22ee2ed75a78952b1fc58a65c81e87b5d1ab0f9a5fbcffa3"
+    },
+    {
+      "repository": "emergent-behaviors-in-biology/community-simulator",
+      "snapshot_sha256": "f66c25f5abb39110124c1f701c3157e004d500ca73016301de8ed6650410571e"
+    },
+    {
+      "repository": "ettwiller/tss",
+      "snapshot_sha256": "ae55f925d31c06ae13244fe8f1282f6d23a60684dc5318b6e2316e03293bd3d6"
+    },
+    {
+      "repository": "f0k/ismir2015",
+      "snapshot_sha256": "2f261c014273ea9771ecd862eb710b7cc74edfb64676d43260ecf0d7f6a467a7"
+    },
+    {
+      "repository": "flowersteam/rl-difference-testing",
+      "snapshot_sha256": "432822110dbe4e024979be5582e1e2248163c7e1e3a5c1c284097f136c4e303f"
+    },
+    {
+      "repository": "freedisciplina/collisionoffset",
+      "snapshot_sha256": "b54d14f7f2132ee9887deedddad447dbd16d3d9a7cbb4c6dbe06b6c5144800a5"
+    },
+    {
+      "repository": "gavento/swap-sorting-experiments",
+      "snapshot_sha256": "1b258af4144ed126c68bb0060e0f29e40c51720f0cd1f7e8de0f69c63ef22f8d"
+    },
+    {
+      "repository": "gmarceaucaron/natural-langevin-dynamics-for-neural-networks",
+      "snapshot_sha256": "ac66c3a5668fc2da89212a9ae4af984778df8c88bb7c731a247d1e5de7a09c3e"
+    },
+    {
+      "repository": "h4rm/threephotons.jl",
+      "snapshot_sha256": "f8d6745a0538445f2eddeb5c300f7b449a6a8016dbe7e80aefa4e59685a119eb"
+    },
+    {
+      "repository": "ihincks/nv-adaptive",
+      "snapshot_sha256": "243627edbf740ead0df178853ad71b43f982c45501f363b98b4bd22453ff77a1"
+    },
+    {
+      "repository": "irit-melodi/irit-rst-dt",
+      "snapshot_sha256": "db92718904afc7b23b0cfa2150d82d1f4b5a1d4a0be19d885d8f9cea8091c12f"
+    },
+    {
+      "repository": "irit-melodi/irit-stac",
+      "snapshot_sha256": "41c171c5d170d75f806aa9c1d535c5d038726a2b003349927bd3d72ad5cf39ef"
+    },
+    {
+      "repository": "jebyrnes/ext-meta",
+      "snapshot_sha256": "a3ff31d63b3b922635de62f2a521602171d8aa2ecd1fdb6e214ba03a3fcd926c"
+    },
+    {
+      "repository": "jermp/rdf_indexes",
+      "snapshot_sha256": "f66dd0b898081b94c90375a1417774f4100eb53ab174a387098f98f5748996af"
+    },
+    {
+      "repository": "jkeiren/pbesstategraph-experiments",
+      "snapshot_sha256": "dd28f784972d6b665f49beab2a0d1c0d547423da704b2f592c897b6d6411bdcc"
+    },
+    {
+      "repository": "jmschrei/pypore",
+      "snapshot_sha256": "d7e8e8e22dd6f6021fbf703e43c1905cc56b45a3fee605221a4d79f293c68d60"
+    },
+    {
+      "repository": "joefresna/plosone-reina2015",
+      "snapshot_sha256": "e86f33afd62486927c4a317e1231bf910b9c226b0277d4619c27bd27a37ffd57"
+    },
+    {
+      "repository": "jwcarr/flatlanders",
+      "snapshot_sha256": "6a95754ea0fdc2801e618e212eaa01415323fd641acc4c0af48a64f78f401036"
+    },
+    {
+      "repository": "kapelner/optdesignslopeint",
+      "snapshot_sha256": "f06099aab1727c68c53b89971faae5df6b49afc790add96e6c2b019556ed34a9"
+    },
+    {
+      "repository": "kjetilk/doe-sparql",
+      "snapshot_sha256": "4a5b4ad1a39ca36607966d16960e290fc1363ab19b024c5edb7071146ba3c8f1"
+    },
+    {
+      "repository": "lacerbi/comprob",
+      "snapshot_sha256": "a38e2cb983ce839aacb5bb6a895f9720ca2bc5d2ffce10735eb9f9da9732b575"
+    },
+    {
+      "repository": "lcsl/dpp-vfx",
+      "snapshot_sha256": "64c4fd029061debc5457171ac75096619423157cc362b82266e97b65090ab5d6"
+    },
+    {
+      "repository": "liusi2019/ocd",
+      "snapshot_sha256": "cbbfed8e5e7b04292be64c96f13642546912166b0121bff343ad1437361b1a0f"
+    },
+    {
+      "repository": "maidens/acc-2016",
+      "snapshot_sha256": "d1171bbf788850e08b81f727f2f5ee73ec5a502e0b74d5e723d3eec55efcd94b"
+    },
+    {
+      "repository": "mantiuk/pwcmp",
+      "snapshot_sha256": "5da34b8e4da08085b00e37375aa96ea326d126bcc884b45c789b6593c05e4bfc"
+    },
+    {
+      "repository": "marksbrown/processingctrdata",
+      "snapshot_sha256": "7615a249a02e49c7512eeb088fd893f41b8d214de0cc9afcc706f050572685ce"
+    },
+    {
+      "repository": "matrix-factorization-bandit/imfb-kdd2019",
+      "snapshot_sha256": "0595450ca1a51296b5fb311d50eb10c0092afc1e195b69795661c91ac490f1d4"
+    },
+    {
+      "repository": "michael135/count-vector-paper-experiments",
+      "snapshot_sha256": "23598489bbcff8e7d0473872f38dbdf307021ae78ba1aa230abe5e9a31031f08"
+    },
+    {
+      "repository": "michschli/tensor-lstm",
+      "snapshot_sha256": "b4040fc5fead79178447fa6ceba66cc0baf9e5fb788f9298e4bff8c3474e8ca2"
+    },
+    {
+      "repository": "mspeich/forhytm",
+      "snapshot_sha256": "8b52fdd5dcbc639c4df233e3e2a8402874a881e91d9497249852ceacb8596488"
+    },
+    {
+      "repository": "mwcvitkovic/mass-learning",
+      "snapshot_sha256": "e1424a67686046d25e0d4f68e8d360857ebf7dc6a12304e0cb68baf829e7bc73"
+    },
+    {
+      "repository": "onurgu/joint-ner-and-md-tagger",
+      "snapshot_sha256": "d4549ee36f4828aa2c7bebedc7a76d12f69e2686b2de86024d529e972bdde91c"
+    },
+    {
+      "repository": "pamattei/bmasbic",
+      "snapshot_sha256": "79a2bed443c658f0ff27121bb45077695095b43281e0054b3f1aa4dfca19d665"
+    },
+    {
+      "repository": "pierrejacob/unbiasedpathsampling",
+      "snapshot_sha256": "902a1606003710c2d766ded1be04004a8b63a52ff41eeff2d4600274fedcb7b6"
+    },
+    {
+      "repository": "pietrobraione/sushi-experiments",
+      "snapshot_sha256": "7edb5a79c1aa25e368d5535b573d85a336c91cf5f6426f308d9895903fe58a55"
+    },
+    {
+      "repository": "pimdh/relie",
+      "snapshot_sha256": "d1367aaed743d462132fbbaee70623a6cdf726e65b3f8bea02f0fdae8421317b"
+    },
+    {
+      "repository": "pkuzhf/bidding-at-risk-experiment",
+      "snapshot_sha256": "3cde14c32b60c3a86e8582cbbc7eb588aab2a3df7b18bdbafae101c649aa2c9a"
+    },
+    {
+      "repository": "qtb-hhu/integrasemodel",
+      "snapshot_sha256": "669a12e1072451b206915b53614d596fc111146a85c60390dd9e48e608af2ac0"
+    },
+    {
+      "repository": "rehmanzafar/dlime_experiments",
+      "snapshot_sha256": "56a63cd82238cba6f98b6d1c023a4ff77ceb47bd03e2e0e308bba4f33adcaf52"
+    },
+    {
+      "repository": "research-submissions/iclr20",
+      "snapshot_sha256": "0dd563d5a9984f6f0397447aafa5b1da7987acd8ea509b7c53a94851accc5aac"
+    },
+    {
+      "repository": "shobeir/fakhraei_kdd2015",
+      "snapshot_sha256": "8b4a1bc77678cf1ca1fb93e51daf83194f81ae1e6897d7bad39ff2cc56311996"
+    },
+    {
+      "repository": "shobeir/fakhraei_tcbb2014",
+      "snapshot_sha256": "c8e5bd63d9b15b291ea260e7702af523a1dbd7a94c829d06b2933b24fcc15049"
+    },
+    {
+      "repository": "sind/compression-experiments",
+      "snapshot_sha256": "f6182db087b3895e3f1cef4c00d477139d4e18f3bea72ec082323a6c236c0c77"
+    },
+    {
+      "repository": "smitdaniel/bfptool",
+      "snapshot_sha256": "ce50b05b8ffca35083cf12eb7b99334fb3ee239c61fb357813aa08978ef0dc4d"
+    },
+    {
+      "repository": "srndic/hidost-reproduction",
+      "snapshot_sha256": "436ea6e43320a8ea5c8f313c16c3867cf5b6ff37222fdb16d93f1c5a652d4d4d"
+    },
+    {
+      "repository": "sss1/convolutional-dictionary",
+      "snapshot_sha256": "7f43f2040ad4eba803087d248dc8c9f5f2cb7801235315c719f6fe733868f64d"
+    },
+    {
+      "repository": "sss1/sobolev-estimation",
+      "snapshot_sha256": "02b5427b6ba590307f5ec840cc75d5e093b76f1d486e0a5c2b4fc6ed109adfa4"
+    },
+    {
+      "repository": "svissicchio/repetita",
+      "snapshot_sha256": "443b296536959549819d319ebd5d80fa15806e2ac487d2abde999eaa008f142e"
+    },
+    {
+      "repository": "taochen/all-versus-one",
+      "snapshot_sha256": "35d9f08cdfba540fb2c86eda342f81ef9238604c430df6a190d7bb19693e3bec"
+    },
+    {
+      "repository": "tuw-cpsg/paper-shsa-monitor-experiments",
+      "snapshot_sha256": "84d78ba7fae4371412eacb61f8a77685f412f2dbb41d9fe6be767ee944d1c1fe"
+    },
+    {
+      "repository": "veleslavia/eusipco2017",
+      "snapshot_sha256": "b8042ef5fb64027d0418be32411b02c4f02e46795b486d06bde6a3e48003bc4e"
+    },
+    {
+      "repository": "vered1986/unsupervisedhypernymy",
+      "snapshot_sha256": "61493bec46c9b161c6aecee41d4b596ab122d34408db9b0c1c87a73e880ee9c8"
+    },
+    {
+      "repository": "vitorenesduarte/exp",
+      "snapshot_sha256": "9df7610c60ab8b6b00267e6cdb2202ce979aa2807780b52bc8950d43dfcd41b5"
+    },
+    {
+      "repository": "vodolan/denotationidentification",
+      "snapshot_sha256": "c718fbbb7ebe4632d0793a2c332609b24485c72f8c6cff8df0247d6faee3ea5e"
+    },
+    {
+      "repository": "yiyiliu1/bdchemo",
+      "snapshot_sha256": "973caf0d0d491825cf0189b2a30574b73dca0c37f45b316912aa9a44f65cd536"
+    },
+    {
+      "repository": "ztangent/norms-cogsci19",
+      "snapshot_sha256": "48ace63f29ae29dcca6e1f13f55b8489c73b9cb92daea82332407328642b4187"
+    }
+  ],
+  "review_sha256": "1e750673f4b1b525387d68068e8b9eb1575907b4aa9ce219ccad654d68e3c6ba",
+  "rules_sha256": "f3cd5fc458aa076816cdd22cfd513fe860adcaa16a8ef039744c6e04ef8a68a0",
+  "scope": "All 72 complete development repositories in the supplied comparison are covered. Texts merged from both review exports; held-out errors not used."
+}

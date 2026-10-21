@@ -1,0 +1,9 @@
+{
+  "old_review_sha256": "de1670d48e2c893a81eadcff1764b352ea5ee10a113442cca19e249600c50512",
+  "new_review_sha256": "615780b6abe1b9f49ccc16c7d79a4d5c0a36531511333ffb7e703f470bdfa555",
+  "merged_repository_count": 72,
+  "new_error_repositories": 65,
+  "previous_error_repositories": 70,
+  "new_errors_match_frozen_v5_replay": true,
+  "shared_snapshots_and_texts_unchanged": true
+}

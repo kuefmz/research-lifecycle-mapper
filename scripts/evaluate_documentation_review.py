@@ -95,7 +95,10 @@ def evaluate(review: Path, comparison: Path, rules: Path, output: Path) -> dict:
         provenance.append({"repository": repo, "snapshot_sha256": item["snapshot_sha256"]})
         print(f"[{len(gold)}/{len(references)}] development text replay", flush=True)
     report = {
-        "scope": "Supplied error-review development texts only; error-free development repositories not exported and are not silently assumed unchanged.",
+        "scope": "All complete development repositories in the supplied comparison are covered."
+        if len(gold) == len(references)
+        else "Supplied development texts only; missing complete repositories are not silently assumed unchanged.",
+        "complete_development_reference_count": len(references),
         "baseline": calculate_metrics(gold, baseline),
         "candidate": calculate_metrics(gold, pred),
         "baselines": {
