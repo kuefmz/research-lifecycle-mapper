@@ -14,14 +14,14 @@ from lifecycle_mapper.canonical import write_json
 
 @pytest.mark.parametrize("count,excluded", [(5, False), (6, True)])
 def test_immediate_folder_threshold_and_old_policy(count, excluded):
-    paths = [f"data/{i}.TXT" for i in range(count)] + [
-        "data/nested/one.txt",
+    paths = [f"notes/{i}.TXT" for i in range(count)] + [
+        "notes/nested/one.txt",
         "docs/readme.txt",
         "README.md",
     ]
     counts = txt_folder_counts(paths)
     assert (source_kind(paths[0], txt_counts=counts)[0] is None) == excluded
-    assert source_kind("data/nested/one.txt", txt_counts=counts)[0] == "documentation"
+    assert source_kind("notes/nested/one.txt", txt_counts=counts)[0] == "documentation"
     assert source_kind("docs/readme.txt", txt_counts=counts)[0] == "documentation"
     assert source_kind("README.md", txt_counts=counts)[0] == "documentation"
     assert source_kind(paths[0], "eligibility-3-programming-catalog", counts)[0] == "documentation"
@@ -35,7 +35,7 @@ def test_dense_txt_not_downloaded_and_replay_is_contextual(tmp_path, monkeypatch
     commit = "a" * 40
     files = [
         {
-            "path": f"data/{i}.txt",
+            "path": f"notes/{i}.txt",
             "type": "blob",
             "mode": "100644",
             "sha": str(i) * 40,
@@ -93,3 +93,11 @@ def test_dense_txt_not_downloaded_and_replay_is_contextual(tmp_path, monkeypatch
     write_json(snapshot / "manifest.json", manifest)
     with pytest.raises(ValueError, match="Invalid inventory source/status"):
         replay(snapshot)
+
+
+def test_policy6_dense_txt_replay_classification_is_preserved():
+    counts = txt_folder_counts([f"notes/{i}.txt" for i in range(6)])
+    assert source_kind("notes/0.txt", "eligibility-6-generated-corpus-exclusions", counts) == (
+        None,
+        "txt-folder-more-than-5",
+    )

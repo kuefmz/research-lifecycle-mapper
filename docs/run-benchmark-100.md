@@ -29,7 +29,7 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
   --reference data/final_agreement.csv \
-  --output data/runs/benchmark-100-v54-final \
+  --output data/runs/benchmark-100-v54-paper-check \
   --transport hybrid \
   --workers 1 \
   --mode all \
@@ -37,14 +37,15 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
   --max-bytes 10485760
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
-  --output data/runs/benchmark-100-v54-final \
+  --output data/runs/benchmark-100-v54-paper-check \
   --reference data/final_agreement.csv
 
 uv run --frozen python -m lifecycle_mapper.assess \
-  --run data/runs/benchmark-100-v54-final \
+  --run data/runs/benchmark-100-v54-paper-check \
   --reference data/final_agreement.csv \
   --rules-dir configs/consolidated-development-v5.4 \
-  --output data/reports/benchmark-100-v54-final
+  --output data/reports/benchmark-100-v54-paper-check \
+  --paper-summary
 ```
 
 Use a new output directory for this implementation/policy/profile. Old snapshots
@@ -188,7 +189,7 @@ For an existing run, after processing finishes, display saved checkpoints alongs
 
 ```bash
 uv run --frozen python -m lifecycle_mapper.corpus logs \
-  --output data/runs/benchmark-100-v54-final \
+  --output data/runs/benchmark-100-v54-paper-check \
   --reference data/final_agreement.csv
 ```
 
@@ -214,4 +215,23 @@ Current execution budget: 120 seconds per repository, including acquisition, ana
 
 ## Consolidated v5.4 freeze
 
-Finish the existing baseline run before pulling changes. Use a fresh `data/runs/benchmark-100-v54-final` output. Exact rules and the paired README-only development check are documented in the profile README and `data/reports/consolidated-v54-development-audit.json`. This is a development freeze, not a guarantee of target F1. Both run and reference order remain unchanged.
+Finish the existing baseline run before pulling changes. Use a fresh `data/runs/benchmark-100-v54-paper-check` output. Exact rules and the paired README-only development check are documented in the profile README and `data/reports/consolidated-v54-development-audit.json`. This is a development freeze, not a guarantee of target F1. Both run and reference order remain unchanged.
+
+## Final complete-log check and printable paper results
+
+Acquisition policy 7 adds exclusion of known bundled jquery/jquery-version/jquery-ui JavaScript basenames; non-README TXT artifacts under data/datasets/experimental_data/test_data/testdata/fixtures directories; and programming files in the already-excluded software-test path class before download/tokenization. This avoids the observed unminified-jQuery, experimental-result-text and test_data.py work. The TXT density rule still applies outside data directories; README.txt remains eligible unless its immediate folder exceeds five TXT files. These policies are explicit selection proxies, not guaranteed semantic file classification. Older policy-6 snapshots retain their original behavior. The v5.4 matching rules themselves are unchanged.
+
+The completed uploaded baseline is preserved in data/reports/completed-baseline-progress.log and completed-baseline-log-audit.json. Its omitted first header was restored only after exact matching against the earlier supplied first-block body; no predictions or labels were changed. All 600 printed reference labels were checked against final_agreement.csv. The baseline completed 91 repositories, with two partial and seven timed out; its documentation/combined micro-F1 were 0.6860/0.7316 on 91 complete scans. These are baseline results, not a measured full v5.4 result.
+
+The final assess command's --paper-summary flag prints Markdown tables and a draft results paragraph, and saves paper/paper_summary.md, paper/paper_modes.tex and paper/paper_summary.json under the assessment directory. It includes complete/partial/failed coverage, per-mode denominators, a common complete cohort, micro/macro F1, precision/recall, label agreement, exact matches, documentation-stage metrics, always-positive baselines, resource limits and hashes. Unknowns never become negative predictions. Code modes remain reference agreement, not independently validated code accuracy. Both the table and paragraph disclose development-set status.
+
+--rules-dir without --replay now validates the saved catalogue hash; it does not rerun classification. A mismatched profile fails explicitly. Paper printing rejects unfinished runs, stale assessment/run-manifest combinations, and offline-replayed assessments. A finished run can still contain failed/partial repositories. Existing assessments can be printed without acquisition or matching:
+
+```bash
+uv run --frozen python -m lifecycle_mapper.paper_summary \
+  --run data/runs/benchmark-100-v54-paper-check \
+  --assessment data/reports/benchmark-100-v54-paper-check \
+  --output data/reports/benchmark-100-v54-paper-check/paper
+```
+
+Preserve the completed baseline. Use a new run and assessment directory for the final check, since the acquisition implementation changed. Do not claim target F1 before the new run is measured.

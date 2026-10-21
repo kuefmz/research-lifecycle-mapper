@@ -168,3 +168,24 @@ def test_unreadable_notebook_has_file_diagnostics(tmp_path):
     ):
         assert not result["scan_complete"]
         assert any(item["reason"] == "notebook-parse-error" for item in result["coverage_issues"])
+
+
+@pytest.mark.parametrize(
+    "path,reason",
+    [
+        ("experiment/js/jquery.js", "bundled-jquery-dependency"),
+        ("web/jquery-3.2.1.js", "bundled-jquery-dependency"),
+        ("client/test_data.py", "software-test-path"),
+        ("src/tests/helper.py", "software-test-path"),
+        ("experimental_data/results/result.txt", "data-directory-text-artifact"),
+    ],
+)
+def test_full_run_failure_artifact_exclusions(path, reason):
+    assert source_kind(path) == (None, reason)
+    assert source_kind(path, "eligibility-6-generated-corpus-exclusions")[1] != reason
+
+
+def test_data_readme_and_readable_research_code_stay_eligible():
+    assert source_kind("data/README.txt")[0] == "documentation"
+    assert source_kind("src/experiment.js")[0] == "code"
+    assert source_kind("notes/protocol.txt")[0] == "documentation"

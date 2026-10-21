@@ -1,0 +1,5781 @@
+{
+  "scope": "Completed baseline progress log, not the new consolidated-v5.4 run. Metrics reconstructed from printed binary predictions and scan flags; no snapshot evidence available here.",
+  "uploaded_log_sha256": "a9dcc95fd8e2445a1c253244874623f2fb29636552482a1022768670cdad1df3",
+  "reference_sha256": "654b22e4b8e98887a3363d30c0e9589364609e05a02e2cd2c35b51089324b90a",
+  "header_reconstruction": {
+    "first_header_missing_in_latest_upload": true,
+    "restored_header": "[1/100] https://github.com/mspeich/forhytm | complete",
+    "basis": "Exact first-block body match against earlier supplied log; no predictions changed.",
+    "earlier_log_sha256": "27a3f631f338d1de83c589ee3021881741f8edd87f4f79caa68b8f93818ef860"
+  },
+  "run_summary": {
+    "repository_count": 100,
+    "finished": 100,
+    "complete": 91,
+    "failed": 7,
+    "partial": 2,
+    "timed_out": 7,
+    "captured_bytes": 162253085,
+    "api_calls": 334,
+    "session_wall_seconds": 2563.4708825789858,
+    "timing_note": "Fresh pilots only: resumed checkpoints distort session throughput",
+    "session_api_network_calls": 334,
+    "rate_limit_wait_seconds": 0.0,
+    "api_calls_note": "api_calls includes saved checkpoint request counts; session_api_network_calls counts actual REST attempts this invocation",
+    "all_repositories_accounted_for": true
+  },
+  "per_mode_metrics": {
+    "documentation-only": {
+      "repository_count": 91,
+      "per_stage": [
+        {
+          "stage": "Collection",
+          "TP": 15,
+          "FP": 14,
+          "TN": 47,
+          "FN": 15,
+          "precision": 0.51724138,
+          "recall": 0.5,
+          "f1": 0.50847458,
+          "support": 30,
+          "accuracy": 0.68131868
+        },
+        {
+          "stage": "Processing",
+          "TP": 22,
+          "FP": 10,
+          "TN": 42,
+          "FN": 17,
+          "precision": 0.6875,
+          "recall": 0.56410256,
+          "f1": 0.61971831,
+          "support": 39,
+          "accuracy": 0.7032967
+        },
+        {
+          "stage": "Method",
+          "TP": 19,
+          "FP": 4,
+          "TN": 24,
+          "FN": 44,
+          "precision": 0.82608696,
+          "recall": 0.3015873,
+          "f1": 0.44186047,
+          "support": 63,
+          "accuracy": 0.47252747
+        },
+        {
+          "stage": "Experimentation",
+          "TP": 69,
+          "FP": 4,
+          "TN": 6,
+          "FN": 12,
+          "precision": 0.94520548,
+          "recall": 0.85185185,
+          "f1": 0.8961039,
+          "support": 81,
+          "accuracy": 0.82417582
+        },
+        {
+          "stage": "Evaluation",
+          "TP": 18,
+          "FP": 0,
+          "TN": 31,
+          "FN": 42,
+          "precision": 1.0,
+          "recall": 0.3,
+          "f1": 0.46153846,
+          "support": 60,
+          "accuracy": 0.53846154
+        },
+        {
+          "stage": "Dissemination",
+          "TP": 58,
+          "FP": 9,
+          "TN": 11,
+          "FN": 13,
+          "precision": 0.86567164,
+          "recall": 0.81690141,
+          "f1": 0.84057971,
+          "support": 71,
+          "accuracy": 0.75824176
+        }
+      ],
+      "micro": {
+        "precision": 0.83057851,
+        "recall": 0.58430233,
+        "f1": 0.68600683
+      },
+      "macro": {
+        "precision": 0.80695091,
+        "recall": 0.55574052,
+        "f1": 0.62804591
+      },
+      "exact_match_accuracy": 0.10989011,
+      "hamming_loss": 0.33699634,
+      "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+      "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+      "label_accuracy": 0.663003663003663,
+      "coverage": 0.91,
+      "expected_repositories": 100,
+      "baselines": {
+        "always_negative": {
+          "repository_count": 91,
+          "per_stage": [
+            {
+              "stage": "Collection",
+              "TP": 0,
+              "FP": 0,
+              "TN": 61,
+              "FN": 30,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 30,
+              "accuracy": 0.67032967
+            },
+            {
+              "stage": "Processing",
+              "TP": 0,
+              "FP": 0,
+              "TN": 52,
+              "FN": 39,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 39,
+              "accuracy": 0.57142857
+            },
+            {
+              "stage": "Method",
+              "TP": 0,
+              "FP": 0,
+              "TN": 28,
+              "FN": 63,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 63,
+              "accuracy": 0.30769231
+            },
+            {
+              "stage": "Experimentation",
+              "TP": 0,
+              "FP": 0,
+              "TN": 10,
+              "FN": 81,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 81,
+              "accuracy": 0.10989011
+            },
+            {
+              "stage": "Evaluation",
+              "TP": 0,
+              "FP": 0,
+              "TN": 31,
+              "FN": 60,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 60,
+              "accuracy": 0.34065934
+            },
+            {
+              "stage": "Dissemination",
+              "TP": 0,
+              "FP": 0,
+              "TN": 20,
+              "FN": 71,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 71,
+              "accuracy": 0.21978022
+            }
+          ],
+          "micro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "macro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "exact_match_accuracy": 0.0,
+          "hamming_loss": 0.63003663,
+          "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+          "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
+        },
+        "always_positive": {
+          "repository_count": 91,
+          "per_stage": [
+            {
+              "stage": "Collection",
+              "TP": 30,
+              "FP": 61,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.32967033,
+              "recall": 1.0,
+              "f1": 0.49586777,
+              "support": 30,
+              "accuracy": 0.32967033
+            },
+            {
+              "stage": "Processing",
+              "TP": 39,
+              "FP": 52,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.42857143,
+              "recall": 1.0,
+              "f1": 0.6,
+              "support": 39,
+              "accuracy": 0.42857143
+            },
+            {
+              "stage": "Method",
+              "TP": 63,
+              "FP": 28,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.69230769,
+              "recall": 1.0,
+              "f1": 0.81818182,
+              "support": 63,
+              "accuracy": 0.69230769
+            },
+            {
+              "stage": "Experimentation",
+              "TP": 81,
+              "FP": 10,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.89010989,
+              "recall": 1.0,
+              "f1": 0.94186047,
+              "support": 81,
+              "accuracy": 0.89010989
+            },
+            {
+              "stage": "Evaluation",
+              "TP": 60,
+              "FP": 31,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.65934066,
+              "recall": 1.0,
+              "f1": 0.79470199,
+              "support": 60,
+              "accuracy": 0.65934066
+            },
+            {
+              "stage": "Dissemination",
+              "TP": 71,
+              "FP": 20,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.78021978,
+              "recall": 1.0,
+              "f1": 0.87654321,
+              "support": 71,
+              "accuracy": 0.78021978
+            }
+          ],
+          "micro": {
+            "precision": 0.63003663,
+            "recall": 1.0,
+            "f1": 0.77303371
+          },
+          "macro": {
+            "precision": 0.63003663,
+            "recall": 1.0,
+            "f1": 0.75452588
+          },
+          "exact_match_accuracy": 0.12087912,
+          "hamming_loss": 0.36996337,
+          "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+          "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
+        }
+      }
+    },
+    "code-only": {
+      "repository_count": 91,
+      "per_stage": [
+        {
+          "stage": "Collection",
+          "TP": 0,
+          "FP": 0,
+          "TN": 61,
+          "FN": 30,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 30,
+          "accuracy": 0.67032967
+        },
+        {
+          "stage": "Processing",
+          "TP": 7,
+          "FP": 1,
+          "TN": 51,
+          "FN": 32,
+          "precision": 0.875,
+          "recall": 0.17948718,
+          "f1": 0.29787234,
+          "support": 39,
+          "accuracy": 0.63736264
+        },
+        {
+          "stage": "Method",
+          "TP": 21,
+          "FP": 5,
+          "TN": 23,
+          "FN": 42,
+          "precision": 0.80769231,
+          "recall": 0.33333333,
+          "f1": 0.47191011,
+          "support": 63,
+          "accuracy": 0.48351648
+        },
+        {
+          "stage": "Experimentation",
+          "TP": 8,
+          "FP": 1,
+          "TN": 9,
+          "FN": 73,
+          "precision": 0.88888889,
+          "recall": 0.09876543,
+          "f1": 0.17777778,
+          "support": 81,
+          "accuracy": 0.18681319
+        },
+        {
+          "stage": "Evaluation",
+          "TP": 18,
+          "FP": 5,
+          "TN": 26,
+          "FN": 42,
+          "precision": 0.7826087,
+          "recall": 0.3,
+          "f1": 0.43373494,
+          "support": 60,
+          "accuracy": 0.48351648
+        },
+        {
+          "stage": "Dissemination",
+          "TP": 18,
+          "FP": 1,
+          "TN": 19,
+          "FN": 53,
+          "precision": 0.94736842,
+          "recall": 0.25352113,
+          "f1": 0.4,
+          "support": 71,
+          "accuracy": 0.40659341
+        }
+      ],
+      "micro": {
+        "precision": 0.84705882,
+        "recall": 0.20930233,
+        "f1": 0.33566434
+      },
+      "macro": {
+        "precision": 0.71692639,
+        "recall": 0.19418451,
+        "f1": 0.29688253
+      },
+      "exact_match_accuracy": 0.01098901,
+      "hamming_loss": 0.52197802,
+      "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+      "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+      "label_accuracy": 0.47802197802197804,
+      "coverage": 0.91,
+      "expected_repositories": 100,
+      "baselines": {
+        "always_negative": {
+          "repository_count": 91,
+          "per_stage": [
+            {
+              "stage": "Collection",
+              "TP": 0,
+              "FP": 0,
+              "TN": 61,
+              "FN": 30,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 30,
+              "accuracy": 0.67032967
+            },
+            {
+              "stage": "Processing",
+              "TP": 0,
+              "FP": 0,
+              "TN": 52,
+              "FN": 39,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 39,
+              "accuracy": 0.57142857
+            },
+            {
+              "stage": "Method",
+              "TP": 0,
+              "FP": 0,
+              "TN": 28,
+              "FN": 63,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 63,
+              "accuracy": 0.30769231
+            },
+            {
+              "stage": "Experimentation",
+              "TP": 0,
+              "FP": 0,
+              "TN": 10,
+              "FN": 81,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 81,
+              "accuracy": 0.10989011
+            },
+            {
+              "stage": "Evaluation",
+              "TP": 0,
+              "FP": 0,
+              "TN": 31,
+              "FN": 60,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 60,
+              "accuracy": 0.34065934
+            },
+            {
+              "stage": "Dissemination",
+              "TP": 0,
+              "FP": 0,
+              "TN": 20,
+              "FN": 71,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 71,
+              "accuracy": 0.21978022
+            }
+          ],
+          "micro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "macro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "exact_match_accuracy": 0.0,
+          "hamming_loss": 0.63003663,
+          "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+          "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
+        },
+        "always_positive": {
+          "repository_count": 91,
+          "per_stage": [
+            {
+              "stage": "Collection",
+              "TP": 30,
+              "FP": 61,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.32967033,
+              "recall": 1.0,
+              "f1": 0.49586777,
+              "support": 30,
+              "accuracy": 0.32967033
+            },
+            {
+              "stage": "Processing",
+              "TP": 39,
+              "FP": 52,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.42857143,
+              "recall": 1.0,
+              "f1": 0.6,
+              "support": 39,
+              "accuracy": 0.42857143
+            },
+            {
+              "stage": "Method",
+              "TP": 63,
+              "FP": 28,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.69230769,
+              "recall": 1.0,
+              "f1": 0.81818182,
+              "support": 63,
+              "accuracy": 0.69230769
+            },
+            {
+              "stage": "Experimentation",
+              "TP": 81,
+              "FP": 10,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.89010989,
+              "recall": 1.0,
+              "f1": 0.94186047,
+              "support": 81,
+              "accuracy": 0.89010989
+            },
+            {
+              "stage": "Evaluation",
+              "TP": 60,
+              "FP": 31,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.65934066,
+              "recall": 1.0,
+              "f1": 0.79470199,
+              "support": 60,
+              "accuracy": 0.65934066
+            },
+            {
+              "stage": "Dissemination",
+              "TP": 71,
+              "FP": 20,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.78021978,
+              "recall": 1.0,
+              "f1": 0.87654321,
+              "support": 71,
+              "accuracy": 0.78021978
+            }
+          ],
+          "micro": {
+            "precision": 0.63003663,
+            "recall": 1.0,
+            "f1": 0.77303371
+          },
+          "macro": {
+            "precision": 0.63003663,
+            "recall": 1.0,
+            "f1": 0.75452588
+          },
+          "exact_match_accuracy": 0.12087912,
+          "hamming_loss": 0.36996337,
+          "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+          "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
+        }
+      }
+    },
+    "combined": {
+      "repository_count": 91,
+      "per_stage": [
+        {
+          "stage": "Collection",
+          "TP": 15,
+          "FP": 14,
+          "TN": 47,
+          "FN": 15,
+          "precision": 0.51724138,
+          "recall": 0.5,
+          "f1": 0.50847458,
+          "support": 30,
+          "accuracy": 0.68131868
+        },
+        {
+          "stage": "Processing",
+          "TP": 23,
+          "FP": 11,
+          "TN": 41,
+          "FN": 16,
+          "precision": 0.67647059,
+          "recall": 0.58974359,
+          "f1": 0.63013699,
+          "support": 39,
+          "accuracy": 0.7032967
+        },
+        {
+          "stage": "Method",
+          "TP": 30,
+          "FP": 8,
+          "TN": 20,
+          "FN": 33,
+          "precision": 0.78947368,
+          "recall": 0.47619048,
+          "f1": 0.59405941,
+          "support": 63,
+          "accuracy": 0.54945055
+        },
+        {
+          "stage": "Experimentation",
+          "TP": 70,
+          "FP": 5,
+          "TN": 5,
+          "FN": 11,
+          "precision": 0.93333333,
+          "recall": 0.86419753,
+          "f1": 0.8974359,
+          "support": 81,
+          "accuracy": 0.82417582
+        },
+        {
+          "stage": "Evaluation",
+          "TP": 30,
+          "FP": 5,
+          "TN": 26,
+          "FN": 30,
+          "precision": 0.85714286,
+          "recall": 0.5,
+          "f1": 0.63157895,
+          "support": 60,
+          "accuracy": 0.61538462
+        },
+        {
+          "stage": "Dissemination",
+          "TP": 61,
+          "FP": 10,
+          "TN": 10,
+          "FN": 10,
+          "precision": 0.85915493,
+          "recall": 0.85915493,
+          "f1": 0.85915493,
+          "support": 71,
+          "accuracy": 0.78021978
+        }
+      ],
+      "micro": {
+        "precision": 0.81205674,
+        "recall": 0.66569767,
+        "f1": 0.73162939
+      },
+      "macro": {
+        "precision": 0.77213613,
+        "recall": 0.63154776,
+        "f1": 0.68680679
+      },
+      "exact_match_accuracy": 0.14285714,
+      "hamming_loss": 0.30769231,
+      "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+      "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
+      "label_accuracy": 0.6923076923076923,
+      "coverage": 0.91,
+      "expected_repositories": 100,
+      "baselines": {
+        "always_negative": {
+          "repository_count": 91,
+          "per_stage": [
+            {
+              "stage": "Collection",
+              "TP": 0,
+              "FP": 0,
+              "TN": 61,
+              "FN": 30,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 30,
+              "accuracy": 0.67032967
+            },
+            {
+              "stage": "Processing",
+              "TP": 0,
+              "FP": 0,
+              "TN": 52,
+              "FN": 39,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 39,
+              "accuracy": 0.57142857
+            },
+            {
+              "stage": "Method",
+              "TP": 0,
+              "FP": 0,
+              "TN": 28,
+              "FN": 63,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 63,
+              "accuracy": 0.30769231
+            },
+            {
+              "stage": "Experimentation",
+              "TP": 0,
+              "FP": 0,
+              "TN": 10,
+              "FN": 81,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 81,
+              "accuracy": 0.10989011
+            },
+            {
+              "stage": "Evaluation",
+              "TP": 0,
+              "FP": 0,
+              "TN": 31,
+              "FN": 60,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 60,
+              "accuracy": 0.34065934
+            },
+            {
+              "stage": "Dissemination",
+              "TP": 0,
+              "FP": 0,
+              "TN": 20,
+              "FN": 71,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 71,
+              "accuracy": 0.21978022
+            }
+          ],
+          "micro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "macro": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "exact_match_accuracy": 0.0,
+          "hamming_loss": 0.63003663,
+          "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+          "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
+        },
+        "always_positive": {
+          "repository_count": 91,
+          "per_stage": [
+            {
+              "stage": "Collection",
+              "TP": 30,
+              "FP": 61,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.32967033,
+              "recall": 1.0,
+              "f1": 0.49586777,
+              "support": 30,
+              "accuracy": 0.32967033
+            },
+            {
+              "stage": "Processing",
+              "TP": 39,
+              "FP": 52,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.42857143,
+              "recall": 1.0,
+              "f1": 0.6,
+              "support": 39,
+              "accuracy": 0.42857143
+            },
+            {
+              "stage": "Method",
+              "TP": 63,
+              "FP": 28,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.69230769,
+              "recall": 1.0,
+              "f1": 0.81818182,
+              "support": 63,
+              "accuracy": 0.69230769
+            },
+            {
+              "stage": "Experimentation",
+              "TP": 81,
+              "FP": 10,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.89010989,
+              "recall": 1.0,
+              "f1": 0.94186047,
+              "support": 81,
+              "accuracy": 0.89010989
+            },
+            {
+              "stage": "Evaluation",
+              "TP": 60,
+              "FP": 31,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.65934066,
+              "recall": 1.0,
+              "f1": 0.79470199,
+              "support": 60,
+              "accuracy": 0.65934066
+            },
+            {
+              "stage": "Dissemination",
+              "TP": 71,
+              "FP": 20,
+              "TN": 0,
+              "FN": 0,
+              "precision": 0.78021978,
+              "recall": 1.0,
+              "f1": 0.87654321,
+              "support": 71,
+              "accuracy": 0.78021978
+            }
+          ],
+          "micro": {
+            "precision": 0.63003663,
+            "recall": 1.0,
+            "f1": 0.77303371
+          },
+          "macro": {
+            "precision": 0.63003663,
+            "recall": 1.0,
+            "f1": 0.75452588
+          },
+          "exact_match_accuracy": 0.12087912,
+          "hamming_loss": 0.36996337,
+          "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
+          "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
+        }
+      }
+    }
+  },
+  "reference_scope": "Supplied final agreement; code-only/combined are cross-scope agreement, not independent code accuracy.",
+  "development_only": true,
+  "repositories": [
+    {
+      "index": 1,
+      "repository_url": "https://github.com/mspeich/forhytm",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 2,
+      "repository_url": "https://github.com/cristal-smac/atom",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 3,
+      "repository_url": "https://github.com/taochen/all-versus-one",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 0,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": true
+    },
+    {
+      "index": 4,
+      "repository_url": "https://github.com/kjetilk/doe-sparql",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 5,
+      "repository_url": "https://github.com/yakazimir/Code-Datasets",
+      "status": "failed",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false,
+      "stop_phase": "acquisition",
+      "current_file": "other_data/py27/orator/data_pseudo.f"
+    },
+    {
+      "index": 6,
+      "repository_url": "https://github.com/QTB-HHU/integraseModel",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 7,
+      "repository_url": "https://github.com/onurgu/joint-ner-and-md-tagger",
+      "status": "failed",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false,
+      "stop_phase": "analysis-tokenization",
+      "current_file": "web/public_html/js/jquery-3.2.1.min.js"
+    },
+    {
+      "index": 8,
+      "repository_url": "https://github.com/marcotcr/anchor-experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 9,
+      "repository_url": "https://github.com/jkeiren/pbesstategraph-experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 10,
+      "repository_url": "https://github.com/ushaham/RBMpaper",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 11,
+      "repository_url": "https://github.com/flowersteam/rl-difference-testing",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 12,
+      "repository_url": "https://github.com/irit-melodi/irit-stac",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 13,
+      "repository_url": "https://github.com/drbenvincent/darc-experiments-matlab",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 14,
+      "repository_url": "https://github.com/dtrckd/pymake",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 15,
+      "repository_url": "https://github.com/Sind/compression-experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 16,
+      "repository_url": "https://github.com/numpi/markov-measures",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 17,
+      "repository_url": "https://github.com/vered1986/UnsupervisedHypernymy",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 18,
+      "repository_url": "https://github.com/duvenaud/additive-gps",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 19,
+      "repository_url": "https://github.com/steveash/NETransliteration-COLING2018",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 20,
+      "repository_url": "https://github.com/mantiuk/pwcmp",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 21,
+      "repository_url": "https://github.com/kapelner/optDesignSlopeInt",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 22,
+      "repository_url": "https://github.com/isti-fmt-nlp/AmbiguityToVariability",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 0,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": true
+    },
+    {
+      "index": 23,
+      "repository_url": "https://github.com/MichSchli/Tensor-LSTM",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 24,
+      "repository_url": "https://github.com/akshay-r/autoencoders_dictionaries",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 25,
+      "repository_url": "https://github.com/sisl/GrammarExpts.jl",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 26,
+      "repository_url": "https://github.com/gmarceaucaron/natural-langevin-dynamics-for-neural-networks",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 27,
+      "repository_url": "https://github.com/lacerbi/comprob",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 28,
+      "repository_url": "https://github.com/pierrejacob/unbiasedpathsampling",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 29,
+      "repository_url": "https://github.com/PAL-UH/transferAL",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 30,
+      "repository_url": "https://github.com/IKMLab/arct2",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 31,
+      "repository_url": "https://github.com/AviranLab/SLEQ",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 32,
+      "repository_url": "https://github.com/sss1/sobolev-estimation",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 33,
+      "repository_url": "https://github.com/pietrobraione/sushi-experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 34,
+      "repository_url": "https://github.com/srndic/hidost-reproduction",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 35,
+      "repository_url": "https://github.com/sirusb/R3CPET",
+      "status": "failed",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false,
+      "stop_phase": "analysis-tokenization",
+      "current_file": "inst/www/d3.min.js"
+    },
+    {
+      "index": 36,
+      "repository_url": "https://github.com/jmschrei/PyPore",
+      "status": "partial",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": 1,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 37,
+      "repository_url": "https://github.com/Ettwiller/TSS",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 38,
+      "repository_url": "https://github.com/eglxiang/ytf",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 39,
+      "repository_url": "https://github.com/jebyrnes/ext-meta",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 40,
+      "repository_url": "https://github.com/gavento/swap-sorting-experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 41,
+      "repository_url": "https://github.com/cog-imperial/GPdoemd",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 42,
+      "repository_url": "https://github.com/jermp/rdf_indexes",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 43,
+      "repository_url": "https://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 44,
+      "repository_url": "https://github.com/YiyiLiu1/bdChemo",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 45,
+      "repository_url": "https://github.com/matejbalog/gumbel-relatives",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 46,
+      "repository_url": "https://github.com/ztangent/norms-cogsci19",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": true
+    },
+    {
+      "index": 47,
+      "repository_url": "https://github.com/Matrix-Factorization-Bandit/IMFB-KDD2019",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 48,
+      "repository_url": "https://github.com/vanheeringen-lab/gimmemotifs",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 49,
+      "repository_url": "https://github.com/ihincks/nv-adaptive",
+      "status": "failed",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false,
+      "stop_phase": "analysis-tokenization",
+      "current_file": "src/EffectiveStrongMeasurments.nb"
+    },
+    {
+      "index": 50,
+      "repository_url": "https://github.com/b5strbal/macaw",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 51,
+      "repository_url": "https://github.com/HUJI-Deep/Generative-ConvACs",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 52,
+      "repository_url": "https://github.com/tuw-cpsg/paper-shsa-monitor-experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 53,
+      "repository_url": "https://github.com/LCSL/dpp-vfx",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 54,
+      "repository_url": "https://github.com/anguelos/embedding_map",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 55,
+      "repository_url": "https://github.com/rehmanzafar/dlime_experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 56,
+      "repository_url": "https://github.com/liusi2019/ocd",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 57,
+      "repository_url": "https://github.com/deezer/MusicGenreTranslation",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 58,
+      "repository_url": "https://github.com/Veleslavia/EUSIPCO2017",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 59,
+      "repository_url": "https://github.com/alfredomg/ADAPT-MWE17",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 60,
+      "repository_url": "https://github.com/michael135/count-vector-paper-experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 61,
+      "repository_url": "https://github.com/smitdaniel/BFPtool",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 62,
+      "repository_url": "https://github.com/h4rm/ThreePhotons.jl",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 63,
+      "repository_url": "https://github.com/dmlb2000/EETUP",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 64,
+      "repository_url": "https://github.com/dobriban/high-dim-risk-experiments",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 65,
+      "repository_url": "https://github.com/Lcartwright94/BayesianAT",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 66,
+      "repository_url": "https://github.com/pkuzhf/bidding-at-risk-experiment",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 67,
+      "repository_url": "https://github.com/jwcarr/flatlanders",
+      "status": "failed",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false,
+      "stop_phase": "analysis-tokenization",
+      "current_file": "experiment/js/jquery.js"
+    },
+    {
+      "index": 68,
+      "repository_url": "https://github.com/joefresna/PlosONE-Reina2015",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 69,
+      "repository_url": "https://github.com/pamattei/BMAsBIC",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 70,
+      "repository_url": "https://github.com/paper-submission-anonymous/rVAMP",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 71,
+      "repository_url": "https://github.com/svissicchio/Repetita",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 72,
+      "repository_url": "https://github.com/f0k/ismir2015",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 73,
+      "repository_url": "https://github.com/sss1/convolutional-dictionary",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 74,
+      "repository_url": "https://github.com/aquemy/DPSO_experiments",
+      "status": "partial",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": 1,
+            "Method": null,
+            "Experimentation": 1,
+            "Evaluation": null,
+            "Dissemination": 1
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": 1,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": 1,
+            "Method": null,
+            "Experimentation": 1,
+            "Evaluation": null,
+            "Dissemination": 1
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 75,
+      "repository_url": "https://github.com/PalmaLeandro/iterativeLSTM",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 76,
+      "repository_url": "https://github.com/elibol/amle",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 77,
+      "repository_url": "https://github.com/vitorenesduarte/exp",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 78,
+      "repository_url": "https://github.com/marksbrown/ProcessingCTRData",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 79,
+      "repository_url": "https://github.com/Garrafao/MetaphoricChange",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 80,
+      "repository_url": "https://github.com/drgriffis/SBD-Evaluation",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 81,
+      "repository_url": "https://github.com/Emergent-Behaviors-in-Biology/community-simulator",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 82,
+      "repository_url": "https://github.com/md-k-sarker/ecii-expr",
+      "status": "failed",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false,
+      "stop_phase": "analysis",
+      "current_file": "experimental_data/all_experimental_file_and_data/ade20k/large_scale/selected_5_concepts/Mountain_positive_vs_Market_and_WorkRoom_and_WareHouse_negative/Mountain_positive_vs_Market_and_WorkRoom_and_WareHouse_negative_expl_by_ecii_limit50_reasoner_pellet_accuracy_calc_by_reasoner.txt"
+    },
+    {
+      "index": 83,
+      "repository_url": "https://github.com/ChristopherWilks/snaptron-experiments",
+      "status": "failed",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        },
+        "combined": {
+          "predictions": {
+            "Collection": null,
+            "Processing": null,
+            "Method": null,
+            "Experimentation": null,
+            "Evaluation": null,
+            "Dissemination": null
+          },
+          "scan_complete": false
+        }
+      },
+      "no_eligible_code": false,
+      "stop_phase": "analysis-tokenization",
+      "current_file": "client/test_data.py"
+    },
+    {
+      "index": 84,
+      "repository_url": "https://github.com/mwcvitkovic/MASS-Learning",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 85,
+      "repository_url": "https://github.com/diglesia/delaIglesiaetal_Data",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 0,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": true
+    },
+    {
+      "index": 86,
+      "repository_url": "https://github.com/ot/partitioned_elias_fano",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 87,
+      "repository_url": "https://github.com/irit-melodi/irit-rst-dt",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 88,
+      "repository_url": "https://github.com/shobeir/fakhraei_kdd2015",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 89,
+      "repository_url": "https://github.com/vodolan/DenotationIdentification",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 90,
+      "repository_url": "https://github.com/shobeir/fakhraei_tcbb2014",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 91,
+      "repository_url": "https://github.com/rlaboiss/vextab-data",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 1,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 92,
+      "repository_url": "https://github.com/gzanella/multigrid",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 0,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 1,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 93,
+      "repository_url": "https://github.com/pimdh/relie",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 94,
+      "repository_url": "https://github.com/DIVERSIFY-project/autojmh-validation-data",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 0
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 95,
+      "repository_url": "https://github.com/allenai/OpenBookQA",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 1,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 96,
+      "repository_url": "https://github.com/ciaranm/cp2015-subgraph-isomorphism",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 97,
+      "repository_url": "https://github.com/FreeDisciplina/CollisionOffset",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 98,
+      "repository_url": "https://github.com/research-submissions/iclr20",
+      "status": "complete",
+      "gold": {
+        "Collection": 1,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 0,
+        "Evaluation": 0,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 99,
+      "repository_url": "https://github.com/WMBEdmands/simExTargId",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 1,
+        "Method": 1,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 1,
+            "Processing": 1,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    },
+    {
+      "index": 100,
+      "repository_url": "https://github.com/maidens/ACC-2016",
+      "status": "complete",
+      "gold": {
+        "Collection": 0,
+        "Processing": 0,
+        "Method": 0,
+        "Experimentation": 1,
+        "Evaluation": 1,
+        "Dissemination": 1
+      },
+      "modes": {
+        "documentation-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        },
+        "code-only": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 0,
+            "Evaluation": 0,
+            "Dissemination": 0
+          },
+          "scan_complete": true
+        },
+        "combined": {
+          "predictions": {
+            "Collection": 0,
+            "Processing": 0,
+            "Method": 0,
+            "Experimentation": 1,
+            "Evaluation": 0,
+            "Dissemination": 1
+          },
+          "scan_complete": true
+        }
+      },
+      "no_eligible_code": false
+    }
+  ]
+}

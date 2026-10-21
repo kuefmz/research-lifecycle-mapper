@@ -13,7 +13,7 @@ from typing import Any
 
 from . import MODES, STAGES
 from .acquisition import replay
-from .analysis import analyze_modes
+from .analysis import analyze_modes, load_rules
 from .benchmark import calculate_metrics, implementation_hash
 from .canonical import contained, read_json, sha256, write_csv, write_json
 from .dataset import dataset_reference
@@ -50,8 +50,15 @@ def assess(
     rules_dir: Path | None = None,
     review_documents: bool = False,
 ) -> dict[str, Any]:
-    if rules_dir and not reanalyze:
-        raise ValueError("--rules-dir requires --replay")
+    expected_catalog = load_rules(rules_dir)[1] if rules_dir and not reanalyze else None
+    if expected_catalog:
+        saved_catalog = (
+            read_json(run / "manifest.json").get("configuration", {}).get("catalog_sha256")
+        )
+        if saved_catalog is not None and saved_catalog != expected_catalog:
+            raise ValueError(
+                "Saved run catalog differs from --rules-dir; use the matching saved profile"
+            )
     gold = (
         final_reference(reference)
         if reference.suffix.lower() in {".xlsx", ".csv"}
@@ -102,6 +109,10 @@ def assess(
             }
         )
         for payload in modes:
+            if expected_catalog and payload.get("rule_catalog_hash") != expected_catalog:
+                raise ValueError(
+                    "Saved prediction catalog differs from --rules-dir; no replay was performed"
+                )
             mode = payload["mode"]
             if mode not in MODES:
                 raise ValueError("Unexpected prediction mode")
@@ -348,27 +359,39 @@ def main() -> None:
         action="store_true",
         help="Recompute all three modes from saved snapshots; no GitHub requests",
     )
-    parser.add_argument("--rules-dir", type=Path)
+    parser.add_argument(
+        "--rules-dir",
+        type=Path,
+        help="Validate the saved rule profile; with --replay, select replay rules",
+    )
     parser.add_argument(
         "--review-documents",
         action="store_true",
         help="Export captured documentation for development mismatches only",
     )
+    parser.add_argument(
+        "--paper-summary",
+        action="store_true",
+        help="Print paper tables and save Markdown/LaTeX/JSON under output/paper; saved predictions only",
+    )
     args = parser.parse_args()
     try:
-        print(
-            json.dumps(
-                assess(
-                    args.run,
-                    args.reference,
-                    args.output,
-                    args.replay,
-                    args.rules_dir,
-                    args.review_documents,
-                ),
-                indent=2,
-            )
+        if args.paper_summary and args.replay:
+            raise ValueError("--paper-summary uses saved predictions; omit --replay")
+        result = assess(
+            args.run,
+            args.reference,
+            args.output,
+            args.replay,
+            args.rules_dir,
+            args.review_documents,
         )
+        if args.paper_summary:
+            from .paper_summary import build_summary
+
+            print(build_summary(args.run, args.output, args.output / "paper"), end="")
+        else:
+            print(json.dumps(result, indent=2))
     except (ValueError, OSError, KeyError) as exc:
         parser.exit(2, f"error: {exc}\n")
 

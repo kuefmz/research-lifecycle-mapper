@@ -18,10 +18,12 @@ from .telemetry import emit
 from .source_languages import language_names
 from .text_decoding import decode_text, POLICY as DECODING_POLICY
 
-POLICY_VERSION = "eligibility-6-generated-corpus-exclusions"
-DECODING_POLICIES = {POLICY_VERSION, "eligibility-5-legacy-text-decoding"}
+POLICY_VERSION = "eligibility-7-bundled-data-test-exclusions"
+RESOURCE_POLICIES = {POLICY_VERSION, "eligibility-6-generated-corpus-exclusions"}
+DECODING_POLICIES = RESOURCE_POLICIES | {"eligibility-5-legacy-text-decoding"}
 BROAD_POLICIES = {
     POLICY_VERSION,
+    "eligibility-6-generated-corpus-exclusions",
     "eligibility-5-legacy-text-decoding",
     "eligibility-4-txt-folder-density",
     "eligibility-3-programming-catalog",
@@ -79,7 +81,7 @@ def source_kind(
     txt_counts: dict[str, int] | None = None,
 ) -> tuple[str | None, str | None]:
     parts = PurePosixPath(path.lower()).parts
-    if policy == POLICY_VERSION:
+    if policy in RESOURCE_POLICIES:
         if re.search(r"\.min\.(?:js|css)(?:\.map)?$|\.(?:js|css)\.map$", path, re.I):
             return None, "generated-minified-asset-or-source-map"
         if any(
@@ -96,6 +98,26 @@ def source_kind(
         return None, "vendored-generated-or-fixture"
     name = PurePosixPath(path).name.lower()
     suffix = PurePosixPath(path).suffix.lower()
+    if policy == POLICY_VERSION:
+        if re.fullmatch(
+            r"(?:jquery(?:[-.]\d+(?:\.\d+)*)?|jquery-ui(?:[-.]\d+(?:\.\d+)*)?)\.js", name
+        ):
+            return None, "bundled-jquery-dependency"
+        if (
+            suffix == ".txt"
+            and not name.startswith("readme")
+            and any(
+                part
+                in {"data", "datasets", "experimental_data", "test_data", "testdata", "fixtures"}
+                for part in parts[:-1]
+            )
+        ):
+            return None, "data-directory-text-artifact"
+        if (
+            any(part in {"test", "tests", "testing"} for part in parts[:-1])
+            or name.startswith("test_")
+        ) and (suffix in CODE_SUFFIXES or language_names(path)):
+            return None, "software-test-path"
     if name in {"license", "license.txt", "license.md", "copying", "authors.txt"}:
         return None, "administrative"
     if suffix == ".ipynb" and policy in BROAD_POLICIES | {"eligibility-2-notebook-cells"}:
@@ -104,6 +126,7 @@ def source_kind(
         policy
         in {
             POLICY_VERSION,
+            "eligibility-6-generated-corpus-exclusions",
             "eligibility-5-legacy-text-decoding",
             "eligibility-4-txt-folder-density",
         }
@@ -488,6 +511,7 @@ def replay(root: Path, expected_hash: str | None = None) -> tuple[dict[str, Any]
         "eligibility-3-programming-catalog",
         "eligibility-4-txt-folder-density",
         "eligibility-5-legacy-text-decoding",
+        "eligibility-6-generated-corpus-exclusions",
         POLICY_VERSION,
     }:
         raise ValueError("Unsupported snapshot schema or eligibility policy")

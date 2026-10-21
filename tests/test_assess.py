@@ -149,3 +149,56 @@ def test_assessment_keeps_missing_repositories_unknown(tmp_path):
     summaries = list(csv.DictReader((out / "repository_summary.csv").open()))
     assert len(summaries) == 6
     assert all(len(json.loads(row["unknown_stages"])) == 6 for row in summaries)
+
+
+def test_saved_profile_validation_does_not_replay(tmp_path, monkeypatch):
+    from lifecycle_mapper import assess as module
+
+    run = tmp_path / "run"
+    folder = run / "repositories/key"
+    folder.mkdir(parents=True)
+    snapshot = make_snapshot(folder / "snapshot", EXAMPLES["Method"], "README.md")
+    modes = analyze_modes(snapshot, MODES, rules_dir=CANDIDATE)
+    catalog = load_rules(CANDIDATE)[1]
+    result = {"requested_url": "https://github.com/a/b", "modes": modes, "commit": "a" * 40}
+    write_json(folder / "result.json", result)
+    (folder / "result.sha256").write_text(file_hash(folder / "result.json"))
+    write_json(
+        run / "manifest.json", {"configuration": {"repository_count": 1, "catalog_sha256": catalog}}
+    )
+    ref = tmp_path / "reference.json"
+    write_json(
+        ref,
+        {
+            "kind": "lifecycle-benchmark-dataset",
+            "schema_version": 1,
+            "stages": list(STAGES),
+            "repositories": [
+                {
+                    "source_url": "https://github.com/a/b",
+                    "human_labels": {s: 1 for s in STAGES},
+                    "results": {},
+                }
+            ],
+            "runs": [],
+        },
+    )
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Saved assessment must not replay")
+
+    monkeypatch.setattr(module, "analyze_modes", forbidden)
+    monkeypatch.setattr(module, "replay", forbidden)
+    assert (
+        assess(run, ref, tmp_path / "assessment", rules_dir=CANDIDATE)[
+            "common_complete_repositories"
+        ]
+        == 1
+    )
+    with pytest.raises(ValueError, match="catalog differs"):
+        assess(
+            run,
+            ref,
+            tmp_path / "wrong",
+            rules_dir=Path(__file__).resolve().parents[1] / "configs/consolidated-development-v5.4",
+        )

@@ -20,3 +20,7 @@
 No repository-specific exceptions or reference-label inputs exist in the classifier. No promise of 80–90% F1 is made. Under-specified references and evidence-scope disagreements remain listed for review rather than silently changing labels. Collection restrictions may lower recall; remaining Method/Evaluation gaps must be disclosed. Source-only positives may validly disagree with documentation labels.
 
 After the active baseline run finishes, use this profile in a fresh directory with the same 100 repositories, exact supplied order, main/master branch policy and resource limits. Run export/assess without replay for final metrics. Preserve both runs; report complete/partial/failed coverage and baselines alongside F1. Do not pool results across profiles or present development scores as held-out performance.
+
+## Completed-log operational follow-up
+
+After the 100-repository baseline finished, acquisition policy 7 additionally moved software-test path exclusions before tokenization, excludes known unminified jQuery basenames, and excludes non-README TXT data artifacts under explicitly named data directories. The 105 matching rules and their checksums are unchanged. Earlier snapshot policies remain replayable. See the completed-baseline log audit and run instructions for the saved-results paper summary. This is an operational follow-up, not an additional label-tuning round.
