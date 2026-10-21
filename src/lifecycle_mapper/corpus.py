@@ -56,6 +56,10 @@ def repository_log(
             value = payload["predictions"].get(stage) if payload else None
             values.append("1" if value is True else "0" if value is False else "?")
         scan = "complete" if payload and payload["scan_complete"] else "incomplete"
+        if mode == "code-only" and payload and payload.get("eligible_files") == 0:
+            lines.append(
+                "  code availability: no eligible source files; code zeros mean no available implementation evidence"
+            )
         lines.append(f"  {mode}: " + " | ".join(values) + f"  (scan {scan})")
     if result.get("error"):
         lines.append("  error: " + result["error"])

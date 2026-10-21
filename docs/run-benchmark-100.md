@@ -1,6 +1,6 @@
 # Run all 100 benchmark repositories with notebooks
 
-This run uses workflow development v5.2: it tightens documentation Method proxies and extends executable workflow matching. See the profile README and exact rule catalogue. The proposed
+This run uses simulation development v5.3: it fixes reported evidence-role errors and adds physical-equation, agent-simulation and experimental-design matching. See the profile README and exact rule catalogue. The proposed
 v6 catalogue still contains unresolved codebook choices and is not the runtime
 classifier. No near-100% accuracy claim is warranted: the previous v5 development
 replay had micro-F1 about 0.749 on 72 complete documentation scans. The final
@@ -29,22 +29,22 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
   --reference data/final_agreement.csv \
-  --output data/runs/benchmark-100-workflow-v52 \
+  --output data/runs/benchmark-100-simulation-v53 \
   --transport hybrid \
   --workers 1 \
   --mode all \
-  --rules-dir configs/workflow-development-v5.2 \
+  --rules-dir configs/simulation-development-v5.3 \
   --max-bytes 0
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
-  --output data/runs/benchmark-100-workflow-v52 \
+  --output data/runs/benchmark-100-simulation-v53 \
   --reference data/final_agreement.csv
 
 uv run --frozen python -m lifecycle_mapper.assess \
-  --run data/runs/benchmark-100-workflow-v52 \
+  --run data/runs/benchmark-100-simulation-v53 \
   --reference data/final_agreement.csv \
-  --rules-dir configs/workflow-development-v5.2 \
-  --output data/reports/benchmark-100-workflow-v52
+  --rules-dir configs/simulation-development-v5.3 \
+  --output data/reports/benchmark-100-simulation-v53
 ```
 
 Use a new output directory for this implementation/policy/profile. Old snapshots
@@ -190,7 +190,7 @@ For an existing run, after processing finishes, display saved checkpoints alongs
 
 ```bash
 uv run --frozen python -m lifecycle_mapper.corpus logs \
-  --output data/runs/benchmark-100-workflow-v52 \
+  --output data/runs/benchmark-100-simulation-v53 \
   --reference data/final_agreement.csv
 ```
 
