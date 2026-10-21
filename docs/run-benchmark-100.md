@@ -28,6 +28,7 @@ Do not paste the token into a command, log or repository file. Then run:
 uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
+  --reference data/research_lifecycle_benchmark_100_msr27.xlsx \
   --output data/runs/benchmark-100-all-languages-v51 \
   --transport hybrid \
   --workers 2 \
@@ -180,3 +181,17 @@ exclusion. Its class alone is insufficient to infer the underlying cause. A
 python-parse-error is a detector compatibility gap, not a download failure and
 not evidence that the repository lacks research activities. Report these failure
 categories separately from the five-minute deadline in the paper.
+
+## Display author agreement without rerunning
+
+The optional run --reference workbook displays final_agreement labels in each result block. These labels are loaded only by the parent logger and never passed into the classifier. Missing reference repositories have no agreement row. The reference has mixed-source evidence and is not independently validated code-only ground truth.
+
+For an existing run, after processing finishes, display saved checkpoints alongside agreement without acquisition or heuristic replay:
+
+```bash
+uv run --frozen python -m lifecycle_mapper.corpus logs \
+  --output data/runs/benchmark-100-all-languages-v51 \
+  --reference data/research_lifecycle_benchmark_100_msr27.xlsx
+```
+
+This also writes agreement.log in the run directory. It does not change predictions or manifests. Finish an active run before pulling implementation changes; implementation fingerprints intentionally prevent resuming a run with changed classifier code.

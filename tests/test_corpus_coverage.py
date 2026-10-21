@@ -114,6 +114,12 @@ def test_logging_preserves_mode_and_unknown_values():
     assert "combined: ? | ? | ? | ? | ? | ?" in block
     assert "cached checkpoint" in block
     assert "scan incomplete" in block
+    agreement = dict(zip(corpus.STAGES, [1, 0, 1, 0, 1, 0]))
+    before = repr(result)
+    annotated = corpus.repository_log(result, totals, corpus.MODES, agreement)
+    assert "author agreement (final_agreement): 1 | 0 | 1 | 0 | 1 | 0" in annotated
+    assert repr(result) == before
+    assert "documentation-only: 1 | 0 | ? | 0 | 1 | ?" in annotated
 
 
 def test_failure_location_does_not_expose_local_paths(monkeypatch, tmp_path):

@@ -30,7 +30,12 @@ def atomic_json(path: Path, payload: Any) -> None:
     temporary.replace(path)
 
 
-def repository_log(result: dict[str, Any], totals: dict[str, Any], modes: tuple[str, ...]) -> str:
+def repository_log(
+    result: dict[str, Any],
+    totals: dict[str, Any],
+    modes: tuple[str, ...],
+    agreement: dict[str, int] | None = None,
+) -> str:
     """One flushed block per result; missing evidence is unknown, never zero."""
     status = "failed" if result.get("error") else "complete" if result["complete"] else "partial"
     lines = [
@@ -38,6 +43,11 @@ def repository_log(result: dict[str, Any], totals: dict[str, Any], modes: tuple[
         + (" | cached checkpoint" if result.get("checkpoint_reused") else ""),
         "  stages: " + " | ".join(STAGES),
     ]
+    if agreement is not None:
+        lines.append(
+            "  author agreement (final_agreement): "
+            + " | ".join(str(agreement[stage]) for stage in STAGES)
+        )
     payloads = {payload["mode"]: payload for payload in result.get("modes", [])}
     for mode in modes:
         payload = payloads.get(mode)
@@ -337,6 +347,7 @@ def run_corpus(
     api_interval: float = 0.8,
     rules_dir: Path | None = None,
     expected_repositories: int | None = None,
+    reference_path: Path | None = None,
 ) -> dict[str, Any]:
     if workers not in range(1, 9) or max_bytes < 0 or api_interval < 0.8:
         raise ValueError(
@@ -351,6 +362,9 @@ def run_corpus(
         raise ValueError("Empty selected corpus")
     if expected_repositories is not None and len(records) != expected_repositories:
         raise ValueError(f"Expected {expected_repositories} repositories; selected {len(records)}")
+    from .reference import final_reference
+
+    reference = final_reference(reference_path) if reference_path else {}
     output.mkdir(parents=True, exist_ok=True)
     root = Path(__file__).resolve().parents[2]
     config = {
@@ -451,7 +465,14 @@ def run_corpus(
                     totals["api_calls"] += result.get("api_calls", 0)
                     totals["session_wall_seconds"] = time.monotonic() - started
                     atomic_json(output / "progress.json", totals)
-                    block = repository_log(result, totals, modes)
+                    block = repository_log(
+                        result,
+                        totals,
+                        modes,
+                        reference.get(
+                            acquisition.repository_id(result["requested_url"]).casefold()
+                        ),
+                    )
                     with (output / "progress.log").open("a") as log:
                         log.write(block + "\n")
                     print(block, file=sys.stderr, flush=True)
@@ -673,11 +694,44 @@ def main() -> None:
     run.add_argument("--retry-failed", action="store_true")
     run.add_argument("--rules-dir", type=Path)
     run.add_argument("--expected-repositories", type=int)
+    run.add_argument(
+        "--reference",
+        type=Path,
+        help="Final agreement workbook; display only, never prediction input",
+    )
+    logs = commands.add_parser(
+        "logs", help="Display saved results with final agreement; no acquisition or replay"
+    )
+    logs.add_argument("--output", type=Path, required=True)
+    logs.add_argument("--reference", type=Path, required=True)
     export = commands.add_parser("export")
     export.add_argument("--output", type=Path, required=True)
     export.add_argument("--reference", type=Path)
     args = parser.parse_args()
     try:
+        if args.command == "logs":
+            from .reference import final_reference
+
+            reference = final_reference(args.reference)
+            paths = sorted((args.output / "repositories").glob("*/result.json"))
+            totals = dict(finished=0, repository_count=len(paths), complete=0, partial=0, failed=0)
+            blocks = []
+            for path in paths:
+                saved = read_json(path)
+                totals["finished"] += 1
+                totals["complete"] += bool(saved["complete"])
+                totals["failed"] += bool(saved.get("error"))
+                totals["partial"] += not saved["complete"] and not saved.get("error")
+                block = repository_log(
+                    saved,
+                    totals,
+                    MODES,
+                    reference.get(acquisition.repository_id(saved["requested_url"]).casefold()),
+                )
+                blocks.append(block)
+                print(block, flush=True)
+            (args.output / "agreement.log").write_text("\n".join(blocks) + "\n")
+            return
         if args.command == "export":
             result = export_tables(args.output, args.reference)
         else:
@@ -696,6 +750,7 @@ def main() -> None:
                 args.api_interval,
                 args.rules_dir,
                 args.expected_repositories,
+                args.reference,
             )
         print(json.dumps(result, indent=2))
     except (ValueError, OSError) as exc:
