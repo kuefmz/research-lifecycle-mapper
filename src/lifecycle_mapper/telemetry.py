@@ -1,12 +1,16 @@
 """Small, atomic worker heartbeats; no content, headers or credentials."""
 
 import json
+import os
+import tempfile
+import threading
 import time
 from pathlib import Path
 from typing import Any
 
 _path: Path | None = None
 _state: dict[str, Any] = {}
+_lock = threading.RLock()
 
 
 def configure(path: Path) -> None:
@@ -26,12 +30,31 @@ def configure(path: Path) -> None:
 def emit(**fields: Any) -> None:
     if _path is None:
         return
-    _state.update(fields)
-    _state["updated_at_unix"] = time.time()
-    temporary = _path.with_suffix(".tmp")
-    temporary.write_text(json.dumps(_state, sort_keys=True) + "\n")
-    temporary.replace(_path)
+    with _lock:
+        _state.update(fields)
+        _state["updated_at_unix"] = time.time()
+        temporary = None
+        try:
+            _path.parent.mkdir(parents=True, exist_ok=True)
+            # Unique temp files avoid collisions with concurrent telemetry writers.
+            with tempfile.NamedTemporaryFile(
+                mode="w", dir=_path.parent, prefix=".heartbeat-", delete=False
+            ) as handle:
+                temporary = Path(handle.name)
+                handle.write(json.dumps(_state, sort_keys=True) + "\n")
+            os.replace(temporary, _path)
+        except OSError as exc:
+            # Monitoring must never turn a successful acquisition into a failure.
+            _state["telemetry_write_error"] = type(exc).__name__
+            _state["telemetry_write_errno"] = exc.errno
+        finally:
+            if temporary is not None:
+                try:
+                    temporary.unlink(missing_ok=True)
+                except OSError:
+                    pass
 
 
 def current_state() -> dict[str, Any]:
-    return dict(_state)
+    with _lock:
+        return dict(_state)

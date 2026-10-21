@@ -17,6 +17,7 @@ from .canonical import json_bytes, sha256, physical_lines
 from .documentation import documentation_matches, document_units, workflow_units
 from .notebooks import expand_notebooks
 from .telemetry import emit
+from .legacy_python import modernize_syntax
 
 
 def default_rules() -> Path:
@@ -97,7 +98,17 @@ def parse_python(text: str, path: str) -> ast.Module:
         warnings.filterwarnings(
             "ignore", message=r"invalid escape sequence", category=SyntaxWarning
         )
-        return ast.parse(text, filename=path)
+        try:
+            syntax = ast.parse(text, filename=path)
+            setattr(syntax, "_lifecycle_syntax", "python3-native")
+            return syntax
+        except SyntaxError:
+            converted = modernize_syntax(text)
+            if converted is None:
+                raise
+            syntax = ast.parse(converted, filename=path)
+            setattr(syntax, "_lifecycle_syntax", "python2-syntax-compatibility; line-preserving")
+            return syntax
 
 
 def implementation_view(text: str, path: str) -> str:
@@ -213,14 +224,22 @@ def analyze(
                 if source == "code"
                 else contents[item["path"]]
             )
-        except (SyntaxError, tokenize.TokenError, IndentationError):
-            analysis_errors.append({"path": item["path"], "reason": "python-parse-error"})
+        except (SyntaxError, tokenize.TokenError, IndentationError) as exc:
+            analysis_errors.append(
+                {
+                    "path": item["path"],
+                    "reason": "python-parse-error",
+                    "line": getattr(exc, "lineno", None),
+                }
+            )
             continue
         lines = physical_lines(view, keepends=True)
         function_spans = []
         statement_spans = []
+        syntax_policy = "lexical"
         if source == "code" and Path(item["path"]).suffix.lower() == ".py":
             syntax = parse_python(contents[item["path"]], item["path"])
+            syntax_policy = getattr(syntax, "_lifecycle_syntax", "python3-native")
             statement_spans = [
                 (node.lineno, node.end_lineno or node.lineno)
                 for node in ast.walk(syntax)
@@ -297,6 +316,7 @@ def analyze(
                     "commit": manifest["commit"],
                     "stage": rule["stage"],
                     "source": source,
+                    "code_syntax_policy": syntax_policy,
                     "rule_id": rule["id"],
                     "rule_version": rule["version"],
                     "path": item["path"],

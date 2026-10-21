@@ -114,3 +114,19 @@ def test_logging_preserves_mode_and_unknown_values():
     assert "combined: ? | ? | ? | ? | ? | ?" in block
     assert "cached checkpoint" in block
     assert "scan incomplete" in block
+
+
+def test_failure_location_does_not_expose_local_paths(monkeypatch, tmp_path):
+    def fail(*args):
+        raise FileNotFoundError(2, "missing", "/home/private-person/missing")
+
+    monkeypatch.setattr(corpus, "acquire_git", fail)
+    source = tmp_path / "repos.txt"
+    source.write_text("https://github.com/a/b\n")
+    output = tmp_path / "run"
+    corpus.run_corpus(source, output, transport="git", workers=1)
+    path = next((output / "repositories").glob("*/result.json"))
+    result = read_json(path)
+    assert result["error_filename"] == "missing"
+    assert result["error_location"][-1]["function"] == "fail"
+    assert "private-person" not in path.read_text()

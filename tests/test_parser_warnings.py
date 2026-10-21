@@ -17,6 +17,21 @@ def test_repository_invalid_escape_warnings_do_not_spam_stderr(tmp_path):
     assert not caught
 
 
+def test_python2_print_syntax_keeps_original_evidence_lines(tmp_path):
+    text = (
+        "def evaluate_research_predictions():\n"
+        '    print "legacy report"\n'
+        "    return f1_score(reference_labels, predictions)\n"
+    )
+    result = analyze(make_snapshot(tmp_path, text), "code-only")
+    assert result["scan_complete"]
+    assert result["labels"] == ["Evaluation"]
+    assert result["evidence"][0]["code_syntax_policy"].startswith("python2-syntax")
+    assert result["evidence"][0]["start_line"] == 1
+    assert result["evidence"][0]["end_line"] == 3
+    assert 'print "legacy report"' in result["evidence"][0]["excerpt"]
+
+
 def test_syntax_errors_and_other_warnings_remain_visible(monkeypatch):
     with pytest.raises(SyntaxError):
         parse_python("def broken(:", "broken.py")

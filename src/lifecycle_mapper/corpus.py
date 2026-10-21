@@ -7,6 +7,7 @@ import os
 import sys
 import threading
 import time
+import traceback
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from pathlib import Path
 from typing import Any
@@ -48,6 +49,11 @@ def repository_log(result: dict[str, Any], totals: dict[str, Any], modes: tuple[
         lines.append(f"  {mode}: " + " | ".join(values) + f"  (scan {scan})")
     if result.get("error"):
         lines.append("  error: " + result["error"])
+        if result.get("error_location"):
+            location = result["error_location"][-1]
+            lines.append(
+                f"  error location: {location['module']}:{location['line']} ({location['function']})"
+            )
     if result.get("coverage_issues"):
         from collections import Counter
 
@@ -276,6 +282,13 @@ def run_repository(
     except Exception as exc:
         result["error"] = str(getattr(exc, "code", type(exc).__name__))
         result["diagnostics"] = current_state()
+        result["error_location"] = [
+            {"module": Path(frame.filename).name, "function": frame.name, "line": frame.lineno}
+            for frame in traceback.extract_tb(exc.__traceback__)[-6:]
+        ]
+        if isinstance(exc, OSError):
+            result["error_errno"] = exc.errno
+            result["error_filename"] = Path(exc.filename).name if exc.filename else None
     result["elapsed_seconds"] = time.monotonic() - started
     result["api_calls"] = getattr(api.local, "calls", 0)
     result["rate_limit_wait_seconds"] = api.rate_limit_wait_seconds

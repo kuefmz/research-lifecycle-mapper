@@ -28,7 +28,7 @@ Do not paste the token into a command, log or repository file. Then run:
 uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
-  --output data/runs/benchmark-100-unlimited-5min \
+  --output data/runs/benchmark-100-unlimited-5min-py2 \
   --transport hybrid \
   --workers 2 \
   --mode all \
@@ -36,14 +36,14 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
   --max-bytes 0
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
-  --output data/runs/benchmark-100-unlimited-5min \
+  --output data/runs/benchmark-100-unlimited-5min-py2 \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx
 
 uv run --frozen python -m lifecycle_mapper.assess \
-  --run data/runs/benchmark-100-unlimited-5min \
+  --run data/runs/benchmark-100-unlimited-5min-py2 \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx \
   --rules-dir configs/documentation-development-v5 \
-  --output data/reports/benchmark-100-unlimited-5min
+  --output data/reports/benchmark-100-unlimited-5min-py2
 ```
 
 Use a new output directory for this implementation/policy/profile. Old snapshots
@@ -162,3 +162,25 @@ stopped_repositories.json describes the latest checkpoint for each repository.
 
 Other CLI acquisition helpers now also default to no size cap, but the hard
 process deadline is enforced by corpus run. Use that entry point for the benchmark.
+
+## Legacy Python and acquisition error diagnostics
+
+Some historical repositories use Python 2 syntax. The pinned Python 3.12 runtime
+now tries a syntax-only compatibility parse after native parsing fails. Only
+print/except/raise/number/inequality/exec/repr syntax fixers are enabled. Conversion
+must preserve physical line counts; original source bytes, line excerpts and
+hashes are retained, and code evidence records its syntax policy. No repository
+code is executed and no import/API rewriting occurs. Remaining unsupported or
+malformed syntax stays an explicit parse error, with its source line recorded.
+
+Heartbeat writes are atomic, serialized and use unique temporary names. An OSError
+from monitoring is nonfatal and retained as telemetry_write_error in the state;
+monitoring failure must not classify a repository as inaccessible. Repository
+errors retain sanitized module/function/line locations and OS errno/file basename,
+without full local paths or exception messages containing secrets.
+
+A FileNotFoundError is an acquisition/local I/O failure, not a timeout or size
+exclusion. Its class alone is insufficient to infer the underlying cause. A
+python-parse-error is a detector compatibility gap, not a download failure and
+not evidence that the repository lacks research activities. Report these failure
+categories separately from the five-minute deadline in the paper.

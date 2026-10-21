@@ -129,7 +129,7 @@ def test_malformed_python_is_analysis_failure(tmp_path):
     result = analyze(make_snapshot(tmp_path, "def broken(:\n"), "code-only")
     assert not result["scan_complete"]
     assert result["analysis_errors"] == [
-        {"path": "src/activity.py", "reason": "python-parse-error"}
+        {"path": "src/activity.py", "reason": "python-parse-error", "line": 1}
     ]
 
 
