@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .acquisition import POLICY_VERSION, repository_id, source_kind
+from .acquisition import POLICY_VERSION, repository_id, source_kind, txt_folder_counts
 from .canonical import contained, sha256, write_json
 from .telemetry import emit
 
@@ -88,10 +88,18 @@ def acquire_git(
         raw = git("-C", str(checkout), "ls-tree", "-r", "-l", "-z", commit)
         files: list[dict[str, Any]] = []
         metadata_entries = [entry.split(b"\t", 1) for entry in raw.split(b"\0") if entry]
+        txt_counts = txt_folder_counts(
+            [
+                name.decode("utf-8")
+                for meta, name in metadata_entries
+                if meta.decode().split()[0] in {"100644", "100755"}
+            ]
+        )
         eligible_sizes = [
             int(meta.decode().split()[-1])
             for meta, name in metadata_entries
-            if meta.decode().split()[-1] != "-" and source_kind(name.decode("utf-8"))[0] is not None
+            if meta.decode().split()[-1] != "-"
+            and source_kind(name.decode("utf-8"), txt_counts=txt_counts)[0] is not None
         ]
         emit(
             phase="acquisition",
@@ -108,7 +116,7 @@ def acquire_git(
             metadata, name = entry.split(b"\t", 1)
             mode, kind, blob, size_text = metadata.decode().split()
             path = name.decode("utf-8")
-            source, reason = source_kind(path)
+            source, reason = source_kind(path, txt_counts=txt_counts)
             if source is not None:
                 attempted += 1
                 emit(phase="acquisition", current_file=path, files_attempted=attempted)

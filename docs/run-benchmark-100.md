@@ -197,3 +197,9 @@ uv run --frozen python -m lifecycle_mapper.corpus logs \
 This also writes agreement.log in the run directory. It does not change predictions or manifests. Finish an active run before pulling implementation changes; implementation fingerprints intentionally prevent resuming a run with changed classifier code.
 
 The benchmark input follows the supplied final-agreement row order. Corpus selection preserves input order. Use one worker for terminal completion blocks in exactly that order; concurrent workers finish at different times. Saved `corpus logs` output follows reference row order.
+
+## Dense TXT folders (eligibility policy 4)
+
+Before content acquisition, count regular files whose suffix is .txt (case-insensitive) within each immediate Git directory. If the count is greater than five, exclude all .txt files in that directory with inventory reason `txt-folder-more-than-5`. Exactly five remain eligible under the other rules. Nested directories are counted independently; the root is a directory too. README.txt has no exemption in a dense folder; README.md, code and notebooks are unaffected. Symlinks/submodules do not contribute to the count. Both Git and API/raw acquisition apply the same inventory policy. Replay recomputes the directory counts from the manifest; previous eligibility policies retain their original behavior.
+
+This is an explicit user-selected data-content proxy, not proof that excluded TXT files are datasets. It can exclude real documentation and must be reported as a selection limitation. It does not exclude data using other suffixes, such as .f files mistaken for Fortran. The 300-second repository deadline and no size caps remain unchanged. Use a fresh output directory, e.g. `data/runs/benchmark-100-v53-txt-policy4`; earlier checkpoints cannot be resumed across the changed implementation/policy. The v5.3 heuristic profile is unchanged.

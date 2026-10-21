@@ -53,7 +53,10 @@ def expand_notebooks(
                 "kernelspec", {}
             ).get("language", "")
             suffix = LANGUAGES.get(str(language).lower())
-            broad_policy = manifest.get("policy_version") == "eligibility-3-programming-catalog"
+            broad_policy = manifest.get("policy_version") in {
+                "eligibility-3-programming-catalog",
+                "eligibility-4-txt-folder-density",
+            }
             if suffix is None and broad_policy:
                 suffix = extension_for_language(str(language)) or ".unknown-code"
             cells = []
