@@ -194,7 +194,7 @@ def selected_records(
 ) -> list[dict[str, Any]]:
     if shard_count < 1 or not 0 <= shard_index < shard_count:
         raise ValueError("Require 0 <= shard-index < shard-count")
-    records = read_inputs(input_path)
+    records = sorted(read_inputs(input_path), key=lambda row: min(row["source_rows"]))
     if any(row.get("ref") not in {None, "", "main"} for row in records):
         raise ValueError(
             "Corpus acquisition uses main, otherwise master; input refs cannot override it"
@@ -565,7 +565,13 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
                 "review_status",
             ]
         )
-        for path in sorted((output / "repositories").glob("*/result.json")):
+        order = {key.casefold(): index for index, key in enumerate(reference)}
+        for path in sorted(
+            (output / "repositories").glob("*/result.json"),
+            key=lambda path: order.get(
+                acquisition.repository_id(read_json(path)["requested_url"]).casefold(), len(order)
+            ),
+        ):
             if file_hash(path) != path.with_name("result.sha256").read_text().strip():
                 raise ValueError("Checkpoint checksum mismatch")
             result = read_json(path)
@@ -713,7 +719,14 @@ def main() -> None:
             from .reference import final_reference
 
             reference = final_reference(args.reference)
-            paths = sorted((args.output / "repositories").glob("*/result.json"))
+            order = {key: index for index, key in enumerate(reference)}
+            paths = sorted(
+                (args.output / "repositories").glob("*/result.json"),
+                key=lambda path: order.get(
+                    acquisition.repository_id(read_json(path)["requested_url"]).casefold(),
+                    len(order),
+                ),
+            )
             totals = dict(finished=0, repository_count=len(paths), complete=0, partial=0, failed=0)
             blocks = []
             for path in paths:

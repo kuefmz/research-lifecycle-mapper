@@ -35,3 +35,14 @@ def test_reject_invalid_authoritative_csv(tmp_path, content):
     path.write_text(content)
     with pytest.raises(ValueError):
         final_reference(path)
+
+
+def test_benchmark_execution_keeps_supplied_order():
+    from lifecycle_mapper.corpus import selected_records
+
+    labels = final_reference(ROOT / "data/final_agreement.csv")
+    records = selected_records(ROOT / "data/corpus/benchmark_100.txt", None, "unused", 0, 1)
+    assert [r["url"].removeprefix("https://github.com/").casefold() for r in records] == list(
+        labels
+    )
+    assert records[0]["url"].casefold().endswith("mspeich/forhytm")

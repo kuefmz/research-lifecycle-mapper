@@ -31,7 +31,7 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
   --reference data/final_agreement.csv \
   --output data/runs/benchmark-100-workflow-v52 \
   --transport hybrid \
-  --workers 2 \
+  --workers 1 \
   --mode all \
   --rules-dir configs/workflow-development-v5.2 \
   --max-bytes 0
@@ -195,3 +195,5 @@ uv run --frozen python -m lifecycle_mapper.corpus logs \
 ```
 
 This also writes agreement.log in the run directory. It does not change predictions or manifests. Finish an active run before pulling implementation changes; implementation fingerprints intentionally prevent resuming a run with changed classifier code.
+
+The benchmark input follows the supplied final-agreement row order. Corpus selection preserves input order. Use one worker for terminal completion blocks in exactly that order; concurrent workers finish at different times. Saved `corpus logs` output follows reference row order.
