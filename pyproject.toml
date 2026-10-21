@@ -7,7 +7,7 @@ name = "research-lifecycle-mapper"
 version = "0.3.0"
 description = "Deterministic, evidence-preserving research lifecycle classification"
 requires-python = "==3.12.*"
-dependencies = []
+dependencies = ["Pygments==2.21.0"]
 
 [project.scripts]
 lifecycle-mapper = "lifecycle_mapper.cli:main"
@@ -19,7 +19,7 @@ dev = ["pytest==8.4.2", "ruff==0.13.3", "mypy==1.18.2", "playwright==1.58.0"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-lifecycle_mapper = ["rules/*.yaml", "ui/*.html"]
+lifecycle_mapper = ["rules/*.yaml", "ui/*.html", "language_catalog.json", "language_catalog_LICENSE.txt"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

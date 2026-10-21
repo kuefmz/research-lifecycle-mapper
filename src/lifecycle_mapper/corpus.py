@@ -62,6 +62,26 @@ def repository_log(result: dict[str, Any], totals: dict[str, Any], modes: tuple[
             "  coverage issues: "
             + ", ".join(f"{key}={value}" for key, value in sorted(reasons.items()))
         )
+    code_mode = next(
+        (m for m in result.get("modes", []) if m["mode"] in {"code-only", "combined"}), None
+    )
+    if code_mode and code_mode.get("source_scans"):
+        from collections import Counter
+
+        policies = Counter(
+            s["native_policy"]
+            if s.get("native_policy", "not-applied") != "not-applied"
+            else s["policy"]
+            for s in code_mode["source_scans"]
+        )
+        lines.append(
+            "  source scan policies: "
+            + ", ".join(f"{key}={value}" for key, value in sorted(policies.items()))
+        )
+        if code_mode.get("source_warnings"):
+            lines.append(
+                f"  native syntax warnings retained with lexical fallback: {len(code_mode['source_warnings'])}"
+            )
     if result.get("diagnostics"):
         state = result["diagnostics"]
         lines.append(

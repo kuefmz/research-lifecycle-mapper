@@ -6,6 +6,7 @@ import json
 import re
 import tokenize
 import warnings
+from itertools import accumulate
 from pathlib import Path
 from threading import Lock
 from typing import Any
@@ -18,6 +19,8 @@ from .documentation import documentation_matches, document_units, workflow_units
 from .notebooks import expand_notebooks
 from .telemetry import emit
 from .legacy_python import modernize_syntax
+from .brace_code import BRACE_SUFFIXES, lexical_view, executable_blocks
+from .portable_code import matches as portable_matches
 
 
 def default_rules() -> Path:
@@ -37,6 +40,7 @@ def load_rules(directory: Path | None = None) -> tuple[list[dict[str, Any]], str
                 "0.3.0-candidate",
                 "0.4.0-candidate",
                 "0.5.0-development",
+                "0.5.1-development",
             }
             or catalog["stage"] != stage
         ):
@@ -119,6 +123,8 @@ def implementation_view(text: str, path: str) -> str:
     Never execute inspected repository code.
     """
     suffix = Path(path).suffix.lower()
+    if suffix in BRACE_SUFFIXES:
+        return lexical_view(text, suffix)
     if suffix in {".r", ".jl", ".m", ".sh"}:
         # Lexical, not semantic parsing. Preserve every physical newline exactly.
         comment = r"%[^\n]*" if suffix == ".m" else r"\#[^\n]*"
@@ -164,10 +170,55 @@ def analyze(
     evidence = []
     excluded_evidence = []
     analysis_errors = []
+    source_scans = []
+    source_warnings: list[dict[str, Any]] = []
+    portable_rules = [r for r in rules if r.get("detector") == "portable-lexical-v1"]
     for item in manifest["files"]:
         source = item["source"]
         if item["status"] != "captured" or source not in permitted:
             continue
+        if portable_rules and source == "code":
+            emit(
+                phase="analysis-tokenization",
+                current_file=item.get("notebook_path", item["path"]),
+                current_cell=item.get("notebook_cell"),
+                current_file_bytes=item.get("size"),
+            )
+            portable, scan = portable_matches(contents[item["path"]], item["path"], portable_rules)
+            source_scans.append(
+                {
+                    "path": item.get("notebook_path", item["path"]),
+                    "notebook_cell": item.get("notebook_cell"),
+                    "notebook_language": item.get("notebook_language"),
+                    "native_policy": "not-applied",
+                    **scan,
+                }
+            )
+            if scan.get("error_tokens") or scan.get("lexer_failure"):
+                source_warnings.append(
+                    {
+                        "path": item["path"],
+                        "reason": "lexical-token-warning",
+                        "error_tokens": scan.get("error_tokens", 0),
+                        "lexer_failure": scan.get("lexer_failure"),
+                    }
+                )
+            for finding in portable:
+                reasons = finding.pop("exclusion_reasons")
+                if unit_test_path(item["path"]):
+                    reasons.append("software-test-path")
+                record = {
+                    "repository": manifest["repository"],
+                    "commit": manifest["commit"],
+                    "path": item["path"],
+                    "content_sha256": item["sha256"],
+                    **finding,
+                    "url": f"{manifest['source_url']}/blob/{manifest['commit']}/{quote(item['path'], safe='/')}#L{finding['start_line']}-L{finding['end_line']}",
+                }
+                if reasons:
+                    excluded_evidence.append({**record, "exclusion_reasons": reasons})
+                else:
+                    evidence.append(record)
         emit(
             phase="analysis",
             current_file=item.get("notebook_path", item["path"]),
@@ -211,12 +262,21 @@ def analyze(
                     else:
                         evidence.append(record)
             continue
+        brace_supported = Path(item["path"]).suffix.lower() in BRACE_SUFFIXES and any(
+            r.get("detector") == "brace-lexical-v1"
+            and Path(item["path"]).suffix.lower() in r.get("extensions", [])
+            for r in rules
+        )
         if (
             source == "code"
             and Path(item["path"]).suffix.lower() not in {".py", ".r", ".jl", ".m", ".sh"}
+            and not brace_supported
             and contents[item["path"]].strip()
         ):
-            analysis_errors.append({"path": item["path"], "reason": "unsupported-source-language"})
+            if not portable_rules:
+                analysis_errors.append(
+                    {"path": item["path"], "reason": "unsupported-source-language"}
+                )
             continue
         try:
             view = (
@@ -224,8 +284,9 @@ def analyze(
                 if source == "code"
                 else contents[item["path"]]
             )
+            blocks = executable_blocks(view) if brace_supported else []
         except (SyntaxError, tokenize.TokenError, IndentationError) as exc:
-            analysis_errors.append(
+            (source_warnings if portable_rules else analysis_errors).append(
                 {
                     "path": item["path"],
                     "reason": "python-parse-error",
@@ -233,10 +294,16 @@ def analyze(
                 }
             )
             continue
+        except ValueError as exc:
+            (source_warnings if portable_rules else analysis_errors).append(
+                {"path": item["path"], "reason": "brace-lexical-error", "detail": str(exc)}
+            )
+            continue
         lines = physical_lines(view, keepends=True)
+        line_offsets = [0, *accumulate(len(line) for line in lines)]
         function_spans = []
         statement_spans = []
-        syntax_policy = "lexical"
+        syntax_policy = "brace-lexical-v1" if brace_supported else "lexical"
         if source == "code" and Path(item["path"]).suffix.lower() == ".py":
             syntax = parse_python(contents[item["path"]], item["path"])
             syntax_policy = getattr(syntax, "_lifecycle_syntax", "python3-native")
@@ -263,8 +330,12 @@ def analyze(
                 for node in ast.walk(syntax)
                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
             ]
+        if portable_rules:
+            source_scans[-1]["native_policy"] = syntax_policy
         for rule in rules:
             if rule["source"] != source:
+                continue
+            if rule.get("detector") == "portable-lexical-v1":
                 continue
             if (
                 rule.get("extensions")
@@ -288,12 +359,32 @@ def analyze(
                 end_line = offset + window.count("\n", 0, max(start, end - 1)) + 1
                 if (
                     source == "code"
+                    and Path(item["path"]).suffix.lower() == ".py"
                     and rule.get("scope") != "statement"
                     and not any(
                         left == start_line and end_line <= right for left, right in function_spans
                     )
                 ):
                     continue
+                context = None
+                if rule.get("detector") == "brace-lexical-v1":
+                    contexts = [
+                        block
+                        for block in blocks
+                        if int(block["start_line"])
+                        <= start_line
+                        <= end_line
+                        <= int(block["end_line"])
+                        and int(block["body_start"]) <= line_offsets[offset] + start
+                        and line_offsets[offset] + end <= int(block["body_end"])
+                        and (
+                            not rule.get("context_pattern")
+                            or re.search(rule["context_pattern"], str(block["header"]), re.I)
+                        )
+                    ]
+                    if not contexts:
+                        continue
+                    context = min(contexts, key=lambda b: int(b["end_line"]) - int(b["start_line"]))
                 if (
                     Path(item["path"]).suffix.lower() == ".py"
                     and rule.get("scope") == "statement"
@@ -317,6 +408,7 @@ def analyze(
                     "stage": rule["stage"],
                     "source": source,
                     "code_syntax_policy": syntax_policy,
+                    **({"code_context": context} if context is not None else {}),
                     "rule_id": rule["id"],
                     "rule_version": rule["version"],
                     "path": item["path"],
@@ -381,6 +473,10 @@ def analyze(
             )
         )
         attribution = {"id": record["rule_id"], "version": record["rule_version"]}
+        if record["source"] == "code":
+            attribution["code_syntax_policy"] = record["code_syntax_policy"]
+            if record.get("code_context"):
+                attribution["code_context"] = record["code_context"]
         if occurrence_id in unique:
             if attribution not in unique[occurrence_id]["matched_rules"]:
                 unique[occurrence_id]["matched_rules"].append(attribution)
@@ -431,6 +527,8 @@ def analyze(
         "snapshot_hash": sha256((snapshot / "manifest.json").read_bytes()),
         "scan_complete": complete,
         "analysis_errors": analysis_errors,
+        "source_scans": source_scans,
+        "source_warnings": source_warnings,
         "eligible_files": len(eligible),
         "captured_files": sum(item["status"] == "captured" for item in eligible),
         "unavailable_files": len(unavailable),
@@ -499,6 +597,8 @@ def analyze_modes(
                 "excluded_evidence": excluded,
                 "scan_complete": complete,
                 "analysis_errors": errors,
+                "source_scans": combined["source_scans"] if source == "code" else [],
+                "source_warnings": combined["source_warnings"] if source == "code" else [],
                 "eligible_files": len(eligible),
                 "captured_files": sum(f["status"] == "captured" for f in eligible),
                 "unavailable_files": len(unavailable),

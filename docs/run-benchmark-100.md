@@ -1,6 +1,6 @@
 # Run all 100 benchmark repositories with notebooks
 
-This run uses the existing development v5 rule profile explicitly. The proposed
+This run uses multilanguage development v5.1: the v5 documentation rules are unchanged; source scanning adds brace-language and portable lexical rules. The proposed
 v6 catalogue still contains unresolved codebook choices and is not the runtime
 classifier. No near-100% accuracy claim is warranted: the previous v5 development
 replay had micro-F1 about 0.749 on 72 complete documentation scans. The final
@@ -28,22 +28,22 @@ Do not paste the token into a command, log or repository file. Then run:
 uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
-  --output data/runs/benchmark-100-unlimited-5min-py2 \
+  --output data/runs/benchmark-100-all-languages-v51 \
   --transport hybrid \
   --workers 2 \
   --mode all \
-  --rules-dir configs/documentation-development-v5 \
+  --rules-dir configs/multilanguage-development-v5.1 \
   --max-bytes 0
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
-  --output data/runs/benchmark-100-unlimited-5min-py2 \
+  --output data/runs/benchmark-100-all-languages-v51 \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx
 
 uv run --frozen python -m lifecycle_mapper.assess \
-  --run data/runs/benchmark-100-unlimited-5min-py2 \
+  --run data/runs/benchmark-100-all-languages-v51 \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx \
-  --rules-dir configs/documentation-development-v5 \
-  --output data/reports/benchmark-100-unlimited-5min-py2
+  --rules-dir configs/multilanguage-development-v5.1 \
+  --output data/reports/benchmark-100-all-languages-v51
 ```
 
 Use a new output directory for this implementation/policy/profile. Old snapshots
@@ -82,8 +82,7 @@ mixed-source final-agreement reference. Candidate code additions need review.
 
 Metrics use complete scans and report coverage. They must not be advertised as
 100-repository accuracy if some scans are incomplete. Inaccessible repositories,
-unsupported source/notebook syntax and languages remain explicit. Downloading
-a source file is not equivalent to supporting its language in the classifier.
+notebook decoding failures and acquisition errors remain explicit. Recognized programming files receive portable lexical scanning even without a native parser. Scan completeness describes heuristic coverage, not semantic understanding.
 
 Validation for this change includes a mocked 100-repository run with one
 acquisition failure: 100 status records, 1,800 prediction rows, unknown values for
@@ -151,9 +150,7 @@ an observed quota wait; acquisition plus a large in-flight file is a download
 timeout with the file size recorded; analysis means the detector had not finished.
 Missing inventory or counters remain unknown rather than zero-valued evidence.
 No timeout is converted to six negative labels; it exports unknown predictions.
-Some new code modes may become incomplete because unsupported languages are now
-reported explicitly instead of silently yielding no matches. This corrects
-coverage reporting and does not add language-specific heuristic support.
+The v5.1 profile scans recognized programming languages using native detectors where available plus portable token-based rules. Native parser gaps become explicit source warnings when portable scanning succeeds; acquisition and decoding failures still affect completeness.
 
 The larger run should use this exact same policy if compared with the benchmark.
 Report the timeout budget, selection counts, complete/partial/failed coverage and
@@ -170,8 +167,7 @@ now tries a syntax-only compatibility parse after native parsing fails. Only
 print/except/raise/number/inequality/exec/repr syntax fixers are enabled. Conversion
 must preserve physical line counts; original source bytes, line excerpts and
 hashes are retained, and code evidence records its syntax policy. No repository
-code is executed and no import/API rewriting occurs. Remaining unsupported or
-malformed syntax stays an explicit parse error, with its source line recorded.
+code is executed and no import/API rewriting occurs. Remaining unsupported or malformed syntax is retained as a source warning under v5.1 when portable scanning succeeds, or a parse error under older profiles.
 
 Heartbeat writes are atomic, serialized and use unique temporary names. An OSError
 from monitoring is nonfatal and retained as telemetry_write_error in the state;

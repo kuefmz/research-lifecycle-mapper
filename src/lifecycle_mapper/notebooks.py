@@ -4,6 +4,7 @@ import json
 import re
 from copy import deepcopy
 from typing import Any
+from .source_languages import extension_for_language
 
 LANGUAGES = {"python": ".py", "r": ".r", "julia": ".jl", "matlab": ".m", "bash": ".sh", "sh": ".sh"}
 
@@ -52,6 +53,9 @@ def expand_notebooks(
                 "kernelspec", {}
             ).get("language", "")
             suffix = LANGUAGES.get(str(language).lower())
+            broad_policy = manifest.get("policy_version") == "eligibility-3-programming-catalog"
+            if suffix is None and broad_policy:
+                suffix = extension_for_language(str(language)) or ".unknown-code"
             cells = []
             for index, cell in enumerate(notebook["cells"], 1):
                 kind = cell["cell_type"]
@@ -79,8 +83,12 @@ def expand_notebooks(
                 if kind == "code" and text.strip():
                     if suffix is None:
                         reason = "notebook-language-unsupported"
-                    elif suffix == ".py" and any(
-                        line.lstrip().startswith(("%", "!", "?")) for line in text.splitlines()
+                    elif (
+                        not broad_policy
+                        and suffix == ".py"
+                        and any(
+                            line.lstrip().startswith(("%", "!", "?")) for line in text.splitlines()
+                        )
                     ):
                         reason = "notebook-magic-unsupported"
                 cells.append(

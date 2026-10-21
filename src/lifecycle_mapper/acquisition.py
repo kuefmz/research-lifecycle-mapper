@@ -15,8 +15,9 @@ from urllib.request import Request, urlopen
 
 from .canonical import contained, json_bytes, read_json, sha256, write_json
 from .telemetry import emit
+from .source_languages import language_names
 
-POLICY_VERSION = "eligibility-2-notebook-cells"
+POLICY_VERSION = "eligibility-3-programming-catalog"
 DOC_SUFFIXES = {".md", ".rst", ".adoc", ".txt"}
 CODE_SUFFIXES = {
     ".py",
@@ -55,15 +56,21 @@ def source_kind(path: str, policy: str = POLICY_VERSION) -> tuple[str | None, st
     parts = PurePosixPath(path.lower()).parts
     if any(part in EXCLUDED_PARTS for part in parts):
         return None, "vendored-generated-or-fixture"
+    if policy == POLICY_VERSION and any(
+        part in {"third-party", "third-party-software", "third_party_software"} for part in parts
+    ):
+        return None, "vendored-generated-or-fixture"
     name = PurePosixPath(path).name.lower()
     suffix = PurePosixPath(path).suffix.lower()
     if name in {"license", "license.txt", "license.md", "copying", "authors.txt"}:
         return None, "administrative"
-    if suffix == ".ipynb" and policy == POLICY_VERSION:
+    if suffix == ".ipynb" and policy in {POLICY_VERSION, "eligibility-2-notebook-cells"}:
         return "notebook", None
     if suffix in DOC_SUFFIXES:
         return "documentation", None
     if suffix in CODE_SUFFIXES:
+        return "code", None
+    if policy == POLICY_VERSION and language_names(path):
         return "code", None
     return None, "unsupported-artifact"
 
@@ -422,6 +429,7 @@ def replay(root: Path, expected_hash: str | None = None) -> tuple[dict[str, Any]
         raise ValueError("Snapshot manifest must use canonical serialization")
     if manifest.get("schema_version") != 1 or manifest.get("policy_version") not in {
         "eligibility-1",
+        "eligibility-2-notebook-cells",
         POLICY_VERSION,
     }:
         raise ValueError("Unsupported snapshot schema or eligibility policy")
