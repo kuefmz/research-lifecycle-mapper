@@ -19,6 +19,8 @@ from .benchmark import git_state, implementation_hash
 from .canonical import json_bytes, read_json, sha256
 from .git_acquisition import acquire_git
 from .openaire import file_hash
+from .execution import run_guarded_repository, REPOSITORY_TIMEOUT_SECONDS
+from .telemetry import emit, current_state
 
 
 def atomic_json(path: Path, payload: Any) -> None:
@@ -46,6 +48,24 @@ def repository_log(result: dict[str, Any], totals: dict[str, Any], modes: tuple[
         lines.append(f"  {mode}: " + " | ".join(values) + f"  (scan {scan})")
     if result.get("error"):
         lines.append("  error: " + result["error"])
+    if result.get("coverage_issues"):
+        from collections import Counter
+
+        reasons = Counter(issue["reason"] for issue in result["coverage_issues"])
+        lines.append(
+            "  coverage issues: "
+            + ", ".join(f"{key}={value}" for key, value in sorted(reasons.items()))
+        )
+    if result.get("diagnostics"):
+        state = result["diagnostics"]
+        lines.append(
+            f"  stop diagnostics: phase={state.get('phase', 'unknown')}"
+            f" files={state.get('files_attempted', 0)}/{state.get('eligible_files', '?')}"
+            f" bytes={state.get('captured_bytes', 0)}"
+            f" largest_file_bytes={state.get('largest_eligible_file_bytes', 0)}"
+            f" current_file={state.get('current_file', '')}"
+            f" last_error={state.get('last_error', '')}"
+        )
     lines.append(
         f"  totals: complete={totals['complete']} partial={totals['partial']} failed={totals['failed']}"
         + f" | repo={result.get('elapsed_seconds', 0):.1f}s"
@@ -55,7 +75,7 @@ def repository_log(result: dict[str, Any], totals: dict[str, Any], modes: tuple[
 
 
 class PacedAPI:
-    """Serialize REST traffic and honor shared primary/secondary cooldowns."""
+    """Serialize a worker's REST traffic and honor server cooldowns."""
 
     def __init__(self, interval: float = 0.8):
         self.interval = interval
@@ -71,6 +91,7 @@ class PacedAPI:
         self.next_request = time.monotonic() + self.interval
         self.network_calls += 1
         self.local.calls = getattr(self.local, "calls", 0) + 1
+        emit(phase="rest-request", api_calls=self.network_calls)
 
     def wait_gate(self) -> None:
         while (delay := self.next_request - time.monotonic()) > 0:
@@ -79,6 +100,7 @@ class PacedAPI:
                 0.0, min(chunk, self.rate_limit_until - time.monotonic())
             )
             time.sleep(chunk)
+            emit(rate_limit_wait_seconds=self.rate_limit_wait_seconds)
 
     def response(self, headers: Any) -> None:
         if headers.get("X-RateLimit-Remaining") == "0":
@@ -91,6 +113,7 @@ class PacedAPI:
     def cooldown(self, delay: float, reason: str) -> None:
         self.next_request = max(self.next_request, time.monotonic() + delay)
         self.rate_limit_until = max(self.rate_limit_until, time.monotonic() + delay)
+        emit(phase="rate-limit-wait", pending_wait_seconds=delay, wait_reason=reason)
         print(
             f"GitHub: {reason}; waiting at least {delay:.0f}s before the next REST request.",
             file=sys.stderr,
@@ -179,6 +202,7 @@ def run_repository(
         if not retry_failed or saved.get("complete"):
             return {**saved, "checkpoint_reused": True}
     started = time.monotonic()
+    emit(phase="acquisition", transport=transport)
     api.local.calls = 0
     result: dict[str, Any] = {
         "requested_url": record["url"],
@@ -220,6 +244,7 @@ def run_repository(
                 ),
             )
         acquired = time.monotonic()
+        emit(phase="integrity-check")
         snapshot_hash = file_hash(snapshot / "manifest.json")
         result.update(
             repository=manifest["repository"],
@@ -234,15 +259,31 @@ def run_repository(
             acquisition_seconds=acquired - started,
         )
         # Preserve precisely the existing classifier and its three mode semantics.
+        emit(phase="analysis", current_file="")
         result["modes"] = analyze_modes(
             snapshot, modes, expected_hash=snapshot_hash, rules_dir=rules_dir
         )
         result["analysis_seconds"] = time.monotonic() - acquired
         result["complete"] = all(m["scan_complete"] for m in result["modes"])
+        issues = [
+            {"path": f["path"], "reason": f["reason"]}
+            for f in manifest["files"]
+            if f["status"] == "unavailable"
+        ]
+        for mode in result["modes"]:
+            issues.extend(mode["analysis_errors"])
+        result["coverage_issues"] = list({(i["path"], i["reason"]): i for i in issues}.values())
     except Exception as exc:
         result["error"] = str(getattr(exc, "code", type(exc).__name__))
+        result["diagnostics"] = current_state()
     result["elapsed_seconds"] = time.monotonic() - started
     result["api_calls"] = getattr(api.local, "calls", 0)
+    result["rate_limit_wait_seconds"] = api.rate_limit_wait_seconds
+    emit(
+        phase="writing-result",
+        api_calls=result["api_calls"],
+        rate_limit_wait_seconds=api.rate_limit_wait_seconds,
+    )
     atomic_json(result_path, result)
     (directory / "result.sha256").write_text(file_hash(result_path) + "\n")
     return result
@@ -258,14 +299,16 @@ def run_corpus(
     seed: str = "msr27-pilot-v1",
     shard_index: int = 0,
     shard_count: int = 1,
-    max_bytes: int = 250_000,
+    max_bytes: int = 0,
     retry_failed: bool = False,
     api_interval: float = 0.8,
     rules_dir: Path | None = None,
     expected_repositories: int | None = None,
 ) -> dict[str, Any]:
-    if workers not in range(1, 9) or max_bytes < 1 or api_interval < 0.8:
-        raise ValueError("Use 1..8 workers, positive max-bytes and api-interval >= 0.8")
+    if workers not in range(1, 9) or max_bytes < 0 or api_interval < 0.8:
+        raise ValueError(
+            "Use 1..8 workers, max-bytes >= 0 (0 is unlimited) and api-interval >= 0.8"
+        )
     if transport not in {"api", "hybrid", "git"} or not modes or any(m not in MODES for m in modes):
         raise ValueError("Invalid transport or modes")
     if transport != "git" and not os.environ.get("GITHUB_TOKEN"):
@@ -286,6 +329,7 @@ def run_corpus(
         "branch_policy": "main-then-master-v1",
         "modes": list(modes),
         "max_bytes": max_bytes,
+        "repository_timeout_seconds": REPOSITORY_TIMEOUT_SECONDS,
         "catalog_sha256": load_rules(rules_dir)[1],
         "implementation_sha256": implementation_hash(root),
         "sample": sample,
@@ -326,6 +370,7 @@ def run_corpus(
             "complete": 0,
             "failed": 0,
             "partial": 0,
+            "timed_out": 0,
             "captured_bytes": 0,
             "api_calls": 0,
         }
@@ -338,7 +383,7 @@ def run_corpus(
                 if record is not None:
                     pending.add(
                         pool.submit(
-                            run_repository,
+                            run_guarded_repository,
                             record,
                             output,
                             modes,
@@ -356,6 +401,9 @@ def run_corpus(
                 done, pending = wait(pending, return_when=FIRST_COMPLETED)
                 for future in done:
                     result = future.result()
+                    if not result.get("checkpoint_reused"):
+                        api.network_calls += result.get("api_calls", 0)
+                        api.rate_limit_wait_seconds += result.get("rate_limit_wait_seconds", 0)
                     if result.get("error") == "invalid-token":
                         raise ValueError(
                             "GitHub rejected GITHUB_TOKEN; run stopped. Correct it locally "
@@ -364,6 +412,7 @@ def run_corpus(
                     totals["finished"] += 1
                     totals["complete"] += bool(result["complete"])
                     totals["failed"] += bool(result.get("error"))
+                    totals["timed_out"] += result.get("error") == "repository-timeout"
                     totals["partial"] += not result["complete"] and not result.get("error")
                     totals["captured_bytes"] += result.get("captured_bytes", 0)
                     totals["api_calls"] += result.get("api_calls", 0)
@@ -382,6 +431,13 @@ def run_corpus(
             "api_calls includes saved checkpoint request counts; session_api_network_calls counts actual REST attempts this invocation"
         )
         totals["all_repositories_accounted_for"] = totals["finished"] == len(records)
+        # Includes timeout and other unsuccessful attempts with observed diagnostics.
+        stop_records = []
+        for path in sorted((output / "repositories").glob("*/result.json")):
+            saved = read_json(path)
+            if saved.get("error"):
+                stop_records.append(saved)
+        atomic_json(output / "stopped_repositories.json", stop_records)
         atomic_json(output / "summary.json", totals)
         return totals
     finally:
@@ -411,7 +467,23 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
     ):
         pw, cw, aw = csv.writer(predictions), csv.writer(comparison), csv.writer(additions)
         sw = csv.writer(statuses)
-        sw.writerow(["requested_url", "repository", "status", "error", "commit"])
+        sw.writerow(
+            [
+                "requested_url",
+                "repository",
+                "status",
+                "error",
+                "commit",
+                "stop_phase",
+                "files_attempted",
+                "eligible_files",
+                "captured_bytes",
+                "largest_eligible_file_bytes",
+                "current_file",
+                "last_error",
+                "elapsed_seconds",
+            ]
+        )
         pw.writerow(["repository", "commit", "mode", "stage", "prediction", "scan_complete"])
         cw.writerow(
             [
@@ -465,6 +537,19 @@ def export_tables(output: Path, reference_path: Path | None = None) -> dict[str,
                     else "partial",
                     result.get("error", ""),
                     result.get("commit", ""),
+                    *[
+                        result.get("diagnostics", {}).get(key, "")
+                        for key in (
+                            "phase",
+                            "files_attempted",
+                            "eligible_files",
+                            "captured_bytes",
+                            "largest_eligible_file_bytes",
+                            "current_file",
+                            "last_error",
+                        )
+                    ],
+                    result.get("elapsed_seconds", ""),
                 ]
             )
             for mode in requested_modes:
@@ -545,7 +630,12 @@ def main() -> None:
     run.add_argument("--seed", default="msr27-pilot-v1")
     run.add_argument("--shard-index", type=int, default=0)
     run.add_argument("--shard-count", type=int, default=1)
-    run.add_argument("--max-bytes", type=int, default=250_000)
+    run.add_argument(
+        "--max-bytes",
+        type=int,
+        default=0,
+        help="Per-file size cap in bytes; 0 disables size exclusions",
+    )
     run.add_argument("--api-interval", type=float, default=0.8)
     run.add_argument("--retry-failed", action="store_true")
     run.add_argument("--rules-dir", type=Path)

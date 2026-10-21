@@ -16,6 +16,7 @@ from .acquisition import replay
 from .canonical import json_bytes, sha256, physical_lines
 from .documentation import documentation_matches, document_units, workflow_units
 from .notebooks import expand_notebooks
+from .telemetry import emit
 
 
 def default_rules() -> Path:
@@ -139,6 +140,7 @@ def analyze(
     if mode not in MODES:
         raise ValueError(f"Unknown mode: {mode}")
     manifest, contents = replay(snapshot, expected_hash)
+    emit(phase="notebook-parsing")
     manifest, contents = expand_notebooks(manifest, contents)
     rules, rules_hash = load_rules(rules_dir)
     permitted = (
@@ -155,6 +157,13 @@ def analyze(
         source = item["source"]
         if item["status"] != "captured" or source not in permitted:
             continue
+        emit(
+            phase="analysis",
+            current_file=item.get("notebook_path", item["path"]),
+            current_cell=item.get("notebook_cell"),
+            current_source=source,
+            current_file_bytes=item.get("size"),
+        )
         original_lines = physical_lines(contents[item["path"]], keepends=True)
         if source == "documentation":
             units = document_units(contents[item["path"]])
@@ -190,6 +199,13 @@ def analyze(
                         excluded_evidence.append({**record, "exclusion_reasons": reasons})
                     else:
                         evidence.append(record)
+            continue
+        if (
+            source == "code"
+            and Path(item["path"]).suffix.lower() not in {".py", ".r", ".jl", ".m", ".sh"}
+            and contents[item["path"]].strip()
+        ):
+            analysis_errors.append({"path": item["path"], "reason": "unsupported-source-language"})
             continue
         try:
             view = (

@@ -18,6 +18,7 @@ Run from the repository root. Set GITHUB_TOKEN locally if it is not already set:
 git pull --ff-only
 uv sync --frozen
 read -rsp 'GitHub token: ' GITHUB_TOKEN
+echo
 export GITHUB_TOKEN
 ```
 
@@ -27,41 +28,44 @@ Do not paste the token into a command, log or repository file. Then run:
 uv run --frozen python -m lifecycle_mapper.corpus run \
   --input data/corpus/benchmark_100.txt \
   --expected-repositories 100 \
-  --output data/runs/benchmark-100-notebooks-v5 \
+  --output data/runs/benchmark-100-unlimited-5min \
   --transport hybrid \
   --workers 2 \
   --mode all \
   --rules-dir configs/documentation-development-v5 \
-  --max-bytes 2000000
+  --max-bytes 0
 
 uv run --frozen python -m lifecycle_mapper.corpus export \
-  --output data/runs/benchmark-100-notebooks-v5 \
+  --output data/runs/benchmark-100-unlimited-5min \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx
 
 uv run --frozen python -m lifecycle_mapper.assess \
-  --run data/runs/benchmark-100-notebooks-v5 \
+  --run data/runs/benchmark-100-unlimited-5min \
   --reference data/research_lifecycle_benchmark_100_msr27.xlsx \
-  --replay \
   --rules-dir configs/documentation-development-v5 \
-  --output data/reports/benchmark-100-notebooks-v5
+  --output data/reports/benchmark-100-unlimited-5min
 ```
 
 Use a new output directory for this implementation/policy/profile. Old snapshots
-cannot acquire notebooks through replay. The 2 MB per-file bound reduces size
-exclusions relative to the old 250 KB setting; it is still an explicit coverage
-limit, not a guarantee of complete evidence for every repository.
+cannot acquire notebooks through replay. There is no default file-size, file-count or total-download-size cap. The only
+repository resource cutoff is 300 seconds of wall-clock time. --max-bytes 0 is
+explicit here for reproducibility; 0 is also the new default.
 
 Hybrid transport uses unauthenticated, direct raw HTTP downloads for file contents,
 verifies Git blob hashes and sends no bearer token to the raw host. REST is used
 for branch/tree acquisition, normally two requests with main present and a
 nontruncated tree, plus a fallback request for master or additional subtree reads
 when required. Raw traffic has its own throttling constraints. REST primary quota
-exhaustion waits for reset; raw downloads honor Retry-After with bounded retries.
+exhaustion waits for reset and raw downloads honor Retry-After, but those waits
+count toward the same five-minute repository deadline. A quota wait can therefore
+time out; it must not be reported as a large-repository failure. Each isolated
+worker paces its own REST calls; two workers remain the recommended setting.
 Changing Python HTTP libraries alone does not reduce GitHub API usage.
 
 After an interrupted run, rerun the same corpus command with unchanged code and
 parameters. To retry recorded partial/failed repositories, append --retry-failed;
-complete checkpoints remain cached. Then repeat export and assess. If a stale
+complete checkpoints remain cached. Then repeat export and assess. Assessment uses the saved predictions, avoiding
+a second unbounded replay of large repositories. If a stale
 .corpus.lock exists after a hard crash, verify no runner is active before removing
 that exact lock. Never run two processes against the same output directory.
 
@@ -78,7 +82,8 @@ mixed-source final-agreement reference. Candidate code additions need review.
 
 Metrics use complete scans and report coverage. They must not be advertised as
 100-repository accuracy if some scans are incomplete. Inaccessible repositories,
-unsupported notebook syntax/languages and size exclusions remain explicit.
+unsupported source/notebook syntax and languages remain explicit. Downloading
+a source file is not equivalent to supporting its language in the classifier.
 
 Validation for this change includes a mocked 100-repository run with one
 acquisition failure: 100 status records, 1,800 prediction rows, unknown values for
@@ -108,3 +113,52 @@ Example (illustrative, not an actual benchmark result):
 Unknown values are not silently converted to 0. These are heuristic predictions,
 not live correctness/F1 measurements against the reference. Logging adds no
 network requests and never prints the token.
+
+
+## Five-minute hard stop and paper-ready stop records
+
+Each repository runs in a separate subprocess. The 300-second wall-clock budget
+covers worker startup, branch/tree acquisition, downloads, integrity checking,
+notebook parsing, matching, result writing and rate-limit waits. On timeout the
+parent sends SIGKILL to the worker process group on POSIX, including Git child
+processes, and continues the corpus. It is not a thread Future timeout. Queue time
+before a worker starts does not consume the repository budget. Small parent-side
+checkpoint/log cleanup follows termination. This implementation is tested on Linux.
+
+No repository code, notebook kernel, hooks or build commands are executed. Data
+contents and the previously specified vendor/fixture exclusions remain outside
+the evidence scope; these are methodological exclusions, not size/count limits.
+The bounded evidence windows remain rule semantics and do not truncate the scan
+to the first part of a file. The old first-6,000-character document-context check
+is removed; context detection now examines the whole document.
+
+Timeout artifacts:
+
+- repositories/<id>/stop.json: timeout/error, elapsed seconds, exit status, and
+  last atomic heartbeat containing phase, current file, counts and byte totals.
+- repositories/<id>/heartbeat.json: last phase and counters, also available while
+  a repository is running. captured_bytes counts completely captured files, not
+  bytes in a partially downloaded in-flight file.
+- repositories/<id>/worker.log: worker notices such as API quota cooldowns.
+- stopped_repositories.json: final-attempt unsuccessful records across the run.
+- summary.json: timed_out count, in addition to complete/partial/failed totals.
+- repository_status.csv after export: stop phase, file counts, captured bytes,
+  largest eligible file size, current file, last error and elapsed time.
+
+A timeout records the observed phase and workload. Do not assert that file count
+or size caused it solely because either is large. Examples: rate-limit-wait is
+an observed quota wait; acquisition plus a large in-flight file is a download
+timeout with the file size recorded; analysis means the detector had not finished.
+Missing inventory or counters remain unknown rather than zero-valued evidence.
+No timeout is converted to six negative labels; it exports unknown predictions.
+Some new code modes may become incomplete because unsupported languages are now
+reported explicitly instead of silently yielding no matches. This corrects
+coverage reporting and does not add language-specific heuristic support.
+
+The larger run should use this exact same policy if compared with the benchmark.
+Report the timeout budget, selection counts, complete/partial/failed coverage and
+stop-phase breakdown in the paper. Historical attempts are retained; the aggregate
+stopped_repositories.json describes the latest checkpoint for each repository.
+
+Other CLI acquisition helpers now also default to no size cap, but the hard
+process deadline is enforced by corpus run. Use that entry point for the benchmark.

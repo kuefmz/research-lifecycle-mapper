@@ -13,16 +13,17 @@ from typing import Any
 
 from .acquisition import POLICY_VERSION, repository_id, source_kind
 from .canonical import contained, sha256, write_json
+from .telemetry import emit
 
 
 def acquire_git(
-    url: str, output: Path, ref: str | None = None, max_bytes: int = 250_000
+    url: str, output: Path, ref: str | None = None, max_bytes: int = 0
 ) -> dict[str, Any]:
     if ref not in {None, "", "main"}:
         raise ValueError("Live acquisition uses main, otherwise master; no other ref is accepted")
     repo = repository_id(url)
-    if output.exists() or max_bytes < 1:
-        raise ValueError("Snapshot must be new and max_bytes positive")
+    if output.exists() or max_bytes < 0:
+        raise ValueError("Snapshot must be new and max_bytes nonnegative; 0 means no size cap")
     # No environment token is put into a subprocess argument or an exported manifest.
     env = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GIT_CONFIG_NOSYSTEM": "1"}
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -37,7 +38,6 @@ def acquire_git(
                     check=True,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
-                    timeout=180,
                 ).stdout
             except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
                 raise OSError("Git acquisition failed or timed out") from exc
@@ -64,13 +64,14 @@ def acquire_git(
         )
         if selected_branch is None:
             raise OSError("Neither main nor master branch is available")
+        emit(phase="git-clone")
         git(
             "clone",
             "--quiet",
             "--depth=1",
             "--single-branch",
             f"--branch={selected_branch}",
-            f"--filter=blob:limit={max_bytes}",
+            f"--filter=blob:limit={max_bytes}" if max_bytes else "--filter=blob:none",
             "--no-checkout",
             "--",
             f"https://github.com/{repo}.git",
@@ -83,8 +84,23 @@ def acquire_git(
             .strip()
         )
         tree = git("-C", str(checkout), "rev-parse", f"{commit}^{{tree}}").decode().strip()
+        emit(phase="tree-inventory")
         raw = git("-C", str(checkout), "ls-tree", "-r", "-l", "-z", commit)
         files: list[dict[str, Any]] = []
+        metadata_entries = [entry.split(b"\t", 1) for entry in raw.split(b"\0") if entry]
+        eligible_sizes = [
+            int(meta.decode().split()[-1])
+            for meta, name in metadata_entries
+            if meta.decode().split()[-1] != "-" and source_kind(name.decode("utf-8"))[0] is not None
+        ]
+        emit(
+            phase="acquisition",
+            inventory_entries=len(metadata_entries),
+            eligible_files=len(eligible_sizes),
+            total_eligible_bytes=sum(eligible_sizes),
+            largest_eligible_file_bytes=max(eligible_sizes, default=0),
+        )
+        attempted = captured = captured_bytes = 0
         output.mkdir(parents=True)
         for entry in raw.split(b"\0"):
             if not entry:
@@ -93,6 +109,9 @@ def acquire_git(
             mode, kind, blob, size_text = metadata.decode().split()
             path = name.decode("utf-8")
             source, reason = source_kind(path)
+            if source is not None:
+                attempted += 1
+                emit(phase="acquisition", current_file=path, files_attempted=attempted)
             size = int(size_text) if size_text != "-" else None
             record = {
                 "path": path,
@@ -106,7 +125,7 @@ def acquire_git(
             }
             if kind != "blob" or mode == "120000":
                 record["reason"] = "submodule-or-symlink"
-            elif source is not None and (size is None or size > max_bytes):
+            elif source is not None and (size is None or (max_bytes and size > max_bytes)):
                 record.update(status="unavailable", reason="size-limit")
             elif source is not None:
                 try:
@@ -118,8 +137,12 @@ def acquire_git(
                     target.parent.mkdir(parents=True, exist_ok=True)
                     target.write_bytes(data)
                     record.update(status="captured", reason=None, sha256=sha256(data))
+                    captured += 1
+                    captured_bytes += len(data)
+                    emit(files_captured=captured, captured_bytes=captured_bytes)
                 except (OSError, ValueError) as exc:
                     record.update(status="unavailable", reason=type(exc).__name__)
+                    emit(last_error=record["reason"], last_error_file=path)
             files.append(record)
         manifest = {
             "schema_version": 1,

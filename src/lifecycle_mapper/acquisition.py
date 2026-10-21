@@ -14,6 +14,7 @@ from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
 from .canonical import contained, json_bytes, read_json, sha256, write_json
+from .telemetry import emit
 
 POLICY_VERSION = "eligibility-2-notebook-cells"
 DOC_SUFFIXES = {".md", ".rst", ".adoc", ".txt"}
@@ -118,7 +119,7 @@ def api_get(
         try:
             if on_request:
                 on_request()
-            with urlopen(request, timeout=30) as response:
+            with urlopen(request, timeout=None) as response:
                 if on_response:
                     on_response(response.headers)
                 return json.loads(response.read())
@@ -218,9 +219,9 @@ def raw_get(repo: str, commit: str, path: str, blob_sha: str, max_bytes: int) ->
     )
     for attempt in range(3):
         try:
-            with urlopen(request, timeout=30) as response:
-                data = response.read(max_bytes + 1)
-            if len(data) > max_bytes:
+            with urlopen(request, timeout=None) as response:
+                data = response.read(max_bytes + 1 if max_bytes else None)
+            if max_bytes and len(data) > max_bytes:
                 raise ValueError("Raw file exceeds acquisition size limit")
             actual = hashlib.sha1(
                 b"blob " + str(len(data)).encode() + b"\0" + data, usedforsecurity=False
@@ -259,7 +260,7 @@ def acquire(
     url: str,
     output: Path,
     ref: str | None = None,
-    max_bytes: int = 250_000,
+    max_bytes: int = 0,
     *,
     blob_transport: str = "api",
     api_client: Callable[[str], Any] | None = None,
@@ -268,8 +269,8 @@ def acquire(
 ) -> dict[str, Any]:
     if output.exists():
         raise ValueError("Snapshot output must not already exist")
-    if max_bytes < 1:
-        raise ValueError("max_bytes must be positive")
+    if max_bytes < 0:
+        raise ValueError("max_bytes must be nonnegative; 0 means no size cap")
     if blob_transport not in {"api", "raw"}:
         raise ValueError("Blob transport must be api or raw")
     if ref not in {None, "", "main"}:
@@ -298,9 +299,25 @@ def acquire(
         raise ValueError("Invalid canonical commit URL")
     repo = repository_id("https://github.com" + link.path[: -len(suffix)])
     commit_sha = commit["sha"]
+    emit(phase="tree-inventory")
     inventory = tree_inventory(repo, commit["commit"]["tree"]["sha"], getter)
     output.mkdir(parents=True)
     files = []
+    eligible = [
+        item
+        for item in inventory
+        if item["type"] == "blob"
+        and item["mode"] != "120000"
+        and source_kind(item["path"])[0] is not None
+    ]
+    emit(
+        phase="acquisition",
+        inventory_entries=len(inventory),
+        eligible_files=len(eligible),
+        total_eligible_bytes=sum(item.get("size", 0) or 0 for item in eligible),
+        largest_eligible_file_bytes=max((item.get("size", 0) or 0 for item in eligible), default=0),
+    )
+    attempted = captured = captured_bytes = 0
     rate_limited = False
     acquisition_order = sorted(
         inventory,
@@ -313,6 +330,14 @@ def acquire(
     for item in acquisition_order:
         path = item["path"]
         source, reason = source_kind(path)
+        if source is not None:
+            attempted += 1
+            emit(
+                phase="acquisition",
+                current_file=path,
+                current_file_bytes=item.get("size"),
+                files_attempted=attempted,
+            )
         record = {
             "path": path,
             "git_blob_sha": item["sha"],
@@ -327,7 +352,7 @@ def acquire(
             record["reason"] = "submodule-or-symlink"
         elif source is not None and source != "notebook" and source not in sources:
             record.update(status="unavailable", reason="source-not-requested")
-        elif source is not None and item.get("size", max_bytes + 1) > max_bytes:
+        elif source is not None and max_bytes and item.get("size", max_bytes + 1) > max_bytes:
             record.update(status="unavailable", reason="size-limit")
         elif source is not None and rate_limited:
             record.update(status="unavailable", reason="rate-limit")
@@ -340,7 +365,7 @@ def acquire(
                     if blob.get("encoding") != "base64":
                         raise ValueError("Unsupported GitHub blob encoding")
                     data = base64.b64decode(blob["content"].replace("\n", ""), validate=True)
-                if len(data) > max_bytes:
+                if max_bytes and len(data) > max_bytes:
                     raise ValueError("Blob exceeds acquisition size limit")
                 if len(data) != item["size"]:
                     raise ValueError("Blob size mismatch")
@@ -351,6 +376,9 @@ def acquire(
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(data)
                 record.update(status="captured", reason=None, sha256=sha256(data))
+                captured += 1
+                captured_bytes += len(data)
+                emit(files_captured=captured, captured_bytes=captured_bytes)
             except Exception as exc:
                 # Stable error class; never persist response bodies/tokens or volatile messages.
                 # A raw-host failure must not suppress every subsequent file.
@@ -361,6 +389,7 @@ def acquire(
                 record.update(
                     status="unavailable", reason=str(getattr(exc, "code", type(exc).__name__))
                 )
+                emit(last_error=record["reason"], last_error_file=path)
         files.append(record)
     manifest = {
         "schema_version": 1,

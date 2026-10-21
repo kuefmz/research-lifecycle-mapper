@@ -16,6 +16,15 @@ from lifecycle_mapper.openaire import extract, normalize_github
 BASE = Path(__file__).resolve().parents[1] / "benchmark/synthetic/snapshots"
 
 
+@pytest.fixture(autouse=True)
+def inline_fake_acquisition(monkeypatch):
+    # Unit tests inject acquisition fakes in this process. Real process/deadline
+    # integration is covered separately in test_execution.py.
+    from lifecycle_mapper import corpus
+
+    monkeypatch.setattr(corpus, "run_guarded_repository", corpus.run_repository)
+
+
 @pytest.mark.parametrize(
     "url",
     [

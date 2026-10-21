@@ -11,6 +11,14 @@ from lifecycle_mapper.canonical import sha256, write_json
 BASE = Path(__file__).resolve().parents[1] / "benchmark/synthetic/snapshots"
 
 
+def test_unsupported_language_is_not_reported_as_complete_negative(tmp_path):
+    snapshot = make_snapshot(tmp_path, "class Model { }", "src/Model.java")
+    result = analyze(snapshot, "code-only")
+    assert not result["scan_complete"]
+    assert all(value is None for value in result["predictions"].values())
+    assert result["analysis_errors"][0]["reason"] == "unsupported-source-language"
+
+
 @pytest.mark.parametrize("stage", STAGES)
 @pytest.mark.parametrize(
     "source,mode", [("docs-positive", "documentation-only"), ("code-positive", "code-only")]

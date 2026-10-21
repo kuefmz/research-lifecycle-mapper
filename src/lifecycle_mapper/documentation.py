@@ -118,7 +118,7 @@ def documentation_matches(
         units = workflow_units(text)
     original_lines = physical_lines(text, keepends=True)
     fallback_scope = (
-        re.search(rule["document_context_pattern"], normalize(text[:6000]), re.I)
+        re.search(rule["document_context_pattern"], normalize(text), re.I)
         if workflow_policy
         else None
     )

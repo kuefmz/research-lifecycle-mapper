@@ -37,7 +37,7 @@ def main() -> None:
     acquisition.add_argument("url")
     acquisition.add_argument("--ref")
     acquisition.add_argument("--snapshot", type=Path, required=True)
-    acquisition.add_argument("--max-bytes", type=int, default=250_000)
+    acquisition.add_argument("--max-bytes", type=int, default=0)
     analysis = commands.add_parser("analyze")
     analysis.add_argument("--snapshot", type=Path, required=True)
     analysis.add_argument(

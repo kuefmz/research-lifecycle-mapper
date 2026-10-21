@@ -100,7 +100,7 @@ def predict_batch(
     modes: tuple[str, ...] = MODES,
     replay_run: Path | None = None,
     progress: Callable[[dict[str, Any]], None] | None = None,
-    max_bytes: int = 250_000,
+    max_bytes: int = 0,
     root: Path | None = None,
     input_provenance: dict[str, Any] | None = None,
     reference: dict[str, dict[str, int]] | None = None,

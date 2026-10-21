@@ -14,6 +14,11 @@ from lifecycle_mapper.canonical import read_json, write_json
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.fixture(autouse=True)
+def inline_fake_acquisition(monkeypatch):
+    monkeypatch.setattr(corpus, "run_guarded_repository", corpus.run_repository)
+
+
 def test_100_repositories_export_all_rows_including_failure(monkeypatch, tmp_path):
     source = tmp_path / "repos.txt"
     source.write_text("".join(f"https://github.com/a/repo{i:03d}\n" for i in range(100)))
