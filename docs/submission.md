@@ -41,3 +41,11 @@ Verify current venue requirements before submission. A review-ready package requ
 original corpus results and sufficient inference provenance, not just placeholders. No artifact-review score
 or archival DOI is promised. Add the persistent identifier after the preserved release is
 deposited, using metadata compatible with the review stage.
+
+The default package withholds externally traceable shared-conversation URLs and this
+artifact's development commit IDs. Exact user prompts, saved labels, scientific hashes
+and analyzed repositories' pinned commits remain intact. Original working files are
+unchanged; `ANONYMOUS_PACKAGE.json` records transformations and original hashes.
+Use `--include-shared-links` only for an intentionally non-anonymous distribution.
+Derivative checksum maps are refreshed where required. The current source repository
+retains the supplied links for provenance; it is not itself an anonymous review endpoint.

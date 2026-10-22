@@ -89,7 +89,8 @@ methodological completeness or successful reproduction.
 
 ## Release provenance
 
-Only the final method is distributed. Matching predicates are unchanged from the source
-revision `67192bc1f725966fffbb1818f2efc7fac5210726`; redundant workflows and duplicate
-runtime components were removed. Implementation hashes change, so retain the original
-checkout to resume existing runs. Original saved manifests and labels are not rewritten.
+Only the final method is distributed. Matching predicates are frozen and their 105-rule
+catalog is checked against the installed-package mirror. Repository cleanup and
+compatibility-module renaming change implementation hashes without changing the rules.
+Original saved implementation/configuration hashes are retained as provenance; keep
+the original executed checkout for exact replay. Saved labels are not rewritten.

@@ -3,7 +3,6 @@ from types import SimpleNamespace
 import pytest
 from lifecycle_mapper import acquisition
 from lifecycle_mapper.git_acquisition import acquire_git
-from lifecycle_mapper.reference import audit_workbook
 
 
 def branch_payload():
@@ -106,8 +105,14 @@ def test_git_uses_only_verified_remote_branch(monkeypatch, tmp_path):
     assert any("refs/remotes/origin/master" in a for a in calls)
 
 
-def test_corrected_workbook_has_complete_anonymous_reviewers():
-    p = Path(__file__).resolve().parents[1] / "data/research_lifecycle_benchmark_100_msr27.xlsx"
-    a = audit_workbook(p, ("reviewer1", "reviewer2"))
-    assert (a["valid_pairs"], a["agreements"], a["binary_disagreements"]) == (600, 354, 246)
-    assert not a["missing_annotation_pairs"]
+def test_current_exports_have_complete_anonymous_reviewers():
+    import csv
+
+    root = Path(__file__).resolve().parents[1] / "results/benchmark-100/workbook"
+    first = list(csv.reader((root / "reviewer1.csv").open()))
+    second = list(csv.reader((root / "reviewer2.csv").open()))
+    assert len(first) == len(second) == 101
+    a = {row[0].casefold(): row[1:] for row in first[1:]}
+    b = {row[0].casefold(): row[1:] for row in second[1:]}
+    assert set(a) == set(b)
+    assert sum(float(x) == float(y) for key in a for x, y in zip(a[key], b[key])) == 354

@@ -52,15 +52,17 @@ Reported funnel for this archive (revalidate generated summary rather than hardc
 
 ## Publication-associated collection and annotation sample
 
-`data/corpus/legacy_386_source.json` preserves the collector-supplied publication-associated collection
-and related_to associations. `benchmark_386.txt` and `legacy_386.txt` contain its repository
-identities (orders may differ). The collector reports software, experimental context,
+`data/corpus/publication_associations.json` preserves the collector-supplied publication-associated collection
+and related_to associations. `benchmark_386.txt` is the maintained input list; the
+duplicate normalized list was removed after checking identity equivalence. The collector reports software, experimental context,
 GitHub and publication-association criteria. The original query has not been exactly
 reproduced. Containment in the current 3,211 does not independently verify publications.
 The initial 100 annotated repositories are a development reference, not an untouched test.
 Do not infer a random sampling procedure without supporting records.
 
-The researcher verified all 386 publication-associated identities occur in the 3,211: 2,825 remain.
+The current lists and received execution log verify containment of the 386 in the
+reconstructed 3,211 population. The remainder contains 2,825 unique identities.
+Direct comparison with the original full extraction input remains pending.
 Reproduce subtraction (also writes normalization audit and input hashes):
 
 ```bash
@@ -71,7 +73,7 @@ uv run --frozen python scripts/select_repositories.py \
 uv run --frozen python scripts/select_repositories.py \
  --input data/corpus/openaire-experiments/repositories.txt \
  --exclude data/corpus/benchmark_386.txt \
- --output data/corpus/openaire-3211-remaining.txt
+ --output data/corpus/corpus-3211-remaining.txt
 ```
 
 Existing output files are not overwritten. Check counts 286 and 2,825; do not force them
@@ -89,7 +91,7 @@ uv run --frozen python -m lifecycle_mapper.corpus run \
  --transport hybrid --workers 1 --mode all --max-bytes 10485760
 ```
 
-For the additional collection use input `data/corpus/openaire-3211-remaining.txt`, expected
+For the additional collection use input `data/corpus/corpus-3211-remaining.txt`, expected
 count 2825 and a fresh output `data/runs/openaire-additional-final`. Export with corpus
 export, omitting a human reference for unlabeled repositories. Do not compute full-cohort
 F1 from only the 100 annotations. Keep the final rule profile and acquisition configuration
@@ -99,3 +101,29 @@ The full collection is experiment-mentioned software, not representative of all 
 software. The publication-associated subset may enrich dissemination evidence.
 OpenAIRE publication links are not automatic positive repository-level dissemination labels.
 
+
+## Generate the selection funnel
+
+[Figure sources and editable outputs](../figures/README.md) record the exact count units,
+reported extraction provenance and source archive hash. Generate SVG, PDF and PNG:
+
+```bash
+uv run --frozen --with matplotlib==3.10.8 python scripts/create_openaire_funnel.py
+```
+
+To additionally validate independently regenerated extraction summaries before plotting:
+
+```bash
+uv run --frozen --with matplotlib==3.10.8 python scripts/create_openaire_funnel.py \
+  --full-summary data/corpus/openaire/summary.json \
+  --filtered-summary data/corpus/openaire-experiments/summary.json
+```
+
+The description/GitHub branches select in parallel, then intersect at 3,876 links and
+deduplicate to 3,211 repositories. The supplied 386 publication-associated repositories
+are contained in that population. Their original publication-selection query is not
+bundled or reconstructed, and cannot be reproduced from software descriptions alone.
+Containment verification and publication-selection reproduction are different checks.
+The 100 annotated, 286 additional and 2,825 remaining repositories define the execution
+partition. A graph-level publication association is not an automatic positive
+repository-level Dissemination label.

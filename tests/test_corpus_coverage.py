@@ -91,7 +91,7 @@ def test_raw_waits_for_retry_after_without_token(monkeypatch):
 def test_benchmark_list_matches_all_final_labels():
     from lifecycle_mapper.reference import final_reference
 
-    labels = final_reference(ROOT / "data/research_lifecycle_benchmark_100_msr27.xlsx")
+    labels = final_reference(ROOT / "results/benchmark-100/workbook/final_agreement.csv")
     records = corpus.selected_records(ROOT / "data/corpus/benchmark_100.txt", None, "unused", 0, 1)
     assert len(records) == len(labels) == 100
     assert {r["url"].removeprefix("https://github.com/").casefold() for r in records} == set(labels)
@@ -124,7 +124,7 @@ def test_logging_preserves_mode_and_unknown_values():
 
 def test_failure_location_does_not_expose_local_paths(monkeypatch, tmp_path):
     def fail(*args):
-        raise FileNotFoundError(2, "missing", "/home/private-person/missing")
+        raise FileNotFoundError(2, "missing", "/private-test/missing")
 
     monkeypatch.setattr(corpus, "acquire_git", fail)
     source = tmp_path / "repos.txt"

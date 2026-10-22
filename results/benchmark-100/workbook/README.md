@@ -32,6 +32,27 @@ Cell text is preserved: numeric `0.0`/`1.0` values are not relabeled, and blank 
 results. Its summary row 102 and the conversation links in H1 are deliberately outside
 the CSV range. Missing cached formula values cause export to fail rather than invent data.
 
+## Where are the worksheet CSVs?
+
+There are **10 distinct current worksheet exports**, each 101 rows by seven columns:
+
+1. [reviewer1.csv](reviewer1.csv)
+2. [reviewer2.csv](reviewer2.csv)
+3. [agreement.csv](agreement.csv)
+4. [final_agreement.csv](final_agreement.csv)
+5. [llm_documentation.csv](llm_documentation.csv)
+6. [llm_code.csv](llm_code.csv)
+7. [llm_combined.csv](llm_combined.csv)
+8. [heuristics_documentation.csv](heuristics_documentation.csv)
+9. [heuristics_code.csv](heuristics_code.csv)
+10. [heuristics_combined.csv](heuristics_combined.csv)
+
+The attached workbook has 13 tabs. Three superseded heuristic tabs were excluded,
+leaving 10 current roles; an eleventh distinct current sheet has not been identified.
+No extra worksheet result is invented to reach a requested file count. The consolidated
+[../predictions.csv](../predictions.csv) is an additional derived result file, not an
+Excel sheet export. All human and LLM label values remain unchanged.
+
 ## Shared LLM conversations and exact prompts
 
 | Mode | Shared conversation | Original user prompt |

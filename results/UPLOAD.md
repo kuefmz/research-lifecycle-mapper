@@ -6,7 +6,7 @@ The submission publishes three complete populations, not the execution subsets:
 |---|---|---|
 | Annotated 100 | `results/benchmark-100/` | Original 100 run |
 | 386-repository corpus | `results/corpus-386/` | 100 + 286 |
-| OpenAIRE 3,211 | `results/openaire-3211/` | 100 + 286 + 2,825 |
+| OpenAIRE 3,211 | `results/corpus-3211/` | 100 + 286 + 2,825 |
 
 The 100 and 386 repository lists are already included. The full 3,211 list must come
 from `data/corpus/openaire-experiments/repositories.txt`, not a remaining-subset list.

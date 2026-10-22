@@ -64,7 +64,7 @@ def main():
     for source, destination in (
         (root / "data/corpus/benchmark_100.txt", "lists/benchmark-100.txt"),
         (root / "data/corpus/benchmark_386.txt", "lists/corpus-386.txt"),
-        (args.openaire_list, "lists/openaire-3211.txt"),
+        (args.openaire_list, "lists/corpus-3211.txt"),
     ):
         sources.append((source, destination))
     inventory = [

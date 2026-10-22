@@ -1,0 +1,23 @@
+{
+  "source_record": "https://zenodo.org/records/20428976",
+  "dataset_version": "11.1.1",
+  "source_tar_sha256": "c79362d68f9b4095286e97b6dffbdc11ee7af93de003cd5431c82d72ee687717",
+  "counts": {
+    "total": 730346,
+    "descriptions": 412221,
+    "experiment": 11316,
+    "repo_fields": 568255,
+    "github_links": 553703,
+    "all_unique": 432399,
+    "intersection_links": 3876,
+    "intersection_records": 3930,
+    "unique_experiment": 3211,
+    "publication": 386,
+    "benchmark": 100,
+    "additional": 286,
+    "remainder": 2825
+  },
+  "count_scope": "total/descriptions/experiment/repo_fields/intersection_records count software records; github_links/intersection_links count record-repository links; other counts are repository identities.",
+  "provenance": "Extraction counts reported from the original archive runs. Source deposition independently confirms total=730346. The exact archive and extraction summaries are not bundled. Membership 100 within 386 within reconstructed 3211 is verified from saved lists/log. Original publication-selection query remains unavailable.",
+  "figure_source": "Adapted from the author-supplied editable funnel generator; obsolete release labels and unverified-membership text corrected."
+}

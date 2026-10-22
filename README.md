@@ -134,6 +134,8 @@ Reference labels are comparison metadata, never classifier inputs.
 
 ## Recalculate the worksheet results
 
+**All 10 current Excel-sheet CSV exports are indexed [here](results/benchmark-100/workbook/README.md#where-are-the-worksheet-csvs).** They comprise four reviewer/agreement tables, three LLM tables and three heuristic tables. A separate consolidated `predictions.csv` is derived from the original assessment, not an eleventh worksheet.
+
 The selected source sheets are available as ten CSV files in
 [`results/benchmark-100/workbook/`](results/benchmark-100/workbook/).
 Run the executed [reproduction notebook](results/benchmark-100/reproduce_paper.ipynb)
@@ -152,6 +154,25 @@ See [the reproduction status](results/benchmark-100/README.md).
 The three original LLM user prompts and shared-conversation references are included
 under [`prompts/`](prompts/).
 
+## Data source and selection funnel
+
+The source is the [OpenAIRE Graph Dataset, release 11.1.1](https://zenodo.org/records/20428976).
+The extraction streams `software.tar`, selects descriptions mentioning whole-word
+“experiment” or “experiments”, normalizes GitHub repository URLs, and deduplicates them.
+The reported intersection has 3,876 record-repository links and **3,211 repositories**.
+The supplied **386 publication-associated repositories** are contained in this population;
+**100** form the annotated development benchmark. The original publication-selection
+query is unavailable, so containment does not establish an exactly reproduced query.
+
+![OpenAIRE selection funnel](figures/openaire_funnel.png)
+
+[Extraction and provenance](docs/data-generation.md) explain count units, archive hashes
+and commands. [Figure sources](figures/README.md) generate editable SVG, PDF and PNG:
+
+```bash
+uv run --frozen --with matplotlib==3.10.8 python scripts/create_openaire_funnel.py
+```
+
 ## Results overview
 
 On the 100-repository development benchmark, combined documentation and code heuristics
@@ -167,9 +188,12 @@ Experimentation (247 repositories) and Dissemination (226) than Collection (33).
 These are detected-evidence counts, not validated full-corpus accuracy. Selection
 for publication association may enrich dissemination evidence.
 
-The full OpenAIRE collection contains **3,211 repositories**. The additional 2,825-run
-has finished: 2,254 complete, 175 partial and 396 failed. Full 3,211 stage totals remain
-pending the detailed merged result upload. See [detailed results and provenance](results/README.md).
+The full OpenAIRE collection contains **3,211 repositories**. Results are organized
+only by the three paper populations: `benchmark-100`, `corpus-386`, and `corpus-3211`.
+The benchmark predictions and evaluation are included. Complete pooled corpus
+prediction/evidence files are awaiting original run uploads; separate execution-batch
+results are not presented as additional corpora.
+See [detailed results](results/README.md).
 
 ## Outputs and interpretation
 
@@ -193,14 +217,15 @@ to zero. Combined findings use the logical union of documentation and code evide
 |---|---|
 | `src/` | Final classifier, acquisition, corpus runner, evaluation, and minimal UI |
 | `configs/heuristics/` | Final rules, exact catalog, and checksums |
-| `data/` | Human annotations, source workbook, repository lists, and source provenance |
+| `data/` | Human annotation CSVs, repository inputs, and source provenance |
 | `results/` | Destinations for final research exports and experiment documentation |
 | `prompts/` | Exact LLM-prompt provenance requirements and upload location |
-| `docs/` | Method specification, data generation, result schemas, and submission instructions |
+| `docs/` | Method, annotation questions, data generation, result schemas, submission, and audit report |
+| `figures/` | Editable selection funnel, count provenance, and PDF/PNG exports |
 | `scripts/` | Cohort subtraction, rule verification, result indexing, and packaging |
 | `tests/` | Tests for the maintained workflow and artificial input fixtures |
 
-Read [the method](docs/method.md), [exact rules](docs/rules.md),
+Read [the method](docs/method.md), [detailed rule guide](docs/rule-guide.md), [exact rules](docs/rules.md),
 [OpenAIRE extraction instructions](docs/data-generation.md), and
 [result documentation](docs/results.md).
 
@@ -234,3 +259,7 @@ working repository URL in the manuscript.
 Code: [MIT license](LICENSE). Annotations: [data terms](data/LICENSE-annotations.md).
 Third-party source contents and the bundled language catalog retain their own licenses.
 The archival DOI will be added when the preserved release is deposited; none is claimed here.
+
+See [the submission audit](docs/submission-audit.md) for verified coverage, anonymity checks
+and outstanding reproduction inputs. A history-free anonymous package is distinct from
+the identifying development repository.

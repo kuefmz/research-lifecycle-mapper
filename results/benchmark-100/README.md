@@ -2,6 +2,9 @@
 
 This folder contains:
 
+- **[workbook/](workbook/README.md): all 10 selected current worksheet CSVs, with a file-by-file index.**
+- **[predictions.csv](predictions.csv): consolidated 100-repository heuristic results (1,800 stage decisions), pinned commits and mode completeness.**
+
 - `repositories.txt`: the complete 100-repository input list in its original order; list provenance is in `repository_list_provenance.json`.
 
 - `workbook/`: ten separate source-sheet CSV exports, their mapping/checksums, and conversation references.

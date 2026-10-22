@@ -2,8 +2,9 @@
 
 ## Destinations
 
-`results/benchmark-100/`, `results/corpus-386/`, `results/openaire-3211/`, and
-`results/llm/` are reserved for final exports. They initially contain instructions only.
+The three paper populations are under `results/benchmark-100/`, `results/corpus-386/`
+and `results/corpus-3211/`. See `results/README.md` for included data and pending
+original pooled result/evidence exports.
 Actual corpus checkpoints remain under `data/runs/<original-run-name>/` so original
 relative paths and checksums continue to work. Original assessment directories can
 remain under `data/reports/`. These are versionable, not ignored. Large input archives

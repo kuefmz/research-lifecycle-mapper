@@ -18,7 +18,7 @@ from .canonical import json_bytes, sha256, physical_lines
 from .documentation import documentation_matches, document_units, workflow_units
 from .notebooks import expand_notebooks
 from .telemetry import emit
-from .legacy_python import modernize_syntax
+from .python_compat import modernize_syntax
 from .brace_code import BRACE_SUFFIXES, lexical_view, executable_blocks
 from .portable_code import matches as portable_matches
 

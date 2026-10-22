@@ -7,10 +7,10 @@ from lifecycle_mapper.reference import final_reference
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_authoritative_csv_matches_source_workbook():
+def test_authoritative_csv_matches_current_export():
     labels = final_reference(ROOT / "data/final_agreement.csv")
     assert len(labels) == 100
-    assert labels == final_reference(ROOT / "data/research_lifecycle_benchmark_100_msr27.xlsx")
+    assert labels == final_reference(ROOT / "results/benchmark-100/workbook/final_agreement.csv")
     assert sum(len(value) for value in labels.values()) == 600
 
 

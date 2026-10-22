@@ -1,41 +1,25 @@
 # Research inputs and provenance
 
-The current paper worksheet exports and reproduction notebook are under
-[results/benchmark-100](../results/benchmark-100/README.md). The workbook in this data
-folder is the earlier anonymous reference archive; its archived prediction sheets are
-not a replacement for the explicitly selected latest CSV tables. Human reference labels
-remain checked against the supplied authoritative final_agreement.csv.
-
-| File/group | Contents |
+| Input | Purpose |
 |---|---|
-| `final_agreement.csv` | Jointly adjudicated 100-repository reference, 600 labels, supplied order |
-| `annotations_independent.csv` | Original independent reviewer labels |
-| `research_lifecycle_benchmark_100_msr27.xlsx` | Anonymous all-sheet source workbook, including archived LLM outputs |
-| `annotation_audit_20261020.json` | Workbook-bound annotation audit |
-| `final_agreement_correction.json` | Historical cross-format reference verification |
-| `anonymity_audit.json` | Historical scoped audit; not a guarantee for later uploads |
-| `corpus/benchmark_100.txt` | Annotated development cohort |
-| `corpus/benchmark_386.txt`, `corpus/legacy_386.txt` | Historical repository identities, possibly different order |
-| `corpus/legacy_386_source.json`, `corpus/legacy_paper_links.csv` | Supplied historical publication-association provenance |
-| `runs/`, `reports/` | Original local research runs and assessments, to be uploaded |
+| `final_agreement.csv` | Authoritative adjudicated 100-repository reference in supplied order |
+| `annotations_independent.csv` | Independent Reviewer 1 and Reviewer 2 labels |
+| `corpus/benchmark_100.txt` | 100-repository development input |
+| `corpus/benchmark_386.txt` | Full 386-repository corpus input |
+| `corpus/publication_associations.json` | Original supplied OpenAIRE software/publication association metadata for the 386 repositories |
 
-The workbook separates reviewer1/reviewer2 independent decisions from final_agreement.
-Archived chatgpt/heuristics mode sheets retain their original experimental conditions;
-they are not new measurements from the final method. The final reference is treated as
-mixed-source unless a source-specific audit establishes otherwise. Initial reviewer
-agreement must be calculated from independent labels, not adjudicated consensus.
+Current worksheet CSVs, restored unknowns, original assessment and the executed notebook
+are under [results/benchmark-100](../results/benchmark-100/README.md). The superseded
+workbook, duplicate 386 list, derived paper-link CSV and outdated audits were removed
+to avoid conflicting sources. The association JSON is retained as source provenance,
+not an alternative prediction dataset. Third-party titles and identifiers retain their
+original terms.
 
-The original source associations do not establish an independently reproduced publication
-filter. All 386 historical identities were reported as contained in the 3,211 experiment-
-mentioned collection; reproduce and document membership using the extraction/subtraction
-workflow in ../docs/data-generation.md. Different releases may produce different counts.
+Final consensus is a mixed-source adjudicated reference. Initial independent review
+and the original guideline questions concerned documentation. Do not calculate initial
+agreement from final consensus or infer a random sample or reproduced publication query.
 
-Do not overwrite source labels, source workbook cells or historical manifests. Redundant
-normalized reference copies and unused exploratory text-association cohorts were removed
-from the distribution; historical verification records may refer to those older copies.
-The CSV and workbook remain checked against one another by tests.
-
-Final exports and their metadata belong under ../results/ or original data/runs paths:
-see ../docs/results.md. Annotation reuse terms are in LICENSE-annotations.md. Public
-third-party repository identities remain research data; author identities and personal
-source-workbook links must not be reintroduced into the anonymous distribution.
+Source: [OpenAIRE Graph Dataset, record 20428976](https://zenodo.org/records/20428976).
+Use `software.tar` as described in [data generation](../docs/data-generation.md).
+The archive is not committed. Full population lists/results are in [../results/](../results/README.md).
+Annotation terms are in [LICENSE-annotations.md](LICENSE-annotations.md).

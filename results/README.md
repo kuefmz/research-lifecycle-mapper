@@ -8,9 +8,9 @@ This page documents the results used in the MSR 2027 paper. Benchmark values bel
 |---|---|---|
 | Annotated 100 | [benchmark-100/repositories.txt](benchmark-100/repositories.txt) | Human/LLM/heuristic tables, original assessment and executed reproduction notebook |
 | Publication-associated 386 | [corpus-386/repositories.txt](corpus-386/repositories.txt) | Paper-reported stage counts below; original pooled evidence export pending |
-| OpenAIRE 3,211 | [openaire-3211/repositories.txt](openaire-3211/repositories.txt) | Complete population reconstructed; 2,825-run operational metadata received; pooled predictions pending |
+| OpenAIRE 3,211 | [corpus-3211/repositories.txt](corpus-3211/repositories.txt) | Complete population reconstructed; pooled predictions and evidence pending |
 
-The populations are nested: 100 ⊆ 386 ⊆ 3,211. Execution used disjoint batches of 100, 286 and 2,825. These batches are acquisition provenance, not additional scientific populations. The full 3,211 list is reconstructed from the verified disjoint 386 list and final log entries; the original OpenAIRE input is still requested for direct comparison.
+The populations are nested: 100 ⊆ 386 ⊆ 3,211. Execution partitions are acquisition provenance, not additional scientific populations. The full 3,211 list is reconstructed from the verified disjoint 386 list and final log entries; the original OpenAIRE input is still requested for direct comparison.
 
 ## Annotation agreement (paper Table 3)
 
@@ -72,22 +72,17 @@ Each cell below is **positive / negative / unknown**, out of 386. Unknowns are n
 
 These counts describe detected repository evidence, not whether lifecycle activities were actually performed. There are no reference labels for all 386, so no full-corpus accuracy or F1 is claimed. Publication-associated selection may enrich Dissemination evidence: this corpus should not be treated as representative of all research software.
 
-## OpenAIRE 3,211-repository collection
+## 3,211-repository corpus
 
-The 386-repository corpus and the additional 2,825 log identities are disjoint and have a union of exactly **3,211**. The additional run’s summary, progress and final log statuses agree:
+The full repository list contains exactly **3,211 unique identities** and includes
+all 386 corpus identities and all 100 benchmark identities. Its reconstruction and
+ordering are documented in [list provenance](corpus-3211/repository_list_provenance.json).
 
-| Additional-run outcome | Count | Percentage of 2,825 |
-|---|---:|---:|
-| Complete | 2,254 | 79.79% |
-| Partial | 175 | 6.19% |
-| Failed | 396 | 14.02% |
-| **Attempted** | **2,825** | **100.00%** |
-
-Of the 396 failures, **234 timed out**, **161 had neither main nor master accessible**, and **one raised a ValueError**. An inaccessible branch pair does not establish that a repository was deleted. The run used main then master, hybrid acquisition, a 120-second repository deadline and a 10 MiB file cap. Original configuration and code/catalog hashes are retained in [run provenance](openaire-3211/provenance/run-2825/README.md). The source checkout reported uncommitted changes, so its commit alone does not fully identify the executed code.
-
-Session wall time was **71,676 seconds (19.91 hours)**. The log contains resumed checkpoints, so dividing this session time by 2,825 is not a reliable mean per-repository processing time. Repository-level complete/partial status is also distinct from mode-specific completeness.
-
-**Pending:** full 3,211 stage totals, merged outcome totals and per-mode coverage require the original detailed results for all batches. The 2,825 outcomes above must not be presented as outcomes for all 3,211. No full-corpus F1 is supported without additional human labels.
+Complete pooled predictions, pinned commits, evidence and mode coverage are pending
+original result files. Received execution logs establish attempted membership but do
+not replace all saved repository-level results. No separate batch-results table is
+presented here. Full-population stage totals and outcome totals must not be inferred
+from only one execution batch. See [upload instructions](UPLOAD.md).
 
 ## Reproduce and complete the archive
 

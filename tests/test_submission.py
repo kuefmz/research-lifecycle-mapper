@@ -94,3 +94,38 @@ def test_demo_uses_guarded_corpus_runner_and_renders_json(tmp_path, monkeypatch)
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_anonymous_package_withholds_links_and_artifact_commit_but_keeps_science(tmp_path):
+    import hashlib
+
+    spec = importlib.util.spec_from_file_location(
+        "packaging", ROOT / "scripts/package_submission.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    directory = tmp_path / "results/run"
+    directory.mkdir(parents=True)
+    artifact_commit = "a" * 40
+    repository_commit = "b" * 40
+    manifest = json.dumps(
+        {"source": {"commit": artifact_commit}, "analyzed_commit": repository_commit}
+    )
+    (directory / "manifest.json").write_text(manifest)
+    (directory / "provenance.json").write_text(
+        json.dumps(
+            {"publication_files": {"manifest.json": hashlib.sha256(manifest.encode()).hexdigest()}}
+        )
+    )
+    (tmp_path / "README.md").write_text("https://chatgpt.com/share/example-shared-conversation")
+    files = module.review_files(
+        tmp_path, ["README.md", "results/run/manifest.json", "results/run/provenance.json"]
+    )
+    assert b"https://chatgpt.com/share/" not in files["README.md"]
+    assert artifact_commit.encode() not in files["results/run/manifest.json"]
+    assert repository_commit.encode() in files["results/run/manifest.json"]
+    assert (
+        json.loads(files["results/run/provenance.json"])["publication_files"]["manifest.json"]
+        == hashlib.sha256(files["results/run/manifest.json"]).hexdigest()
+    )
+    assert (directory / "manifest.json").read_text() == manifest
