@@ -162,7 +162,7 @@ The supplied **386 publication-associated repositories** are contained in this p
 **100** form the annotated development benchmark. The original publication-selection
 query is unavailable, so containment does not establish an exactly reproduced query.
 
-![OpenAIRE selection funnel](figures/openaire_funnel.png)
+![OpenAIRE selection funnel](figures/openaire_funnel.pdf)
 
 [Extraction and provenance](docs/data-generation.md) explain count units, archive hashes
 and commands. [Figure sources](figures/README.md) generate editable SVG, PDF and PNG:
