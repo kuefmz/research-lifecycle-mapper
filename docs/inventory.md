@@ -22,7 +22,7 @@ methods. Current method/evaluation documentation overrides older draft narrative
 
 ## Data/configuration
 
-The final profile and its exact catalog/checksums live in configs/consolidated-development-v5.4.
+The final profile and its exact catalog/checksums live in configs/heuristics.
 Other top-level config files support annotation imports and synthetic/protocol verification.
 Root rules and packaged rules are exact final mirrors, verified automatically.
 `tests/fixtures/legacy-profiles` holds historical test inputs only, not selectable paper methods.

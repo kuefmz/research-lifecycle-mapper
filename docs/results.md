@@ -9,8 +9,8 @@ relative paths and checksums continue to work. Original assessment directories c
 remain under `data/reports/`. These are versionable, not ignored. Large input archives
 and transient UI runs are excluded from ordinary Git commits.
 
-Do not relabel historical manifests as v1.0 or edit their hashes. The final method's
-v5.4 catalog bytes are preserved, but this cleanup changes the implementation fingerprint.
+Do not relabel historical manifests as v1.0 or edit their hashes. Matching predicates are preserved, but normalized release metadata and rule identifiers
+change catalog and implementation fingerprints.
 Continue active runs from their original checkout. Validate compatibility before pooling.
 
 ## Corpus exports
@@ -18,8 +18,8 @@ Continue active runs from their original checkout. Validate compatibility before
 Run this for each completed run, substituting its actual existing directory:
 
 ```bash
-uv run --frozen python -m lifecycle_mapper.corpus export --output data/runs/benchmark-100-v54-final --reference data/final_agreement.csv
-uv run --frozen python -m lifecycle_mapper.corpus export --output data/runs/benchmark-386-remaining-v54
+uv run --frozen python -m lifecycle_mapper.corpus export --output data/runs/benchmark-100-final --reference data/final_agreement.csv
+uv run --frozen python -m lifecycle_mapper.corpus export --output data/runs/historical-additional
 ```
 
 | File | Meaning |
@@ -43,10 +43,13 @@ resume because checkpoints can be reused. Preserve timing_note and original logs
 
 ```bash
 uv run --frozen python -m lifecycle_mapper.assess \
- --run data/runs/benchmark-100-v54-final \
+ --run data/runs/benchmark-100-final \
  --reference data/final_agreement.csv \
  --output results/benchmark-100/assessment
 ```
+
+The run paths above are examples. Substitute your actual existing paths; do not rename
+completed runs or edit their manifests to match examples.
 
 Use a new assessment output directory. Omit `--replay` to evaluate saved predictions.
 `--paper-summary` additionally produces Markdown/LaTeX/JSON paper tables for a fully

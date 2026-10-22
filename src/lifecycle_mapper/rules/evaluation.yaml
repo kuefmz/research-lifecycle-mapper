@@ -25,7 +25,7 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.1.0-candidate",
+      "version": "1.0.0",
       "window_lines": 8
     },
     {
@@ -64,7 +64,7 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -103,7 +103,7 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -142,7 +142,7 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -182,7 +182,7 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -211,7 +211,7 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 3
     },
     {
@@ -246,7 +246,7 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 6
     },
     {
@@ -286,13 +286,14 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Development candidate: documentation-described evaluation activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -327,15 +328,15 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Development candidate: documentation-described evaluation activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -370,38 +371,14 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EVA_CODE_BRACE_METRIC_CALL_V51",
-      "stage": "Evaluation",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Scientific metric calls connected to reference/predicted research outcomes.",
-      "positive": [
-        "\\b(?:f1Score|f1_score|precisionScore|recallScore|accuracyScore|meanSquaredError|rmse|rocAuc|computeAccuracy)\\s*\\(",
-        "\\b(?:y_true|referenceLabels|reference_labels|ground_truth|gold|labels|predictions|predicted)\\b"
-      ],
-      "supporting": [],
+      "detector": "brace-lexical-v1",
       "exclusions": [],
-      "required_evidence_fields": [
-        "repository",
-        "commit",
-        "path",
-        "content_sha256",
-        "start_line",
-        "end_line",
-        "matched_conditions",
-        "url",
-        "code_syntax_policy",
-        "code_context"
-      ],
-      "justification": "Scientific metric calls connected to reference/predicted research outcomes. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "extensions": [
         ".c",
         ".cpp",
@@ -415,22 +392,56 @@
         ".rs",
         ".scala"
       ],
+      "id": "EVA_CODE_BRACE_METRIC_CALL_V51",
+      "justification": "Scientific metric calls connected to reference/predicted research outcomes. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+      "positive": [
+        "\\b(?:f1Score|f1_score|precisionScore|recallScore|accuracyScore|meanSquaredError|rmse|rocAuc|computeAccuracy)\\s*\\(",
+        "\\b(?:y_true|referenceLabels|reference_labels|ground_truth|gold|labels|predictions|predicted)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url",
+        "code_syntax_policy",
+        "code_context"
+      ],
       "scope": "lexical-block",
-      "detector": "brace-lexical-v1"
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EVA_CODE_BRACE_METRIC_ARITHMETIC_V51",
-      "stage": "Evaluation",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Explicit metric arithmetic connected to reference/prediction counts.",
+      "detector": "brace-lexical-v1",
+      "exclusions": [],
+      "extensions": [
+        ".c",
+        ".cpp",
+        ".cc",
+        ".h",
+        ".hpp",
+        ".java",
+        ".js",
+        ".ts",
+        ".go",
+        ".rs",
+        ".scala"
+      ],
+      "id": "EVA_CODE_BRACE_METRIC_ARITHMETIC_V51",
+      "justification": "Explicit metric arithmetic connected to reference/prediction counts. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
       "positive": [
         "\\b(?:precision|recall|f1|fscore|accuracy|rmse|mse)\\s*=",
         "(?:/|\\b(?:sqrt|pow)\\s*\\()",
         "\\b(?:truePositives|falsePositives|tp|fp|fn|correct|predictions|labels|gold|predicted|n_correct)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -443,37 +454,24 @@
         "code_syntax_policy",
         "code_context"
       ],
-      "justification": "Explicit metric arithmetic connected to reference/prediction counts. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
-      "extensions": [
-        ".c",
-        ".cpp",
-        ".cc",
-        ".h",
-        ".hpp",
-        ".java",
-        ".js",
-        ".ts",
-        ".go",
-        ".rs",
-        ".scala"
-      ],
       "scope": "lexical-block",
-      "detector": "brace-lexical-v1"
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EVA_CODE_PORTABLE_METRIC_V51",
-      "stage": "Evaluation",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Compute a research metric against identified outcomes/reference labels.",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "EVA_CODE_PORTABLE_METRIC_V51",
+      "justification": "Compute a research metric against identified outcomes/reference labels. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
       "positive": [
         "\\b(?:f1[_-]?score|precision[_-]?score|recall[_-]?score|accuracy[_-]?score|mean[_-]?squared[_-]?error|rmse|roc[_-]?auc|compute[_-]?accuracy)\\b\\s*(?:\\(|[A-Za-z_$])",
         "\\b(?:y_true|y_test|referenceLabels|reference_labels|ground_truth|gold|labels|predictions|predicted)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -486,25 +484,25 @@
         "code_syntax_policy",
         "languages"
       ],
-      "justification": "Compute a research metric against identified outcomes/reference labels. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "scope": "portable-statement",
-      "detector": "portable-lexical-v1"
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EVA_CODE_PORTABLE_ARITHMETIC_V51",
-      "stage": "Evaluation",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Compute explicit metric arithmetic using prediction/reference counts.",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "EVA_CODE_PORTABLE_ARITHMETIC_V51",
+      "justification": "Compute explicit metric arithmetic using prediction/reference counts. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
       "positive": [
         "\\b(?:precision|recall|f1|fscore|accuracy|rmse|mse)\\s*(?:=|<-)",
         "(?:/|\\b(?:sqrt|pow)\\s*\\()",
         "\\b(?:truePositives|falsePositives|tp|fp|fn|correct|predictions|labels|gold|predicted|n_correct)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -517,28 +515,24 @@
         "code_syntax_policy",
         "languages"
       ],
-      "justification": "Compute explicit metric arithmetic using prediction/reference counts. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "scope": "portable-statement",
-      "detector": "portable-lexical-v1"
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EVA_CODE_SHELL_EVALUATE_V52",
-      "stage": "Evaluation",
-      "source": "code",
-      "version": "0.5.2-development",
       "description": "shell evaluate",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "EVA_CODE_SHELL_EVALUATE_V52",
+      "justification": "shell evaluate Development evidence candidate; no repository identity or reference labels used.",
       "positive": [
         "(?m)^\\s*(?:(?:python[23]?|perl|Rscript)\\s+)?(?:[\\w./-]*/)?(?:evaluate|eval|score)(?:[_.-][\\w.-]+|\\.py|\\.pl)?\\s+",
         "(?:\\$|>|\\b(?:gold|reference|predict\\w*|test)\\b)"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 8,
-      "scope": "portable-statement",
-      "detector": "portable-lexical-v1",
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -548,24 +542,24 @@
         "matched_conditions",
         "url"
       ],
-      "justification": "shell evaluate Development evidence candidate; no repository identity or reference labels used."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 8
     },
     {
-      "id": "EVA_CODE_HELDOUT_ERROR_V52",
-      "stage": "Evaluation",
-      "source": "code",
-      "version": "0.5.2-development",
       "description": "heldout error",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "EVA_CODE_HELDOUT_ERROR_V52",
+      "justification": "heldout error Development evidence candidate; no repository identity or reference labels used.",
       "positive": [
         "\\b\\w+\\s*=\\s*[^;\\n]*\\b\\w*(?:test|heldout|gold|reference)\\w*\\b[^;\\n]*-\\s*\\w+",
         "(?:=|\\()"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 8,
-      "scope": "portable-statement",
-      "detector": "portable-lexical-v1",
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -575,24 +569,24 @@
         "matched_conditions",
         "url"
       ],
-      "justification": "heldout error Development evidence candidate; no repository identity or reference labels used."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 8
     },
     {
-      "id": "EVA_CODE_METRIC_NAMES_V52",
-      "stage": "Evaluation",
-      "source": "code",
-      "version": "0.5.2-development",
       "description": "metric names",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "EVA_CODE_METRIC_NAMES_V52",
+      "justification": "metric names Development evidence candidate; no repository identity or reference labels used.",
       "positive": [
         "\\b(?:accuracy_score|precision_score|recall_score|f1_score|mean_squared_error|roc_auc_score|classification_report)\\s*\\(",
         "\\b\\w*(?:true|gold|test|reference|labels|target)\\w*\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 8,
-      "scope": "portable-statement",
-      "detector": "portable-lexical-v1",
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -602,12 +596,19 @@
         "matched_conditions",
         "url"
       ],
-      "justification": "metric names Development evidence candidate; no repository identity or reference labels used."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 8
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
       "description": "reported metric",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
       ],
@@ -616,7 +617,7 @@
         "\\b(?:references|bibliography)\\b",
         "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
-      "id": "EVA_DOC_REPORTED_METRIC_V54",
+      "id": "EVA_DOC_REPORTED_METRIC_FINAL",
       "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
       "layer": "contextual",
       "positive": [
@@ -641,15 +642,15 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.4-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
       "description": "research evaluation command",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
       ],
@@ -658,7 +659,7 @@
         "\\b(?:references|bibliography)\\b",
         "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
-      "id": "EVA_DOC_RESEARCH_EVALUATION_COMMAND_V54",
+      "id": "EVA_DOC_RESEARCH_EVALUATION_COMMAND_FINAL",
       "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
       "layer": "contextual",
       "positive": [
@@ -682,26 +683,20 @@
       "stage": "Evaluation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.4-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EVA_CODE_STATISTICAL_COMPARISON_V54",
-      "version": "0.5.4-development",
-      "stage": "Evaluation",
-      "source": "code",
+      "description": "statistical comparison",
       "detector": "portable-lexical-v1",
-      "scope": "portable-statement",
+      "exclusions": [],
+      "id": "EVA_CODE_STATISTICAL_COMPARISON_FINAL",
+      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
       "positive": [
         "\\b(?:t\\.test|wilcox\\.test|anova|ttest|ttest_ind|ttest_rel|mannwhitneyu|kstest|ks_2samp|chisquare|cor_test|cor\\.test)\\s*\\(",
         "\\(\\s*[A-Za-z_]\\w*"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 12,
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -712,24 +707,24 @@
         "matched_conditions",
         "url"
       ],
-      "description": "statistical comparison",
-      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EVA_CODE_CROSS_VALIDATION_CALL_V54",
-      "version": "0.5.4-development",
-      "stage": "Evaluation",
-      "source": "code",
+      "description": "cross validation call",
       "detector": "portable-lexical-v1",
-      "scope": "portable-statement",
+      "exclusions": [],
+      "id": "EVA_CODE_CROSS_VALIDATION_CALL_FINAL",
+      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
       "positive": [
         "\\b(?:cross_val_score|cross_validate|crossval|cv\\.glmnet)\\s*\\(",
         "\\(\\s*[A-Za-z_]\\w*"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 12,
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -740,10 +735,15 @@
         "matched_conditions",
         "url"
       ],
-      "description": "cross validation call",
-      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Evaluation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     }
   ],
   "stage": "Evaluation",
-  "version": "0.5.4-development"
+  "version": "1.0.0"
 }

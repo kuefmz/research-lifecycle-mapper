@@ -2,10 +2,9 @@
 
 An MSR replication package for detecting evidence of **Collection, Processing, Method,
 Experimentation, Evaluation, and Dissemination** in public GitHub repositories.
-The final method is release **1.0**. Its frozen 105-rule catalog retains the original
-`configs/consolidated-development-v5.4/` path and internal version metadata so existing
-scientific results can be traced to their exact rules. Only this profile is maintained.
-The package defaults, repository-root rules, and final profile contain identical rules.
+The only maintained method is **release 1.0**, with 105 rules in
+`configs/heuristics/`. The package defaults and repository-root rules are identical
+copies of that profile. Historical regression fixtures are not alternative methods.
 
 A positive is detected evidence, not proof of scientific correctness or reproducibility.
 A negative means no qualifying evidence was detected in a completed eligible scan;
@@ -82,7 +81,7 @@ remain exportable and assessable without replay. Never rewrite their manifests.
 | `prompts/` | LLM prompt provenance and space for exact historical prompts |
 | `results/` | Documented destinations for final local results; not fabricated outputs |
 | `data/` | Human annotations, workbook, repository lists, provenance |
-| `configs/consolidated-development-v5.4/` | The single final scientific profile |
+| `configs/heuristics/` | The single final scientific profile |
 | `src/lifecycle_mapper/` | Classifier, acquisition, CLI, UI, and saved-run compatibility code |
 | `tests/` | Offline regression tests; historical profiles only as test fixtures |
 | `scripts/` | Data/cohort helpers, anonymity audit, and release packaging |

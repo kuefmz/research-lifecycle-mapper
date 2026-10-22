@@ -2,8 +2,7 @@
 
 1. Clone the anonymous release, install Python 3.12/Git/uv, run `uv sync --frozen`.
 2. Verify rule identities: `uv run --frozen python scripts/verify_final_profile.py`.
-3. Run offline tests: `mkdir -p local
-uv run --frozen pytest -q --basetemp local/pytest`.
+3. Create `local/`, then run `uv run --frozen pytest -q --basetemp local/pytest`.
 4. Try the local UI (`python -m lifecycle_mapper ui` through uv) or run the README corpus command.
 5. Follow data-generation.md to regenerate the OpenAIRE candidate list from software.tar.
 6. Use explicit file cap/workers and fresh run directories; preserve manifests and failures.
@@ -18,8 +17,9 @@ reference labels or claim an untouched holdout from the old operational split.
 
 ## Legacy compatibility
 
-The scientific rules are unchanged byte-for-byte from the original final profile. Root
-and packaged defaults are now that profile, replacing older defaults. Historical schema
+The scientific matching predicates are unchanged. Catalog version metadata and some
+rule identifiers were normalized for the single release. Root and packaged defaults
+are identical to configs/heuristics. Historical schema
 versions, importers and regression fixtures remain readable. This is a software packaging
 change: implementation hashes change, so resuming an old run from this checkout is rejected.
 Retain the original checkout for running/resuming existing work.

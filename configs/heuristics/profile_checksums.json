@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "rule_count": 105,
+  "development_only": true,
+  "yaml_sha256": {
+    "collection.yaml": "84666082fc602a44a7164b341f518a10f09494ae9b09b6a9e5b14d25aac35aec",
+    "dissemination.yaml": "4450859f57eeee0fc89bf26182555ea6985a54b089c22c3790855b937ef4dcef",
+    "evaluation.yaml": "2bec42a3acd930f8d286acc532d4be413a2447854e1de9e45565879733e88ba2",
+    "experimentation.yaml": "4d42718afad123b01c4d0d8e97e452ef03bd21be73426dfa1919954a456163bd",
+    "method.yaml": "5ee34f84ec420fec311afcf0adde99e0a2315987c6ad6ca613575ca49f776f2f",
+    "processing.yaml": "8187fbc2040936ffecaf37f1df23b821a53613b5521dd264ef665fec040b8bfe"
+  }
+}

@@ -1,11 +1,8 @@
-# Exact final rule specification
+# Exact rule specification
 
-This document is generated directly from the frozen profile, not a paraphrased historical codebook.
-Each rule below is the exact runtime object. `positive` predicates are conjunctive; supporting,
-scope, file context and exclusions are interpreted by the matching engine. See method.md.
-
-The compact CSV catalog is in `configs/consolidated-development-v5.4/rule_catalog.csv`.
-Rule JSON retains stable IDs and original version metadata to preserve results provenance.
+The single maintained profile is `configs/heuristics/`. The JSON below is the exact
+runtime definition for each rule. See method.md for how predicates and exclusions
+are applied; this is not a recovered original human codebook.
 
 ## COL_CODE_ACTIVITY_V1
 
@@ -37,7 +34,7 @@ Acquire or generate raw observations for research.
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.1.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -83,7 +80,7 @@ Acquire or generate raw observations for research.
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -129,7 +126,7 @@ Acquire or generate raw observations for research.
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -175,7 +172,7 @@ Acquire or generate raw observations for research.
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -224,7 +221,7 @@ Repository-scoped research activity and object using common disciplinary wording
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.4-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -259,7 +256,7 @@ Research-specific implementation operation with a contextual identifier.
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -301,7 +298,7 @@ Conjunctive research operation and contextual identifier in R, Julia, MATLAB or 
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 6
 }
 ```
@@ -348,7 +345,7 @@ Candidate extended wording for collection.
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -362,6 +359,7 @@ Development candidate: documentation-described collection activities and artifac
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this (?:study|repository|software|experiment)|collected (?:data|responses)|recorded (?:data|responses))\\b",
   "description": "Development candidate: documentation-described collection activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b",
     "\\b(?:could|would|might|hypothetically|in principle)\\b"
@@ -396,10 +394,9 @@ Development candidate: documentation-described collection activities and artifac
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.4-development",
-  "window_lines": 12,
-  "unit_policy": "sentence-scope-v54",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "unit_policy": "sentence-scope-final",
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -412,6 +409,7 @@ Development candidate: documentation-described collection activities and artifac
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Development candidate: documentation-described collection activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -445,10 +443,9 @@ Development candidate: documentation-described collection activities and artifac
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -458,32 +455,9 @@ Acquire research inputs with a research-data identifier in the same executable b
 
 ```json
 {
-  "id": "COL_CODE_BRACE_ACQUIRE_V51",
-  "stage": "Collection",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Acquire research inputs with a research-data identifier in the same executable block.",
-  "positive": [
-    "\\b(?:curl_easy_perform|curl_exec|fetch|readSensor|read_sensor|downloadData|downloadDataset|downloadCorpus)\\s*\\(",
-    "\\b(?:dataset|corpus|observations|measurements|raw_data|dataUrl|datasetUrl|research_data)\\b"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Acquire research inputs with a research-data identifier in the same executable block. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -497,8 +471,31 @@ Acquire research inputs with a research-data identifier in the same executable b
     ".rs",
     ".scala"
   ],
+  "id": "COL_CODE_BRACE_ACQUIRE_V51",
+  "justification": "Acquire research inputs with a research-data identifier in the same executable block. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "\\b(?:curl_easy_perform|curl_exec|fetch|readSensor|read_sensor|downloadData|downloadDataset|downloadCorpus)\\s*\\(",
+    "\\b(?:dataset|corpus|observations|measurements|raw_data|dataUrl|datasetUrl|research_data)\\b"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1"
+  "source": "code",
+  "stage": "Collection",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -508,17 +505,15 @@ Acquire identified research inputs.
 
 ```json
 {
-  "id": "COL_CODE_PORTABLE_ACQUIRE_V51",
-  "stage": "Collection",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Acquire identified research inputs.",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "COL_CODE_PORTABLE_ACQUIRE_V51",
+  "justification": "Acquire identified research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
   "positive": [
     "\\b(?:fetch|download(?:\\.file|[_-]?(?:data|dataset|corpus))?|curl_easy_perform|read[_-]?sensor|acquire[_-]?data)\\b\\s*(?:\\(|[A-Za-z_$])",
     "\\b(?:dataset|corpus|observations|measurements|raw_data|dataUrl|datasetUrl|research_data)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -531,11 +526,13 @@ Acquire identified research inputs.
     "code_syntax_policy",
     "languages"
   ],
-  "justification": "Acquire identified research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "scope": "portable-statement",
-  "detector": "portable-lexical-v1"
+  "source": "code",
+  "stage": "Collection",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -581,7 +578,7 @@ Documentation explicitly describes supplied/sample measured research observation
   "stage": "Collection",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -616,7 +613,7 @@ Communicate or deposit research outputs for external reuse.
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.1.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -662,7 +659,7 @@ Communicate or deposit research outputs for external reuse.
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -708,7 +705,7 @@ Communicate or deposit research outputs for external reuse.
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -754,7 +751,7 @@ Communicate or deposit research outputs for external reuse.
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -801,7 +798,7 @@ Repository-scoped research activity and object using common disciplinary wording
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -837,7 +834,7 @@ Research-specific implementation operation with a contextual identifier.
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 3
 }
 ```
@@ -879,7 +876,7 @@ Conjunctive research operation and contextual identifier in R, Julia, MATLAB or 
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 6
 }
 ```
@@ -926,7 +923,7 @@ Candidate extended wording for dissemination.
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -940,6 +937,7 @@ Development candidate: documentation-described dissemination activities and arti
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Development candidate: documentation-described dissemination activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -972,10 +970,9 @@ Development candidate: documentation-described dissemination activities and arti
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -988,6 +985,7 @@ Development candidate: documentation-described dissemination activities and arti
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Development candidate: documentation-described dissemination activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -1020,10 +1018,9 @@ Development candidate: documentation-described dissemination activities and arti
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1033,32 +1030,9 @@ Export a scientific communication artifact with result/figure/report context.
 
 ```json
 {
-  "id": "DIS_CODE_BRACE_EXPORT_V51",
-  "stage": "Dissemination",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Export a scientific communication artifact with result/figure/report context.",
-  "positive": [
-    "\\b(?:savefig|saveFigure|exportFigure|writeFigure|exportPlot|writeReport|publishResults)\\s*\\(",
-    "\\b(?:results|plot|figure|report|researchOutputs|trialResults)\\b"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Export a scientific communication artifact with result/figure/report context. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -1072,8 +1046,31 @@ Export a scientific communication artifact with result/figure/report context.
     ".rs",
     ".scala"
   ],
+  "id": "DIS_CODE_BRACE_EXPORT_V51",
+  "justification": "Export a scientific communication artifact with result/figure/report context. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "\\b(?:savefig|saveFigure|exportFigure|writeFigure|exportPlot|writeReport|publishResults)\\s*\\(",
+    "\\b(?:results|plot|figure|report|researchOutputs|trialResults)\\b"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1"
+  "source": "code",
+  "stage": "Dissemination",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1083,32 +1080,9 @@ Deposit identified research outputs through an explicit publication call.
 
 ```json
 {
-  "id": "DIS_CODE_BRACE_DEPOSIT_V51",
-  "stage": "Dissemination",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Deposit identified research outputs through an explicit publication call.",
-  "positive": [
-    "\\b(?:zenodo\\s*\\.\\s*deposit|repository\\s*\\.\\s*publish)\\s*\\(",
-    "\\b(?:researchOutputs|research_outputs|trialResults|researchDataset)\\b"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Deposit identified research outputs through an explicit publication call. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -1122,8 +1096,31 @@ Deposit identified research outputs through an explicit publication call.
     ".rs",
     ".scala"
   ],
+  "id": "DIS_CODE_BRACE_DEPOSIT_V51",
+  "justification": "Deposit identified research outputs through an explicit publication call. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "\\b(?:zenodo\\s*\\.\\s*deposit|repository\\s*\\.\\s*publish)\\s*\\(",
+    "\\b(?:researchOutputs|research_outputs|trialResults|researchDataset)\\b"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1"
+  "source": "code",
+  "stage": "Dissemination",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1133,17 +1130,15 @@ Export a scientific communication artifact from research outputs.
 
 ```json
 {
-  "id": "DIS_CODE_PORTABLE_EXPORT_V51",
-  "stage": "Dissemination",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Export a scientific communication artifact from research outputs.",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "DIS_CODE_PORTABLE_EXPORT_V51",
+  "justification": "Export a scientific communication artifact from research outputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
   "positive": [
     "\\b(?:savefig|ggsave|saveFigure|exportFigure|writeFigure|exportPlot|writeReport|publishResults)\\b\\s*(?:\\(|[A-Za-z_$])",
     "\\b(?:results|plot|figure|report|researchOutputs|trialResults)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -1156,11 +1151,13 @@ Export a scientific communication artifact from research outputs.
     "code_syntax_policy",
     "languages"
   ],
-  "justification": "Export a scientific communication artifact from research outputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "scope": "portable-statement",
-  "detector": "portable-lexical-v1"
+  "source": "code",
+  "stage": "Dissemination",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1173,6 +1170,7 @@ Repository explicitly presents archived research data and results; does not by i
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Repository explicitly presents archived research data and results; does not by itself establish runnable experiments or evaluation code.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -1205,14 +1203,13 @@ Repository explicitly presents archived research data and results; does not by i
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54
+## DIS_DOC_LINKED_RESEARCH_ARTIFACT_FINAL
 
 linked research artifact
 
@@ -1221,6 +1218,7 @@ linked research artifact
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
   "description": "linked research artifact",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
   ],
@@ -1228,7 +1226,7 @@ linked research artifact
     "\\b(?:future|roadmap|installation|dependencies|acknowledgments|credits|license|related work)\\b",
     "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
   ],
-  "id": "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+  "id": "DIS_DOC_LINKED_RESEARCH_ARTIFACT_FINAL",
   "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
   "layer": "contextual",
   "positive": [
@@ -1252,10 +1250,9 @@ linked research artifact
   "stage": "Dissemination",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.4-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1289,7 +1286,7 @@ Assess scientific performance against reference outcomes or baselines.
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.1.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -1335,7 +1332,7 @@ Assess scientific performance against reference outcomes or baselines.
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -1381,7 +1378,7 @@ Assess scientific performance against reference outcomes or baselines.
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -1427,7 +1424,7 @@ Assess scientific performance against reference outcomes or baselines.
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -1474,7 +1471,7 @@ Repository-scoped research activity and object using common disciplinary wording
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -1510,7 +1507,7 @@ Research-specific implementation operation with a contextual identifier.
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 3
 }
 ```
@@ -1552,7 +1549,7 @@ Conjunctive research operation and contextual identifier in R, Julia, MATLAB or 
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 6
 }
 ```
@@ -1599,7 +1596,7 @@ Candidate extended wording for evaluation.
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -1613,6 +1610,7 @@ Development candidate: documentation-described evaluation activities and artifac
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Development candidate: documentation-described evaluation activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -1647,10 +1645,9 @@ Development candidate: documentation-described evaluation activities and artifac
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1663,6 +1660,7 @@ Development candidate: documentation-described evaluation activities and artifac
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Development candidate: documentation-described evaluation activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -1697,10 +1695,9 @@ Development candidate: documentation-described evaluation activities and artifac
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1710,32 +1707,9 @@ Scientific metric calls connected to reference/predicted research outcomes.
 
 ```json
 {
-  "id": "EVA_CODE_BRACE_METRIC_CALL_V51",
-  "stage": "Evaluation",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Scientific metric calls connected to reference/predicted research outcomes.",
-  "positive": [
-    "\\b(?:f1Score|f1_score|precisionScore|recallScore|accuracyScore|meanSquaredError|rmse|rocAuc|computeAccuracy)\\s*\\(",
-    "\\b(?:y_true|referenceLabels|reference_labels|ground_truth|gold|labels|predictions|predicted)\\b"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Scientific metric calls connected to reference/predicted research outcomes. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -1749,8 +1723,31 @@ Scientific metric calls connected to reference/predicted research outcomes.
     ".rs",
     ".scala"
   ],
+  "id": "EVA_CODE_BRACE_METRIC_CALL_V51",
+  "justification": "Scientific metric calls connected to reference/predicted research outcomes. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "\\b(?:f1Score|f1_score|precisionScore|recallScore|accuracyScore|meanSquaredError|rmse|rocAuc|computeAccuracy)\\s*\\(",
+    "\\b(?:y_true|referenceLabels|reference_labels|ground_truth|gold|labels|predictions|predicted)\\b"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1"
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1760,33 +1757,9 @@ Explicit metric arithmetic connected to reference/prediction counts.
 
 ```json
 {
-  "id": "EVA_CODE_BRACE_METRIC_ARITHMETIC_V51",
-  "stage": "Evaluation",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Explicit metric arithmetic connected to reference/prediction counts.",
-  "positive": [
-    "\\b(?:precision|recall|f1|fscore|accuracy|rmse|mse)\\s*=",
-    "(?:/|\\b(?:sqrt|pow)\\s*\\()",
-    "\\b(?:truePositives|falsePositives|tp|fp|fn|correct|predictions|labels|gold|predicted|n_correct)\\b"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Explicit metric arithmetic connected to reference/prediction counts. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -1800,8 +1773,32 @@ Explicit metric arithmetic connected to reference/prediction counts.
     ".rs",
     ".scala"
   ],
+  "id": "EVA_CODE_BRACE_METRIC_ARITHMETIC_V51",
+  "justification": "Explicit metric arithmetic connected to reference/prediction counts. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "\\b(?:precision|recall|f1|fscore|accuracy|rmse|mse)\\s*=",
+    "(?:/|\\b(?:sqrt|pow)\\s*\\()",
+    "\\b(?:truePositives|falsePositives|tp|fp|fn|correct|predictions|labels|gold|predicted|n_correct)\\b"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1"
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1811,17 +1808,15 @@ Compute a research metric against identified outcomes/reference labels.
 
 ```json
 {
-  "id": "EVA_CODE_PORTABLE_METRIC_V51",
-  "stage": "Evaluation",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Compute a research metric against identified outcomes/reference labels.",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "EVA_CODE_PORTABLE_METRIC_V51",
+  "justification": "Compute a research metric against identified outcomes/reference labels. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
   "positive": [
     "\\b(?:f1[_-]?score|precision[_-]?score|recall[_-]?score|accuracy[_-]?score|mean[_-]?squared[_-]?error|rmse|roc[_-]?auc|compute[_-]?accuracy)\\b\\s*(?:\\(|[A-Za-z_$])",
     "\\b(?:y_true|y_test|referenceLabels|reference_labels|ground_truth|gold|labels|predictions|predicted)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -1834,11 +1829,13 @@ Compute a research metric against identified outcomes/reference labels.
     "code_syntax_policy",
     "languages"
   ],
-  "justification": "Compute a research metric against identified outcomes/reference labels. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "scope": "portable-statement",
-  "detector": "portable-lexical-v1"
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1848,18 +1845,16 @@ Compute explicit metric arithmetic using prediction/reference counts.
 
 ```json
 {
-  "id": "EVA_CODE_PORTABLE_ARITHMETIC_V51",
-  "stage": "Evaluation",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Compute explicit metric arithmetic using prediction/reference counts.",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "EVA_CODE_PORTABLE_ARITHMETIC_V51",
+  "justification": "Compute explicit metric arithmetic using prediction/reference counts. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
   "positive": [
     "\\b(?:precision|recall|f1|fscore|accuracy|rmse|mse)\\s*(?:=|<-)",
     "(?:/|\\b(?:sqrt|pow)\\s*\\()",
     "\\b(?:truePositives|falsePositives|tp|fp|fn|correct|predictions|labels|gold|predicted|n_correct)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -1872,11 +1867,13 @@ Compute explicit metric arithmetic using prediction/reference counts.
     "code_syntax_policy",
     "languages"
   ],
-  "justification": "Compute explicit metric arithmetic using prediction/reference counts. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "scope": "portable-statement",
-  "detector": "portable-lexical-v1"
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -1886,21 +1883,15 @@ shell evaluate
 
 ```json
 {
-  "id": "EVA_CODE_SHELL_EVALUATE_V52",
-  "stage": "Evaluation",
-  "source": "code",
-  "version": "0.5.2-development",
   "description": "shell evaluate",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "EVA_CODE_SHELL_EVALUATE_V52",
+  "justification": "shell evaluate Development evidence candidate; no repository identity or reference labels used.",
   "positive": [
     "(?m)^\\s*(?:(?:python[23]?|perl|Rscript)\\s+)?(?:[\\w./-]*/)?(?:evaluate|eval|score)(?:[_.-][\\w.-]+|\\.py|\\.pl)?\\s+",
     "(?:\\$|>|\\b(?:gold|reference|predict\\w*|test)\\b)"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 8,
-  "scope": "portable-statement",
-  "detector": "portable-lexical-v1",
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -1910,7 +1901,13 @@ shell evaluate
     "matched_conditions",
     "url"
   ],
-  "justification": "shell evaluate Development evidence candidate; no repository identity or reference labels used."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -1920,21 +1917,15 @@ heldout error
 
 ```json
 {
-  "id": "EVA_CODE_HELDOUT_ERROR_V52",
-  "stage": "Evaluation",
-  "source": "code",
-  "version": "0.5.2-development",
   "description": "heldout error",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "EVA_CODE_HELDOUT_ERROR_V52",
+  "justification": "heldout error Development evidence candidate; no repository identity or reference labels used.",
   "positive": [
     "\\b\\w+\\s*=\\s*[^;\\n]*\\b\\w*(?:test|heldout|gold|reference)\\w*\\b[^;\\n]*-\\s*\\w+",
     "(?:=|\\()"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 8,
-  "scope": "portable-statement",
-  "detector": "portable-lexical-v1",
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -1944,7 +1935,13 @@ heldout error
     "matched_conditions",
     "url"
   ],
-  "justification": "heldout error Development evidence candidate; no repository identity or reference labels used."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -1954,21 +1951,15 @@ metric names
 
 ```json
 {
-  "id": "EVA_CODE_METRIC_NAMES_V52",
-  "stage": "Evaluation",
-  "source": "code",
-  "version": "0.5.2-development",
   "description": "metric names",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "EVA_CODE_METRIC_NAMES_V52",
+  "justification": "metric names Development evidence candidate; no repository identity or reference labels used.",
   "positive": [
     "\\b(?:accuracy_score|precision_score|recall_score|f1_score|mean_squared_error|roc_auc_score|classification_report)\\s*\\(",
     "\\b\\w*(?:true|gold|test|reference|labels|target)\\w*\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 8,
-  "scope": "portable-statement",
-  "detector": "portable-lexical-v1",
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -1978,11 +1969,17 @@ metric names
     "matched_conditions",
     "url"
   ],
-  "justification": "metric names Development evidence candidate; no repository identity or reference labels used."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
-## EVA_DOC_REPORTED_METRIC_V54
+## EVA_DOC_REPORTED_METRIC_FINAL
 
 reported metric
 
@@ -1991,6 +1988,7 @@ reported metric
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
   "description": "reported metric",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
   ],
@@ -1999,7 +1997,7 @@ reported metric
     "\\b(?:references|bibliography)\\b",
     "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
   ],
-  "id": "EVA_DOC_REPORTED_METRIC_V54",
+  "id": "EVA_DOC_REPORTED_METRIC_FINAL",
   "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
   "layer": "contextual",
   "positive": [
@@ -2024,14 +2022,13 @@ reported metric
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.4-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## EVA_DOC_RESEARCH_EVALUATION_COMMAND_V54
+## EVA_DOC_RESEARCH_EVALUATION_COMMAND_FINAL
 
 research evaluation command
 
@@ -2040,6 +2037,7 @@ research evaluation command
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
   "description": "research evaluation command",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
   ],
@@ -2048,7 +2046,7 @@ research evaluation command
     "\\b(?:references|bibliography)\\b",
     "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
   ],
-  "id": "EVA_DOC_RESEARCH_EVALUATION_COMMAND_V54",
+  "id": "EVA_DOC_RESEARCH_EVALUATION_COMMAND_FINAL",
   "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
   "layer": "contextual",
   "positive": [
@@ -2072,33 +2070,27 @@ research evaluation command
   "stage": "Evaluation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.4-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## EVA_CODE_STATISTICAL_COMPARISON_V54
+## EVA_CODE_STATISTICAL_COMPARISON_FINAL
 
 statistical comparison
 
 ```json
 {
-  "id": "EVA_CODE_STATISTICAL_COMPARISON_V54",
-  "version": "0.5.4-development",
-  "stage": "Evaluation",
-  "source": "code",
+  "description": "statistical comparison",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "id": "EVA_CODE_STATISTICAL_COMPARISON_FINAL",
+  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
   "positive": [
     "\\b(?:t\\.test|wilcox\\.test|anova|ttest|ttest_ind|ttest_rel|mannwhitneyu|kstest|ks_2samp|chisquare|cor_test|cor\\.test)\\s*\\(",
     "\\(\\s*[A-Za-z_]\\w*"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -2109,31 +2101,31 @@ statistical comparison
     "matched_conditions",
     "url"
   ],
-  "description": "statistical comparison",
-  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## EVA_CODE_CROSS_VALIDATION_CALL_V54
+## EVA_CODE_CROSS_VALIDATION_CALL_FINAL
 
 cross validation call
 
 ```json
 {
-  "id": "EVA_CODE_CROSS_VALIDATION_CALL_V54",
-  "version": "0.5.4-development",
-  "stage": "Evaluation",
-  "source": "code",
+  "description": "cross validation call",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "id": "EVA_CODE_CROSS_VALIDATION_CALL_FINAL",
+  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
   "positive": [
     "\\b(?:cross_val_score|cross_validate|crossval|cv\\.glmnet)\\s*\\(",
     "\\(\\s*[A-Za-z_]\\w*"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -2144,8 +2136,13 @@ cross validation call
     "matched_conditions",
     "url"
   ],
-  "description": "cross validation call",
-  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Evaluation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -2179,7 +2176,7 @@ Execute controlled research trials or parameter studies.
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.1.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -2225,7 +2222,7 @@ Execute controlled research trials or parameter studies.
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -2271,7 +2268,7 @@ Execute controlled research trials or parameter studies.
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -2317,7 +2314,7 @@ Execute controlled research trials or parameter studies.
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -2364,7 +2361,7 @@ Repository-scoped research activity and object using common disciplinary wording
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -2400,7 +2397,7 @@ Research-specific implementation operation with a contextual identifier.
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 3
 }
 ```
@@ -2442,7 +2439,7 @@ Conjunctive research operation and contextual identifier in R, Julia, MATLAB or 
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 6
 }
 ```
@@ -2489,7 +2486,7 @@ Candidate extended wording for experimentation.
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -2503,6 +2500,7 @@ Development candidate: documentation-described experimentation activities and ar
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Development candidate: documentation-described experimentation activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -2536,10 +2534,9 @@ Development candidate: documentation-described experimentation activities and ar
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -2552,6 +2549,7 @@ Development candidate: documentation-described experimentation activities and ar
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Development candidate: documentation-described experimentation activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -2585,10 +2583,9 @@ Development candidate: documentation-described experimentation activities and ar
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -2598,34 +2595,9 @@ Controlled/repeated research runs with a scientific call and recorded outcomes.
 
 ```json
 {
-  "id": "EXP_CODE_BRACE_TRIALS_V51",
-  "stage": "Experimentation",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Controlled/repeated research runs with a scientific call and recorded outcomes.",
-  "positive": [
-    "\\b(?:for|while)\\s*\\(",
-    "\\b(?:n_trials|num_trials|trialSeeds|seeds|experimentalConditions|parameterGrid|param_grid|nRepeats|trial|experiment)\\b",
-    "\\b(?:runTrial|run_trial|runExperiment|run_experiment|fit|train|evaluate)\\s*\\(",
-    "\\b(?:results|scores|observations|outcomes)\\b"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Controlled/repeated research runs with a scientific call and recorded outcomes. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -2639,8 +2611,33 @@ Controlled/repeated research runs with a scientific call and recorded outcomes.
     ".rs",
     ".scala"
   ],
+  "id": "EXP_CODE_BRACE_TRIALS_V51",
+  "justification": "Controlled/repeated research runs with a scientific call and recorded outcomes. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "\\b(?:for|while)\\s*\\(",
+    "\\b(?:n_trials|num_trials|trialSeeds|seeds|experimentalConditions|parameterGrid|param_grid|nRepeats|trial|experiment)\\b",
+    "\\b(?:runTrial|run_trial|runExperiment|run_experiment|fit|train|evaluate)\\s*\\(",
+    "\\b(?:results|scores|observations|outcomes)\\b"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1"
+  "source": "code",
+  "stage": "Experimentation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -2650,18 +2647,16 @@ Apply a research runner across explicit conditions and retain results.
 
 ```json
 {
-  "id": "EXP_CODE_PORTABLE_TRIALS_V51",
-  "stage": "Experimentation",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Apply a research runner across explicit conditions and retain results.",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "EXP_CODE_PORTABLE_TRIALS_V51",
+  "justification": "Apply a research runner across explicit conditions and retain results. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
   "positive": [
     "\\b(?:run[_-]?trial|run[_-]?experiment|lapply|parallelMap|map|sweep)\\b\\s*(?:\\(|[A-Za-z_$])",
     "\\b(?:trialSeeds|trial_seeds|seeds|experimentalConditions|parameterGrid|param_grid|trial_conditions)\\b",
     "\\b(?:results|scores|outcomes)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -2674,11 +2669,13 @@ Apply a research runner across explicit conditions and retain results.
     "code_syntax_policy",
     "languages"
   ],
-  "justification": "Apply a research runner across explicit conditions and retain results. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "scope": "portable-statement",
-  "detector": "portable-lexical-v1"
+  "source": "code",
+  "stage": "Experimentation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -2688,21 +2685,18 @@ Scientific runner call in a file with an executable repeat/parameter loop; file-
 
 ```json
 {
-  "id": "EXP_CODE_REPEATED_SCIENTIFIC_CALL_V52",
-  "stage": "Experimentation",
-  "source": "code",
-  "version": "0.5.2-development",
   "description": "Scientific runner call in a file with an executable repeat/parameter loop; file-level context, not proven data flow.",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "file_context_patterns": [
+    "\\bfor\\b[^\\n]*(?:reps|trials|seeds|folds|length\\s*\\(|range\\s*\\()"
+  ],
+  "id": "EXP_CODE_REPEATED_SCIENTIFIC_CALL_V52",
+  "justification": "Scientific runner call in a file with an executable repeat/parameter loop; file-level context, not proven data flow. Development evidence candidate; no repository identity or reference labels used.",
   "positive": [
     "\\b(?:grad_descent|gradient_descent|run_experiment|run_trial|cross_val_score|cross_validate)\\s*\\(",
     "(?:=|\\()"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 8,
-  "scope": "portable-statement",
-  "detector": "portable-lexical-v1",
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -2712,10 +2706,13 @@ Scientific runner call in a file with an executable repeat/parameter loop; file-
     "matched_conditions",
     "url"
   ],
-  "file_context_patterns": [
-    "\\bfor\\b[^\\n]*(?:reps|trials|seeds|folds|length\\s*\\(|range\\s*\\()"
-  ],
-  "justification": "Scientific runner call in a file with an executable repeat/parameter loop; file-level context, not proven data flow. Development evidence candidate; no repository identity or reference labels used."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Experimentation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -2725,21 +2722,16 @@ Execute an experimental function across an explicit design table.
 
 ```json
 {
-  "id": "EXP_CODE_FACTORIAL_RUNS_V53",
-  "stage": "Experimentation",
-  "source": "code",
-  "version": "0.5.3-development",
+  "description": "Execute an experimental function across an explicit design table.",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "id": "EXP_CODE_FACTORIAL_RUNS_V53",
+  "justification": "Scientific runner over design rows, not a generic collection map.",
   "positive": [
     "\\b(?:apply|lapply|sapply|map)\\s*\\(",
     "\\bdesign\\b",
     "\\b(?:experiment|run_experiment|run_trial)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -2750,8 +2742,13 @@ Execute an experimental function across an explicit design table.
     "matched_conditions",
     "url"
   ],
-  "description": "Execute an experimental function across an explicit design table.",
-  "justification": "Scientific runner over design rows, not a generic collection map."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Experimentation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -2761,11 +2758,9 @@ Execute agent updates inside a bounded simulated-time loop and explicitly advanc
 
 ```json
 {
-  "id": "EXP_CODE_AGENT_TIME_STEPS_V53",
-  "stage": "Experimentation",
-  "source": "code",
+  "description": "Execute agent updates inside a bounded simulated-time loop and explicitly advance simulated time; not a generic software loop.",
   "detector": "brace-lexical-v1",
-  "scope": "lexical-block",
+  "exclusions": [],
   "extensions": [
     ".java",
     ".js",
@@ -2773,17 +2768,13 @@ Execute agent updates inside a bounded simulated-time loop and explicitly advanc
     ".cpp",
     ".cc"
   ],
+  "id": "EXP_CODE_AGENT_TIME_STEPS_V53",
+  "justification": "Execute agent updates inside a bounded simulated-time loop and explicitly advance simulated time; not a generic software loop. Comments and string contents are masked. No repository identity or reference label is used.",
   "positive": [
     "\\b(?:while|for)\\s*\\([^\\n]*(?:currentTick|timeStep|timestep|simulationTime)\\s*\\(",
     "\\b(?:queryAllAgents|updateAgents|stepAgents|advanceAgents)\\s*\\(",
     "\\.\\s*(?:nextTick|advanceTime|nextTimeStep)\\s*\\("
   ],
-  "description": "Execute agent updates inside a bounded simulated-time loop and explicitly advance simulated time; not a generic software loop.",
-  "version": "0.5.3-development",
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -2794,11 +2785,17 @@ Execute agent updates inside a bounded simulated-time loop and explicitly advanc
     "matched_conditions",
     "url"
   ],
-  "justification": "Execute agent updates inside a bounded simulated-time loop and explicitly advance simulated time; not a generic software loop. Comments and string contents are masked. No repository identity or reference label is used."
+  "scope": "lexical-block",
+  "source": "code",
+  "stage": "Experimentation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54
+## EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_FINAL
 
 scientific train test command
 
@@ -2807,6 +2804,7 @@ scientific train test command
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
   "description": "scientific train test command",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
   ],
@@ -2815,7 +2813,7 @@ scientific train test command
     "\\b(?:references|bibliography)\\b",
     "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
   ],
-  "id": "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+  "id": "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_FINAL",
   "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
   "layer": "contextual",
   "positive": [
@@ -2839,34 +2837,28 @@ scientific train test command
   "stage": "Experimentation",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.4-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## EXP_CODE_ODE_SIMULATION_RUN_V54
+## EXP_CODE_ODE_SIMULATION_RUN_FINAL
 
 ode simulation run
 
 ```json
 {
-  "id": "EXP_CODE_ODE_SIMULATION_RUN_V54",
-  "version": "0.5.4-development",
-  "stage": "Experimentation",
-  "source": "code",
+  "description": "ode simulation run",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "id": "EXP_CODE_ODE_SIMULATION_RUN_FINAL",
+  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
   "positive": [
     "\\b(?:ode15s|ode45|ode23s?|ode113|odeint|solve_ivp)\\s*\\(",
     "\\b(?:t|tspan|time|times|t_eval)\\b",
     "\\b(?:y0|initial\\w*|state0)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -2877,8 +2869,13 @@ ode simulation run
     "matched_conditions",
     "url"
   ],
-  "description": "ode simulation run",
-  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Experimentation",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -2912,7 +2909,7 @@ Implement a scientific model, algorithm, or analytical technique.
   "stage": "Method",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.1.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -2958,7 +2955,7 @@ Implement a scientific model, algorithm, or analytical technique.
   "stage": "Method",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -3004,7 +3001,7 @@ Implement a scientific model, algorithm, or analytical technique.
   "stage": "Method",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -3050,7 +3047,7 @@ Implement a scientific model, algorithm, or analytical technique.
   "stage": "Method",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -3097,7 +3094,7 @@ Repository-scoped research activity and object using common disciplinary wording
   "stage": "Method",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -3132,7 +3129,7 @@ Research-specific implementation operation with a contextual identifier.
   "stage": "Method",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -3174,7 +3171,7 @@ Conjunctive research operation and contextual identifier in R, Julia, MATLAB or 
   "stage": "Method",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 6
 }
 ```
@@ -3221,7 +3218,7 @@ Candidate extended wording for method.
   "stage": "Method",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -3232,33 +3229,9 @@ Invoke scientific model computation with research-input variables.
 
 ```json
 {
-  "id": "MET_CODE_BRACE_MODEL_CALL_V51",
-  "stage": "Method",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Invoke scientific model computation with research-input variables.",
-  "positive": [
-    "\\b(?:fit|train|predict|infer|optimize|solve)\\s*\\(",
-    "\\b(?:model|estimator|classifier|solver)\\b",
-    "\\b(?:data|dataset|features|samples|observations|targets|labels)\\b"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Invoke scientific model computation with research-input variables. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -3272,8 +3245,32 @@ Invoke scientific model computation with research-input variables.
     ".rs",
     ".scala"
   ],
+  "id": "MET_CODE_BRACE_MODEL_CALL_V51",
+  "justification": "Invoke scientific model computation with research-input variables. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "\\b(?:fit|train|predict|infer|optimize|solve)\\s*\\(",
+    "\\b(?:model|estimator|classifier|solver)\\b",
+    "\\b(?:data|dataset|features|samples|observations|targets|labels)\\b"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1"
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -3283,32 +3280,10 @@ Numerical operations within an explicitly named scientific computation routine.
 
 ```json
 {
-  "id": "MET_CODE_BRACE_NAMED_COMPUTATION_V51",
-  "stage": "Method",
-  "source": "code",
-  "version": "0.5.1-development",
+  "context_pattern": "\\b\\w*(?:cosine|jaccard|similarity|likelihood|posterior|entropy|gradient|eigen|svd|estimate|infer|optim|regress|classifier|computeSimScore)\\w*\\s*\\(",
   "description": "Numerical operations within an explicitly named scientific computation routine.",
-  "positive": [
-    "(?:\\b[A-Za-z_]\\w*(?:\\[[^\\]\\n]+\\])?\\s*(?:\\+=|-=|\\*=|/=|=)|\\b(?:sqrt|pow|exp|log|dot|matmul|solve|min|max)\\s*\\()",
-    "(?:\\b[A-Za-z_]\\w*(?:\\[[^\\]\\n]+\\])?\\s*[*/+-]\\s*[A-Za-z_0-9]|\\b(?:sqrt|pow|exp|log|dot|matmul|solve)\\s*\\()"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Numerical operations within an explicitly named scientific computation routine. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -3322,9 +3297,31 @@ Numerical operations within an explicitly named scientific computation routine.
     ".rs",
     ".scala"
   ],
+  "id": "MET_CODE_BRACE_NAMED_COMPUTATION_V51",
+  "justification": "Numerical operations within an explicitly named scientific computation routine. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "(?:\\b[A-Za-z_]\\w*(?:\\[[^\\]\\n]+\\])?\\s*(?:\\+=|-=|\\*=|/=|=)|\\b(?:sqrt|pow|exp|log|dot|matmul|solve|min|max)\\s*\\()",
+    "(?:\\b[A-Za-z_]\\w*(?:\\[[^\\]\\n]+\\])?\\s*[*/+-]\\s*[A-Za-z_0-9]|\\b(?:sqrt|pow|exp|log|dot|matmul|solve)\\s*\\()"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1",
-  "context_pattern": "\\b\\w*(?:cosine|jaccard|similarity|likelihood|posterior|entropy|gradient|eigen|svd|estimate|infer|optim|regress|classifier|computeSimScore)\\w*\\s*\\("
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -3334,18 +3331,16 @@ Invoke scientific model computation on research inputs.
 
 ```json
 {
-  "id": "MET_CODE_PORTABLE_MODEL_V51",
-  "stage": "Method",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Invoke scientific model computation on research inputs.",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "MET_CODE_PORTABLE_MODEL_V51",
+  "justification": "Invoke scientific model computation on research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
   "positive": [
     "\\b(?:fit|train|predict|infer|optimize|optim|solve|lm|glm)\\b\\s*(?:\\(|[A-Za-z_$])",
     "\\b(?:model|estimator|classifier|solver|regression)\\b",
     "\\b(?:data|dataset|features|samples|observations|targets|labels)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3358,11 +3353,13 @@ Invoke scientific model computation on research inputs.
     "code_syntax_policy",
     "languages"
   ],
-  "justification": "Invoke scientific model computation on research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "scope": "portable-statement",
-  "detector": "portable-lexical-v1"
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -3372,21 +3369,23 @@ Explicit implementation or derivation of a named research method, not merely cod
 
 ```json
 {
-  "id": "MET_DOC_IMPLEMENTED_METHOD_V52",
-  "stage": "Method",
-  "source": "documentation",
-  "version": "0.5.3-development",
+  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+  "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
   "description": "Explicit implementation or derivation of a named research method, not merely code accompanying a paper or training an existing model.",
+  "exclusions": [
+    "\\b(?:not implemented|future work|planned|todo|related work)\\b"
+  ],
+  "heading_exclusions": [
+    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+  ],
+  "id": "MET_DOC_IMPLEMENTED_METHOD_V52",
+  "justification": "Explicit implementation or derivation of a named research method, not merely code accompanying a paper or training an existing model. Development evidence candidate; no repository identity or reference labels used.",
+  "layer": "explicit",
   "positive": [
     "\\b(?:implement(?:s|ed|ation|ing)?|introduc(?:e|es|ed|ing)|propos(?:e|es|ed|ing)|deriv(?:e|es|ed|ation))\\b",
     "\\b(?:algorithm|method|estimator|architecture|optimization procedure|inference procedure)\\b"
   ],
-  "supporting": [],
-  "exclusions": [
-    "\\b(?:not implemented|future work|planned|todo|related work)\\b"
-  ],
-  "window_lines": 6,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3396,18 +3395,16 @@ Explicit implementation or derivation of a named research method, not merely cod
     "matched_conditions",
     "url"
   ],
-  "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
-  "layer": "explicit",
-  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
-  "heading_exclusions": [
-    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
-    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
-  ],
   "scope_exclusions": [
     "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
     "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
   ],
-  "justification": "Explicit implementation or derivation of a named research method, not merely code accompanying a paper or training an existing model. Development evidence candidate; no repository identity or reference labels used."
+  "source": "documentation",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 6
 }
 ```
 
@@ -3417,22 +3414,24 @@ Documented implementation with an explicit multistep computational mechanism, be
 
 ```json
 {
-  "id": "MET_DOC_COMPUTATIONAL_STEPS_V52",
-  "stage": "Method",
-  "source": "documentation",
-  "version": "0.5.3-development",
+  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+  "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
   "description": "Documented implementation with an explicit multistep computational mechanism, beyond merely training or citing a model.",
+  "exclusions": [
+    "\\b(?:not implemented|future work|planned|todo|related work)\\b"
+  ],
+  "heading_exclusions": [
+    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+  ],
+  "id": "MET_DOC_COMPUTATIONAL_STEPS_V52",
+  "justification": "Documented implementation with an explicit multistep computational mechanism, beyond merely training or citing a model. Development evidence candidate; no repository identity or reference labels used.",
+  "layer": "explicit",
   "positive": [
     "\\b(?:code|implementation|algorithm|method|pipeline|reranker|classifier)\\b",
     "\\b(?:consists? of|comprises?|composed of)\\b[^.!?]{0,100}\\b(?:steps|stages|components)\\b",
     "\\b(?:feature extraction|supervised learning|inference|optimization|sampling|ranking)\\b"
   ],
-  "supporting": [],
-  "exclusions": [
-    "\\b(?:not implemented|future work|planned|todo|related work)\\b"
-  ],
-  "window_lines": 8,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3442,18 +3441,16 @@ Documented implementation with an explicit multistep computational mechanism, be
     "matched_conditions",
     "url"
   ],
-  "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
-  "layer": "explicit",
-  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
-  "heading_exclusions": [
-    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
-    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
-  ],
   "scope_exclusions": [
     "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
     "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
   ],
-  "justification": "Documented implementation with an explicit multistep computational mechanism, beyond merely training or citing a model. Development evidence candidate; no repository identity or reference labels used."
+  "source": "documentation",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -3463,21 +3460,15 @@ numeric update
 
 ```json
 {
-  "id": "MET_CODE_NUMERIC_UPDATE_V52",
-  "stage": "Method",
-  "source": "code",
-  "version": "0.5.2-development",
   "description": "numeric update",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "MET_CODE_NUMERIC_UPDATE_V52",
+  "justification": "numeric update Development evidence candidate; no repository identity or reference labels used.",
   "positive": [
     "\\b\\w+\\s*=\\s*\\w+\\s*-\\s*\\w+\\s*\\*\\s*\\w*(?:grad|gradient)\\w*\\b",
     "(?:=|\\()"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 8,
-  "scope": "portable-statement",
-  "detector": "portable-lexical-v1",
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3487,7 +3478,13 @@ numeric update
     "matched_conditions",
     "url"
   ],
-  "justification": "numeric update Development evidence candidate; no repository identity or reference labels used."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -3497,21 +3494,15 @@ optimizer call
 
 ```json
 {
-  "id": "MET_CODE_OPTIMIZER_CALL_V52",
-  "stage": "Method",
-  "source": "code",
-  "version": "0.5.2-development",
   "description": "optimizer call",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "MET_CODE_OPTIMIZER_CALL_V52",
+  "justification": "optimizer call Development evidence candidate; no repository identity or reference labels used.",
   "positive": [
     "\\b(?:grad_descent|gradient_descent|fminunc|fmincon|fminsearch|least_squares|curve_fit)\\s*\\(",
     "\\b(?:W|X|Y|data|features|params|parameters|weights|theta)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 8,
-  "scope": "portable-statement",
-  "detector": "portable-lexical-v1",
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3521,7 +3512,13 @@ optimizer call
     "matched_conditions",
     "url"
   ],
-  "justification": "optimizer call Development evidence candidate; no repository identity or reference labels used."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -3531,21 +3528,24 @@ Repository implementation of an explicitly named experimental-design method.
 
 ```json
 {
-  "id": "MET_DOC_EXPERIMENTAL_DESIGN_V53",
-  "stage": "Method",
-  "source": "documentation",
-  "version": "0.5.3-development",
+  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+  "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
   "description": "Repository implementation of an explicitly named experimental-design method.",
+  "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b",
+  "exclusions": [
+    "\\b(?:not implemented|future work|planned|todo|related work)\\b"
+  ],
+  "heading_exclusions": [
+    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+  ],
+  "id": "MET_DOC_EXPERIMENTAL_DESIGN_V53",
+  "justification": "Named statistical design plus local implementation evidence; merely mentioning an experiment is insufficient.",
+  "layer": "explicit",
   "positive": [
     "\\b(?:statistical design of experiments|factorial design|fractional factorial|response surface methodology)\\b",
     "\\b(?:code|package|implementation|implement\\w*|developed)\\b"
   ],
-  "supporting": [],
-  "exclusions": [
-    "\\b(?:not implemented|future work|planned|todo|related work)\\b"
-  ],
-  "window_lines": 8,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3555,20 +3555,17 @@ Repository implementation of an explicitly named experimental-design method.
     "matched_conditions",
     "url"
   ],
-  "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
-  "layer": "explicit",
-  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
-  "heading_exclusions": [
-    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
-    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
-  ],
   "scope_exclusions": [
     "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
     "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
   ],
-  "justification": "Named statistical design plus local implementation evidence; merely mentioning an experiment is insufficient.",
+  "source": "documentation",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b"
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -3578,22 +3575,25 @@ Documented agent interaction/decision mechanism in a simulation implementation.
 
 ```json
 {
-  "id": "MET_DOC_AGENT_MECHANISM_V53",
-  "stage": "Method",
-  "source": "documentation",
-  "version": "0.5.3-development",
+  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+  "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
   "description": "Documented agent interaction/decision mechanism in a simulation implementation.",
+  "document_context_pattern": "\\b(?:API|code|package|simulation|model)\\b",
+  "exclusions": [
+    "\\b(?:not implemented|future work|planned|todo|related work)\\b"
+  ],
+  "heading_exclusions": [
+    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+  ],
+  "id": "MET_DOC_AGENT_MECHANISM_V53",
+  "justification": "Agent mechanism with its simulated environment, not merely a generic model or paper title.",
+  "layer": "explicit",
   "positive": [
     "\\b(?:agents?|multiagent|multi-agent)\\b",
     "\\b(?:trade|interact|decid\\w*|behaviou?r|actions?)\\b",
     "\\b(?:market|environment|simulation|simulat\\w*)\\b"
   ],
-  "supporting": [],
-  "exclusions": [
-    "\\b(?:not implemented|future work|planned|todo|related work)\\b"
-  ],
-  "window_lines": 8,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3603,20 +3603,17 @@ Documented agent interaction/decision mechanism in a simulation implementation.
     "matched_conditions",
     "url"
   ],
-  "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
-  "layer": "explicit",
-  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
-  "heading_exclusions": [
-    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
-    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
-  ],
   "scope_exclusions": [
     "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
     "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
   ],
-  "justification": "Agent mechanism with its simulated environment, not merely a generic model or paper title.",
+  "source": "documentation",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:API|code|package|simulation|model)\\b"
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -3626,24 +3623,18 @@ Assign an identified physical/statistical quantity using multiplicative arithmet
 
 ```json
 {
-  "id": "MET_CODE_PHYSICAL_EQUATION_V53",
-  "stage": "Method",
-  "source": "code",
+  "description": "Assign an identified physical/statistical quantity using multiplicative arithmetic, in source containing a nonlinear numerical operation. This is a lexical equation candidate; the file-context condition is not data-flow proof.",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "file_context_patterns": [
+    "\\b(?:exp|sqrt|log|log10|sin|cos|pow)\\s*\\("
+  ],
+  "id": "MET_CODE_PHYSICAL_EQUATION_V53",
+  "justification": "Assign an identified physical/statistical quantity using multiplicative arithmetic, in source containing a nonlinear numerical operation. This is a lexical equation candidate; the file-context condition is not data-flow proof. Comments and string contents are masked. No repository identity or reference label is used.",
   "positive": [
     "\\b(?:energy|density|pressure|temperature|radiation|concentration|resistance|conductance|flux|velocity|acceleration|potential|entropy|likelihood)\\w*\\s*(?:<-|=(?!=))",
     "(?:<-|=(?!=))\\s*[^;\\n]*\\b[A-Za-z_]\\w*\\s*[*/^]\\s*[A-Za-z_(]"
   ],
-  "file_context_patterns": [
-    "\\b(?:exp|sqrt|log|log10|sin|cos|pow)\\s*\\("
-  ],
-  "description": "Assign an identified physical/statistical quantity using multiplicative arithmetic, in source containing a nonlinear numerical operation. This is a lexical equation candidate; the file-context condition is not data-flow proof.",
-  "version": "0.5.3-development",
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3654,7 +3645,13 @@ Assign an identified physical/statistical quantity using multiplicative arithmet
     "matched_conditions",
     "url"
   ],
-  "justification": "Assign an identified physical/statistical quantity using multiplicative arithmetic, in source containing a nonlinear numerical operation. This is a lexical equation candidate; the file-context condition is not data-flow proof. Comments and string contents are masked. No repository identity or reference label is used."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -3664,11 +3661,9 @@ Compute an agent decision and dispatch its action to a simulated environment in 
 
 ```json
 {
-  "id": "MET_CODE_AGENT_DECISION_V53",
-  "stage": "Method",
-  "source": "code",
+  "description": "Compute an agent decision and dispatch its action to a simulated environment in one executable brace block.",
   "detector": "brace-lexical-v1",
-  "scope": "lexical-block",
+  "exclusions": [],
   "extensions": [
     ".java",
     ".js",
@@ -3676,16 +3671,12 @@ Compute an agent decision and dispatch its action to a simulated environment in 
     ".cpp",
     ".cc"
   ],
+  "id": "MET_CODE_AGENT_DECISION_V53",
+  "justification": "Compute an agent decision and dispatch its action to a simulated environment in one executable brace block. Comments and string contents are masked. No repository identity or reference label is used.",
   "positive": [
     "\\b\\w+\\s*=\\s*agent\\w*\\s*\\.\\s*(?:decide|act|chooseAction)\\s*\\(",
     "\\b(?:market|environment|world)\\w*\\s*\\.\\s*(?:send|applyAction|step)\\s*\\([^;\\n]*\\bagent\\w*\\b"
   ],
-  "description": "Compute an agent decision and dispatch its action to a simulated environment in one executable brace block.",
-  "version": "0.5.3-development",
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3696,31 +3687,40 @@ Compute an agent decision and dispatch its action to a simulated environment in 
     "matched_conditions",
     "url"
   ],
-  "justification": "Compute an agent decision and dispatch its action to a simulated environment in one executable brace block. Comments and string contents are masked. No repository identity or reference label is used."
+  "scope": "lexical-block",
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## MET_DOC_IMPLEMENTATION_OBJECT_V54
+## MET_DOC_IMPLEMENTATION_OBJECT_FINAL
 
 implementation object
 
 ```json
 {
-  "id": "MET_DOC_IMPLEMENTATION_OBJECT_V54",
-  "stage": "Method",
-  "source": "documentation",
-  "version": "0.5.4-development",
+  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+  "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
   "description": "implementation object",
+  "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b",
+  "exclusions": [
+    "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
+  ],
+  "heading_exclusions": [
+    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+  ],
+  "id": "MET_DOC_IMPLEMENTATION_OBJECT_FINAL",
+  "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
+  "layer": "explicit",
   "positive": [
     "\\b(?:implementation\\s+of|implements?|implemented|contains?\\s+(?:two\\s+versions?\\s+of\\s+)?(?:the\\s+)?(?:models?|algorithms?)|models?\\s+simulating)\\b",
     "\\b(?:parser|neural|tensor|bayesian|statistical|mathematical|mechanistic|differential|regression|optimization|inference|sampling|classification|discovery|reconstruction)\\b"
   ],
-  "supporting": [],
-  "exclusions": [
-    "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
-  ],
-  "window_lines": 8,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3730,43 +3730,43 @@ implementation object
     "matched_conditions",
     "url"
   ],
-  "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
-  "layer": "explicit",
-  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
-  "heading_exclusions": [
-    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
-    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
-  ],
   "scope_exclusions": [
     "\\b(?:other|external|third[- ]party)\\s+(?:repository|software|package|tool)\\b"
   ],
-  "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
+  "source": "documentation",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b"
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
-## MET_DOC_NUMERICAL_TECHNIQUE_V54
+## MET_DOC_NUMERICAL_TECHNIQUE_FINAL
 
 numerical technique
 
 ```json
 {
-  "id": "MET_DOC_NUMERICAL_TECHNIQUE_V54",
-  "stage": "Method",
-  "source": "documentation",
-  "version": "0.5.4-development",
+  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+  "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
   "description": "numerical technique",
+  "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b",
+  "exclusions": [
+    "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
+  ],
+  "heading_exclusions": [
+    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+  ],
+  "id": "MET_DOC_NUMERICAL_TECHNIQUE_FINAL",
+  "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
+  "layer": "explicit",
   "positive": [
     "\\b(?:compute\\w*|calculat\\w*|estimat\\w*|implement\\w*|learn\\w*|discover\\w*)\\b",
     "\\b(?:compatibility probability|matrix functions?|gaussian process|grammar[- ]guided|symbolic regression|differential equations?|posterior|likelihood|dependency pars(?:er|ing)|neural networks?|statistical models?)\\b"
   ],
-  "supporting": [],
-  "exclusions": [
-    "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
-  ],
-  "window_lines": 8,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3776,42 +3776,34 @@ numerical technique
     "matched_conditions",
     "url"
   ],
-  "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
-  "layer": "explicit",
-  "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
-  "heading_exclusions": [
-    "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
-    "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
-  ],
   "scope_exclusions": [
     "\\b(?:other|external|third[- ]party)\\s+(?:repository|software|package|tool)\\b"
   ],
-  "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
+  "source": "documentation",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b"
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
-## MET_CODE_SCIENTIFIC_NUMERICAL_CALL_V54
+## MET_CODE_SCIENTIFIC_NUMERICAL_CALL_FINAL
 
 scientific numerical call
 
 ```json
 {
-  "id": "MET_CODE_SCIENTIFIC_NUMERICAL_CALL_V54",
-  "version": "0.5.4-development",
-  "stage": "Method",
-  "source": "code",
+  "description": "scientific numerical call",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "id": "MET_CODE_SCIENTIFIC_NUMERICAL_CALL_FINAL",
+  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
   "positive": [
     "\\b(?:np\\.linalg\\.(?:solve|inv|eigh|eig|svd)|scipy\\.optimize\\.(?:minimize|least_squares)|trainNetwork|fitnet|patternnet|feedforwardnet|fminsearch)\\s*\\(",
     "\\(\\s*[A-Za-z_]\\w*"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3822,31 +3814,31 @@ scientific numerical call
     "matched_conditions",
     "url"
   ],
-  "description": "scientific numerical call",
-  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## MET_CODE_ODE_SOLVER_V54
+## MET_CODE_ODE_SOLVER_FINAL
 
 ode solver
 
 ```json
 {
-  "id": "MET_CODE_ODE_SOLVER_V54",
-  "version": "0.5.4-development",
-  "stage": "Method",
-  "source": "code",
+  "description": "ode solver",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "id": "MET_CODE_ODE_SOLVER_FINAL",
+  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
   "positive": [
     "\\b(?:ode15s|ode45|ode23s?|ode113|odeint|solve_ivp|NDSolve|NDSolveValue|DSolve)\\s*[\\[(]",
     "(?:@\\w+|\\b(?:model|rhs|fun|func|system|deriv\\w*|t|tspan|y0|initial\\w*)\\b)"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3857,31 +3849,34 @@ ode solver
     "matched_conditions",
     "url"
   ],
-  "description": "ode solver",
-  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## MET_CODE_SCIENTIFIC_FIT_CALL_V54
+## MET_CODE_SCIENTIFIC_FIT_CALL_FINAL
 
 scientific fit call
 
 ```json
 {
-  "id": "MET_CODE_SCIENTIFIC_FIT_CALL_V54",
-  "version": "0.5.4-development",
-  "stage": "Method",
-  "source": "code",
+  "description": "scientific fit call",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "file_context_patterns": [
+    "\\b(?:torch|tensorflow|keras|sklearn|scipy|numpy|Flux|GaussianProcesses)\\b"
+  ],
+  "id": "MET_CODE_SCIENTIFIC_FIT_CALL_FINAL",
+  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
   "positive": [
     "\\b\\w+\\s*\\.\\s*(?:fit|predict|forward|backward)\\s*\\(",
     "\\(\\s*[A-Za-z_]\\w*"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3892,34 +3887,31 @@ scientific fit call
     "matched_conditions",
     "url"
   ],
-  "description": "scientific fit call",
-  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
-  "file_context_patterns": [
-    "\\b(?:torch|tensorflow|keras|sklearn|scipy|numpy|Flux|GaussianProcesses)\\b"
-  ]
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## MET_CODE_STATISTICAL_ESTIMATOR_V54
+## MET_CODE_STATISTICAL_ESTIMATOR_FINAL
 
 statistical estimator
 
 ```json
 {
-  "id": "MET_CODE_STATISTICAL_ESTIMATOR_V54",
-  "version": "0.5.4-development",
-  "stage": "Method",
-  "source": "code",
+  "description": "statistical estimator",
   "detector": "portable-lexical-v1",
-  "scope": "portable-statement",
+  "exclusions": [],
+  "id": "MET_CODE_STATISTICAL_ESTIMATOR_FINAL",
+  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
   "positive": [
     "\\b(?:lm|glm|optim|optimize|svd|eigen|nnls|lsqnonneg|fminunc|fmincon|fitglm|fitlm|FindMinimum|FindMaximum)\\s*[\\[(]",
     "[\\[(]\\s*[A-Za-z_@]\\w*"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 12,
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -3930,8 +3922,13 @@ statistical estimator
     "matched_conditions",
     "url"
   ],
-  "description": "statistical estimator",
-  "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Method",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -3965,7 +3962,7 @@ Prepare research data through cleaning or transformation.
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.1.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -4011,7 +4008,7 @@ Prepare research data through cleaning or transformation.
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -4057,7 +4054,7 @@ Prepare research data through cleaning or transformation.
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -4103,7 +4100,7 @@ Prepare research data through cleaning or transformation.
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -4150,7 +4147,7 @@ Repository-scoped research activity and object using common disciplinary wording
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -4185,7 +4182,7 @@ Research-specific implementation operation with a contextual identifier.
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 8
 }
 ```
@@ -4227,7 +4224,7 @@ Conjunctive research operation and contextual identifier in R, Julia, MATLAB or 
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.3.0-candidate",
+  "version": "1.0.0",
   "window_lines": 6
 }
 ```
@@ -4274,7 +4271,7 @@ Candidate extended wording for processing.
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
+  "version": "1.0.0",
   "window_lines": 12
 }
 ```
@@ -4288,6 +4285,7 @@ Development candidate: documentation-described processing activities and artifac
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Development candidate: documentation-described processing activities and artifacts.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b",
     "\\b(?:reduced model|model reduction|reduced[- ]order model)\\b"
@@ -4322,10 +4320,9 @@ Development candidate: documentation-described processing activities and artifac
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.4-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -4335,32 +4332,9 @@ Call a data-preparation operation on identified research-input variables.
 
 ```json
 {
-  "id": "PRO_CODE_BRACE_TRANSFORM_V51",
-  "stage": "Processing",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Call a data-preparation operation on identified research-input variables.",
-  "positive": [
-    "\\b(?:normalize|normalise|standardize|tokenize|preprocess|extractFeatures|extract_features|resample|splitDataset|cleanData)\\s*\\(",
-    "\\b(?:data|dataset|corpus|samples|features|measurements|tokens|sentences|featureVector)\\b"
-  ],
-  "supporting": [],
+  "detector": "brace-lexical-v1",
   "exclusions": [],
-  "required_evidence_fields": [
-    "repository",
-    "commit",
-    "path",
-    "content_sha256",
-    "start_line",
-    "end_line",
-    "matched_conditions",
-    "url",
-    "code_syntax_policy",
-    "code_context"
-  ],
-  "justification": "Call a data-preparation operation on identified research-input variables. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "extensions": [
     ".c",
     ".cpp",
@@ -4374,8 +4348,31 @@ Call a data-preparation operation on identified research-input variables.
     ".rs",
     ".scala"
   ],
+  "id": "PRO_CODE_BRACE_TRANSFORM_V51",
+  "justification": "Call a data-preparation operation on identified research-input variables. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+  "positive": [
+    "\\b(?:normalize|normalise|standardize|tokenize|preprocess|extractFeatures|extract_features|resample|splitDataset|cleanData)\\s*\\(",
+    "\\b(?:data|dataset|corpus|samples|features|measurements|tokens|sentences|featureVector)\\b"
+  ],
+  "required_evidence_fields": [
+    "repository",
+    "commit",
+    "path",
+    "content_sha256",
+    "start_line",
+    "end_line",
+    "matched_conditions",
+    "url",
+    "code_syntax_policy",
+    "code_context"
+  ],
   "scope": "lexical-block",
-  "detector": "brace-lexical-v1"
+  "source": "code",
+  "stage": "Processing",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -4385,17 +4382,15 @@ Transform identified research inputs.
 
 ```json
 {
-  "id": "PRO_CODE_PORTABLE_TRANSFORM_V51",
-  "stage": "Processing",
-  "source": "code",
-  "version": "0.5.1-development",
   "description": "Transform identified research inputs.",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "PRO_CODE_PORTABLE_TRANSFORM_V51",
+  "justification": "Transform identified research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
   "positive": [
     "\\b(?:normalize|normalise|standardize|tokenize|preprocess|extract[_-]?features|resample|split[_-]?dataset|clean[_-]?data)\\b\\s*(?:\\(|[A-Za-z_$])",
     "\\b(?:data|dataset|corpus|samples|features|measurements|tokens|sentences|featureVector)\\b"
   ],
-  "supporting": [],
-  "exclusions": [],
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -4408,11 +4403,13 @@ Transform identified research inputs.
     "code_syntax_policy",
     "languages"
   ],
-  "justification": "Transform identified research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-  "status": "unadjudicated-development-candidate",
-  "window_lines": 12,
   "scope": "portable-statement",
-  "detector": "portable-lexical-v1"
+  "source": "code",
+  "stage": "Processing",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
@@ -4422,21 +4419,15 @@ shell prep
 
 ```json
 {
-  "id": "PRO_CODE_SHELL_PREP_V52",
-  "stage": "Processing",
-  "source": "code",
-  "version": "0.5.2-development",
   "description": "shell prep",
+  "detector": "portable-lexical-v1",
+  "exclusions": [],
+  "id": "PRO_CODE_SHELL_PREP_V52",
+  "justification": "shell prep Development evidence candidate; no repository identity or reference labels used.",
   "positive": [
     "(?m)^\\s*(?:[\\w./-]*/)?(?:prepare[-_][\\w.-]*|preprocess[\\w.-]*|tokenize[\\w.-]*|cv-prepdata\\.sh)\\s+",
     "(?:\\$[\\w{]|\\s-\\w|\\b(?:data|corpus|input|train)\\b)"
   ],
-  "supporting": [],
-  "exclusions": [],
-  "window_lines": 8,
-  "scope": "portable-statement",
-  "detector": "portable-lexical-v1",
-  "status": "unadjudicated-development-candidate",
   "required_evidence_fields": [
     "repository",
     "commit",
@@ -4446,7 +4437,13 @@ shell prep
     "matched_conditions",
     "url"
   ],
-  "justification": "shell prep Development evidence candidate; no repository identity or reference labels used."
+  "scope": "portable-statement",
+  "source": "code",
+  "stage": "Processing",
+  "status": "unadjudicated-development-candidate",
+  "supporting": [],
+  "version": "1.0.0",
+  "window_lines": 8
 }
 ```
 
@@ -4459,6 +4456,7 @@ Construct a subset of identified research inputs; not filtering a software log o
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
   "description": "Construct a subset of identified research inputs; not filtering a software log or a path name.",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
   ],
@@ -4492,14 +4490,13 @@ Construct a subset of identified research inputs; not filtering a software log o
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.3-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```
 
-## PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54
+## PRO_DOC_DOCUMENTED_INPUT_PREPARATION_FINAL
 
 documented input preparation
 
@@ -4508,6 +4505,7 @@ documented input preparation
   "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
   "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
   "description": "documented input preparation",
+  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
   "exclusions": [
     "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
   ],
@@ -4516,7 +4514,7 @@ documented input preparation
     "\\b(?:references|bibliography)\\b",
     "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
   ],
-  "id": "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54",
+  "id": "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_FINAL",
   "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
   "layer": "contextual",
   "positive": [
@@ -4540,9 +4538,8 @@ documented input preparation
   "stage": "Processing",
   "status": "unadjudicated-candidate",
   "supporting": [],
-  "version": "0.5.4-development",
-  "window_lines": 12,
   "unit_policy": "documented-workflow-v5",
-  "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+  "version": "1.0.0",
+  "window_lines": 12
 }
 ```

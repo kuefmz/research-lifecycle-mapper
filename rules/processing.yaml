@@ -25,7 +25,7 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.1.0-candidate",
+      "version": "1.0.0",
       "window_lines": 8
     },
     {
@@ -64,7 +64,7 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -103,7 +103,7 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -142,7 +142,7 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -182,7 +182,7 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -210,7 +210,7 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 8
     },
     {
@@ -245,7 +245,7 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 6
     },
     {
@@ -285,13 +285,14 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Development candidate: documentation-described processing activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b",
         "\\b(?:reduced model|model reduction|reduced[- ]order model)\\b"
@@ -326,38 +327,14 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.4-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "PRO_CODE_BRACE_TRANSFORM_V51",
-      "stage": "Processing",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Call a data-preparation operation on identified research-input variables.",
-      "positive": [
-        "\\b(?:normalize|normalise|standardize|tokenize|preprocess|extractFeatures|extract_features|resample|splitDataset|cleanData)\\s*\\(",
-        "\\b(?:data|dataset|corpus|samples|features|measurements|tokens|sentences|featureVector)\\b"
-      ],
-      "supporting": [],
+      "detector": "brace-lexical-v1",
       "exclusions": [],
-      "required_evidence_fields": [
-        "repository",
-        "commit",
-        "path",
-        "content_sha256",
-        "start_line",
-        "end_line",
-        "matched_conditions",
-        "url",
-        "code_syntax_policy",
-        "code_context"
-      ],
-      "justification": "Call a data-preparation operation on identified research-input variables. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "extensions": [
         ".c",
         ".cpp",
@@ -371,21 +348,42 @@
         ".rs",
         ".scala"
       ],
+      "id": "PRO_CODE_BRACE_TRANSFORM_V51",
+      "justification": "Call a data-preparation operation on identified research-input variables. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+      "positive": [
+        "\\b(?:normalize|normalise|standardize|tokenize|preprocess|extractFeatures|extract_features|resample|splitDataset|cleanData)\\s*\\(",
+        "\\b(?:data|dataset|corpus|samples|features|measurements|tokens|sentences|featureVector)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url",
+        "code_syntax_policy",
+        "code_context"
+      ],
       "scope": "lexical-block",
-      "detector": "brace-lexical-v1"
+      "source": "code",
+      "stage": "Processing",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "PRO_CODE_PORTABLE_TRANSFORM_V51",
-      "stage": "Processing",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Transform identified research inputs.",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "PRO_CODE_PORTABLE_TRANSFORM_V51",
+      "justification": "Transform identified research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
       "positive": [
         "\\b(?:normalize|normalise|standardize|tokenize|preprocess|extract[_-]?features|resample|split[_-]?dataset|clean[_-]?data)\\b\\s*(?:\\(|[A-Za-z_$])",
         "\\b(?:data|dataset|corpus|samples|features|measurements|tokens|sentences|featureVector)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -398,28 +396,24 @@
         "code_syntax_policy",
         "languages"
       ],
-      "justification": "Transform identified research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "scope": "portable-statement",
-      "detector": "portable-lexical-v1"
+      "source": "code",
+      "stage": "Processing",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "PRO_CODE_SHELL_PREP_V52",
-      "stage": "Processing",
-      "source": "code",
-      "version": "0.5.2-development",
       "description": "shell prep",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "PRO_CODE_SHELL_PREP_V52",
+      "justification": "shell prep Development evidence candidate; no repository identity or reference labels used.",
       "positive": [
         "(?m)^\\s*(?:[\\w./-]*/)?(?:prepare[-_][\\w.-]*|preprocess[\\w.-]*|tokenize[\\w.-]*|cv-prepdata\\.sh)\\s+",
         "(?:\\$[\\w{]|\\s-\\w|\\b(?:data|corpus|input|train)\\b)"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 8,
-      "scope": "portable-statement",
-      "detector": "portable-lexical-v1",
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -429,12 +423,19 @@
         "matched_conditions",
         "url"
       ],
-      "justification": "shell prep Development evidence candidate; no repository identity or reference labels used."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Processing",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 8
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Construct a subset of identified research inputs; not filtering a software log or a path name.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -468,15 +469,15 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
       "description": "documented input preparation",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
       ],
@@ -485,7 +486,7 @@
         "\\b(?:references|bibliography)\\b",
         "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
-      "id": "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_V54",
+      "id": "PRO_DOC_DOCUMENTED_INPUT_PREPARATION_FINAL",
       "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
       "layer": "contextual",
       "positive": [
@@ -509,12 +510,11 @@
       "stage": "Processing",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.4-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     }
   ],
   "stage": "Processing",
-  "version": "0.5.4-development"
+  "version": "1.0.0"
 }

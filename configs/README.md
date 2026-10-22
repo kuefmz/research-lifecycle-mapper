@@ -1,7 +1,7 @@
 # Configuration inventory
 
-Only `consolidated-development-v5.4/` is the final scientific profile. The installed
-default is identical. The name and catalog metadata preserve existing run identities.
+Only `heuristics/` is the final scientific profile. The installed
+default is identical. Completed runs retain their original manifests; normalized release metadata changes catalog hashes.
 
 Other configuration files are compatibility/data-ingestion tools:
 

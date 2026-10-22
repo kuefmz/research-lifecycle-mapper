@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_final_default_is_exact_frozen_profile():
-    expected, digest = analysis.load_rules(ROOT / "configs/consolidated-development-v5.4")
+    expected, digest = analysis.load_rules(ROOT / "configs/heuristics")
     actual, default_digest = analysis.load_rules()
     assert len(actual) == 105
     assert actual == expected and digest == default_digest
@@ -24,7 +24,7 @@ def test_final_default_is_exact_frozen_profile():
         snapshot = ROOT / "benchmark/synthetic/snapshots" / name
         for mode in ["documentation-only", "code-only", "combined"]:
             assert analysis.analyze(snapshot, mode) == analysis.analyze(
-                snapshot, mode, rules_dir=ROOT / "configs/consolidated-development-v5.4"
+                snapshot, mode, rules_dir=ROOT / "configs/heuristics"
             )
     subprocess.run([sys.executable, "scripts/verify_final_profile.py"], cwd=ROOT, check=True)
 

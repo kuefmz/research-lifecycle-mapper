@@ -25,7 +25,7 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.1.0-candidate",
+      "version": "1.0.0",
       "window_lines": 8
     },
     {
@@ -64,7 +64,7 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -103,7 +103,7 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -142,7 +142,7 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -184,7 +184,7 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.4-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -212,7 +212,7 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 8
     },
     {
@@ -247,7 +247,7 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 6
     },
     {
@@ -287,13 +287,14 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this (?:study|repository|software|experiment)|collected (?:data|responses)|recorded (?:data|responses))\\b",
       "description": "Development candidate: documentation-described collection activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b",
         "\\b(?:could|would|might|hypothetically|in principle)\\b"
@@ -328,15 +329,15 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.4-development",
-      "window_lines": 12,
-      "unit_policy": "sentence-scope-v54",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "unit_policy": "sentence-scope-final",
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Development candidate: documentation-described collection activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -370,38 +371,14 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "COL_CODE_BRACE_ACQUIRE_V51",
-      "stage": "Collection",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Acquire research inputs with a research-data identifier in the same executable block.",
-      "positive": [
-        "\\b(?:curl_easy_perform|curl_exec|fetch|readSensor|read_sensor|downloadData|downloadDataset|downloadCorpus)\\s*\\(",
-        "\\b(?:dataset|corpus|observations|measurements|raw_data|dataUrl|datasetUrl|research_data)\\b"
-      ],
-      "supporting": [],
+      "detector": "brace-lexical-v1",
       "exclusions": [],
-      "required_evidence_fields": [
-        "repository",
-        "commit",
-        "path",
-        "content_sha256",
-        "start_line",
-        "end_line",
-        "matched_conditions",
-        "url",
-        "code_syntax_policy",
-        "code_context"
-      ],
-      "justification": "Acquire research inputs with a research-data identifier in the same executable block. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "extensions": [
         ".c",
         ".cpp",
@@ -415,21 +392,42 @@
         ".rs",
         ".scala"
       ],
+      "id": "COL_CODE_BRACE_ACQUIRE_V51",
+      "justification": "Acquire research inputs with a research-data identifier in the same executable block. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+      "positive": [
+        "\\b(?:curl_easy_perform|curl_exec|fetch|readSensor|read_sensor|downloadData|downloadDataset|downloadCorpus)\\s*\\(",
+        "\\b(?:dataset|corpus|observations|measurements|raw_data|dataUrl|datasetUrl|research_data)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url",
+        "code_syntax_policy",
+        "code_context"
+      ],
       "scope": "lexical-block",
-      "detector": "brace-lexical-v1"
+      "source": "code",
+      "stage": "Collection",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "COL_CODE_PORTABLE_ACQUIRE_V51",
-      "stage": "Collection",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Acquire identified research inputs.",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "COL_CODE_PORTABLE_ACQUIRE_V51",
+      "justification": "Acquire identified research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
       "positive": [
         "\\b(?:fetch|download(?:\\.file|[_-]?(?:data|dataset|corpus))?|curl_easy_perform|read[_-]?sensor|acquire[_-]?data)\\b\\s*(?:\\(|[A-Za-z_$])",
         "\\b(?:dataset|corpus|observations|measurements|raw_data|dataUrl|datasetUrl|research_data)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -442,11 +440,13 @@
         "code_syntax_policy",
         "languages"
       ],
-      "justification": "Acquire identified research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "scope": "portable-statement",
-      "detector": "portable-lexical-v1"
+      "source": "code",
+      "stage": "Collection",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
@@ -485,10 +485,10 @@
       "stage": "Collection",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     }
   ],
   "stage": "Collection",
-  "version": "0.5.4-development"
+  "version": "1.0.0"
 }

@@ -25,7 +25,7 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.1.0-candidate",
+      "version": "1.0.0",
       "window_lines": 8
     },
     {
@@ -64,7 +64,7 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -103,7 +103,7 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -142,7 +142,7 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -182,7 +182,7 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -211,7 +211,7 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 3
     },
     {
@@ -246,7 +246,7 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 6
     },
     {
@@ -286,13 +286,14 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Development candidate: documentation-described dissemination activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -325,15 +326,15 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Development candidate: documentation-described dissemination activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -366,23 +367,33 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "DIS_CODE_BRACE_EXPORT_V51",
-      "stage": "Dissemination",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Export a scientific communication artifact with result/figure/report context.",
+      "detector": "brace-lexical-v1",
+      "exclusions": [],
+      "extensions": [
+        ".c",
+        ".cpp",
+        ".cc",
+        ".h",
+        ".hpp",
+        ".java",
+        ".js",
+        ".ts",
+        ".go",
+        ".rs",
+        ".scala"
+      ],
+      "id": "DIS_CODE_BRACE_EXPORT_V51",
+      "justification": "Export a scientific communication artifact with result/figure/report context. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
       "positive": [
         "\\b(?:savefig|saveFigure|exportFigure|writeFigure|exportPlot|writeReport|publishResults)\\s*\\(",
         "\\b(?:results|plot|figure|report|researchOutputs|trialResults)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -395,9 +406,18 @@
         "code_syntax_policy",
         "code_context"
       ],
-      "justification": "Export a scientific communication artifact with result/figure/report context. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+      "scope": "lexical-block",
+      "source": "code",
+      "stage": "Dissemination",
       "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
+    },
+    {
+      "description": "Deposit identified research outputs through an explicit publication call.",
+      "detector": "brace-lexical-v1",
+      "exclusions": [],
       "extensions": [
         ".c",
         ".cpp",
@@ -411,21 +431,12 @@
         ".rs",
         ".scala"
       ],
-      "scope": "lexical-block",
-      "detector": "brace-lexical-v1"
-    },
-    {
       "id": "DIS_CODE_BRACE_DEPOSIT_V51",
-      "stage": "Dissemination",
-      "source": "code",
-      "version": "0.5.1-development",
-      "description": "Deposit identified research outputs through an explicit publication call.",
+      "justification": "Deposit identified research outputs through an explicit publication call. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
       "positive": [
         "\\b(?:zenodo\\s*\\.\\s*deposit|repository\\s*\\.\\s*publish)\\s*\\(",
         "\\b(?:researchOutputs|research_outputs|trialResults|researchDataset)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -438,37 +449,24 @@
         "code_syntax_policy",
         "code_context"
       ],
-      "justification": "Deposit identified research outputs through an explicit publication call. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
-      "extensions": [
-        ".c",
-        ".cpp",
-        ".cc",
-        ".h",
-        ".hpp",
-        ".java",
-        ".js",
-        ".ts",
-        ".go",
-        ".rs",
-        ".scala"
-      ],
       "scope": "lexical-block",
-      "detector": "brace-lexical-v1"
+      "source": "code",
+      "stage": "Dissemination",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "DIS_CODE_PORTABLE_EXPORT_V51",
-      "stage": "Dissemination",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Export a scientific communication artifact from research outputs.",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "DIS_CODE_PORTABLE_EXPORT_V51",
+      "justification": "Export a scientific communication artifact from research outputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
       "positive": [
         "\\b(?:savefig|ggsave|saveFigure|exportFigure|writeFigure|exportPlot|writeReport|publishResults)\\b\\s*(?:\\(|[A-Za-z_$])",
         "\\b(?:results|plot|figure|report|researchOutputs|trialResults)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -481,16 +479,19 @@
         "code_syntax_policy",
         "languages"
       ],
-      "justification": "Export a scientific communication artifact from research outputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "scope": "portable-statement",
-      "detector": "portable-lexical-v1"
+      "source": "code",
+      "stage": "Dissemination",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Repository explicitly presents archived research data and results; does not by itself establish runnable experiments or evaluation code.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -523,15 +524,15 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
       "description": "linked research artifact",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
       ],
@@ -539,7 +540,7 @@
         "\\b(?:future|roadmap|installation|dependencies|acknowledgments|credits|license|related work)\\b",
         "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
-      "id": "DIS_DOC_LINKED_RESEARCH_ARTIFACT_V54",
+      "id": "DIS_DOC_LINKED_RESEARCH_ARTIFACT_FINAL",
       "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
       "layer": "contextual",
       "positive": [
@@ -563,12 +564,11 @@
       "stage": "Dissemination",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.4-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     }
   ],
   "stage": "Dissemination",
-  "version": "0.5.4-development"
+  "version": "1.0.0"
 }

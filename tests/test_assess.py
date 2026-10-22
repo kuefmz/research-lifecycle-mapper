@@ -203,5 +203,5 @@ def test_saved_profile_validation_does_not_replay(tmp_path, monkeypatch):
             run,
             ref,
             tmp_path / "wrong",
-            rules_dir=Path(__file__).resolve().parents[1] / "configs/consolidated-development-v5.4",
+            rules_dir=Path(__file__).resolve().parents[1] / "configs/heuristics",
         )

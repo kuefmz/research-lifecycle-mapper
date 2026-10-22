@@ -25,7 +25,7 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.1.0-candidate",
+      "version": "1.0.0",
       "window_lines": 8
     },
     {
@@ -64,7 +64,7 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -103,7 +103,7 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -142,7 +142,7 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -182,7 +182,7 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
@@ -211,7 +211,7 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 3
     },
     {
@@ -246,7 +246,7 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "1.0.0",
       "window_lines": 6
     },
     {
@@ -286,13 +286,14 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
+      "version": "1.0.0",
       "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Development candidate: documentation-described experimentation activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -326,15 +327,15 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|package|library|run|python|Rscript|MATLAB|notebook|paper|publication|cite|citation|download)\\b",
       "description": "Development candidate: documentation-described experimentation activities and artifacts.",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not supported|not implemented|does not|do not|cannot|doesn.t|don.t|never|future work|planned|todo|hypothetical|example only)\\b"
       ],
@@ -368,40 +369,14 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.3-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EXP_CODE_BRACE_TRIALS_V51",
-      "stage": "Experimentation",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Controlled/repeated research runs with a scientific call and recorded outcomes.",
-      "positive": [
-        "\\b(?:for|while)\\s*\\(",
-        "\\b(?:n_trials|num_trials|trialSeeds|seeds|experimentalConditions|parameterGrid|param_grid|nRepeats|trial|experiment)\\b",
-        "\\b(?:runTrial|run_trial|runExperiment|run_experiment|fit|train|evaluate)\\s*\\(",
-        "\\b(?:results|scores|observations|outcomes)\\b"
-      ],
-      "supporting": [],
+      "detector": "brace-lexical-v1",
       "exclusions": [],
-      "required_evidence_fields": [
-        "repository",
-        "commit",
-        "path",
-        "content_sha256",
-        "start_line",
-        "end_line",
-        "matched_conditions",
-        "url",
-        "code_syntax_policy",
-        "code_context"
-      ],
-      "justification": "Controlled/repeated research runs with a scientific call and recorded outcomes. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "extensions": [
         ".c",
         ".cpp",
@@ -415,22 +390,45 @@
         ".rs",
         ".scala"
       ],
+      "id": "EXP_CODE_BRACE_TRIALS_V51",
+      "justification": "Controlled/repeated research runs with a scientific call and recorded outcomes. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+      "positive": [
+        "\\b(?:for|while)\\s*\\(",
+        "\\b(?:n_trials|num_trials|trialSeeds|seeds|experimentalConditions|parameterGrid|param_grid|nRepeats|trial|experiment)\\b",
+        "\\b(?:runTrial|run_trial|runExperiment|run_experiment|fit|train|evaluate)\\s*\\(",
+        "\\b(?:results|scores|observations|outcomes)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url",
+        "code_syntax_policy",
+        "code_context"
+      ],
       "scope": "lexical-block",
-      "detector": "brace-lexical-v1"
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EXP_CODE_PORTABLE_TRIALS_V51",
-      "stage": "Experimentation",
-      "source": "code",
-      "version": "0.5.1-development",
       "description": "Apply a research runner across explicit conditions and retain results.",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "id": "EXP_CODE_PORTABLE_TRIALS_V51",
+      "justification": "Apply a research runner across explicit conditions and retain results. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
       "positive": [
         "\\b(?:run[_-]?trial|run[_-]?experiment|lapply|parallelMap|map|sweep)\\b\\s*(?:\\(|[A-Za-z_$])",
         "\\b(?:trialSeeds|trial_seeds|seeds|experimentalConditions|parameterGrid|param_grid|trial_conditions)\\b",
         "\\b(?:results|scores|outcomes)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -443,28 +441,27 @@
         "code_syntax_policy",
         "languages"
       ],
-      "justification": "Apply a research runner across explicit conditions and retain results. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
-      "status": "unadjudicated-development-candidate",
-      "window_lines": 12,
       "scope": "portable-statement",
-      "detector": "portable-lexical-v1"
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EXP_CODE_REPEATED_SCIENTIFIC_CALL_V52",
-      "stage": "Experimentation",
-      "source": "code",
-      "version": "0.5.2-development",
       "description": "Scientific runner call in a file with an executable repeat/parameter loop; file-level context, not proven data flow.",
+      "detector": "portable-lexical-v1",
+      "exclusions": [],
+      "file_context_patterns": [
+        "\\bfor\\b[^\\n]*(?:reps|trials|seeds|folds|length\\s*\\(|range\\s*\\()"
+      ],
+      "id": "EXP_CODE_REPEATED_SCIENTIFIC_CALL_V52",
+      "justification": "Scientific runner call in a file with an executable repeat/parameter loop; file-level context, not proven data flow. Development evidence candidate; no repository identity or reference labels used.",
       "positive": [
         "\\b(?:grad_descent|gradient_descent|run_experiment|run_trial|cross_val_score|cross_validate)\\s*\\(",
         "(?:=|\\()"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 8,
-      "scope": "portable-statement",
-      "detector": "portable-lexical-v1",
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -474,27 +471,25 @@
         "matched_conditions",
         "url"
       ],
-      "file_context_patterns": [
-        "\\bfor\\b[^\\n]*(?:reps|trials|seeds|folds|length\\s*\\(|range\\s*\\()"
-      ],
-      "justification": "Scientific runner call in a file with an executable repeat/parameter loop; file-level context, not proven data flow. Development evidence candidate; no repository identity or reference labels used."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 8
     },
     {
-      "id": "EXP_CODE_FACTORIAL_RUNS_V53",
-      "stage": "Experimentation",
-      "source": "code",
-      "version": "0.5.3-development",
+      "description": "Execute an experimental function across an explicit design table.",
       "detector": "portable-lexical-v1",
-      "scope": "portable-statement",
+      "exclusions": [],
+      "id": "EXP_CODE_FACTORIAL_RUNS_V53",
+      "justification": "Scientific runner over design rows, not a generic collection map.",
       "positive": [
         "\\b(?:apply|lapply|sapply|map)\\s*\\(",
         "\\bdesign\\b",
         "\\b(?:experiment|run_experiment|run_trial)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 12,
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -505,15 +500,18 @@
         "matched_conditions",
         "url"
       ],
-      "description": "Execute an experimental function across an explicit design table.",
-      "justification": "Scientific runner over design rows, not a generic collection map."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EXP_CODE_AGENT_TIME_STEPS_V53",
-      "stage": "Experimentation",
-      "source": "code",
+      "description": "Execute agent updates inside a bounded simulated-time loop and explicitly advance simulated time; not a generic software loop.",
       "detector": "brace-lexical-v1",
-      "scope": "lexical-block",
+      "exclusions": [],
       "extensions": [
         ".java",
         ".js",
@@ -521,17 +519,13 @@
         ".cpp",
         ".cc"
       ],
+      "id": "EXP_CODE_AGENT_TIME_STEPS_V53",
+      "justification": "Execute agent updates inside a bounded simulated-time loop and explicitly advance simulated time; not a generic software loop. Comments and string contents are masked. No repository identity or reference label is used.",
       "positive": [
         "\\b(?:while|for)\\s*\\([^\\n]*(?:currentTick|timeStep|timestep|simulationTime)\\s*\\(",
         "\\b(?:queryAllAgents|updateAgents|stepAgents|advanceAgents)\\s*\\(",
         "\\.\\s*(?:nextTick|advanceTime|nextTimeStep)\\s*\\("
       ],
-      "description": "Execute agent updates inside a bounded simulated-time loop and explicitly advance simulated time; not a generic software loop.",
-      "version": "0.5.3-development",
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 12,
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -542,12 +536,19 @@
         "matched_conditions",
         "url"
       ],
-      "justification": "Execute agent updates inside a bounded simulated-time loop and explicitly advance simulated time; not a generic software loop. Comments and string contents are masked. No repository identity or reference label is used."
+      "scope": "lexical-block",
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
       "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
       "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
       "description": "scientific train test command",
+      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b",
       "exclusions": [
         "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
       ],
@@ -556,7 +557,7 @@
         "\\b(?:references|bibliography)\\b",
         "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
-      "id": "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_V54",
+      "id": "EXP_DOC_SCIENTIFIC_TRAIN_TEST_COMMAND_FINAL",
       "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
       "layer": "contextual",
       "positive": [
@@ -580,27 +581,21 @@
       "stage": "Experimentation",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.5.4-development",
-      "window_lines": 12,
       "unit_policy": "documented-workflow-v5",
-      "document_context_pattern": "\\b(?:research|experiments?|paper|scientific|study|simulation|models?|algorithms?|learning|datasets?|corpus|analysis|measurements)\\b"
+      "version": "1.0.0",
+      "window_lines": 12
     },
     {
-      "id": "EXP_CODE_ODE_SIMULATION_RUN_V54",
-      "version": "0.5.4-development",
-      "stage": "Experimentation",
-      "source": "code",
+      "description": "ode simulation run",
       "detector": "portable-lexical-v1",
-      "scope": "portable-statement",
+      "exclusions": [],
+      "id": "EXP_CODE_ODE_SIMULATION_RUN_FINAL",
+      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
       "positive": [
         "\\b(?:ode15s|ode45|ode23s?|ode113|odeint|solve_ivp)\\s*\\(",
         "\\b(?:t|tspan|time|times|t_eval)\\b",
         "\\b(?:y0|initial\\w*|state0)\\b"
       ],
-      "supporting": [],
-      "exclusions": [],
-      "window_lines": 12,
-      "status": "unadjudicated-development-candidate",
       "required_evidence_fields": [
         "repository",
         "commit",
@@ -611,10 +606,15 @@
         "matched_conditions",
         "url"
       ],
-      "description": "ode simulation run",
-      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+      "scope": "portable-statement",
+      "source": "code",
+      "stage": "Experimentation",
+      "status": "unadjudicated-development-candidate",
+      "supporting": [],
+      "version": "1.0.0",
+      "window_lines": 12
     }
   ],
   "stage": "Experimentation",
-  "version": "0.5.4-development"
+  "version": "1.0.0"
 }

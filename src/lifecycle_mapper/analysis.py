@@ -43,7 +43,7 @@ def load_rules(directory: Path | None = None) -> tuple[list[dict[str, Any]], str
                 "0.5.1-development",
                 "0.5.2-development",
                 "0.5.3-development",
-                "0.5.4-development",
+                "1.0.0",
             }
             or catalog["stage"] != stage
         ):
