@@ -2,7 +2,7 @@
 
 ## Destinations
 
-`results/benchmark-100/`, `results/historical-386/`, `results/openaire-additional/`, and
+`results/benchmark-100/`, `results/historical-386/`, `results/openaire-3211/`, and
 `results/llm/` are reserved for final exports. They initially contain instructions only.
 Actual corpus checkpoints remain under `data/runs/<original-run-name>/` so original
 relative paths and checksums continue to work. Original assessment directories can

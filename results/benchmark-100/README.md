@@ -2,6 +2,8 @@
 
 This folder contains:
 
+- `repositories.txt`: the complete 100-repository input list in its original order; list provenance is in `repository_list_provenance.json`.
+
 - `workbook/`: ten separate source-sheet CSV exports, their mapping/checksums, and conversation references.
 - `reproduce_paper.ipynb`: executed notebook for annotation statistics, mode-specific/common-cohort metrics, baselines, and paper consistency checks.
 - `reproduce_paper.py`: the same offline calculations as a plain Python command.
@@ -59,3 +61,5 @@ editorial correction; the older heuristic sheets are omitted from the selected e
 The final labels are a mixed-source adjudicated reference, and all 100 repositories
 informed heuristic development. Source-specific disagreement is not independently
 validated evidence accuracy. The notebook does not establish held-out generalization.
+
+Original run evidence and status exports are pending transfer; see [UPLOAD.md](../UPLOAD.md).

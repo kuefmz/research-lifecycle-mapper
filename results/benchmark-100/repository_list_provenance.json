@@ -1,0 +1,8 @@
+{
+  "status": "available; original run outputs pending transfer",
+  "source": "data/corpus/benchmark_100.txt",
+  "repositories": 100,
+  "sha256": "dd561db13248842562d9bc5c000bea014bcfe4ba5ac58f978698240ca607cfcc",
+  "order": "Original input list order preserved.",
+  "validation": "Unique case-insensitive URLs; benchmark-100 is a subset of historical-386."
+}
