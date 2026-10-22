@@ -1,8 +1,8 @@
-# Historical 386-repository collection
+# 386-repository corpus-repository collection
 
 Status: repository list available; original run outputs pending upload.
 
-`repositories.txt` contains all 386 unique repositories, in the original historical
+`repositories.txt` contains all 386 unique repositories, in the original
 list order. This collection combines the 100 annotated repositories with 286 additional
 repositories. Execution batches are provenance, not separate scientific populations.
 

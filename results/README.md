@@ -5,7 +5,7 @@ are now included under benchmark-100/ and ../prompts/. Original per-repository c
 runs still need uploading. Destinations:
 
 - benchmark-100/: selected source-sheet CSVs, metrics, paper checks and executed notebook.
-- historical-386/: pooled detections from the 100 and additional 286, after compatibility checks.
+- corpus-386/: pooled detections from the 100 and additional 286, after compatibility checks.
 - openaire-3211/: complete 3,211-repository population, pooling 100 + 286 + 2,825 after verification.
 - llm/: reserved for additional original inference metadata; the three workbook LLM tables are under benchmark-100/workbook/.
 
@@ -23,6 +23,7 @@ Keep original data/runs checkpoints intact. See docs/results.md for commands and
 `python scripts/index_results.py` creates an inventory with content checksums after upload.
 
 The complete 100- and 386-repository lists are already available as `repositories.txt`
-in their respective folders. The full 3,211 list awaits the original local input.
+in their respective folders. The full 3,211 list is reconstructed from the disjoint 386 list and 2,825-run log;
+its source-input comparison and detailed result upload remain pending.
 Follow [UPLOAD.md](UPLOAD.md) to transfer only relevant original result files.
 Execution subsets will not be presented as independent result collections.

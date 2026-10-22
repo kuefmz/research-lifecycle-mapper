@@ -1,0 +1,10 @@
+{
+  "repositories": 3211,
+  "sha256": "13ab54429edf5e948acf079f24f637023ebe9458da67465a5ccfe991cb93fdef",
+  "sources": [
+    "../corpus-386/repositories.txt",
+    "Attached 2825-run progress.log, one last record per normalized repository identity"
+  ],
+  "order": "386 input-list order, then 2825 log execution order. This is a reconstructed complete population, not a byte-exact export of the original OpenAIRE input.",
+  "validation": "386 + 2825 unique, disjoint identities. Original full OpenAIRE input list still requested for direct comparison."
+}

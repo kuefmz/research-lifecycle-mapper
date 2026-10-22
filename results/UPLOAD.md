@@ -5,7 +5,7 @@ The submission publishes three complete populations, not the execution subsets:
 | Population | Destination | Components |
 |---|---|---|
 | Annotated 100 | `results/benchmark-100/` | Original 100 run |
-| Historical 386 | `results/historical-386/` | 100 + 286 |
+| 386-repository corpus | `results/corpus-386/` | 100 + 286 |
 | OpenAIRE 3,211 | `results/openaire-3211/` | 100 + 286 + 2,825 |
 
 The 100 and 386 repository lists are already included. The full 3,211 list must come
@@ -42,7 +42,7 @@ uv run --frozen python scripts/prepare_results_upload.py \
   --output local/results-upload.zip
 ```
 
-Replace the first two placeholders with the existing local 100 and 286 run directories. Do not rename or modify historical run manifests.
+Replace the first two placeholders with the existing local 100 and 286 run directories. Do not rename or modify original run manifests.
 The ZIP uses neutral batch folder names. Upload `local/results-upload.zip` in the
 conversation; it is a private transfer input, not a GitHub deliverable. If the last run
 is still running, send the first two runs now (omit the third `--run`) and send the
@@ -67,10 +67,10 @@ to JSON metadata or send any token.
 1. Verify transfer hashes, original result hashes and population identities. Require
    exactly 100, 386 and 3,211 unique input repositories and the declared inclusion
    relations. Preserve each full list's order.
-2. Verify 100 and 286 are disjoint, with their union equal to the historical list;
+2. Verify 100 and 286 are disjoint, with their union equal to the 386-repository list;
    verify the 2,825 batch is disjoint and the union equals the full OpenAIRE list.
 3. Compare rule/implementation hashes, branch policy, modes and limits. Preserve
-   original historical provenance. A renamed profile is not automatically a changed
+   original provenance. A renamed profile is not automatically a changed
    experiment; compare actual rules. Report material incompatibility before pooling.
 4. Retain all attempts, failures, partial scans, known positives and unknowns. A missing
    checkpoint is an explicit unprocessed row, never an all-zero prediction. Preserve

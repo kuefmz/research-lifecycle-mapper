@@ -2,7 +2,7 @@
 
 ## Destinations
 
-`results/benchmark-100/`, `results/historical-386/`, `results/openaire-3211/`, and
+`results/benchmark-100/`, `results/corpus-386/`, `results/openaire-3211/`, and
 `results/llm/` are reserved for final exports. They initially contain instructions only.
 Actual corpus checkpoints remain under `data/runs/<original-run-name>/` so original
 relative paths and checksums continue to work. Original assessment directories can
@@ -19,7 +19,7 @@ Run this for each completed run, substituting its actual existing directory:
 
 ```bash
 uv run --frozen python -m lifecycle_mapper.corpus export --output data/runs/benchmark-100-final --reference data/final_agreement.csv
-uv run --frozen python -m lifecycle_mapper.corpus export --output data/runs/historical-additional
+uv run --frozen python -m lifecycle_mapper.corpus export --output data/runs/corpus-additional
 ```
 
 | File | Meaning |

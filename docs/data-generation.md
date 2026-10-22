@@ -50,17 +50,17 @@ Reported funnel for this archive (revalidate generated summary rather than hardc
 | GitHub links from matched records | 3,876 | record-repository links |
 | Deduplicated matched repositories | 3,211 | repositories |
 
-## Historical collection and annotation sample
+## Publication-associated collection and annotation sample
 
-`data/corpus/legacy_386_source.json` preserves the collector-supplied historical collection
+`data/corpus/legacy_386_source.json` preserves the collector-supplied publication-associated collection
 and related_to associations. `benchmark_386.txt` and `legacy_386.txt` contain its repository
 identities (orders may differ). The collector reports software, experimental context,
-GitHub and publication-association criteria. The historical query has not been exactly
+GitHub and publication-association criteria. The original query has not been exactly
 reproduced. Containment in the current 3,211 does not independently verify publications.
 The initial 100 annotated repositories are a development reference, not an untouched test.
 Do not infer a random sampling procedure without supporting records.
 
-The researcher verified all 386 historical identities occur in the 3,211: 2,825 remain.
+The researcher verified all 386 publication-associated identities occur in the 3,211: 2,825 remain.
 Reproduce subtraction (also writes normalization audit and input hashes):
 
 ```bash
@@ -96,6 +96,6 @@ F1 from only the 100 annotations. Keep the final rule profile and acquisition co
 compatible before combining results.
 
 The full collection is experiment-mentioned software, not representative of all research
-software. The historical publication-associated subset may enrich dissemination evidence.
+software. The publication-associated subset may enrich dissemination evidence.
 OpenAIRE publication links are not automatic positive repository-level dissemination labels.
 

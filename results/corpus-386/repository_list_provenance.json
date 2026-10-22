@@ -4,5 +4,5 @@
   "repositories": 386,
   "sha256": "114b83769b568d186542ed95d80897fd5e968d8f40d02f2a970a0cb17ae77687",
   "order": "Original input list order preserved.",
-  "validation": "Unique case-insensitive URLs; benchmark-100 is a subset of historical-386."
+  "validation": "Unique case-insensitive URLs; benchmark-100 is a subset of corpus-386."
 }

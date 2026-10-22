@@ -63,7 +63,7 @@ def main():
     root = Path(__file__).resolve().parents[1]
     for source, destination in (
         (root / "data/corpus/benchmark_100.txt", "lists/benchmark-100.txt"),
-        (root / "data/corpus/benchmark_386.txt", "lists/historical-386.txt"),
+        (root / "data/corpus/benchmark_386.txt", "lists/corpus-386.txt"),
         (args.openaire_list, "lists/openaire-3211.txt"),
     ):
         sources.append((source, destination))
@@ -105,7 +105,7 @@ def main():
     )
     print("Upload this ZIP in the conversation. Do not commit the private transfer ZIP.")
     print(
-        "Original JSON may contain local paths or historical metadata; publication requires review."
+        "Original JSON may contain local paths or original metadata; publication requires review."
     )
 
 
