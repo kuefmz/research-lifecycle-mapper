@@ -188,9 +188,10 @@ for publication association may enrich dissemination evidence.
 
 The full OpenAIRE collection contains **3,211 repositories**. Results are organized
 only by the three paper populations: `benchmark-100`, `corpus-386`, and `corpus-3211`.
-The benchmark predictions and evaluation are included. Complete pooled corpus
-prediction/evidence files are awaiting original run uploads; separate execution-batch
-results are not presented as additional corpora.
+The benchmark predictions and evaluation are included. Full 3,211-corpus stage aggregates are included: Dissemination and Experimentation
+have the largest combined positive counts (2,024 and 2,007). Complete pooled
+per-repository evidence files still await original uploads; aggregate reproduction
+is distinguished from exact classifier replay.
 See [detailed results](results/README.md).
 
 ## Outputs and interpretation

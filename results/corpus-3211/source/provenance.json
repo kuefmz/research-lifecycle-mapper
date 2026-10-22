@@ -1,0 +1,7 @@
+{
+  "execution_log_sha256": "e4522d69db3c4e02a885e152340e945536177304eb4298b01a8595706488be55",
+  "compressed_log_sha256": "142c91a512687ae437fa713d0c10c45ab6c3daa7d9654d2ad5d76fc02e420216",
+  "source": "Original run progress log supplied by the authors. Repeated checkpoint entries are resolved by final occurrence per normalized repository identity.",
+  "scope": "Saved console decisions and per-mode scan flags; original result JSON, pinned commits and detailed evidence are not established by this log.",
+  "other_input": "../../corpus-386/stage_counts.csv contains author-supplied pooled aggregate counts, not reconstructed per-repository predictions."
+}

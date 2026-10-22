@@ -10,7 +10,7 @@ values are stored separately in [paper_claims.json](benchmark-100/paper_claims.j
 |---|---|---|
 | Annotated 100 | [benchmark-100/repositories.txt](benchmark-100/repositories.txt) | Human/LLM/heuristic tables, original assessment and executed reproduction notebook |
 | Publication-associated 386 | [corpus-386/repositories.txt](corpus-386/repositories.txt) | Paper-reported stage counts below; original pooled evidence export pending |
-| OpenAIRE 3,211 | [corpus-3211/repositories.txt](corpus-3211/repositories.txt) | Complete population reconstructed; pooled predictions and evidence pending |
+| OpenAIRE 3,211 | [corpus-3211/repositories.txt](corpus-3211/repositories.txt) | Full-population stage aggregates available; pooled per-repository evidence pending |
 
 The populations are nested: 100 ⊆ 386 ⊆ 3,211. Execution partitions are acquisition provenance, not additional scientific populations. The full 3,211 list is reconstructed from the verified disjoint 386 list and final log entries; the original OpenAIRE input is still requested for direct comparison.
 
@@ -84,11 +84,16 @@ The full repository list contains exactly **3,211 unique identities** and includ
 all 386 corpus identities and all 100 benchmark identities. Its reconstruction and
 ordering are documented in [list provenance](corpus-3211/repository_list_provenance.json).
 
-Complete pooled predictions, pinned commits, evidence and mode coverage are pending
-original result files. Received execution logs establish attempted membership but do
-not replace all saved repository-level results. No separate batch-results table is
-presented here. Full-population stage totals and outcome totals must not be inferred
-from only one execution batch. See [upload instructions](UPLOAD.md).
+The full [stage-count table](corpus-3211/stage_counts.csv), [source/provenance and
+reproduction instructions](corpus-3211/README.md), and [LaTeX table](corpus-3211/paper_table.tex)
+are included. Combined positives are Collection **408**, Processing **1,219**, Method
+**1,324**, Experimentation **2,007**, Evaluation **1,237** and Dissemination **2,024**.
+Every stage also retains negative and unknown counts, with denominator 3,211.
+
+Aggregates combine the supplied 386 counts and preserved final execution-log decisions
+for the disjoint remainder. Complete row-level evidence and commits remain pending
+original result files. Aggregate reproduction is distinct from exact classifier replay;
+full-population mode-complete totals and accuracy are not inferred.
 
 ## Reproduce and complete the archive
 
@@ -96,6 +101,7 @@ From the repository root:
 
 ```bash
 uv run --frozen python results/benchmark-100/reproduce_paper.py
+uv run --frozen python results/corpus-3211/reproduce_results.py
 ```
 
 The executed [notebook](benchmark-100/reproduce_paper.ipynb), full-precision [metrics](benchmark-100/analysis/reproduction.json), [paper comparison](benchmark-100/analysis/paper_comparison.csv), and [original assessment](benchmark-100/assessment/README.md) document the benchmark calculations. LLM prompts and shared conversation references are in [../prompts/](../prompts/).

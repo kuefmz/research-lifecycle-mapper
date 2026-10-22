@@ -42,3 +42,24 @@ def test_consolidated_benchmark_preserves_original_assessment_and_order():
         for v in (directory / "repositories.txt").read_text().splitlines()
     ]
     assert identities == order
+
+
+def test_full_corpus_aggregates_reproduce_from_preserved_sources():
+    import importlib.util
+    import json
+
+    path = ROOT / "results/corpus-3211/reproduce_results.py"
+    spec = importlib.util.spec_from_file_location("corpus_counts", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    rows = module.reproduce()
+    saved = json.loads((path.parent / "aggregate_summary.json").read_text())
+    assert rows == saved["stage_counts"]
+    assert len(rows) == 18
+    assert all(r["positive"] + r["negative"] + r["unknown"] == 3211 for r in rows)
+    assert all(r["unknown"] > 0 for r in rows)
+    keyed = {(r["mode"], r["stage"]): r for r in rows}
+    for stage in module.STAGES:
+        assert keyed["combined", stage]["positive"] >= max(
+            keyed[mode, stage]["positive"] for mode in ("documentation-only", "code-only")
+        )

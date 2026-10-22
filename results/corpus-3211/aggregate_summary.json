@@ -1,0 +1,193 @@
+{
+  "repository_count": 3211,
+  "scope": "Full-population stage aggregates from supplied 386 counts and final log decisions for the disjoint execution remainder.",
+  "stage_counts": [
+    {
+      "mode": "documentation-only",
+      "stage": "Collection",
+      "positive": 381,
+      "negative": 2317,
+      "unknown": 513,
+      "total": 3211,
+      "positive_percent_all": 11.8655,
+      "unknown_percent_all": 15.9763
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Processing",
+      "positive": 1132,
+      "negative": 1599,
+      "unknown": 480,
+      "total": 3211,
+      "positive_percent_all": 35.2538,
+      "unknown_percent_all": 14.9486
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Method",
+      "positive": 693,
+      "negative": 2015,
+      "unknown": 503,
+      "total": 3211,
+      "positive_percent_all": 21.5821,
+      "unknown_percent_all": 15.6649
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Experimentation",
+      "positive": 1981,
+      "negative": 784,
+      "unknown": 446,
+      "total": 3211,
+      "positive_percent_all": 61.6942,
+      "unknown_percent_all": 13.8898
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Evaluation",
+      "positive": 782,
+      "negative": 1935,
+      "unknown": 494,
+      "total": 3211,
+      "positive_percent_all": 24.3538,
+      "unknown_percent_all": 15.3846
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Dissemination",
+      "positive": 1828,
+      "negative": 923,
+      "unknown": 460,
+      "total": 3211,
+      "positive_percent_all": 56.9293,
+      "unknown_percent_all": 14.3258
+    },
+    {
+      "mode": "code-only",
+      "stage": "Collection",
+      "positive": 33,
+      "negative": 2596,
+      "unknown": 582,
+      "total": 3211,
+      "positive_percent_all": 1.0277,
+      "unknown_percent_all": 18.1252
+    },
+    {
+      "mode": "code-only",
+      "stage": "Processing",
+      "positive": 236,
+      "negative": 2418,
+      "unknown": 557,
+      "total": 3211,
+      "positive_percent_all": 7.3497,
+      "unknown_percent_all": 17.3466
+    },
+    {
+      "mode": "code-only",
+      "stage": "Method",
+      "positive": 983,
+      "negative": 1714,
+      "unknown": 514,
+      "total": 3211,
+      "positive_percent_all": 30.6135,
+      "unknown_percent_all": 16.0075
+    },
+    {
+      "mode": "code-only",
+      "stage": "Experimentation",
+      "positive": 139,
+      "negative": 2499,
+      "unknown": 573,
+      "total": 3211,
+      "positive_percent_all": 4.3289,
+      "unknown_percent_all": 17.8449
+    },
+    {
+      "mode": "code-only",
+      "stage": "Evaluation",
+      "positive": 782,
+      "negative": 1900,
+      "unknown": 529,
+      "total": 3211,
+      "positive_percent_all": 24.3538,
+      "unknown_percent_all": 16.4746
+    },
+    {
+      "mode": "code-only",
+      "stage": "Dissemination",
+      "positive": 881,
+      "negative": 1829,
+      "unknown": 501,
+      "total": 3211,
+      "positive_percent_all": 27.4369,
+      "unknown_percent_all": 15.6026
+    },
+    {
+      "mode": "combined",
+      "stage": "Collection",
+      "positive": 408,
+      "negative": 2219,
+      "unknown": 584,
+      "total": 3211,
+      "positive_percent_all": 12.7063,
+      "unknown_percent_all": 18.1875
+    },
+    {
+      "mode": "combined",
+      "stage": "Processing",
+      "positive": 1219,
+      "negative": 1479,
+      "unknown": 513,
+      "total": 3211,
+      "positive_percent_all": 37.9633,
+      "unknown_percent_all": 15.9763
+    },
+    {
+      "mode": "combined",
+      "stage": "Method",
+      "positive": 1324,
+      "negative": 1373,
+      "unknown": 514,
+      "total": 3211,
+      "positive_percent_all": 41.2333,
+      "unknown_percent_all": 16.0075
+    },
+    {
+      "mode": "combined",
+      "stage": "Experimentation",
+      "positive": 2007,
+      "negative": 738,
+      "unknown": 466,
+      "total": 3211,
+      "positive_percent_all": 62.5039,
+      "unknown_percent_all": 14.5126
+    },
+    {
+      "mode": "combined",
+      "stage": "Evaluation",
+      "positive": 1237,
+      "negative": 1453,
+      "unknown": 521,
+      "total": 3211,
+      "positive_percent_all": 38.5238,
+      "unknown_percent_all": 16.2255
+    },
+    {
+      "mode": "combined",
+      "stage": "Dissemination",
+      "positive": 2024,
+      "negative": 719,
+      "unknown": 468,
+      "total": 3211,
+      "positive_percent_all": 63.0333,
+      "unknown_percent_all": 14.5749
+    }
+  ],
+  "interpretation": "Detected evidence counts, not ground-truth prevalence or full-corpus accuracy.",
+  "limitations": [
+    "Original 386 row-level export not supplied; base aggregates are author-reported.",
+    "Log-derived decisions do not provide full pinned-commit and evidence provenance.",
+    "Full-population mode-complete repository totals cannot be recovered from per-stage base aggregates.",
+    "No full-population precision, recall or F1 without human labels."
+  ]
+}
