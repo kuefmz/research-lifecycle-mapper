@@ -31,7 +31,7 @@ uv run --frozen --with jupyterlab jupyter lab results/benchmark-100/reproduce_pa
 
 - Table 3 initial agreement (354/600), disagreements (246/600), final label totals (384 positive/216 negative), and 12 all-positive repositories.
 - The selected latest workbook predictions, with complete-vector metrics, confusion counts, common-cohort comparisons and always-positive/negative baselines.
-- LLM Table 6 from 98/63/99 eligible repositories, with the combined micro-F1 rounding discrepancy reported.
+- LLM Table 6 from 98/63/99 eligible repositories, including the author-confirmed combined micro-F1 correction to 0.795.
 
 ## Original assessment and restored uncertainty
 
@@ -55,8 +55,8 @@ The first option reads original checksum-bound result.json files, requiring exac
 100 reference identities. It performs no acquisition or reanalysis. The second requires
 386 distinct repository identities and all 18 exported decisions per repository.
 Without these optional inputs, raw-run verification and the 386-repository table are
-marked unavailable. Table 4 already reproduces using the supplied assessment files. Table 7's heuristic rows still contain superseded scores and need
-editorial correction; the older heuristic sheets are omitted from the selected exports.
+marked unavailable. Table 4 already reproduces using the supplied assessment files. The author confirmed that Table 7 was corrected to the Table 4 heuristic results;
+the older heuristic sheets are omitted from the selected exports.
 
 The final labels are a mixed-source adjudicated reference, and all 100 repositories
 informed heuristic development. Source-specific disagreement is not independently

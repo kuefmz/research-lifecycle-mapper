@@ -1,5 +1,5 @@
 {
-  "source": "User-attached submitted-paper draft, Tables 3-7; these are reported claims, not computed outputs",
+  "source": "Values from the attached paper draft, with author-confirmed corrections on 2026-10-22. The paper_sha256 identifies the original draft, not a newly supplied corrected PDF.",
   "paper_sha256": "5ed1063874e00158d2027624290fbf78da6209a5edaba9561b68fe68f50ddf58",
   "table_3": {
     "Collection": 53,
@@ -62,7 +62,7 @@
       "repositories": 99,
       "micro_precision": 0.661,
       "micro_recall": 0.995,
-      "micro_f1": 0.794,
+      "micro_f1": 0.795,
       "macro_f1": 0.777,
       "exact_match": 0.131
     }
@@ -99,5 +99,14 @@
       "combined": 226
     }
   },
-  "table_7_note": "Heuristic rows still report superseded scores (0.496/0.577/0.692 micro-F1); they are inconsistent with Table 4. Superseded source sheets are not exported as latest results."
+  "table_7_note": "Author confirmed correction: heuristic rows use the Table 4 results and original confusion totals; combined LLM micro-F1 is 0.795.",
+  "author_confirmed_corrections": {
+    "date": "2026-10-22",
+    "confirmation": "Author stated the supplied LaTeX corrections were applied. Corrected PDF not supplied.",
+    "table_6_combined_llm_micro_f1": {
+      "original_draft": 0.794,
+      "corrected": 0.795
+    },
+    "table_7": "Replace outdated heuristic rows with 96/95/95-cohort results: precision 0.865/0.821/0.830; recall 0.591/0.277/0.696; micro-F1 0.702/0.414/0.757; FN 151/264/111; FP 34/22/52."
+  }
 }

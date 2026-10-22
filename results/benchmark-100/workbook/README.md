@@ -65,8 +65,8 @@ Evaluation uses the original scan-completeness flags: **96 documentation, 95 cod
 95 combined repositories**, reproducing Table 4. A known positive remains 1 even if
 its scan is incomplete; incomplete scans are excluded from complete-scan metrics.
 
-The LLM sheets reproduce Table 6 to the printed precision except that combined micro-F1
-is 0.79454927, which rounds to **0.795** rather than the draft's 0.794.
+The LLM sheets reproduce Table 6 to the printed precision including the author-confirmed correction: combined micro-F1
+is 0.79454927, which rounds to **0.795**.
 
 Re-export from the exact supplied workbook:
 

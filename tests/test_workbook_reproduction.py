@@ -54,8 +54,8 @@ def test_llm_paper_cohorts_and_metrics_recomputed_from_csv():
         for row in report["paper_comparison"]
         if row["status"] == "rounding_difference" and row["table"] == "table_6"
     ]
-    assert len(rounding) == 1 and rounding[0]["role"] == "llm_combined"
-    assert rounding[0]["rounded_3dp"] == 0.795
+    assert not rounding
+    assert all(row["status"] == "matches" for row in report["paper_comparison"])
 
 
 def test_restored_csvs_use_original_scan_complete_cohorts():

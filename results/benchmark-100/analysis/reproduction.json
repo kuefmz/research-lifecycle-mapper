@@ -5138,10 +5138,10 @@
       "table": "table_6",
       "role": "llm_combined",
       "metric": "micro_f1",
-      "paper": 0.794,
+      "paper": 0.795,
       "computed": 0.79454927,
       "rounded_3dp": 0.795,
-      "status": "rounding_difference"
+      "status": "matches"
     },
     {
       "table": "table_6",
@@ -5170,8 +5170,8 @@
     "Heuristic evaluation uses original assessment scan-completeness flags; known positives in incomplete scans are retained in CSVs.",
     "Paper Table 4 is reproduced from restored CSV predictions and original assessment completeness flags (96/95/95 repositories).",
     "Paper Table 5 requires the original 386-repository predictions export.",
-    "Paper Table 7 retains superseded heuristic values and is inconsistent with Table 4.",
-    "The combined LLM micro-F1 rounds to 0.795; the paper prints 0.794.",
+    "Author-confirmed paper corrections align Table 7 with Table 4; the corrected PDF has not been supplied.",
+    "Combined LLM micro-F1 rounds to 0.795, as confirmed in the paper correction.",
     "All 100 repositories informed heuristic development; no held-out claim."
   ]
 }

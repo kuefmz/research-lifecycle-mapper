@@ -38,6 +38,6 @@ table_6,llm_code,exact_match,0.159,0.15873016,0.159,matches
 table_6,llm_combined,repositories,99,99,99,matches
 table_6,llm_combined,micro_precision,0.661,0.66143106,0.661,matches
 table_6,llm_combined,micro_recall,0.995,0.99475066,0.995,matches
-table_6,llm_combined,micro_f1,0.794,0.79454927,0.795,rounding_difference
+table_6,llm_combined,micro_f1,0.795,0.79454927,0.795,matches
 table_6,llm_combined,macro_f1,0.777,0.77710355,0.777,matches
 table_6,llm_combined,exact_match,0.131,0.13131313,0.131,matches

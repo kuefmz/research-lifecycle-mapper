@@ -143,13 +143,33 @@ or its plain Python equivalent:
 uv run --frozen python results/benchmark-100/reproduce_paper.py
 ```
 
-This reproduces annotation statistics, saved-table metrics and baselines, and checks
-the draft's reported values. It explicitly flags the difference between worksheet
-binary completeness and original runtime scan completeness. The paper's heuristic
-evaluation and 386-repository counts require their original saved-run data; see
-[the reproduction status](results/benchmark-100/README.md).
+This reproduces annotation statistics, saved-table metrics and baselines. Restored
+unknown predictions and original assessment scan-completeness flags reproduce the
+paper's heuristic results. The claim checks include the author-confirmed paper
+corrections; the corrected PDF has not been supplied. The 386-repository stage counts
+still require the pooled original export for independent verification.
+See [the reproduction status](results/benchmark-100/README.md).
 The three original LLM user prompts and shared-conversation references are included
 under [`prompts/`](prompts/).
+
+## Results overview
+
+On the 100-repository development benchmark, combined documentation and code heuristics
+achieved **0.757 micro-F1**, compared with **0.702** for documentation and **0.414**
+for code alone. Their respective eligible cohorts were 95, 96 and 95 repositories.
+The LLM results were **0.829**, **0.791** and **0.795** micro-F1 for documentation,
+code and combined input, on 98, 63 and 99 repositories. These are agreement scores
+against the adjudicated reference on different eligible cohorts, not a controlled
+same-cohort ranking or held-out performance: all 100 repositories informed development.
+
+For the 386-repository corpus, the paper reports more combined evidence for
+Experimentation (247 repositories) and Dissemination (226) than Collection (33).
+These are detected-evidence counts, not validated full-corpus accuracy. Selection
+for publication association may enrich dissemination evidence.
+
+The full OpenAIRE collection contains **3,211 repositories**. The additional 2,825-run
+has finished: 2,254 complete, 175 partial and 396 failed. Full 3,211 stage totals remain
+pending the detailed merged result upload. See [detailed results and provenance](results/README.md).
 
 ## Outputs and interpretation
 
@@ -185,7 +205,7 @@ Read [the method](docs/method.md), [exact rules](docs/rules.md),
 [result documentation](docs/results.md).
 
 **Release contents:** the deterministic method and annotated input data are included.
-Selected workbook results and exact historical LLM user prompts are included. Original
+Selected workbook results and exact LLM user prompts are included. Original
 per-repository research runs, the 386-repository export, and complete LLM inference
 configuration remain to be supplied. The notebook reports which paper tables are
 reproducible from the available data; see [prompts/README.md](prompts/README.md).
