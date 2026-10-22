@@ -4,16 +4,13 @@ from pathlib import Path
 import pytest
 
 from lifecycle_mapper import MODES, STAGES
-from lifecycle_mapper.analysis import analyze, analyze_modes, load_rules
+from lifecycle_mapper.analysis import analyze_modes, load_rules
 from lifecycle_mapper.assess import assess
 from lifecycle_mapper.canonical import write_json
 from lifecycle_mapper.openaire import file_hash
-from test_rules import make_snapshot
+from helpers import make_snapshot
 
-CANDIDATE = (
-    Path(__file__).resolve().parents[1]
-    / "tests/fixtures/legacy-profiles/documentation-candidate-v4"
-)
+CANDIDATE = Path(__file__).resolve().parents[1] / "configs/heuristics"
 EXAMPLES = {
     "Collection": "This repository generates synthetic datasets.",
     "Processing": "This package augments training data.",
@@ -22,23 +19,6 @@ EXAMPLES = {
     "Evaluation": "This tool computes classification accuracy.",
     "Dissemination": "This code generates plots of experimental results.",
 }
-
-
-@pytest.mark.parametrize("stage", STAGES)
-def test_candidate_general_wording_and_source_isolation(tmp_path, stage):
-    rules, _ = load_rules(CANDIDATE)
-    assert len(rules) == 48
-    snapshot = make_snapshot(tmp_path, EXAMPLES[stage], "README.md")
-    assert stage in analyze(snapshot, "documentation-only", rules_dir=CANDIDATE)["labels"]
-    assert analyze(snapshot, "code-only", rules_dir=CANDIDATE)["labels"] == []
-    for prefix in ("Future work: ", "This repository does not support this feature. Future work: "):
-        from lifecycle_mapper.documentation import documentation_matches
-
-        rule = next(r for r in rules if r["stage"] == stage and r["id"].endswith("EXTENDED_V4"))
-        assert not any(
-            not r["exclusion_reasons"]
-            for r in documentation_matches(prefix + EXAMPLES[stage], rule)
-        )
 
 
 def test_candidate_does_not_promote_third_party_or_installation(tmp_path):
@@ -198,6 +178,7 @@ def test_saved_profile_validation_does_not_replay(tmp_path, monkeypatch):
         ]
         == 1
     )
+    write_json(run / "manifest.json", {"configuration": {"catalog_sha256": "different"}})
     with pytest.raises(ValueError, match="catalog differs"):
         assess(
             run,

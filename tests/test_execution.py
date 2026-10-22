@@ -34,7 +34,7 @@ def test_guarded_repository_runs_real_child_and_reads_finished_checkpoint(monkey
     key = sha256(json_bytes([record["url"].casefold(), "main-then-master-v1"]))
     directory = tmp_path / "repositories" / key
     snapshot = directory / "attempt-0001/snapshot"
-    shutil.copytree(ROOT / "benchmark/synthetic/snapshots/docs-positive", snapshot)
+    shutil.copytree(ROOT / "tests/fixtures/snapshots/docs-positive", snapshot)
     manifest = read_json(snapshot / "manifest.json")
     manifest["branch_policy"] = "main-then-master-v1"
     write_json(snapshot / "manifest.json", manifest)

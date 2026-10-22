@@ -86,3 +86,10 @@ labels and final consensus are different data products. Code/combined agreement 
 not independently validate code evidence. Compare modes on the common complete cohort
 and include matching-cohort trivial baselines. No result establishes scientific quality,
 methodological completeness or successful reproduction.
+
+## Release provenance
+
+Only the final method is distributed. Matching predicates are unchanged from the source
+revision `67192bc1f725966fffbb1818f2efc7fac5210726`; redundant workflows and duplicate
+runtime components were removed. Implementation hashes change, so retain the original
+checkout to resume existing runs. Original saved manifests and labels are not rewritten.

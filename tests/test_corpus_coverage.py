@@ -22,12 +22,12 @@ def inline_fake_acquisition(monkeypatch):
 def test_100_repositories_export_all_rows_including_failure(monkeypatch, tmp_path):
     source = tmp_path / "repos.txt"
     source.write_text("".join(f"https://github.com/a/repo{i:03d}\n" for i in range(100)))
-    rules = ROOT / "tests/fixtures/legacy-profiles/documentation-development-v5"
+    rules = ROOT / "configs/heuristics"
 
     def fake(url, snapshot, ref, max_bytes):
         if url.endswith("repo099"):
             raise OSError("unavailable")
-        shutil.copytree(ROOT / "benchmark/synthetic/snapshots/docs-positive", snapshot)
+        shutil.copytree(ROOT / "tests/fixtures/snapshots/docs-positive", snapshot)
         manifest = read_json(snapshot / "manifest.json")
         manifest.update(repository=url.removeprefix("https://github.com/"), source_url=url)
         write_json(snapshot / "manifest.json", manifest)
@@ -57,7 +57,7 @@ def test_100_repositories_export_all_rows_including_failure(monkeypatch, tmp_pat
     )
     assert read_json(checkpoint)["modes"][0]["rule_catalog_hash"] == load_rules(rules)[1]
     with pytest.raises(ValueError, match="unchanged"):
-        corpus.run_corpus(source, output, transport="git", workers=2)
+        corpus.run_corpus(source, output, transport="git", workers=2, max_bytes=1)
 
 
 def test_expected_count_fails_before_acquisition(tmp_path):

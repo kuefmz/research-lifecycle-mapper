@@ -7,12 +7,9 @@ from lifecycle_mapper.analysis import analyze, analyze_modes
 from lifecycle_mapper.canonical import read_json, write_json
 from lifecycle_mapper.portable_code import token_view
 from lifecycle_mapper.source_languages import CATALOG, language_names
-from test_rules import make_snapshot
+from helpers import make_snapshot
 
-PROFILE = (
-    Path(__file__).resolve().parents[1]
-    / "tests/fixtures/legacy-profiles/multilanguage-development-v5.1"
-)
+PROFILE = Path(__file__).resolve().parents[1] / "configs/heuristics"
 
 
 def portable_snapshot(tmp_path, text, path):

@@ -16,7 +16,7 @@ from . import MODES, STAGES
 from . import acquisition
 from .analysis import analyze_modes, load_rules
 from .batch import read_inputs
-from .benchmark import git_state, implementation_hash
+from .metrics import git_state, implementation_hash
 from .canonical import json_bytes, read_json, sha256
 from .git_acquisition import acquire_git
 from .openaire import file_hash
@@ -512,7 +512,7 @@ def run_corpus(
 
 def export_tables(output: Path, reference_path: Path | None = None) -> dict[str, int]:
     """Stream compact predictions and review candidates; never relabel the reference."""
-    from .dataset import dataset_reference
+    from .reference import dataset_reference
     from .reference import final_reference
 
     reference = (

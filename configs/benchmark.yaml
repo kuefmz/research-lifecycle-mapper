@@ -1,7 +1,0 @@
-{
-  "benchmark_manifest": "benchmark/manifest.json",
-  "evaluation_role": "exploratory",
-  "development_repositories": [],
-  "rules_dir": "rules",
-  "output": "local/runs/research-v1"
-}

@@ -1,8 +1,8 @@
 cff-version: 1.2.0
-message: "Please cite the software version used. Paper and author metadata are pending."
+message: "Anonymous replication artifact accompanying a submitted MSR 2027 paper. Cite the preserved release when available."
 title: "Research Lifecycle Mapper"
 type: software
 version: 1.0.0
 license: MIT
 authors:
-  - name: "Research Lifecycle Mapper contributors"
+  - name: "Anonymous authors"

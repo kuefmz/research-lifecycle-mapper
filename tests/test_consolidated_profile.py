@@ -5,8 +5,8 @@ import pytest
 from lifecycle_mapper.acquisition import source_kind
 from lifecycle_mapper.analysis import analyze
 from lifecycle_mapper.portable_code import token_view
-from test_portable_code import portable_snapshot
-from test_rules import make_snapshot
+from helpers import portable_snapshot
+from helpers import make_snapshot
 
 PROFILE = Path(__file__).resolve().parents[1] / "configs/heuristics"
 

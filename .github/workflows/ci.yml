@@ -19,4 +19,4 @@ jobs:
       - run: uv run --frozen pytest -q --basetemp local/pytest
       - run: uv run --frozen playwright install --with-deps chromium
       - run: RLM_BROWSER_TEST=1 uv run --frozen pytest -q tests/browser --basetemp local/browser-tests
-      - run: uv run --frozen python -m lifecycle_mapper benchmark verify --config configs/synthetic.yaml --workspace local/ci-reproduction
+      - run: uv run --frozen python scripts/verify_final_profile.py

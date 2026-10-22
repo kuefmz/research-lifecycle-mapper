@@ -1,41 +1,42 @@
-# Anonymous submission and release status
+# Anonymous submission package
 
-The maintained tree supplies the final deterministic method, data-generation tools,
-human reference, minimal UI, tests and documented destinations for results/prompts.
-It is **not yet a complete research release**: exact historical LLM prompts/configuration
-and original local research outputs still need to be supplied. Do not claim those are
-bundled because placeholder directories exist. No artifact score or DOI is promised.
+This artifact supports reproduction of the heuristic analyses in the submitted MSR 2027
+paper. Before freezing the review package:
 
-## Before submission
+1. Copy original local run exports and evidence into the locations described in results.md.
+   Complete the experiment README for each result group, including failures and denominators.
+2. Supply exact historical LLM prompts and inference configuration under prompts/ and
+   results/llm/, or disclose their absence and restrict the corresponding paper claims.
+3. Verify input/reference/rule hashes, cohort membership and compatibility before pooling runs.
+4. Confirm the original human annotation instructions and final reference evidence scope.
+5. Run tests and verify the final rule catalog, then stage the intended distribution files.
+6. Create a history-free archive:
 
-1. Upload original runs/exports and fill each results README (docs/results.md).
-2. Supply exact historical LLM prompts and inference manifests, or disclose nonavailability
-   and narrow the paper claims (prompts/README.md).
-3. Verify source archive/reference hashes, cohort membership and pooled-run compatibility.
-4. Confirm original human annotation instructions and reference evidence scope. The
-   implementation's codebook is not retroactive proof of the original reviewer protocol.
-5. Build an anonymous distribution with `python scripts/package_submission.py`.
-6. Audit that distribution, including workbook metadata, logs, manifests and paths.
-7. Check actual venue anonymity/artifact instructions and page limits before submission.
-8. Record the final archive hash; obtain and document an archival DOI when deposited.
+```bash
+uv run --frozen python scripts/package_submission.py
+```
 
-## Identity handling
+The script packages tracked files, excludes Git history and workflow/agent metadata, and
+writes `dist/submission.zip` plus its SHA-256. Untracked results are not included: inspect
+`git status` and stage intended result files before packaging. Do not stage tokens or raw
+multi-GB archives.
 
-This working repository's hosting account and Git history identify its owner. A clone
-of that history is not anonymous even if README names are removed. The packaging script
-creates a history-free ZIP, excludes local/transient state and transient state,
-and does not claim to remove all identities. Publish its contents through the chosen
-anonymous service. Never rewrite the original Git history or raw result manifests to
-hide provenance. If raw paths/metadata identify researchers, retain originals privately
-and document a separately sanitized distribution and hashes. Preserve third-party
-citations, dataset repository identities and required license attribution.
-
-The existing audit script accepts forbidden patterns without hardcoding private names:
+Extract and inspect the ZIP. The original host account and Git history identify its owner;
+the working repository must not be used as the anonymous submission link. Publish the
+archive contents through the chosen anonymous service. Check names, accounts, emails,
+absolute paths, workbook XML/properties, logs, manifests and external links. A local scan:
 
 ```bash
 uv run --frozen python scripts/audit_anonymity.py PATH_TO_EXTRACTED_PACKAGE \
- --forbid YOUR_NAME --forbid YOUR_EMAIL --forbid YOUR_ACCOUNT
+  --forbid YOUR_NAME --forbid YOUR_EMAIL --forbid YOUR_ACCOUNT
 ```
 
-Inspect matches manually; legitimate third-party names are not automatically leaks.
-No scanner can guarantee anonymity against searchable data or methodological fingerprints.
+Preserve original research results privately. If identifiable metadata requires removal,
+create a separate sanitized derivative, document transformations and retain original hashes.
+Never silently rewrite scientific manifests or remove required third-party attribution.
+No automated scan guarantees anonymity against contextual inference.
+
+Verify current venue requirements before submission. A review-ready package requires the
+actual results and prompt materials, not just their placeholders. No artifact-review score
+or archival DOI is promised. Add the persistent identifier after the preserved release is
+deposited, using metadata compatible with the review stage.

@@ -1,5 +1,5 @@
-"""Research Lifecycle Mapper. Candidate rules; no adjudicated research results."""
+"""Research Lifecycle Mapper: replication artifact for the submitted MSR 2027 paper."""
 
-__version__ = "0.3.0"
+__version__ = "1.0.0"
 STAGES = ("Collection", "Processing", "Method", "Experimentation", "Evaluation", "Dissemination")
 MODES = ("documentation-only", "code-only", "combined")

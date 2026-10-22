@@ -13,7 +13,7 @@ from lifecycle_mapper.canonical import write_json
 from lifecycle_mapper.corpus import export_tables, run_corpus, selected_records
 from lifecycle_mapper.openaire import extract, normalize_github
 
-BASE = Path(__file__).resolve().parents[1] / "benchmark/synthetic/snapshots"
+BASE = Path(__file__).resolve().parents[1] / "tests/fixtures/snapshots"
 
 
 @pytest.fixture(autouse=True)
@@ -327,30 +327,3 @@ def test_single_pass_modes_identical_to_independent_analysis(name):
 
     snapshot = BASE / name
     assert analyze_modes(snapshot, MODES) == [analyze(snapshot, mode) for mode in MODES]
-
-
-def test_independent_import_computes_count_without_historical_constant(tmp_path):
-    import csv
-    from lifecycle_mapper.annotations import FIELDS, import_annotations
-    from lifecycle_mapper import STAGES
-
-    source = tmp_path / "independent.csv"
-    with source.open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=FIELDS)
-        writer.writeheader()
-        writer.writerows(
-            {
-                "repository": "a/b",
-                "stage": stage,
-                "reviewer2": "1",
-                "reviewer1": "0" if i == 0 else "1",
-                "proposed_consensus": "",
-                "approved_consensus": "",
-                "approval_reference": "",
-            }
-            for i, stage in enumerate(STAGES)
-        )
-    provenance = import_annotations(
-        source, tmp_path / "imported", "current", expected_repositories=1
-    )
-    assert provenance["initial_disagreements"] == 1

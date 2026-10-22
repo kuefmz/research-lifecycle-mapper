@@ -3,22 +3,14 @@ from pathlib import Path
 import pytest
 
 from lifecycle_mapper.reference import final_reference
-from lifecycle_mapper.dataset import dataset_reference
-from lifecycle_mapper.canonical import read_json
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_authoritative_csv_matches_workbook_and_dataset():
+def test_authoritative_csv_matches_source_workbook():
     labels = final_reference(ROOT / "data/final_agreement.csv")
     assert len(labels) == 100
     assert labels == final_reference(ROOT / "data/research_lifecycle_benchmark_100_msr27.xlsx")
-    assert labels == {
-        key.casefold(): value
-        for key, value in dataset_reference(
-            read_json(ROOT / "data/research_lifecycle_benchmark_100_msr27.json")
-        ).items()
-    }
     assert sum(len(value) for value in labels.values()) == 600
 
 

@@ -7,7 +7,7 @@ import pytest
 from lifecycle_mapper.acquisition import acquire, replay, repository_id, source_kind
 from lifecycle_mapper.canonical import contained, write_json
 
-BASE = Path(__file__).resolve().parents[1] / "benchmark/synthetic/snapshots"
+BASE = Path(__file__).resolve().parents[1] / "tests/fixtures/snapshots"
 
 
 @pytest.mark.parametrize(

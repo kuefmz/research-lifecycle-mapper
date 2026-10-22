@@ -1,7 +1,6 @@
-# Historical regression fixtures
+# Artificial captured inputs
 
-Legacy profiles and the previous packaged default are retained solely to test historical
-matching and saved-format behavior. They are not supported alternatives to the final
-105-rule method. Tests using legacy_catalog explicitly select these fixture rules;
-production defaults are not monkeypatched. tests/test_submission.py checks the actual
-final default against the unchanged scientific profile, including full evidence equality.
+`snapshots/` contains small invented repository snapshots used to test input integrity,
+source separation, evidence matching and incomplete-scan handling. They are not study
+repositories, human ground truth, or measured research results. Snapshot bytes and
+manifest checksums are preserved. Downloaded code is never executed.

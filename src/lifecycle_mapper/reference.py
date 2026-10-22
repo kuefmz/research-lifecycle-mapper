@@ -6,7 +6,8 @@ from typing import Any
 
 from . import STAGES
 from .acquisition import repository_id
-from .consensus import worksheet_cells
+from .workbook import worksheet_cells
+from .batch import normalize_url
 
 
 def final_reference(path: Path) -> dict[str, dict[str, int]]:
@@ -148,3 +149,41 @@ def audit_workbook(path: Path, annotator_sheets: tuple[str, str]) -> dict[str, A
         agreements=sum(r["agreement"] for r in counts.values()),
     )
     return result
+
+
+def dataset_reference(payload: dict[str, Any]) -> dict[str, dict[str, int]]:
+    if (
+        payload.get("kind") != "lifecycle-benchmark-dataset"
+        or payload.get("schema_version") != 1
+        or payload.get("stages") != list(STAGES)
+    ):
+        raise ValueError("Unsupported benchmark dataset schema")
+    read_inputs_payload(payload)
+    labels = {}
+    for row in payload["repositories"]:
+        key = normalize_url(row["source_url"]).removeprefix("https://github.com/").casefold()
+        human = row.get("human_labels")
+        if (
+            not isinstance(human, dict)
+            or set(human) != set(STAGES)
+            or any(type(v) is not int or v not in (0, 1) for v in human.values())
+        ):
+            raise ValueError("Dataset requires six literal binary human labels per repository")
+        if not isinstance(row.get("results"), dict):
+            raise ValueError("Dataset results must be a run-ID mapping")
+        labels[key] = human
+    if not isinstance(payload.get("runs"), list):
+        raise ValueError("Dataset requires run history")
+    return labels
+
+
+def read_inputs_payload(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    from .batch import records_from_rows
+
+    rows = payload.get("repositories")
+    if not isinstance(rows, list):
+        raise ValueError("Dataset repositories must be a list")
+    records = records_from_rows(rows)
+    if len(records) != len(rows):
+        raise ValueError("Duplicate repository in benchmark dataset")
+    return records

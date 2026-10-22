@@ -21,7 +21,7 @@ def test_final_default_is_exact_frozen_profile():
     assert len(actual) == 105
     assert actual == expected and digest == default_digest
     for name in ["docs-positive", "code-positive", "generic-negative", "excluded-negative"]:
-        snapshot = ROOT / "benchmark/synthetic/snapshots" / name
+        snapshot = ROOT / "tests/fixtures/snapshots" / name
         for mode in ["documentation-only", "code-only", "combined"]:
             assert analysis.analyze(snapshot, mode) == analysis.analyze(
                 snapshot, mode, rules_dir=ROOT / "configs/heuristics"

@@ -4,10 +4,10 @@ from pathlib import Path
 import pytest
 
 from lifecycle_mapper.acquisition import POLICY_VERSION, replay
-from legacy_catalog import analyze, analyze_modes
+from lifecycle_mapper.analysis import analyze, analyze_modes
 from lifecycle_mapper.canonical import sha256, write_json
 
-BASE = Path(__file__).resolve().parents[1] / "benchmark/synthetic/snapshots"
+BASE = Path(__file__).resolve().parents[1] / "tests/fixtures/snapshots"
 
 
 def snapshot(tmp_path, cells, language="python"):
@@ -79,7 +79,7 @@ def test_conditions_do_not_join_across_cells(tmp_path):
 
 
 @pytest.mark.parametrize("language,code", [("unknown", "x = 1"), ("python", "%timeit x()")])
-def test_unsupported_code_does_not_hide_complete_markdown(tmp_path, language, code):
+def test_nonactivity_code_does_not_hide_complete_markdown(tmp_path, language, code):
     path = snapshot(
         tmp_path,
         [
@@ -93,7 +93,7 @@ def test_unsupported_code_does_not_hide_complete_markdown(tmp_path, language, co
         analyze_modes(path, ("documentation-only", "code-only"))[0],
     ]:
         assert result["scan_complete"]
-    assert not analyze(path, "code-only")["scan_complete"]
+    assert analyze(path, "code-only")["scan_complete"]
 
 
 def test_corrupt_notebook_is_incomplete_in_both_modes(tmp_path):

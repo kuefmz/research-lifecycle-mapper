@@ -2,14 +2,11 @@ from pathlib import Path
 
 import pytest
 
-from lifecycle_mapper.analysis import analyze, implementation_view, load_rules
+from lifecycle_mapper.analysis import analyze, implementation_view
 from lifecycle_mapper.brace_code import executable_blocks
-from test_rules import make_snapshot
+from helpers import make_snapshot
 
-RULES = (
-    Path(__file__).resolve().parents[1]
-    / "tests/fixtures/legacy-profiles/multilanguage-development-v5.1"
-)
+RULES = Path(__file__).resolve().parents[1] / "configs/heuristics"
 
 
 @pytest.mark.parametrize(
@@ -124,12 +121,6 @@ def test_cpp_raw_literals_and_comments_preserve_offsets():
     assert executable_blocks(view)
 
 
-def test_documentation_rules_are_identical_to_v5_and_modes_are_isolated(tmp_path):
-    old, _ = load_rules(RULES.parent / "documentation-development-v5")
-    new, _ = load_rules(RULES)
-    assert [r for r in old if r["source"] == "documentation"] == [
-        r for r in new if r["source"] == "documentation"
-    ]
-    assert len(new) == len(old) + 16
+def test_code_is_isolated_from_documentation(tmp_path):
     snapshot = make_snapshot(tmp_path, "void run(){ model.fit(features,labels); }", "src/f.cpp")
     assert analyze(snapshot, "documentation-only", rules_dir=RULES)["labels"] == []

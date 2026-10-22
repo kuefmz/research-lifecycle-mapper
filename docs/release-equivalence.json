@@ -1,8 +1,0 @@
-{
-  "rules_checked": 105,
-  "snapshot_mode_checks": 15,
-  "matching_predicates_unchanged": true,
-  "predictions_and_evidence_unchanged_except_identifiers_and_version_metadata": true,
-  "previous_catalog_sha256": "cc5a684fbeaf288832558c8962f1bc78525e1df1e147d4f6b2f02e5282f18f52",
-  "current_catalog_sha256": "cf9c1ae18f58e54400767aff29c6849bb6bd5f9527684f0a0e4c7812510f8ff8"
-}

@@ -14,9 +14,9 @@ from typing import Any
 from . import MODES, STAGES
 from .acquisition import replay
 from .analysis import analyze_modes, load_rules
-from .benchmark import calculate_metrics, implementation_hash
+from .metrics import calculate_metrics, implementation_hash
 from .canonical import contained, read_json, sha256, write_csv, write_json
-from .dataset import dataset_reference
+from .reference import dataset_reference
 from .openaire import file_hash
 from .reference import final_reference
 from .notebooks import expand_notebooks

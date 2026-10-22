@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from . import STAGES
-from .benchmark import calculate_metrics
+from .metrics import calculate_metrics
 from .canonical import write_json
 
 

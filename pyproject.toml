@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "research-lifecycle-mapper"
 version = "1.0.0"
-description = "Deterministic, evidence-preserving research lifecycle classification"
+description = "Replication artifact for research lifecycle evidence mining in the submitted MSR 2027 paper"
 requires-python = "==3.12.*"
 dependencies = ["Pygments==2.21.0"]
 
@@ -19,16 +19,17 @@ dev = ["pytest==8.4.2", "ruff==0.13.3", "mypy==1.18.2", "playwright==1.58.0"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-lifecycle_mapper = ["rules/*.yaml", "ui/*.html", "language_catalog.json", "language_catalog_LICENSE.txt"]
+lifecycle_mapper = ["rules/*.yaml", "language_catalog.json", "language_catalog_LICENSE.txt"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+norecursedirs = ["fixtures"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-extend-exclude = ["benchmark/synthetic/snapshots"]
+extend-exclude = ["tests/fixtures"]
 
 [tool.mypy]
 python_version = "3.12"

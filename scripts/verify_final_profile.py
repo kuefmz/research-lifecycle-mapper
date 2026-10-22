@@ -1,4 +1,4 @@
-"""Verify frozen scientific catalog and both default mirrors without network access."""
+"""Verify frozen scientific catalog and packaged default without network access."""
 
 import hashlib
 import json
@@ -11,8 +11,8 @@ count = 0
 for name, digest in record["yaml_sha256"].items():
     data = (profile / name).read_bytes()
     assert hashlib.sha256(data).hexdigest() == digest, f"Changed frozen rule file: {name}"
-    for mirror in (ROOT / "rules", ROOT / "src/lifecycle_mapper/rules"):
-        assert (mirror / name).read_bytes() == data, f"Inconsistent mirror: {mirror}/{name}"
+    mirror = ROOT / "src/lifecycle_mapper/rules" / name
+    assert mirror.read_bytes() == data, f"Inconsistent packaged rule: {name}"
     count += len(json.loads(data)["rules"])
 assert count == record["rule_count"] == 105
-print("Verified 105 frozen rules and both default mirrors")
+print("Verified 105 frozen rules and packaged default")

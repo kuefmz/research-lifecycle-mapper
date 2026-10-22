@@ -99,6 +99,3 @@ The full collection is experiment-mentioned software, not representative of all 
 software. The historical publication-associated subset may enrich dissemination evidence.
 OpenAIRE publication links are not automatic positive repository-level dissemination labels.
 
-`metadata_publications.py`, `publications.py`, `funnel.py` and the older metadata-overlap
-files are compatibility/exploratory tools, not a verified fourth-criterion selection used
-for the current 3,211 cohort. Do not present their 322 text candidates as the historical 386.
