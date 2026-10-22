@@ -1,0 +1,54 @@
+{
+  "conversations": [
+    {
+      "mode": "documentation",
+      "prompt_file": "documentation.txt",
+      "prompt_sha256": "224c3845d0791e4c79d2b22df2ecf40bb82b6a579d00de42fd364842170e45ba",
+      "shared_conversation": "https://chatgpt.com/share/6ac48c78-b374-83ed-9cb1-4645974cbda0",
+      "source_response_sha256": "1eb01a31a1a9ef3cbb2e2c6f8216b2fd8c9961422a87f52223b590e5d4650895",
+      "retrieval_method": "Unauthenticated public shared-page HTML; decoded public conversation message text",
+      "verbatim": true,
+      "format_note": "Original Markdown escaping and backslash-newline sequences retained",
+      "observed_model_slug": [
+        "gpt-6.1-sol-wm"
+      ],
+      "model_scope": "Public page metadata observed during retrieval; not a guarantee of historical model weights, parameters or inference configuration",
+      "response_table_repositories_checked": 100,
+      "response_table_label_mismatches": 0
+    },
+    {
+      "mode": "code",
+      "prompt_file": "code.txt",
+      "prompt_sha256": "e114f9f5ba186511e1261056bb95b85f162ca3ebcbea7ddbefb3b873980d6442",
+      "shared_conversation": "https://chatgpt.com/share/6ac6c2cf-af50-83eb-988d-bf818eedc329",
+      "source_response_sha256": "febd99a03d20ce29334d88ea629e6f96841d1ddea95b22ec682c51ada05fb6eb",
+      "retrieval_method": "Unauthenticated public shared-page HTML; decoded public conversation message text",
+      "verbatim": true,
+      "format_note": "Original Markdown escaping and backslash-newline sequences retained",
+      "observed_model_slug": [
+        "gpt-6.1-sol-wm"
+      ],
+      "model_scope": "Public page metadata observed during retrieval; not a guarantee of historical model weights, parameters or inference configuration",
+      "response_table_repositories_checked": 100,
+      "response_table_label_mismatches": 0
+    },
+    {
+      "mode": "combined",
+      "prompt_file": "combined.txt",
+      "prompt_sha256": "be6ca1219c7fe4ba06d4c82a21c0fc26565b1ae3c1ec0929697580fcd0c492ff",
+      "shared_conversation": "https://chatgpt.com/share/6ac6c262-f110-83ed-8f46-2e6f06c6d93e",
+      "source_response_sha256": "0b57caa98412a1c049625f8cd53ba217bee3bda7597f7d3f043c69ff6ba63868",
+      "retrieval_method": "Unauthenticated public shared-page HTML; decoded public conversation message text",
+      "verbatim": true,
+      "format_note": "Original Markdown escaping and backslash-newline sequences retained",
+      "observed_model_slug": [
+        "gpt-6.1-sol-wm"
+      ],
+      "model_scope": "Public page metadata observed during retrieval; not a guarantee of historical model weights, parameters or inference configuration",
+      "response_table_repositories_checked": 100,
+      "response_table_label_mismatches": 0
+    }
+  ],
+  "scope": "Only original user prompts and scoped provenance exported; account/session/configuration payloads not distributed.",
+  "retrieved_on": "2026-10-22"
+}

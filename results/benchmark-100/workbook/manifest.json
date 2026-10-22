@@ -1,0 +1,136 @@
+{
+  "source_workbook_sha256": "9331524372765d6c4898cdede32b2c9d0b654d4638d18c6f46358fcfbf9928a1",
+  "source": "Attached workbook snapshot; original Google Sheet unchanged",
+  "selection_policy": "Use explicitly named latest heuristic tabs, not inferred modification dates. Export all other distinct sheet roles.",
+  "reviewer_mapping": "Matched all 600 labels per reviewer to the existing independent annotation CSV; no names exported.",
+  "value_policy": "Cached cell text preserved; formulas, styling, hyperlinks, comments and out-of-range notes excluded. Blanks and Unverified preserved.",
+  "sheets": [
+    {
+      "role": "reviewer1",
+      "source_sheet": "research_lifecycle_benchmark_10",
+      "range": "A1:G101",
+      "csv": "reviewer1.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "06642286c5575c1dd4454d8363f5f25729997d632d22a2bee7ea2f4a81b61d51",
+      "superseded_sheet_omitted": null
+    },
+    {
+      "role": "reviewer2",
+      "source_sheet": "Hoja 10",
+      "range": "A1:G101",
+      "csv": "reviewer2.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "6de13857a9e98aef861d617744f10b4b88e81e2eabed9209dbd57494201f894f",
+      "superseded_sheet_omitted": null
+    },
+    {
+      "role": "agreement",
+      "source_sheet": "agreement",
+      "range": "A1:G101",
+      "csv": "agreement.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "3444b0852cb8b32509067cb0083663dd8fff840648b3f868851dda0c20fcb0ff",
+      "superseded_sheet_omitted": null
+    },
+    {
+      "role": "final_agreement",
+      "source_sheet": "final_agreement",
+      "range": "A1:G101",
+      "csv": "final_agreement.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "27409758582dd22150d374aa44171cd69be13359e4a14aff18a9b3e0c30c7f30",
+      "superseded_sheet_omitted": null
+    },
+    {
+      "role": "llm_documentation",
+      "source_sheet": "Hoja 11",
+      "range": "A1:G101",
+      "csv": "llm_documentation.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "0da03af260f9d08358f29e4237f5a1599cb7f3da210cb6ba34c0ff522a800f01",
+      "superseded_sheet_omitted": null
+    },
+    {
+      "role": "llm_code",
+      "source_sheet": "Hoja 12",
+      "range": "A1:G101",
+      "csv": "llm_code.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "489d873e54f127acf9fdee57a11756356156a10db0d9ce171fff962edfa1a034",
+      "superseded_sheet_omitted": null
+    },
+    {
+      "role": "llm_combined",
+      "source_sheet": "Hoja 13",
+      "range": "A1:G101",
+      "csv": "llm_combined.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "3b4f41267806521687353567603cb4e1de4015fa93163ceb7bec034d9b585e2a",
+      "superseded_sheet_omitted": null
+    },
+    {
+      "role": "heuristics_documentation",
+      "source_sheet": "benchmark_100_heuristics_doc_la",
+      "range": "A1:G101",
+      "csv": "heuristics_documentation.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "15a842e5b59a8708f4895341124e590eadd41742e15ba802b3b1ca9c5020508a",
+      "superseded_sheet_omitted": "Hoja 14"
+    },
+    {
+      "role": "heuristics_code",
+      "source_sheet": "benchmark_100_heuristics_code_l",
+      "range": "A1:G101",
+      "csv": "heuristics_code.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "c7fcf29656c30bc492775d5c9b3e0ea4c4d628775291e5a5e47a6ddb0c97da11",
+      "superseded_sheet_omitted": "Hoja 15"
+    },
+    {
+      "role": "heuristics_combined",
+      "source_sheet": "benchmark_100_heuristics_both_l",
+      "range": "A1:G101",
+      "csv": "heuristics_combined.csv",
+      "rows_including_header": 101,
+      "columns": 7,
+      "sha256": "1f0a34a84bdb63202f1ffc246c53214712e5040a37e16012f0d1cfbbcd28d21f",
+      "superseded_sheet_omitted": "Hoja 16"
+    }
+  ],
+  "conversations": [
+    {
+      "mode": "documentation",
+      "source_sheet": "Hoja 11",
+      "source_cell": "H1",
+      "url": "https://chatgpt.com/share/6ac48c78-b374-83ed-9cb1-4645974cbda0"
+    },
+    {
+      "mode": "code",
+      "source_sheet": "Hoja 12",
+      "source_cell": "H1",
+      "url": "https://chatgpt.com/share/6ac6c2cf-af50-83eb-988d-bf818eedc329"
+    },
+    {
+      "mode": "combined",
+      "source_sheet": "Hoja 13",
+      "source_cell": "H1",
+      "url": "https://chatgpt.com/share/6ac6c262-f110-83ed-8f46-2e6f06c6d93e"
+    }
+  ],
+  "live_source_check": {
+    "checked_on": "2026-10-22",
+    "ranges": 10,
+    "cells_per_range": 707,
+    "differences_after_numeric_0_1_equivalence": 0,
+    "policy": "Exact supplied Google Sheets source read through connector. Exported values retain attached workbook numeric text; live sheet names containing reviewer identities are not distributed."
+  }
+}

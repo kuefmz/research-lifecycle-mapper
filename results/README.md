@@ -1,11 +1,13 @@
 # Final research results
 
-No original local corpus runs are included here yet. Reserved destinations:
+Selected workbook exports, their executed reproduction notebook, and exact LLM user prompts
+are now included under benchmark-100/ and ../prompts/. Original per-repository corpus
+runs still need uploading. Destinations:
 
-- benchmark-100/: final heuristic metrics/exports for the annotated development benchmark.
+- benchmark-100/: selected source-sheet CSVs, metrics, paper checks and executed notebook.
 - historical-386/: pooled detections from the 100 and additional 286, after compatibility checks.
 - openaire-additional/: results for the additional 2,825; keep pending until complete.
-- llm/: original LLM outputs, inference metadata and prompt hashes.
+- llm/: reserved for additional original inference metadata; the three workbook LLM tables are under benchmark-100/workbook/.
 
 For each populated folder add a README with:
 

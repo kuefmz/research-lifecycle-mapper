@@ -1,5 +1,11 @@
 # Research inputs and provenance
 
+The current paper worksheet exports and reproduction notebook are under
+[results/benchmark-100](../results/benchmark-100/README.md). The workbook in this data
+folder is the earlier anonymous reference archive; its archived prediction sheets are
+not a replacement for the explicitly selected latest CSV tables. Human reference labels
+remain checked against the supplied authoritative final_agreement.csv.
+
 | File/group | Contents |
 |---|---|
 | `final_agreement.csv` | Jointly adjudicated 100-repository reference, 600 labels, supplied order |

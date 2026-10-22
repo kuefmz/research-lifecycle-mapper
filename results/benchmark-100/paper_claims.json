@@ -1,0 +1,103 @@
+{
+  "source": "User-attached submitted-paper draft, Tables 3-7; these are reported claims, not computed outputs",
+  "paper_sha256": "5ed1063874e00158d2027624290fbf78da6209a5edaba9561b68fe68f50ddf58",
+  "table_3": {
+    "Collection": 53,
+    "Processing": 55,
+    "Method": 53,
+    "Experimentation": 72,
+    "Evaluation": 53,
+    "Dissemination": 68
+  },
+  "table_4": {
+    "heuristics_documentation": {
+      "repositories": 96,
+      "micro_precision": 0.865,
+      "micro_recall": 0.591,
+      "micro_f1": 0.702,
+      "macro_f1": 0.62,
+      "exact_match": 0.115,
+      "label_accuracy": 0.679,
+      "coverage": 0.96
+    },
+    "heuristics_code": {
+      "repositories": 95,
+      "micro_precision": 0.821,
+      "micro_recall": 0.277,
+      "micro_f1": 0.414,
+      "macro_f1": 0.353,
+      "exact_match": 0.011,
+      "label_accuracy": 0.498,
+      "coverage": 0.95
+    },
+    "heuristics_combined": {
+      "repositories": 95,
+      "micro_precision": 0.83,
+      "micro_recall": 0.696,
+      "micro_f1": 0.757,
+      "macro_f1": 0.683,
+      "exact_match": 0.168,
+      "label_accuracy": 0.714,
+      "coverage": 0.95
+    }
+  },
+  "table_6": {
+    "llm_documentation": {
+      "repositories": 98,
+      "micro_precision": 0.779,
+      "micro_recall": 0.886,
+      "micro_f1": 0.829,
+      "macro_f1": 0.81,
+      "exact_match": 0.194
+    },
+    "llm_code": {
+      "repositories": 63,
+      "micro_precision": 0.663,
+      "micro_recall": 0.979,
+      "micro_f1": 0.791,
+      "macro_f1": 0.767,
+      "exact_match": 0.159
+    },
+    "llm_combined": {
+      "repositories": 99,
+      "micro_precision": 0.661,
+      "micro_recall": 0.995,
+      "micro_f1": 0.794,
+      "macro_f1": 0.777,
+      "exact_match": 0.131
+    }
+  },
+  "table_5": {
+    "Collection": {
+      "documentation-only": 30,
+      "code-only": 3,
+      "combined": 33
+    },
+    "Processing": {
+      "documentation-only": 116,
+      "code-only": 33,
+      "combined": 131
+    },
+    "Method": {
+      "documentation-only": 85,
+      "code-only": 143,
+      "combined": 176
+    },
+    "Experimentation": {
+      "documentation-only": 244,
+      "code-only": 23,
+      "combined": 247
+    },
+    "Evaluation": {
+      "documentation-only": 66,
+      "code-only": 93,
+      "combined": 131
+    },
+    "Dissemination": {
+      "documentation-only": 212,
+      "code-only": 69,
+      "combined": 226
+    }
+  },
+  "table_7_note": "Heuristic rows still report superseded scores (0.496/0.577/0.692 micro-F1); they are inconsistent with Table 4. Superseded source sheets are not exported as latest results."
+}

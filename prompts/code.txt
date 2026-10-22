@@ -1,0 +1,199 @@
+Review all 100 GitHub repositories listed below and assess their research lifecycle implementation against six criteria.\
+\
+VERY IMPORTANT: ONLY CONSIDER CODE. DO NOT INFER ANSWERS FROM DOCUMENTATION.\
+\
+Read the actual code for every repository. Do not assign scores based on repository names, assumptions, or previous assessments.\
+\
+CODE SCOPE\
+\
+Consider:\
+\
+\- Implementation code and executable source files.\
+\- Scripts that perform research tasks.\
+\- Notebook code cells.\
+\- Executable experiment, evaluation, and output-generation workflows.\
+\- Configuration values only when their use is demonstrated in executable code.\
+\
+Do not use:\
+\
+\- README files, guides, tutorials, or documentation pages.\
+\- Package manuals.\
+\- Source-code comments or docstrings.\
+\- Explanatory Markdown cells in notebooks.\
+\- Raw data files as evidence of implemented procedures.\
+\- Configuration contents or build files alone.\
+\- The contents of external papers to fill gaps in repository code.\
+\
+A publication citation or link does not support any criterion. Calls to external libraries count only for the operation explicitly performed by the repository code; do not assume other library capabilities are implemented.\
+\
+ASSESSMENT CRITERIA\
+\
+1\. Collection\
+&#x20;  Question: Does the code implement obtaining the research inputs/data?\
+&#x20;  Evidence: loading identified research inputs, downloading data, API requests, acquisition procedures, or synthetic-data generation.\
+\
+2\. Processing\
+&#x20;  Question: Does the code implement preparing or transforming inputs?\
+&#x20;  Evidence: preprocessing, cleaning, normalization, filtering, format conversion, or feature extraction.\
+\
+3\. Method\
+&#x20;  Question: Does the code implement the research method/model/algorithm?\
+&#x20;  Evidence: model definitions, algorithm logic, mechanisms, mathematical computations, or methodological parameters used in executable operations.\
+&#x20;  An algorithm name or unused import alone is insufficient.\
+\
+4\. Experimentation\
+&#x20;  Question: Does the code implement executing the experiment or analysis?\
+&#x20;  Evidence: executable experiment entry points, training or analysis runs, experiment sequences, or parameter sweeps.\
+&#x20;  Installation or build procedures alone are insufficient.\
+\
+5\. Evaluation\
+&#x20;  Question: Does the code implement evaluating or validating research results?\
+&#x20;  Evidence: metrics, evaluation routines, baselines, comparison procedures, statistical tests, or uncertainty assessment.\
+&#x20;  Software unit tests, generic error checks, or merely storing results are insufficient.\
+\
+6\. Dissemination\
+&#x20;  Question: Does the code implement producing research outputs for reporting or sharing?\
+&#x20;  Evidence: generating research figures, result tables, reports, or exporting substantive research results.\
+&#x20;  Generic logging, intermediate checkpoints, licensing, or publication citations alone are insufficient.\
+\
+SCORING RULES\
+\
+\- 1 = explicit supporting evidence found in the code.\
+\- 0 = supporting evidence not found in the code reviewed.\
+\- Unverified = code could not be accessed or adequately reviewed. Never turn an access failure into 0.\
+\- A 1 indicates evidence presence, not completeness or quality.\
+\- Assess each criterion independently.\
+\- Apply the same thresholds consistently across all repositories.\
+\- Do not leave cells blank.\
+\- Verify supporting code internally, but do not display evidence.\
+\- Do not assign scores from filenames, directory names, function names, imports, or keywords alone; inspect the executable operations.\
+\
+OUTPUT REQUIREMENTS\
+\
+Return ONLY ONE Markdown table containing the results for all 100 repositories.\
+\
+Do not include an evidence table, explanations, citations, code links, introductory text, or concluding commentary.\
+\
+Use exactly seven columns in this order:\
+GitHub URL, Collection, Processing, Method, Experimentation, Evaluation, Dissemination.\
+\
+Use this exact table structure:\
+\
+|GitHub URL|Collection|Processing|Method|Experimentation|Evaluation|Dissemination|\
+\|---|---|---|---|---|---|---|\
+|[https\://github.com/OWNER/REPO]\(https\://github.com/OWNER/REPO)|1|0|1|1|0|1|\
+\
+The example demonstrates formatting only. Its scores are placeholders.\
+\
+Requirements:\
+\
+\- Include all 100 repositories in the exact order listed below.\
+\- Use one row per repository.\
+\- Display the complete GitHub URL as the clickable link text.\
+\- Do not add an ID, total, evidence, confidence, or notes column.\
+\- Do not skip or duplicate repositories.\
+\- Before responding, confirm internally that the table contains 100 repository rows and six scores per repository.\
+\- Confirm internally that no score was inferred from documentation.\
+\
+REPOSITORIES — REVIEW IN THIS EXACT ORDER\
+\
+1\. https\://github.com/mspeich/forhytm\
+2\. https\://github.com/cristal-smac/atom\
+3\. https\://github.com/taochen/all-versus-one\
+4\. https\://github.com/kjetilk/doe-sparql\
+5\. https\://github.com/yakazimir/Code-Datasets\
+6\. https\://github.com/QTB-HHU/integraseModel\
+7\. https\://github.com/onurgu/joint-ner-and-md-tagger\
+8\. https\://github.com/marcotcr/anchor-experiments\
+9\. https\://github.com/jkeiren/pbesstategraph-experiments\
+10\. https\://github.com/ushaham/RBMpaper\
+11\. https\://github.com/flowersteam/rl-difference-testing\
+12\. https\://github.com/irit-melodi/irit-stac\
+13\. https\://github.com/drbenvincent/darc-experiments-matlab\
+14\. https\://github.com/dtrckd/pymake\
+15\. https\://github.com/Sind/compression-experiments\
+16\. https\://github.com/numpi/markov-measures\
+17\. https\://github.com/vered1986/UnsupervisedHypernymy\
+18\. https\://github.com/duvenaud/additive-gps\
+19\. https\://github.com/steveash/NETransliteration-COLING2018\
+20\. https\://github.com/mantiuk/pwcmp\
+21\. https\://github.com/kapelner/optDesignSlopeInt\
+22\. https\://github.com/isti-fmt-nlp/AmbiguityToVariability\
+23\. https\://github.com/MichSchli/Tensor-LSTM\
+24\. https\://github.com/akshay-r/autoencoders_dictionaries\
+25\. https\://github.com/sisl/GrammarExpts.jl\
+26\. https\://github.com/gmarceaucaron/natural-langevin-dynamics-for-neural-networks\
+27\. https\://github.com/lacerbi/comprob\
+28\. https\://github.com/pierrejacob/unbiasedpathsampling\
+29\. https\://github.com/PAL-UH/transferAL\
+30\. https\://github.com/IKMLab/arct2\
+31\. https\://github.com/AviranLab/SLEQ\
+32\. https\://github.com/sss1/sobolev-estimation\
+33\. https\://github.com/pietrobraione/sushi-experiments\
+34\. https\://github.com/srndic/hidost-reproduction\
+35\. https\://github.com/sirusb/R3CPET\
+36\. https\://github.com/jmschrei/PyPore\
+37\. https\://github.com/Ettwiller/TSS\
+38\. https\://github.com/eglxiang/ytf\
+39\. https\://github.com/jebyrnes/ext-meta\
+40\. https\://github.com/gavento/swap-sorting-experiments\
+41\. https\://github.com/cog-imperial/GPdoemd\
+42\. https\://github.com/jermp/rdf_indexes\
+43\. https\://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries\
+44\. https\://github.com/YiyiLiu1/bdChemo\
+45\. https\://github.com/matejbalog/gumbel-relatives\
+46\. https\://github.com/ztangent/norms-cogsci19\
+47\. https\://github.com/Matrix-Factorization-Bandit/IMFB-KDD2019\
+48\. https\://github.com/vanheeringen-lab/gimmemotifs\
+49\. https\://github.com/ihincks/nv-adaptive\
+50\. https\://github.com/b5strbal/macaw\
+51\. https\://github.com/HUJI-Deep/Generative-ConvACs\
+52\. https\://github.com/tuw-cpsg/paper-shsa-monitor-experiments\
+53\. https\://github.com/LCSL/dpp-vfx\
+54\. https\://github.com/anguelos/embedding_map\
+55\. https\://github.com/rehmanzafar/dlime_experiments\
+56\. https\://github.com/liusi2019/ocd\
+57\. https\://github.com/deezer/MusicGenreTranslation\
+58\. https\://github.com/Veleslavia/EUSIPCO2017\
+59\. https\://github.com/alfredomg/ADAPT-MWE17\
+60\. https\://github.com/michael135/count-vector-paper-experiments\
+61\. https\://github.com/smitdaniel/BFPtool\
+62\. https\://github.com/h4rm/ThreePhotons.jl\
+63\. https\://github.com/dmlb2000/EETUP\
+64\. https\://github.com/dobriban/high-dim-risk-experiments\
+65\. https\://github.com/Lcartwright94/BayesianAT\
+66\. https\://github.com/pkuzhf/bidding-at-risk-experiment\
+67\. https\://github.com/jwcarr/flatlanders\
+68\. https\://github.com/joefresna/PlosONE-Reina2015\
+69\. https\://github.com/pamattei/BMAsBIC\
+70\. https\://github.com/paper-submission-anonymous/rVAMP\
+71\. https\://github.com/svissicchio/Repetita\
+72\. https\://github.com/f0k/ismir2015\
+73\. https\://github.com/sss1/convolutional-dictionary\
+74\. https\://github.com/aquemy/DPSO_experiments\
+75\. https\://github.com/PalmaLeandro/iterativeLSTM\
+76\. https\://github.com/elibol/amle\
+77\. https\://github.com/vitorenesduarte/exp\
+78\. https\://github.com/marksbrown/ProcessingCTRData\
+79\. https\://github.com/Garrafao/MetaphoricChange\
+80\. https\://github.com/drgriffis/SBD-Evaluation\
+81\. https\://github.com/Emergent-Behaviors-in-Biology/community-simulator\
+82\. https\://github.com/md-k-sarker/ecii-expr\
+83\. https\://github.com/ChristopherWilks/snaptron-experiments\
+84\. https\://github.com/mwcvitkovic/MASS-Learning\
+85\. https\://github.com/diglesia/delaIglesiaetal_Data\
+86\. https\://github.com/ot/partitioned_elias_fano\
+87\. https\://github.com/irit-melodi/irit-rst-dt\
+88\. https\://github.com/shobeir/fakhraei_kdd2015\
+89\. https\://github.com/vodolan/DenotationIdentification\
+90\. https\://github.com/shobeir/fakhraei_tcbb2014\
+91\. https\://github.com/rlaboiss/vextab-data\
+92\. https\://github.com/gzanella/multigrid\
+93\. https\://github.com/pimdh/relie\
+94\. https\://github.com/DIVERSIFY-project/autojmh-validation-data\
+95\. https\://github.com/allenai/OpenBookQA\
+96\. https\://github.com/ciaranm/cp2015-subgraph-isomorphism\
+97\. https\://github.com/FreeDisciplina/CollisionOffset\
+98\. https\://github.com/research-submissions/iclr20\
+99\. https\://github.com/WMBEdmands/simExTargId\
+100\. https\://github.com/maidens/ACC-2016

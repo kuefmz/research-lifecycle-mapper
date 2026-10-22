@@ -132,6 +132,25 @@ It reports mode-specific and common-complete cohorts, reference-agreement metric
 baselines, and coverage. The paper summary also produces Markdown, LaTeX, and JSON.
 Reference labels are comparison metadata, never classifier inputs.
 
+## Recalculate the worksheet results
+
+The selected source sheets are available as ten CSV files in
+[`results/benchmark-100/workbook/`](results/benchmark-100/workbook/).
+Run the executed [reproduction notebook](results/benchmark-100/reproduce_paper.ipynb)
+or its plain Python equivalent:
+
+```bash
+uv run --frozen python results/benchmark-100/reproduce_paper.py
+```
+
+This reproduces annotation statistics, saved-table metrics and baselines, and checks
+the draft's reported values. It explicitly flags the difference between worksheet
+binary completeness and original runtime scan completeness. The paper's heuristic
+evaluation and 386-repository counts require their original saved-run data; see
+[the reproduction status](results/benchmark-100/README.md).
+The three original LLM user prompts and shared-conversation references are included
+under [`prompts/`](prompts/).
+
 ## Outputs and interpretation
 
 | Output | Contents |
@@ -166,10 +185,10 @@ Read [the method](docs/method.md), [exact rules](docs/rules.md),
 [result documentation](docs/results.md).
 
 **Release contents:** the deterministic method and annotated input data are included.
-Original research run exports and exact historical LLM prompts/configuration still need
-to be uploaded to their documented locations. Placeholder directories do not establish
-that those experiments are reproducible. The LLM materials are separate from the fully
-local heuristic implementation; see [prompts/README.md](prompts/README.md).
+Selected workbook results and exact historical LLM user prompts are included. Original
+per-repository research runs, the 386-repository export, and complete LLM inference
+configuration remain to be supplied. The notebook reports which paper tables are
+reproducible from the available data; see [prompts/README.md](prompts/README.md).
 
 ## Verification
 

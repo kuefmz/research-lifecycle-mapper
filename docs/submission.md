@@ -5,8 +5,9 @@ paper. Before freezing the review package:
 
 1. Copy original local run exports and evidence into the locations described in results.md.
    Complete the experiment README for each result group, including failures and denominators.
-2. Supply exact historical LLM prompts and inference configuration under prompts/ and
-   results/llm/, or disclose their absence and restrict the corresponding paper claims.
+2. Exact shared LLM user prompts and output tables are included under prompts/ and
+   results/benchmark-100/workbook/. Supply any remaining original inference configuration,
+   or disclose what the shared pages do not establish.
 3. Verify input/reference/rule hashes, cohort membership and compatibility before pooling runs.
 4. Confirm the original human annotation instructions and final reference evidence scope.
 5. Run tests and verify the final rule catalog, then stage the intended distribution files.
@@ -37,6 +38,6 @@ Never silently rewrite scientific manifests or remove required third-party attri
 No automated scan guarantees anonymity against contextual inference.
 
 Verify current venue requirements before submission. A review-ready package requires the
-actual results and prompt materials, not just their placeholders. No artifact-review score
+original corpus results and sufficient inference provenance, not just placeholders. No artifact-review score
 or archival DOI is promised. Add the persistent identifier after the preserved release is
 deposited, using metadata compatible with the review stage.
