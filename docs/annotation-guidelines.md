@@ -1,7 +1,7 @@
 # Annotation questions and evidence scope
 
 The paper's Table 1 describes the initial independent documentation-based review.
-The questions below are transcribed from the supplied draft. The final jointly
+The questions below are the initial annotation questions reported in the paper. The final jointly
 adjudicated labels are treated as mixed-source, consistent with the final reference
 and evaluation interpretation; they must not be presented as independently established
 source-code ground truth.

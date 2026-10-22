@@ -79,6 +79,6 @@ committing; never add tokens, worker temporary files or the multi-GB software ar
 
 The researcher-reported latest benchmark had 100 attempts, 95 complete, 3 partial and
 2 failed; evaluable mode counts 96/95/95. The supplied original assessment tables are now bundled under
-`results/benchmark-100/assessment/`. The notebook verifies restored CSV predictions and
+`results/benchmark-100/assessment/`. The notebook verifies released CSV predictions and
 scan-completeness flags against them and reproduces Table 4. Raw acquisition snapshots
 and the full 386-repository export remain separate inputs.

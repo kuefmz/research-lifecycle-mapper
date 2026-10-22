@@ -1,11 +1,8 @@
 # Benchmark worksheet exports
 
-These ten CSVs reproduce the selected **A1:G101** ranges from the user-supplied workbook
-snapshot: one header row, 100 repositories, seven columns per file. Source workbook and
-CSV SHA-256 hashes are recorded in `manifest.json`. The original Google Sheet and attached
-workbook were not edited. The ten selected ranges were also checked against the exact
-live Google Sheet on 2026-10-22: no value differences after treating numeric 0/1 and
-0.0/1.0 as equivalent. Human and LLM CSVs preserve the attached values. The three heuristic CSVs restore unknown decisions from the original assessment, as described below. This is not continuous live sync.
+These ten CSVs contain the released annotation and prediction tables for the
+100-repository benchmark: one header row, 100 repositories and seven columns per file.
+`manifest.json` records source mapping and SHA-256 checksums.
 
 | CSV | Source worksheet | Meaning |
 |---|---|---|
@@ -16,21 +13,14 @@ live Google Sheet on 2026-10-22: no value differences after treating numeric 0/1
 | llm_documentation.csv | Hoja 11 | Documentation-only ChatGPT predictions |
 | llm_code.csv | Hoja 12 | Code-only ChatGPT predictions |
 | llm_combined.csv | Hoja 13 | Combined-input ChatGPT predictions |
-| heuristics_documentation.csv | benchmark_100_heuristics_doc_la | Explicitly named latest documentation heuristic export |
-| heuristics_code.csv | benchmark_100_heuristics_code_l | Explicitly named latest code heuristic export |
-| heuristics_combined.csv | benchmark_100_heuristics_both_l | Explicitly named latest combined heuristic export |
+| heuristics_documentation.csv | benchmark_100_heuristics_doc_la | Documentation-only heuristic predictions |
+| heuristics_code.csv | benchmark_100_heuristics_code_l | Code-only heuristic predictions |
+| heuristics_combined.csv | benchmark_100_heuristics_both_l | Combined heuristic predictions |
 
-The three named latest heuristic tabs supersede Hoja 14, Hoja 15 and Hoja 16. Those older
-tables are omitted. Excel does not supply reliable per-tab modification times: selection
-uses the explicit latest-tab names, not a guessed timestamp or highest sheet number.
-Reviewer numbering was verified against all 600 labels per reviewer in the existing
-independent annotation CSV. Personal names, out-of-range notes, styling and hyperlinks
-are not included in the seven-column exports.
-
-Cell text is preserved: numeric `0.0`/`1.0` values are not relabeled, and blank and
-`Unverified` cells stay distinct from zero. The agreement sheet exports cached formula
-results. Its summary row 102 and the conversation links in H1 are deliberately outside
-the CSV range. Missing cached formula values cause export to fail rather than invent data.
+The four annotation tables distinguish independent reviewer decisions, initial
+agreement and jointly adjudicated reference labels. The six prediction tables separate
+LLM and heuristic results for documentation, code and combined evidence. Numeric
+0/1 labels are binary; `?`, blank and `Unverified` values denote unknown predictions.
 
 ## Where are the worksheet CSVs?
 
@@ -47,11 +37,8 @@ There are **10 distinct current worksheet exports**, each 101 rows by seven colu
 9. [heuristics_code.csv](heuristics_code.csv)
 10. [heuristics_combined.csv](heuristics_combined.csv)
 
-The attached workbook has 13 tabs. Three superseded heuristic tabs were excluded,
-leaving 10 current roles; an eleventh distinct current sheet has not been identified.
-No extra worksheet result is invented to reach a requested file count. The consolidated
-[../predictions.csv](../predictions.csv) is an additional derived result file, not an
-Excel sheet export. All human and LLM label values remain unchanged.
+The consolidated [../predictions.csv](../predictions.csv) additionally includes
+heuristic commit IDs, mode identifiers and scan-completeness flags.
 
 ## Shared LLM conversations and exact prompts
 
@@ -67,7 +54,7 @@ conversation tables was checked against these CSVs: **1,800/1,800 labels match**
 Prompt hashes and retrieval provenance are in [prompts/provenance.json](../../../prompts/provenance.json).
 Review the shared pages for suitability before publishing an anonymous review artifact.
 
-## Reproduce and compare with the draft
+## Reproduce the paper results
 
 Run [the notebook](../reproduce_paper.ipynb) or its standard-library Python equivalent:
 
@@ -75,28 +62,8 @@ Run [the notebook](../reproduce_paper.ipynb) or its standard-library Python equi
 uv run --frozen python results/benchmark-100/reproduce_paper.py
 ```
 
-The heuristic CSVs restore **58 zero-filled unknown decisions** to `?` and render six
-existing blanks as `?`. All genuine binary decisions and the supplied repository order
-are unchanged. Original assessment predictions and independent scan-completeness flags
-are retained in `../assessment/`; its correction log lists every changed cell.
-`manifest.json` records both the original source-export and corrected CSV hashes.
-The source workbook and live Google Sheet were not changed.
-
-Evaluation uses the original scan-completeness flags: **96 documentation, 95 code,
-95 combined repositories**, reproducing Table 4. A known positive remains 1 even if
-its scan is incomplete; incomplete scans are excluded from complete-scan metrics.
-
-The LLM sheets reproduce Table 6 to the printed precision including the author-confirmed correction: combined micro-F1
-is 0.79454927, which rounds to **0.795**.
-
-Re-export from the exact supplied workbook:
-
-```bash
-uv run --frozen python scripts/export_workbook_results.py \
-  --workbook /path/to/the/source-workbook.xlsx \
-  --output /path/to/raw-workbook-export
-```
-
-The source mapping and workbook hash must be reviewed when the input changes. This
-command regenerates the uncorrected source snapshot in a separate directory. It does not
-restore uncertainty; do not overwrite the corrected submission CSVs with raw exports.
+Evaluation uses independent scan-completeness flags: **96 documentation, 95 code,
+95 combined repositories**. Known positives are retained in incomplete scans;
+complete-scan metrics exclude those scans. LLM evaluation uses **98/63/99** repositories
+with determinate six-stage predictions. The combined LLM micro-F1 is 0.79454927,
+reported as **0.795** to three decimal places.

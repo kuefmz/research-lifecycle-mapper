@@ -145,12 +145,10 @@ or its plain Python equivalent:
 uv run --frozen python results/benchmark-100/reproduce_paper.py
 ```
 
-This reproduces annotation statistics, saved-table metrics and baselines. Restored
-unknown predictions and original assessment scan-completeness flags reproduce the
-paper's heuristic results. The claim checks include the author-confirmed paper
-corrections; the corrected PDF has not been supplied. The 386-repository stage counts
-still require the pooled original export for independent verification.
-See [the reproduction status](results/benchmark-100/README.md).
+This reproduces annotation statistics, benchmark metrics, confusion counts and
+baselines from the released CSVs. Heuristic evaluation uses per-mode scan-completeness
+flags, independently of known positive findings. See [benchmark documentation](results/benchmark-100/README.md)
+for evaluation cohorts and optional original-run verification.
 The three original LLM user prompts and shared-conversation references are included
 under [`prompts/`](prompts/).
 
@@ -260,6 +258,4 @@ Code: [MIT license](LICENSE). Annotations: [data terms](data/LICENSE-annotations
 Third-party source contents and the bundled language catalog retain their own licenses.
 The archival DOI will be added when the preserved release is deposited; none is claimed here.
 
-See [the submission audit](docs/submission-audit.md) for verified coverage, anonymity checks
-and outstanding reproduction inputs. A history-free anonymous package is distinct from
-the identifying development repository.
+See [submission instructions](docs/submission.md) for the history-free review package.

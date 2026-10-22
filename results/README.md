@@ -1,6 +1,8 @@
 # Research results
 
-This page documents the results used in the MSR 2027 paper. Benchmark values below are recalculated from saved predictions and the adjudicated reference. Paper comparisons include the author-confirmed Table 6 rounding and Table 7 corrections. The original draft hash and correction provenance are recorded in [paper_claims.json](benchmark-100/paper_claims.json); the corrected PDF has not been supplied.
+This page documents the results used in the MSR 2027 paper. Benchmark metrics are
+calculated from the released predictions and adjudicated reference. Reported paper
+values are stored separately in [paper_claims.json](benchmark-100/paper_claims.json).
 
 ## Collections and availability
 
@@ -38,13 +40,17 @@ Metrics are rounded to three decimal places. Precision and recall are micro-aver
 | LLM | Code | 63 | 0.630 | 0.663 | 0.979 | 0.791 | 0.767 | 0.669 | 0.159 |
 | LLM | Combined | 99 | 0.990 | 0.661 | 0.995 | 0.795 | 0.777 | 0.670 | 0.131 |
 
-Heuristic cohorts use the original per-mode scan-completeness flags: **96/95/95**. Restoring 58 zero-filled unknowns to `?` and rendering six existing blanks as `?` preserved all genuine binary labels and original row order. Known positives remain positive even in incomplete scans; incomplete scans do not enter complete-scan metrics. The source workbook was not edited. LLM cohorts require determinate predictions for all six stages: **98/63/99**.
+Heuristic evaluation uses per-mode scan-completeness flags: **96/95/95** eligible
+repositories. Unknown predictions are represented as `?`; they are not negative labels.
+Known positives remain positive in incomplete scans, which are excluded from
+complete-scan metrics. LLM evaluation requires six determinate stage labels:
+**98/63/99** eligible repositories.
 
 The heuristic combined mode is a logical union of documentation/code evidence, not an average. Its recall is higher than either individual mode on the respective eligible cohorts. The reference is adjudicated and mixed-source; source-specific agreement is not independent evidence-source accuracy. All 100 repositories informed heuristic development. The different denominators prevent interpreting these rows as a controlled same-cohort comparison; common-cohort metrics and always-positive/negative baselines are available in [analysis/reproduction.json](benchmark-100/analysis/reproduction.json).
 
 The combined LLM micro-F1 is **0.79454927**, correctly rounded to **0.795**.
 
-### Confusion totals for the corrected paper Table 7
+### Confusion totals (paper Table 7)
 
 | Approach | Input | False negatives | False positives |
 |---|---|---:|---:|

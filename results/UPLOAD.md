@@ -10,7 +10,7 @@ The submission publishes three complete populations, not the execution subsets:
 
 The 100 and 386 repository lists are already included. The full 3,211 list must come
 from `data/corpus/openaire-experiments/repositories.txt`, not a remaining-subset list.
-The corrected benchmark workbook CSVs and original assessment already in the repository
+The benchmark worksheet CSVs and original assessment already in the repository
 remain separate from the pending raw-run upload.
 
 ## Prepare the private transfer ZIP

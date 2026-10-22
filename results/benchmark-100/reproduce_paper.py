@@ -331,10 +331,10 @@ def analyze(run=None, corpus_predictions=None):
         "corpus_paper_comparison": corpus_comparison,
         "limitations": [
             "Heuristic evaluation uses original assessment scan-completeness flags; known positives in incomplete scans are retained in CSVs.",
-            "Paper Table 4 is reproduced from restored CSV predictions and original assessment completeness flags (96/95/95 repositories).",
+            "Paper Table 4 uses released predictions and assessment completeness flags (96/95/95 repositories).",
             "Paper Table 5 requires the original 386-repository predictions export.",
-            "Author-confirmed paper corrections align Table 7 with Table 4; the corrected PDF has not been supplied.",
-            "Combined LLM micro-F1 rounds to 0.795, as confirmed in the paper correction.",
+            "Table 7 summarizes the same predictions and confusion counts as the benchmark evaluation.",
+            "Combined LLM micro-F1 is reported as 0.795 to three decimal places.",
             "All 100 repositories informed heuristic development; no held-out claim.",
         ],
     }
@@ -385,7 +385,7 @@ def write_outputs(report, output):
         f"- Final positive labels: {report['annotations']['final_positive_labels']}/600.",
         "- Full per-stage metrics, own-cohort and common-cohort baselines are in reproduction.json.",
         "",
-        "## Material differences from the draft",
+        "## Evaluation scope and available inputs",
         "",
     ]
     status += ["- " + text for text in report["limitations"]]

@@ -84,7 +84,7 @@ def review_files(root: Path, names: list[str], include_shared_links: bool = Fals
                 "source_commit_policy": "Artifact development commit identifiers withheld; analyzed repository commit identifiers retained.",
                 "original_files_transformed": changed,
                 "checksum_policy": "Derivative file checksum maps updated where necessary; original source-file hashes retained as provenance.",
-                "limitations": "Content scanning cannot guarantee anonymity against contextual inference. See docs/submission-audit.md.",
+                "limitations": "Content scanning cannot guarantee anonymity against contextual inference. See docs/submission.md.",
             },
             indent=2,
         )

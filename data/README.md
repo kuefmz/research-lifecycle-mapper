@@ -8,12 +8,10 @@
 | `corpus/benchmark_386.txt` | Full 386-repository corpus input |
 | `corpus/publication_associations.json` | Original supplied OpenAIRE software/publication association metadata for the 386 repositories |
 
-Current worksheet CSVs, restored unknowns, original assessment and the executed notebook
-are under [results/benchmark-100](../results/benchmark-100/README.md). The superseded
-workbook, duplicate 386 list, derived paper-link CSV and outdated audits were removed
-to avoid conflicting sources. The association JSON is retained as source provenance,
-not an alternative prediction dataset. Third-party titles and identifiers retain their
-original terms.
+Released worksheet CSVs, assessment records and the executed notebook are under
+[results/benchmark-100](../results/benchmark-100/README.md). The association JSON
+preserves source metadata for the publication-associated collection. Third-party
+titles and identifiers retain their original terms.
 
 Final consensus is a mixed-source adjudicated reference. Initial independent review
 and the original guideline questions concerned documentation. Do not calculate initial

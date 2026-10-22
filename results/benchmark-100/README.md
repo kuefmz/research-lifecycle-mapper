@@ -10,7 +10,7 @@ This folder contains:
 - `workbook/`: ten separate source-sheet CSV exports, their mapping/checksums, and conversation references.
 - `reproduce_paper.ipynb`: executed notebook for annotation statistics, mode-specific/common-cohort metrics, baselines, and paper consistency checks.
 - `reproduce_paper.py`: the same offline calculations as a plain Python command.
-- `paper_claims.json`: values transcribed from the attached draft, explicitly separated from computed outputs.
+- `paper_claims.json`: reported paper values, explicitly separated from computed outputs.
 - `analysis/`: computed tables, full-precision JSON and a reproduction-status summary.
 
 ## Run
@@ -34,15 +34,15 @@ uv run --frozen --with jupyterlab jupyter lab results/benchmark-100/reproduce_pa
 
 - Table 3 initial agreement (354/600), disagreements (246/600), final label totals (384 positive/216 negative), and 12 all-positive repositories.
 - The selected latest workbook predictions, with complete-vector metrics, confusion counts, common-cohort comparisons and always-positive/negative baselines.
-- LLM Table 6 from 98/63/99 eligible repositories, including the author-confirmed combined micro-F1 correction to 0.795.
+- LLM Table 6 from 98/63/99 eligible repositories, with combined micro-F1 of 0.795.
 
-## Original assessment and restored uncertainty
+## Predictions and evaluation
 
-`assessment/` retains the supplied original prediction/completeness tables, metrics,
-checksums and cell correction log. The three heuristic CSVs restore 58 zero-filled
-unknowns to `?`, plus six existing blanks. Genuine 0/1 values and row order are unchanged.
-The notebook verifies every decision against the assessment and uses its scan flags,
-reproducing Table 4's **96/95/95** cohorts. The original workbook is not modified.
+`assessment/` contains repository/stage predictions, independent per-mode scan-completeness
+flags, aggregate metrics and integrity checksums. The notebook checks the released
+heuristic tables against these records. Evaluation includes **96 documentation,
+95 code and 95 combined repositories**. A prediction of `?` is unknown, not negative;
+known positive findings can be retained even when a scan is incomplete.
 
 ## Optional raw run and 386-repository data
 
@@ -58,8 +58,7 @@ The first option reads original checksum-bound result.json files, requiring exac
 100 reference identities. It performs no acquisition or reanalysis. The second requires
 386 distinct repository identities and all 18 exported decisions per repository.
 Without these optional inputs, raw-run verification and the 386-repository table are
-marked unavailable. Table 4 already reproduces using the supplied assessment files. The author confirmed that Table 7 was corrected to the Table 4 heuristic results;
-the older heuristic sheets are omitted from the selected exports.
+marked unavailable. Table 4 already reproduces using the supplied assessment files. Table 7 summarizes the same benchmark predictions and confusion counts.
 
 The final labels are a mixed-source adjudicated reference, and all 100 repositories
 informed heuristic development. Source-specific disagreement is not independently

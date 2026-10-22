@@ -22,4 +22,4 @@ The 386 are supplied publication-associated repositories with verified containme
 the reconstructed 3,211 list. The original publication-selection query is unavailable.
 The figure therefore does not depict that query as a reproduced extraction step.
 The 100 are the annotated development sample; 286 complete the 386 and 2,825 complete
-3,211. The old dashed-membership warning and obsolete release label were removed.
+3,211. The figure distinguishes verified repository membership from the unreconstructed publication-selection query.
