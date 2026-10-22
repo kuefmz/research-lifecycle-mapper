@@ -95,13 +95,20 @@ for the disjoint remainder. Complete row-level evidence and commits remain pendi
 original result files. Aggregate reproduction is distinct from exact classifier replay;
 full-population mode-complete totals and accuracy are not inferred.
 
+## Shared result structure
+
+Every corpus folder contains the same `stage_counts.csv`, `aggregate_summary.json`,
+`paper_table.tex` and `paper_paragraph.tex` structure. Each stage/mode triplet sums to
+its corpus size: 100, 386 or 3,211. Percentages use that full population denominator;
+unknowns are retained. Source scope and accuracy claims remain corpus-specific.
+
 ## Reproduce and complete the archive
 
 From the repository root:
 
 ```bash
 uv run --frozen python results/benchmark-100/reproduce_paper.py
-uv run --frozen python results/corpus-3211/reproduce_results.py
+uv run --frozen python scripts/summarize_corpora.py
 ```
 
 The executed [notebook](benchmark-100/reproduce_paper.ipynb), full-precision [metrics](benchmark-100/analysis/reproduction.json), [paper comparison](benchmark-100/analysis/paper_comparison.csv), and [original assessment](benchmark-100/assessment/README.md) document the benchmark calculations. LLM prompts and shared conversation references are in [../prompts/](../prompts/).

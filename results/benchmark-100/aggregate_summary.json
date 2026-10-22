@@ -1,0 +1,191 @@
+{
+  "repository_count": 100,
+  "scope": "Complete 100-repository heuristic predictions from the original assessment.",
+  "stage_counts": [
+    {
+      "mode": "documentation-only",
+      "stage": "Collection",
+      "positive": 8,
+      "negative": 88,
+      "unknown": 4,
+      "total": 100,
+      "positive_percent_all": 8.0,
+      "unknown_percent_all": 4.0
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Processing",
+      "positive": 37,
+      "negative": 61,
+      "unknown": 2,
+      "total": 100,
+      "positive_percent_all": 37.0,
+      "unknown_percent_all": 2.0
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Method",
+      "positive": 35,
+      "negative": 62,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 35.0,
+      "unknown_percent_all": 3.0
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Experimentation",
+      "positive": 79,
+      "negative": 18,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 79.0,
+      "unknown_percent_all": 3.0
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Evaluation",
+      "positive": 22,
+      "negative": 74,
+      "unknown": 4,
+      "total": 100,
+      "positive_percent_all": 22.0,
+      "unknown_percent_all": 4.0
+    },
+    {
+      "mode": "documentation-only",
+      "stage": "Dissemination",
+      "positive": 76,
+      "negative": 21,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 76.0,
+      "unknown_percent_all": 3.0
+    },
+    {
+      "mode": "code-only",
+      "stage": "Collection",
+      "positive": 0,
+      "negative": 95,
+      "unknown": 5,
+      "total": 100,
+      "positive_percent_all": 0.0,
+      "unknown_percent_all": 5.0
+    },
+    {
+      "mode": "code-only",
+      "stage": "Processing",
+      "positive": 10,
+      "negative": 85,
+      "unknown": 5,
+      "total": 100,
+      "positive_percent_all": 10.0,
+      "unknown_percent_all": 5.0
+    },
+    {
+      "mode": "code-only",
+      "stage": "Method",
+      "positive": 54,
+      "negative": 43,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 54.0,
+      "unknown_percent_all": 3.0
+    },
+    {
+      "mode": "code-only",
+      "stage": "Experimentation",
+      "positive": 13,
+      "negative": 84,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 13.0,
+      "unknown_percent_all": 3.0
+    },
+    {
+      "mode": "code-only",
+      "stage": "Evaluation",
+      "positive": 29,
+      "negative": 67,
+      "unknown": 4,
+      "total": 100,
+      "positive_percent_all": 29.0,
+      "unknown_percent_all": 4.0
+    },
+    {
+      "mode": "code-only",
+      "stage": "Dissemination",
+      "positive": 23,
+      "negative": 73,
+      "unknown": 4,
+      "total": 100,
+      "positive_percent_all": 23.0,
+      "unknown_percent_all": 4.0
+    },
+    {
+      "mode": "combined",
+      "stage": "Collection",
+      "positive": 8,
+      "negative": 87,
+      "unknown": 5,
+      "total": 100,
+      "positive_percent_all": 8.0,
+      "unknown_percent_all": 5.0
+    },
+    {
+      "mode": "combined",
+      "stage": "Processing",
+      "positive": 41,
+      "negative": 56,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 41.0,
+      "unknown_percent_all": 3.0
+    },
+    {
+      "mode": "combined",
+      "stage": "Method",
+      "positive": 63,
+      "negative": 34,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 63.0,
+      "unknown_percent_all": 3.0
+    },
+    {
+      "mode": "combined",
+      "stage": "Experimentation",
+      "positive": 81,
+      "negative": 16,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 81.0,
+      "unknown_percent_all": 3.0
+    },
+    {
+      "mode": "combined",
+      "stage": "Evaluation",
+      "positive": 42,
+      "negative": 54,
+      "unknown": 4,
+      "total": 100,
+      "positive_percent_all": 42.0,
+      "unknown_percent_all": 4.0
+    },
+    {
+      "mode": "combined",
+      "stage": "Dissemination",
+      "positive": 80,
+      "negative": 17,
+      "unknown": 3,
+      "total": 100,
+      "positive_percent_all": 80.0,
+      "unknown_percent_all": 3.0
+    }
+  ],
+  "interpretation": "Counts describe detected evidence; unknowns are not negative predictions.",
+  "limitations": [
+    "All-attempt stage counts differ from complete-scan evaluation cohorts of 96/95/95.",
+    "All 100 repositories informed development; no held-out claim."
+  ]
+}

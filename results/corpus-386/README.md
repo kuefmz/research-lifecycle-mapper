@@ -20,3 +20,22 @@ negative and unknown counts for every stage and input mode. Its source and check
 are in [stage_counts_provenance.json](stage_counts_provenance.json). Positive totals
 agree with paper Table 5. These aggregates do not replace the pending original
 per-repository prediction/evidence export.
+
+## Standard result files
+
+All three paper corpora use the same output structure:
+
+- `repositories.txt`: complete corpus identities.
+- `stage_counts.csv`: 18 mode/stage rows with positive, negative, unknown and total counts, plus percentages using the full corpus denominator.
+- `aggregate_summary.json`: machine-readable counts, source scope and limitations.
+- `paper_table.tex`: LaTeX positive/negative/unknown table for this corpus.
+- `paper_paragraph.tex`: corresponding LaTeX results paragraph.
+
+Generate all three together from the repository root:
+
+```bash
+uv run --frozen python scripts/summarize_corpora.py
+```
+
+The shared schema does not imply identical source availability or ground-truth coverage;
+those distinctions remain documented for each corpus.

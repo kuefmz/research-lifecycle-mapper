@@ -1,6 +1,6 @@
 {
   "repository_count": 3211,
-  "scope": "Full-population stage aggregates from supplied 386 counts and final log decisions for the disjoint execution remainder.",
+  "scope": "Full-population aggregates from supplied 386 counts and final saved log decisions for the disjoint remainder.",
   "stage_counts": [
     {
       "mode": "documentation-only",
@@ -183,11 +183,11 @@
       "unknown_percent_all": 14.5749
     }
   ],
-  "interpretation": "Detected evidence counts, not ground-truth prevalence or full-corpus accuracy.",
+  "interpretation": "Counts describe detected evidence; unknowns are not negative predictions.",
   "limitations": [
-    "Original 386 row-level export not supplied; base aggregates are author-reported.",
-    "Log-derived decisions do not provide full pinned-commit and evidence provenance.",
-    "Full-population mode-complete repository totals cannot be recovered from per-stage base aggregates.",
-    "No full-population precision, recall or F1 without human labels."
+    "Original 386 row-level export is unavailable; base aggregates are author-supplied.",
+    "Logs do not establish complete pinned-commit and evidence provenance.",
+    "Full-population mode-complete repository totals cannot be recovered from stage aggregates.",
+    "No full-population accuracy or F1 without human labels."
   ]
 }

@@ -63,3 +63,27 @@ def test_full_corpus_aggregates_reproduce_from_preserved_sources():
         assert keyed["combined", stage]["positive"] >= max(
             keyed[mode, stage]["positive"] for mode in ("documentation-only", "code-only")
         )
+
+
+def test_three_corpora_share_stage_table_schema_and_correct_denominators():
+    import json
+
+    schema = None
+    for name, size in [("benchmark-100", 100), ("corpus-386", 386), ("corpus-3211", 3211)]:
+        folder = ROOT / "results" / name
+        with (folder / "stage_counts.csv").open(newline="") as handle:
+            reader = csv.DictReader(handle)
+            if schema is None:
+                schema = reader.fieldnames
+            assert reader.fieldnames == schema
+            rows = list(reader)
+        assert len(rows) == 18
+        for row in rows:
+            assert int(row["total"]) == size
+            assert sum(int(row[k]) for k in ("positive", "negative", "unknown")) == size
+            assert float(row["positive_percent_all"]) == round(100 * int(row["positive"]) / size, 4)
+        summary = json.loads((folder / "aggregate_summary.json").read_text())
+        assert summary["repository_count"] == size
+        assert len(summary["stage_counts"]) == 18
+        assert (folder / "paper_table.tex").is_file()
+        assert (folder / "paper_paragraph.tex").is_file()

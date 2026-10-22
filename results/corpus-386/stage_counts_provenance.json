@@ -2,5 +2,6 @@
   "source": "Author-supplied console output from merging the completed 100- and 286-repository prediction exports.",
   "scope": "Aggregate counts for all 386 repositories; no source per-repository export was supplied.",
   "validation": "Every mode/stage sums to 386; positive counts agree with paper Table 5.",
-  "sha256": "9a315b6b38de0f1e2a9c689b3c2c552ee22c456d2df8f5b9440e67e71f7b4495"
+  "sha256": "38cad49fc99d0698d6a160a479891a3a74fa381f9eae433c15ca6cf4a734ea76",
+  "original_export_sha256": "9a315b6b38de0f1e2a9c689b3c2c552ee22c456d2df8f5b9440e67e71f7b4495"
 }
