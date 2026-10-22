@@ -6,7 +6,10 @@ from lifecycle_mapper.analysis import analyze, load_rules
 from lifecycle_mapper.documentation import documentation_matches, workflow_units
 from test_rules import make_snapshot
 
-RULES = Path(__file__).resolve().parents[1] / "configs/documentation-development-v5"
+RULES = (
+    Path(__file__).resolve().parents[1]
+    / "tests/fixtures/legacy-profiles/documentation-development-v5"
+)
 
 
 @pytest.mark.parametrize(

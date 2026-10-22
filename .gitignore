@@ -16,3 +16,8 @@ data/*.json.*.tmp
 # Generated scientific data stay versionable; only transient state is ignored.
 data/**/.corpus.lock
 data/**/*.tmp
+
+# Downloaded source archive and temporary operational files
+data/raw/*.tar
+data/raw/*.tar.gz
+local-test.log

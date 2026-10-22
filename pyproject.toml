@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "research-lifecycle-mapper"
-version = "0.3.0"
+version = "1.0.0"
 description = "Deterministic, evidence-preserving research lifecycle classification"
 requires-python = "==3.12.*"
 dependencies = ["Pygments==2.21.0"]

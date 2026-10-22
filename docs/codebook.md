@@ -1,16 +1,12 @@
-# Candidate codebook — not human-adjudicated
+# Stage definitions and human annotation scope
 
-reviewer2 and reviewer1 confirm jointly adjudicated final documentation labels (2026-10-20). The original human coding instructions have not been supplied as a versioned codebook, so the candidate operational definitions below must not be described as the approved human instructions. Stage order is fixed. Human annotation considers documentation only; code and other supported files form a separate evidence-expansion review. Final-label consensus is established even though this implementation-to-human-definition mapping remains to be documented.
+The implementation's six operational definitions are in [method.md](method.md); exact
+rule predicates are in [rules.md](rules.md). They are not a recovered copy of the original
+human annotation instructions. Supply and version those original instructions before
+claiming exact agreement between the human codebook and the implemented rules.
 
-| Stage | Candidate conceptual definition | Insufficient evidence |
-| --- | --- | --- |
-| Collection | Acquisition or generation of raw research observations | HTTP call, API client or downloading a dependency alone |
-| Processing | Preparation of research data for analysis | Generic parsing or application configuration handling |
-| Method | Implementation of a scientific model, algorithm or analytical technique | src directory, packaging, entry point, software tests |
-| Experimentation | Controlled execution of research trials, conditions or parameter studies | run.py, application launch or generic configuration |
-| Evaluation | Scientific assessment against reference outcomes, baselines or ablations | Software unit tests, isolated metric names or performance instrumentation |
-| Dissemination | Preparation, presentation, export or external communication/deposition of research outputs for reuse (candidate expansion; approval pending) | README presence, generic documentation or software release alone |
-
-Unresolved decisions include whether metadata-only scholarly citation qualifies Dissemination; how to treat research benchmarks located under tests; whether analytical scripts count as Method without an explicit model; and whether config files, notebooks, generated scientific data and publication PDFs should become eligible evidence. No provisional resolution is represented as annotator-approved.
-
-The catalog's `justification` field is the machine-readable mapping from rule IDs to conceptual claims. Human approval must version this document, approve that mapping, and reconcile any departures from the supplied codebook before a paper release.
+Reviewers initially annotated independently, then jointly adjudicated the final table.
+The final reference is currently treated as mixed-source, despite the initial documentation-
+focused intent. No implementation cleanup retrospectively resolves that scope distinction.
+Consensus labels, independent agreement, automated detections and evidence correctness
+must remain separate. See agreement_final.md and evaluation_protocol.md.

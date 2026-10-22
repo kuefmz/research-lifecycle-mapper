@@ -9,7 +9,10 @@ from lifecycle_mapper.portable_code import token_view
 from lifecycle_mapper.source_languages import CATALOG, language_names
 from test_rules import make_snapshot
 
-PROFILE = Path(__file__).resolve().parents[1] / "configs/multilanguage-development-v5.1"
+PROFILE = (
+    Path(__file__).resolve().parents[1]
+    / "tests/fixtures/legacy-profiles/multilanguage-development-v5.1"
+)
 
 
 def portable_snapshot(tmp_path, text, path):

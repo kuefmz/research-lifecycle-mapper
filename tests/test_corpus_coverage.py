@@ -22,7 +22,7 @@ def inline_fake_acquisition(monkeypatch):
 def test_100_repositories_export_all_rows_including_failure(monkeypatch, tmp_path):
     source = tmp_path / "repos.txt"
     source.write_text("".join(f"https://github.com/a/repo{i:03d}\n" for i in range(100)))
-    rules = ROOT / "configs/documentation-development-v5"
+    rules = ROOT / "tests/fixtures/legacy-profiles/documentation-development-v5"
 
     def fake(url, snapshot, ref, max_bytes):
         if url.endswith("repo099"):

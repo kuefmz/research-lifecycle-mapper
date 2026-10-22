@@ -6,7 +6,10 @@ from lifecycle_mapper.analysis import analyze
 from test_portable_code import portable_snapshot
 from test_rules import make_snapshot
 
-PROFILE = Path(__file__).resolve().parents[1] / "configs/simulation-development-v5.3"
+PROFILE = (
+    Path(__file__).resolve().parents[1]
+    / "tests/fixtures/legacy-profiles/simulation-development-v5.3"
+)
 
 
 @pytest.mark.parametrize(

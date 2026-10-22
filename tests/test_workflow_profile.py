@@ -6,7 +6,9 @@ from lifecycle_mapper.analysis import analyze
 from test_portable_code import portable_snapshot
 from test_rules import make_snapshot
 
-PROFILE = Path(__file__).resolve().parents[1] / "configs/workflow-development-v5.2"
+PROFILE = (
+    Path(__file__).resolve().parents[1] / "tests/fixtures/legacy-profiles/workflow-development-v5.2"
+)
 
 
 @pytest.mark.parametrize(

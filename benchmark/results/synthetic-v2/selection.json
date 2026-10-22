@@ -1,9 +1,0 @@
-{
-  "eligible_for_model_selection": false,
-  "evaluation_role": "synthetic",
-  "metric": "macro.f1",
-  "partition": "full",
-  "primary_mode": "documentation-only",
-  "secondary_combination": "logical OR; compare recall and precision with cohort caveat",
-  "value": 0.66666667
-}

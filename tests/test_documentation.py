@@ -1,7 +1,7 @@
 import pytest
 
 from lifecycle_mapper import STAGES
-from lifecycle_mapper.analysis import analyze, load_rules
+from legacy_catalog import analyze, load_rules
 from lifecycle_mapper.documentation import documentation_matches
 from test_rules import make_snapshot
 

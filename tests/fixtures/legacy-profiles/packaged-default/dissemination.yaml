@@ -1,0 +1,251 @@
+{
+  "rules": [
+    {
+      "description": "Communicate or deposit research outputs for external reuse.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "DIS_CODE_ACTIVITY_V1",
+      "justification": "External publication/deposition of research outputs; README presence and generic software releases do not suffice.",
+      "positive": [
+        "^\\s*def\\s+(?:deposit_research_dataset|publish_research_results|archive_research_software)\\s*\\(",
+        "\\b(?:zenodo\\.deposit|repository\\.publish)\\s*\\("
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "source": "code",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.1.0-candidate",
+      "window_lines": 8
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\\b",
+      "description": "Communicate or deposit research outputs for external reuse.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "DIS_DOC_EXPLICIT_V2",
+      "justification": "External publication/deposition of research outputs; README presence and generic software releases do not suffice. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "explicit",
+      "positive": [
+        "\\b(publish(?:es|ed|ing)?|deposit(?:s|ed|ing)?|archiv(?:e|es|ed|ing)|releas(?:e|es|ed|ing))\\b",
+        "\\b(research (?:results|dataset|software)|scientific findings)\\b[^\\n]{0,100}\\b(?:doi|zenodo|public repository|journal)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our (?:tool|package|repository|software|library|workflow)|this (?:tool|package|repository|software|library|workflow)|the (?:package|software|repository))\\b",
+      "description": "Communicate or deposit research outputs for external reuse.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "DIS_DOC_CONTEXTUAL_V2",
+      "justification": "External publication/deposition of research outputs; README presence and generic software releases do not suffice. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "contextual",
+      "positive": [
+        "\\b(?:publish(?:es|ed|ing)?|deposit(?:s|ed|ing)?|archiv(?:e|es|ed|ing)|export(?:s|ed|ing)?|present(?:s|ed|ing)?|distribut(?:e|es|ed|ing)|prepar(?:e|es|ed|ing))\\b",
+        "\\b(?:research (?:results|datasets?|software|artifacts)|scientific (?:findings|figures|results)|publication[- ]ready figures)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:run|use|execute)\\s+(?:this|the|our)\\s+(?:command|workflow|tutorial)\\b",
+      "description": "Communicate or deposit research outputs for external reuse.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+      ],
+      "id": "DIS_DOC_WORKFLOW_V2",
+      "justification": "External publication/deposition of research outputs; README presence and generic software releases do not suffice. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
+      "layer": "workflow",
+      "positive": [
+        "\\b(?:publish(?:es|ed|ing)?|deposit(?:s|ed|ing)?|archiv(?:e|es|ed|ing)|export(?:s|ed|ing)?|present(?:s|ed|ing)?|distribut(?:e|es|ed|ing)|prepar(?:e|es|ed|ing))\\b",
+        "\\b(?:research (?:results|datasets?|software|artifacts)|scientific (?:findings|figures|results)|publication[- ]ready figures)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.2.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our|this|repository|code|scripts?|implementation|run|python|available|download|paper|publication|cite|citation)\\b",
+      "description": "Repository-scoped research activity and object using common disciplinary wording.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b",
+        "\\b(?:pip|dependencies|install(?:ation)?|health.check|software tests?)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|installation|dependencies)\\b"
+      ],
+      "id": "DIS_DOC_RESEARCH_V3",
+      "justification": "General activity/object conjunction; supports instructional and passive repository descriptions without requiring the literal word research.",
+      "layer": "contextual",
+      "positive": [
+        "(?<![-_./])\\b(?:paper|publication|published|cite|citation|article|results|figures?)\\b",
+        "(?<![-_./])(?:arxiv\\.org/|doi\\.org/|@(?:article|inproceedings)\\s*\\{|\\b(?:code|scripts?|repository|accompanying|associated|presented|described|report(?:ed|ing)?|reproduc(?:e|ing)|visualiz(?:e|ing)|plot(?:s|ting)?)\\b)"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 12
+    },
+    {
+      "description": "Research-specific implementation operation with a contextual identifier.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "id": "DIS_CODE_RESEARCH_V3",
+      "justification": "Conjunctive operation and contextual identifier in the same Python function; comments and strings masked. No repository identity or human label is a feature.",
+      "positive": [
+        "\\b(?:savefig|ggsave)\\s*\\(",
+        "\\b(?:plt|fig|figure|plot|results)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope": "statement",
+      "source": "code",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 3
+    },
+    {
+      "description": "Conjunctive research operation and contextual identifier in R, Julia, MATLAB or shell.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|does not|do not|not supported|not implemented|planned|todo|future work|hypothetical|example only)\\b"
+      ],
+      "extensions": [
+        ".r",
+        ".jl",
+        ".m",
+        ".sh"
+      ],
+      "id": "DIS_CODE_MULTILANG_V3",
+      "justification": "Lexically masked comments and strings cannot provide either condition; matched executable statements are evidence, without asserting scientific validity. Function/call context for method; research repetitions for experimentation.",
+      "positive": [
+        "\\b(?:ggsave|savefig|saveas|exportgraphics)\\s*\\(",
+        "\\b(?:plot|figure|fig|results)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope": "statement",
+      "source": "code",
+      "stage": "Dissemination",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.3.0-candidate",
+      "window_lines": 6
+    }
+  ],
+  "stage": "Dissemination",
+  "version": "0.3.0-candidate"
+}

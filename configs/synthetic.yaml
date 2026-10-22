@@ -2,6 +2,6 @@
   "benchmark_manifest": "benchmark/synthetic/manifest.json",
   "evaluation_role": "synthetic",
   "development_repositories": [],
-  "rules_dir": "rules",
+  "rules_dir": "benchmark/versions/baseline-rules",
   "output": "local/runs/synthetic-v2"
 }

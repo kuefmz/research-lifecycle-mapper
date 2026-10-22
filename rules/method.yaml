@@ -36,7 +36,8 @@
         "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
       ],
       "heading_exclusions": [
-        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
       "id": "MET_DOC_EXPLICIT_V2",
       "justification": "Scientific method implementation, excluding packaging, entry points and software tests. Definition awaits human codebook. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
@@ -63,7 +64,7 @@
       "stage": "Method",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.2.0-candidate",
+      "version": "0.5.3-development",
       "window_lines": 12
     },
     {
@@ -74,7 +75,8 @@
         "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
       ],
       "heading_exclusions": [
-        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
       "id": "MET_DOC_CONTEXTUAL_V2",
       "justification": "Scientific method implementation, excluding packaging, entry points and software tests. Definition awaits human codebook. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
@@ -101,7 +103,7 @@
       "stage": "Method",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.2.0-candidate",
+      "version": "0.5.3-development",
       "window_lines": 12
     },
     {
@@ -112,7 +114,8 @@
         "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b"
       ],
       "heading_exclusions": [
-        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
       "id": "MET_DOC_WORKFLOW_V2",
       "justification": "Scientific method implementation, excluding packaging, entry points and software tests. Definition awaits human codebook. Activity/object must have affirmative local-repository scope; contextual and workflow families are unapproved candidates.",
@@ -139,7 +142,7 @@
       "stage": "Method",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.2.0-candidate",
+      "version": "0.5.3-development",
       "window_lines": 12
     },
     {
@@ -151,7 +154,8 @@
         "\\b(?:pip|dependencies|install(?:ation)?|health.check|software tests?)\\b"
       ],
       "heading_exclusions": [
-        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b"
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
       ],
       "id": "MET_DOC_RESEARCH_V3",
       "justification": "General activity/object conjunction; supports instructional and passive repository descriptions without requiring the literal word research.",
@@ -178,7 +182,7 @@
       "stage": "Method",
       "status": "unadjudicated-candidate",
       "supporting": [],
-      "version": "0.3.0-candidate",
+      "version": "0.5.3-development",
       "window_lines": 12
     },
     {
@@ -243,8 +247,638 @@
       "supporting": [],
       "version": "0.3.0-candidate",
       "window_lines": 6
+    },
+    {
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "context_pattern": "\\b(?:we|our|this\\s+(?:tool|package|software|repository|code|library|implementation)|the\\s+(?:tool|package|software|repository|code|library))\\b",
+      "description": "Candidate extended wording for method.",
+      "exclusions": [
+        "\\b(?:not|never|doesn't|don't|cannot|can't|will|plan(?:s|ned)?|todo|future work|hypothetical|example only|might|could|would|may|should)\\b",
+        "\\b(?:pip|dependencies|install(?:ation)?|health.check|software tests?)\\b"
+      ],
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+      ],
+      "id": "MET_DOC_EXTENDED_V4",
+      "justification": "General activity/object wording from the conceptual stage definition; no benchmark identity, labels or unique repository phrase used. Synthetic tests only; empirical benefit unverified.",
+      "layer": "contextual",
+      "positive": [
+        "\\b(?:train(?:s|ed|ing)?|fit(?:s|ted|ting)?|estimat(?:e|es|ed|ing)|infer(?:s|red|ring)?)\\b",
+        "\\b(?:neural networks?|statistical models?|regression models?|classifiers?|probabilistic models?|model parameters|posterior distributions?)\\b"
+      ],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "source": "documentation",
+      "stage": "Method",
+      "status": "unadjudicated-candidate",
+      "supporting": [],
+      "version": "0.5.3-development",
+      "window_lines": 12
+    },
+    {
+      "id": "MET_CODE_BRACE_MODEL_CALL_V51",
+      "stage": "Method",
+      "source": "code",
+      "version": "0.5.1-development",
+      "description": "Invoke scientific model computation with research-input variables.",
+      "positive": [
+        "\\b(?:fit|train|predict|infer|optimize|solve)\\s*\\(",
+        "\\b(?:model|estimator|classifier|solver)\\b",
+        "\\b(?:data|dataset|features|samples|observations|targets|labels)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url",
+        "code_syntax_policy",
+        "code_context"
+      ],
+      "justification": "Invoke scientific model computation with research-input variables. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+      "status": "unadjudicated-development-candidate",
+      "window_lines": 12,
+      "extensions": [
+        ".c",
+        ".cpp",
+        ".cc",
+        ".h",
+        ".hpp",
+        ".java",
+        ".js",
+        ".ts",
+        ".go",
+        ".rs",
+        ".scala"
+      ],
+      "scope": "lexical-block",
+      "detector": "brace-lexical-v1"
+    },
+    {
+      "id": "MET_CODE_BRACE_NAMED_COMPUTATION_V51",
+      "stage": "Method",
+      "source": "code",
+      "version": "0.5.1-development",
+      "description": "Numerical operations within an explicitly named scientific computation routine.",
+      "positive": [
+        "(?:\\b[A-Za-z_]\\w*(?:\\[[^\\]\\n]+\\])?\\s*(?:\\+=|-=|\\*=|/=|=)|\\b(?:sqrt|pow|exp|log|dot|matmul|solve|min|max)\\s*\\()",
+        "(?:\\b[A-Za-z_]\\w*(?:\\[[^\\]\\n]+\\])?\\s*[*/+-]\\s*[A-Za-z_0-9]|\\b(?:sqrt|pow|exp|log|dot|matmul|solve)\\s*\\()"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url",
+        "code_syntax_policy",
+        "code_context"
+      ],
+      "justification": "Numerical operations within an explicitly named scientific computation routine. Comments/literals are masked and all matching conditions must occur inside one executable brace block, excluding declarations and software-test paths. Lexical candidate evidence, not semantic proof.",
+      "status": "unadjudicated-development-candidate",
+      "window_lines": 12,
+      "extensions": [
+        ".c",
+        ".cpp",
+        ".cc",
+        ".h",
+        ".hpp",
+        ".java",
+        ".js",
+        ".ts",
+        ".go",
+        ".rs",
+        ".scala"
+      ],
+      "scope": "lexical-block",
+      "detector": "brace-lexical-v1",
+      "context_pattern": "\\b\\w*(?:cosine|jaccard|similarity|likelihood|posterior|entropy|gradient|eigen|svd|estimate|infer|optim|regress|classifier|computeSimScore)\\w*\\s*\\("
+    },
+    {
+      "id": "MET_CODE_PORTABLE_MODEL_V51",
+      "stage": "Method",
+      "source": "code",
+      "version": "0.5.1-development",
+      "description": "Invoke scientific model computation on research inputs.",
+      "positive": [
+        "\\b(?:fit|train|predict|infer|optimize|optim|solve|lm|glm)\\b\\s*(?:\\(|[A-Za-z_$])",
+        "\\b(?:model|estimator|classifier|solver|regression)\\b",
+        "\\b(?:data|dataset|features|samples|observations|targets|labels)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url",
+        "code_syntax_policy",
+        "languages"
+      ],
+      "justification": "Invoke scientific model computation on research inputs. All conditions must occur within one lexical statement. Comments and literals are masked. This is a language-neutral candidate heuristic, not a semantic proof.",
+      "status": "unadjudicated-development-candidate",
+      "window_lines": 12,
+      "scope": "portable-statement",
+      "detector": "portable-lexical-v1"
+    },
+    {
+      "id": "MET_DOC_IMPLEMENTED_METHOD_V52",
+      "stage": "Method",
+      "source": "documentation",
+      "version": "0.5.3-development",
+      "description": "Explicit implementation or derivation of a named research method, not merely code accompanying a paper or training an existing model.",
+      "positive": [
+        "\\b(?:implement(?:s|ed|ation|ing)?|introduc(?:e|es|ed|ing)|propos(?:e|es|ed|ing)|deriv(?:e|es|ed|ation))\\b",
+        "\\b(?:algorithm|method|estimator|architecture|optimization procedure|inference procedure)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [
+        "\\b(?:not implemented|future work|planned|todo|related work)\\b"
+      ],
+      "window_lines": 6,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
+      "layer": "explicit",
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "justification": "Explicit implementation or derivation of a named research method, not merely code accompanying a paper or training an existing model. Development evidence candidate; no repository identity or reference labels used."
+    },
+    {
+      "id": "MET_DOC_COMPUTATIONAL_STEPS_V52",
+      "stage": "Method",
+      "source": "documentation",
+      "version": "0.5.3-development",
+      "description": "Documented implementation with an explicit multistep computational mechanism, beyond merely training or citing a model.",
+      "positive": [
+        "\\b(?:code|implementation|algorithm|method|pipeline|reranker|classifier)\\b",
+        "\\b(?:consists? of|comprises?|composed of)\\b[^.!?]{0,100}\\b(?:steps|stages|components)\\b",
+        "\\b(?:feature extraction|supervised learning|inference|optimization|sampling|ranking)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [
+        "\\b(?:not implemented|future work|planned|todo|related work)\\b"
+      ],
+      "window_lines": 8,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
+      "layer": "explicit",
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "justification": "Documented implementation with an explicit multistep computational mechanism, beyond merely training or citing a model. Development evidence candidate; no repository identity or reference labels used."
+    },
+    {
+      "id": "MET_CODE_NUMERIC_UPDATE_V52",
+      "stage": "Method",
+      "source": "code",
+      "version": "0.5.2-development",
+      "description": "numeric update",
+      "positive": [
+        "\\b\\w+\\s*=\\s*\\w+\\s*-\\s*\\w+\\s*\\*\\s*\\w*(?:grad|gradient)\\w*\\b",
+        "(?:=|\\()"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "window_lines": 8,
+      "scope": "portable-statement",
+      "detector": "portable-lexical-v1",
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "justification": "numeric update Development evidence candidate; no repository identity or reference labels used."
+    },
+    {
+      "id": "MET_CODE_OPTIMIZER_CALL_V52",
+      "stage": "Method",
+      "source": "code",
+      "version": "0.5.2-development",
+      "description": "optimizer call",
+      "positive": [
+        "\\b(?:grad_descent|gradient_descent|fminunc|fmincon|fminsearch|least_squares|curve_fit)\\s*\\(",
+        "\\b(?:W|X|Y|data|features|params|parameters|weights|theta)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "window_lines": 8,
+      "scope": "portable-statement",
+      "detector": "portable-lexical-v1",
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "justification": "optimizer call Development evidence candidate; no repository identity or reference labels used."
+    },
+    {
+      "id": "MET_DOC_EXPERIMENTAL_DESIGN_V53",
+      "stage": "Method",
+      "source": "documentation",
+      "version": "0.5.3-development",
+      "description": "Repository implementation of an explicitly named experimental-design method.",
+      "positive": [
+        "\\b(?:statistical design of experiments|factorial design|fractional factorial|response surface methodology)\\b",
+        "\\b(?:code|package|implementation|implement\\w*|developed)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [
+        "\\b(?:not implemented|future work|planned|todo|related work)\\b"
+      ],
+      "window_lines": 8,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
+      "layer": "explicit",
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "justification": "Named statistical design plus local implementation evidence; merely mentioning an experiment is insufficient.",
+      "unit_policy": "documented-workflow-v5",
+      "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b"
+    },
+    {
+      "id": "MET_DOC_AGENT_MECHANISM_V53",
+      "stage": "Method",
+      "source": "documentation",
+      "version": "0.5.3-development",
+      "description": "Documented agent interaction/decision mechanism in a simulation implementation.",
+      "positive": [
+        "\\b(?:agents?|multiagent|multi-agent)\\b",
+        "\\b(?:trade|interact|decid\\w*|behaviou?r|actions?)\\b",
+        "\\b(?:market|environment|simulation|simulat\\w*)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [
+        "\\b(?:not implemented|future work|planned|todo|related work)\\b"
+      ],
+      "window_lines": 8,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "context_pattern": "\\b(?:we|our|this|code|implementation|algorithm|method|pipeline|reranker)\\b",
+      "layer": "explicit",
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|another|external|third[- ]party)\\s+(?:tool|package|repository|library|software)\\b",
+        "\\b(?:we|this (?:tool|package|repository))\\s+(?:use|uses|cite|cites|recommend|recommends|invoke|invokes)\\s+[^.!?]{1,100}\\b(?:to|which|that)\\b"
+      ],
+      "justification": "Agent mechanism with its simulated environment, not merely a generic model or paper title.",
+      "unit_policy": "documented-workflow-v5",
+      "document_context_pattern": "\\b(?:API|code|package|simulation|model)\\b"
+    },
+    {
+      "id": "MET_CODE_PHYSICAL_EQUATION_V53",
+      "stage": "Method",
+      "source": "code",
+      "detector": "portable-lexical-v1",
+      "scope": "portable-statement",
+      "positive": [
+        "\\b(?:energy|density|pressure|temperature|radiation|concentration|resistance|conductance|flux|velocity|acceleration|potential|entropy|likelihood)\\w*\\s*(?:<-|=(?!=))",
+        "(?:<-|=(?!=))\\s*[^;\\n]*\\b[A-Za-z_]\\w*\\s*[*/^]\\s*[A-Za-z_(]"
+      ],
+      "file_context_patterns": [
+        "\\b(?:exp|sqrt|log|log10|sin|cos|pow)\\s*\\("
+      ],
+      "description": "Assign an identified physical/statistical quantity using multiplicative arithmetic, in source containing a nonlinear numerical operation. This is a lexical equation candidate; the file-context condition is not data-flow proof.",
+      "version": "0.5.3-development",
+      "supporting": [],
+      "exclusions": [],
+      "window_lines": 12,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "justification": "Assign an identified physical/statistical quantity using multiplicative arithmetic, in source containing a nonlinear numerical operation. This is a lexical equation candidate; the file-context condition is not data-flow proof. Comments and string contents are masked. No repository identity or reference label is used."
+    },
+    {
+      "id": "MET_CODE_AGENT_DECISION_V53",
+      "stage": "Method",
+      "source": "code",
+      "detector": "brace-lexical-v1",
+      "scope": "lexical-block",
+      "extensions": [
+        ".java",
+        ".js",
+        ".ts",
+        ".cpp",
+        ".cc"
+      ],
+      "positive": [
+        "\\b\\w+\\s*=\\s*agent\\w*\\s*\\.\\s*(?:decide|act|chooseAction)\\s*\\(",
+        "\\b(?:market|environment|world)\\w*\\s*\\.\\s*(?:send|applyAction|step)\\s*\\([^;\\n]*\\bagent\\w*\\b"
+      ],
+      "description": "Compute an agent decision and dispatch its action to a simulated environment in one executable brace block.",
+      "version": "0.5.3-development",
+      "supporting": [],
+      "exclusions": [],
+      "window_lines": 12,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "justification": "Compute an agent decision and dispatch its action to a simulated environment in one executable brace block. Comments and string contents are masked. No repository identity or reference label is used."
+    },
+    {
+      "id": "MET_DOC_IMPLEMENTATION_OBJECT_V54",
+      "stage": "Method",
+      "source": "documentation",
+      "version": "0.5.4-development",
+      "description": "implementation object",
+      "positive": [
+        "\\b(?:implementation\\s+of|implements?|implemented|contains?\\s+(?:two\\s+versions?\\s+of\\s+)?(?:the\\s+)?(?:models?|algorithms?)|models?\\s+simulating)\\b",
+        "\\b(?:parser|neural|tensor|bayesian|statistical|mathematical|mechanistic|differential|regression|optimization|inference|sampling|classification|discovery|reconstruction)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [
+        "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
+      ],
+      "window_lines": 8,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
+      "layer": "explicit",
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|external|third[- ]party)\\s+(?:repository|software|package|tool)\\b"
+      ],
+      "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
+      "unit_policy": "documented-workflow-v5",
+      "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b"
+    },
+    {
+      "id": "MET_DOC_NUMERICAL_TECHNIQUE_V54",
+      "stage": "Method",
+      "source": "documentation",
+      "version": "0.5.4-development",
+      "description": "numerical technique",
+      "positive": [
+        "\\b(?:compute\\w*|calculat\\w*|estimat\\w*|implement\\w*|learn\\w*|discover\\w*)\\b",
+        "\\b(?:compatibility probability|matrix functions?|gaussian process|grammar[- ]guided|symbolic regression|differential equations?|posterior|likelihood|dependency pars(?:er|ing)|neural networks?|statistical models?)\\b"
+      ],
+      "supporting": [],
+      "exclusions": [
+        "\\b(?:not implemented|future work|planned|todo|hypothetical)\\b"
+      ],
+      "window_lines": 8,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "context_pattern": "\\b(?:we|our|this|code|repository|package|software|toolbox|model|method|algorithm|experiment\\w*|results?|parser)\\b",
+      "layer": "explicit",
+      "command_pattern": "^\\s*(?:\\$\\s*)?[a-z][\\w.-]*\\s+(?:[a-z][\\w./-]*|--[a-z][\\w-]*)",
+      "heading_exclusions": [
+        "\\b(?:future|roadmap|related work|references|bibliography|installation|dependencies|acknowledgments)\\b",
+        "\\b(?:licen[cs]e|copyright|acknowledg\\w*|bibliography)\\b"
+      ],
+      "scope_exclusions": [
+        "\\b(?:other|external|third[- ]party)\\s+(?:repository|software|package|tool)\\b"
+      ],
+      "justification": "Conjunctive documentation evidence reviewed across the development log; no repository identity or labels enter matching.",
+      "unit_policy": "documented-workflow-v5",
+      "document_context_pattern": "\\b(?:study|research|experiment\\w*)\\b"
+    },
+    {
+      "id": "MET_CODE_SCIENTIFIC_NUMERICAL_CALL_V54",
+      "version": "0.5.4-development",
+      "stage": "Method",
+      "source": "code",
+      "detector": "portable-lexical-v1",
+      "scope": "portable-statement",
+      "positive": [
+        "\\b(?:np\\.linalg\\.(?:solve|inv|eigh|eig|svd)|scipy\\.optimize\\.(?:minimize|least_squares)|trainNetwork|fitnet|patternnet|feedforwardnet|fminsearch)\\s*\\(",
+        "\\(\\s*[A-Za-z_]\\w*"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "window_lines": 12,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "description": "scientific numerical call",
+      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+    },
+    {
+      "id": "MET_CODE_ODE_SOLVER_V54",
+      "version": "0.5.4-development",
+      "stage": "Method",
+      "source": "code",
+      "detector": "portable-lexical-v1",
+      "scope": "portable-statement",
+      "positive": [
+        "\\b(?:ode15s|ode45|ode23s?|ode113|odeint|solve_ivp|NDSolve|NDSolveValue|DSolve)\\s*[\\[(]",
+        "(?:@\\w+|\\b(?:model|rhs|fun|func|system|deriv\\w*|t|tspan|y0|initial\\w*)\\b)"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "window_lines": 12,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "description": "ode solver",
+      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
+    },
+    {
+      "id": "MET_CODE_SCIENTIFIC_FIT_CALL_V54",
+      "version": "0.5.4-development",
+      "stage": "Method",
+      "source": "code",
+      "detector": "portable-lexical-v1",
+      "scope": "portable-statement",
+      "positive": [
+        "\\b\\w+\\s*\\.\\s*(?:fit|predict|forward|backward)\\s*\\(",
+        "\\(\\s*[A-Za-z_]\\w*"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "window_lines": 12,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "description": "scientific fit call",
+      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee.",
+      "file_context_patterns": [
+        "\\b(?:torch|tensorflow|keras|sklearn|scipy|numpy|Flux|GaussianProcesses)\\b"
+      ]
+    },
+    {
+      "id": "MET_CODE_STATISTICAL_ESTIMATOR_V54",
+      "version": "0.5.4-development",
+      "stage": "Method",
+      "source": "code",
+      "detector": "portable-lexical-v1",
+      "scope": "portable-statement",
+      "positive": [
+        "\\b(?:lm|glm|optim|optimize|svd|eigen|nnls|lsqnonneg|fminunc|fmincon|fitglm|fitlm|FindMinimum|FindMaximum)\\s*[\\[(]",
+        "[\\[(]\\s*[A-Za-z_@]\\w*"
+      ],
+      "supporting": [],
+      "exclusions": [],
+      "window_lines": 12,
+      "status": "unadjudicated-development-candidate",
+      "required_evidence_fields": [
+        "repository",
+        "commit",
+        "path",
+        "content_sha256",
+        "start_line",
+        "end_line",
+        "matched_conditions",
+        "url"
+      ],
+      "description": "statistical estimator",
+      "justification": "Executable scientific API evidence with argument/context requirements; comments/literals masked. No general semantic guarantee."
     }
   ],
   "stage": "Method",
-  "version": "0.3.0-candidate"
+  "version": "0.5.4-development"
 }

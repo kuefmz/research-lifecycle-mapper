@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from lifecycle_mapper.acquisition import POLICY_VERSION, replay
-from lifecycle_mapper.analysis import analyze, analyze_modes
+from legacy_catalog import analyze, analyze_modes
 from lifecycle_mapper.canonical import sha256, write_json
 
 BASE = Path(__file__).resolve().parents[1] / "benchmark/synthetic/snapshots"

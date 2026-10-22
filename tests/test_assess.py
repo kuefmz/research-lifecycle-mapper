@@ -10,7 +10,10 @@ from lifecycle_mapper.canonical import write_json
 from lifecycle_mapper.openaire import file_hash
 from test_rules import make_snapshot
 
-CANDIDATE = Path(__file__).resolve().parents[1] / "configs/documentation-candidate-v4"
+CANDIDATE = (
+    Path(__file__).resolve().parents[1]
+    / "tests/fixtures/legacy-profiles/documentation-candidate-v4"
+)
 EXAMPLES = {
     "Collection": "This repository generates synthetic datasets.",
     "Processing": "This package augments training data.",

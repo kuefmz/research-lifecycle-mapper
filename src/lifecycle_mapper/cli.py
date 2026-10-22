@@ -18,7 +18,7 @@ from .batch import predict_batch, read_inputs
 from .comparison import compare
 from .dataset import DEFAULT_DATASET, convert_workbook, execute_dataset, dataset_reference
 from .reference import final_reference, audit_workbook
-from .web import serve
+from .demo import serve
 
 
 def show_progress(value: dict[str, Any]) -> None:

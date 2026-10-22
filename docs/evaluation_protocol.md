@@ -1,42 +1,16 @@
-# Documentation-primary development and frozen evaluation
+# Evaluation protocol
 
-Current scope (2026-10-20): final_agreement is the jointly adjudicated documentation reference. Code-only and combined evidence are secondary discovery analyses; their disagreement with documentation labels is not automatically an error or a confirmed omission. See annotation_status_20261020.md.
+The current experiment is development reference agreement on 100 annotated repositories.
+All 100 informed rule development. No deterministic operational split creates a blinded
+holdout retroactively. See method.md and results.md for the actual evaluation semantics.
 
-The primary classifier is documentation-only. The primary model-selection metric is its six-stage macro-F1 **on development data only**. Per-stage precision/recall/F1 and secondary code-only/OR-combined results remain mandatory; unfavorable results are not suppressed. Combined deltas are accompanied by an explicit same-evaluated-cohort flag because partial scans can change denominators.
+Use the jointly adjudicated `data/final_agreement.csv`, keeping independent reviewer
+labels separate. Treat the final reference as mixed-source unless a source-specific audit
+establishes otherwise. Report per-mode and common-complete denominators, coverage, micro-
+and macro-F1, exact match, stage metrics, and matching-cohort always-positive/negative
+baselines. Incomplete vectors do not become all-negative. Inspect disagreements as
+candidates; they are not automatically correct source-only discoveries.
 
-The custodian workflow below is the historical formal publication protocol. The current workbook has now been inspected and `benchmark compare` supports observed, checksum-bound reference comparisons. Its deterministic hash split and measured development/operational-held-out/full exploratory results are documented in [the V3 implementation report](implementation_report_20261015.md). They do not satisfy an independently blinded publication evaluation, and do not manufacture missing sampling/codebook approvals. The older formal manifest validation assumes a complete independent annotation table; the observed workbook has one missing pair, so its protocol/provenance must be adjudicated before that formal route is used.
-
-## Custodian creates the split before tuning
-
-After approving the full research manifest, a benchmark custodian executes:
-
-```bash
-uv run --frozen python -m lifecycle_mapper benchmark split --manifest benchmark/manifest.json --output local/splits/v1 --test-fraction 0.2 --seed rlm-split-v1
-```
-
-The deterministic algorithm preserves whole repositories and greedily minimizes squared deviations from the requested test-set marginal label counts, normalized by population stage support. Hashes of the seed and repository identifiers break ties. It uses no predictions. It approximately stratifies six marginal labels; exact rare-label/pairwise balance is not guaranteed. The split records the population manifest checksum, algorithm, seed and all assignments. A split output cannot be overwritten. It exports **development labels only**, never test labels.
-
-The custodian must retain the original complete benchmark separately with restricted access. The software is an operational guard, not an operating-system access-control system. A developer who can read the original workbook can still inspect test labels; the team must prevent this organizationally. The evaluator reads complete provenance for validation but emits/analyzes only the selected partition. Give rule developers the development export and development snapshots, never the original complete labels or test error reports.
-
-Configure development runs with `evaluation_role: exploratory`, `partition: development`, `split_manifest` relative to the project root, and its exact `split_manifest_sha256`. Run `benchmark run` with that config. Test selection under an exploratory role is rejected. Do not tune using full-benchmark exploratory results if the same population is intended as final held-out evaluation.
-
-## Freeze after development
-
-Prepare an ignored `configs/local-heldout.yaml` identifying the test partition, frozen split checksum, all development repository IDs, rules path, benchmark path, new ignored output directory, and `evaluation_role: held-out`. The complete benchmark must include a held-out approval reference, `test_used_for_rule_development: false`, and `test_labels_inspected_during_tuning: false`. These are researcher attestations, not inferred facts.
-
-Initially include `frozen_manifest: local/frozen/protocol.json` with no checksum. With a clean committed classifier:
-
-```bash
-uv run --frozen python -m lifecycle_mapper benchmark freeze --config configs/local-heldout.yaml --output local/frozen/protocol.json --approval-reference ACTUAL_PROTOCOL_APPROVAL
-```
-
-The freeze records classifier Git commit/source hash, catalog hash, complete input hash, exact config hash (excluding output/freeze-reference fields), lockfile hash and the primary selection metric. Add the frozen JSON's SHA-256 as `frozen_manifest_sha256` in the ignored config. Keep the source checkout unchanged. Inputs/config/protocol under ignored local paths permit this preparation without changing the frozen Git commit; archive all exact files with the approved release.
-
-```bash
-uv run --frozen python -m lifecycle_mapper benchmark run --config configs/local-heldout.yaml
-uv run --frozen python -m lifecycle_mapper benchmark verify --config configs/local-heldout.yaml --workspace local/final-reproduction
-```
-
-The first successful final run writes a canonical-hash evaluation ledger next to the frozen protocol. A second ordinary final run is rejected. Verification permits reruns only after that initial ledger exists and requires every canonical output to match it exactly. Changed rules, config, commit, inputs or dependencies fail the frozen guard. Preserve this ledger in the research release. This does not prevent deliberate deletion or concealment of evaluations; researcher integrity and custodian controls remain necessary.
-
-If the full benchmark was inspected during tuning, disclose it and obtain a new independent sample for confirmatory claims. Cross-validation and automated rule selection are not implemented; do not label repeated test inspection as cross-validation.
+The compatibility `protocol.py` module supports older formal split/freeze manifests, but
+those controls do not establish that this study had an independent held-out evaluation.
+No human approvals, annotation provenance or sampling history may be fabricated.

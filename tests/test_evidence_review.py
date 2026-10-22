@@ -7,7 +7,8 @@ import pytest
 
 from lifecycle_mapper import STAGES
 from lifecycle_mapper.acquisition import GitHubAPIError, api_get
-from lifecycle_mapper.analysis import analyze, implementation_view
+from legacy_catalog import analyze
+from lifecycle_mapper.analysis import implementation_view
 from lifecycle_mapper.canonical import write_json
 from lifecycle_mapper.comparison import compare
 from lifecycle_mapper.reference import describe_reference, final_reference

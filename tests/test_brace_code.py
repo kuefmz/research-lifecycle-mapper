@@ -6,7 +6,10 @@ from lifecycle_mapper.analysis import analyze, implementation_view, load_rules
 from lifecycle_mapper.brace_code import executable_blocks
 from test_rules import make_snapshot
 
-RULES = Path(__file__).resolve().parents[1] / "configs/multilanguage-development-v5.1"
+RULES = (
+    Path(__file__).resolve().parents[1]
+    / "tests/fixtures/legacy-profiles/multilanguage-development-v5.1"
+)
 
 
 @pytest.mark.parametrize(

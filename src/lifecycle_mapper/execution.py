@@ -14,7 +14,9 @@ from .openaire import file_hash
 REPOSITORY_TIMEOUT_SECONDS = 120
 
 
-def worker_process(command: list[str], directory: Path, timeout: float = REPOSITORY_TIMEOUT_SECONDS) -> dict[str, Any]:
+def worker_process(
+    command: list[str], directory: Path, timeout: float = REPOSITORY_TIMEOUT_SECONDS
+) -> dict[str, Any]:
     """Kill the entire POSIX process group, including Git, on deadline or interruption."""
     started = time.monotonic()
     with (directory / "worker.log").open("a") as log:

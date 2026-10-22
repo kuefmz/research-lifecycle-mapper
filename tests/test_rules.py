@@ -5,7 +5,7 @@ import pytest
 
 from lifecycle_mapper import STAGES
 from lifecycle_mapper.acquisition import replay
-from lifecycle_mapper.analysis import analyze, default_rules, load_rules
+from legacy_catalog import analyze, default_rules, load_rules
 from lifecycle_mapper.canonical import sha256, write_json
 
 BASE = Path(__file__).resolve().parents[1] / "benchmark/synthetic/snapshots"
@@ -66,7 +66,7 @@ def test_incomplete_repository_modes():
 
 
 def test_catalog_packaging_and_stability():
-    root = Path(__file__).resolve().parents[1] / "rules"
+    root = Path(__file__).resolve().parents[1] / "tests/fixtures/legacy-profiles/packaged-default"
     for path in root.glob("*.yaml"):
         assert path.read_bytes() == (default_rules() / path.name).read_bytes()
     one, first = load_rules(root)
