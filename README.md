@@ -13,6 +13,28 @@ positive finding is linked to its matching rule and repository evidence. It insp
 repository content without executing it. Detected evidence is not a certification of
 scientific correctness or reproducibility.
 
+## How the heuristics work
+
+The classifier applies **105 deterministic, contextual rules** to eligible repository
+files. Documentation and source code are analyzed separately; notebook Markdown cells
+count as documentation, code cells as source, and stored outputs are ignored. Data-file
+contents, generated assets, and excluded dependencies do not provide lifecycle evidence.
+
+Rules look for combinations of research activities, relevant objects, and surrounding
+context. Documentation rules examine prose and workflow instructions; code rules examine
+operations using syntax analysis or lexical matching, depending on the language.
+For example, a research-data transformation can support Processing, while a scientific
+metric calculation can support Evaluation. A generic keyword, import, or filename alone
+is insufficient. Matching rules record their identifiers, excerpts, and file locations.
+
+A stage is positive when qualifying evidence is found. Combined findings are the union
+of documentation and code findings. A negative requires a completed eligible scan;
+otherwise an undetected stage remains unknown. This approach identifies observable
+evidence without executing the repository or establishing that the research is reproducible.
+
+See [the method specification](docs/method.md) and
+[the complete rule catalog](docs/rules.md) for exact conditions and limitations.
+
 ## Installation
 
 Requirements: **Python 3.12**, **Git**, and **[uv](https://docs.astral.sh/uv/)**.
