@@ -295,7 +295,6 @@ ax.text(
 )
 
 fig.subplots_adjust(left=0.035, right=0.965, top=0.985, bottom=0.025)
-fig.savefig(OUT / "openaire_funnel.png", dpi=220, facecolor="white")
 fig.savefig(
     OUT / "openaire_funnel.pdf",
     facecolor="white",
@@ -307,5 +306,4 @@ fig.savefig(
     metadata={"Date": None, "Creator": "Research Lifecycle Mapper"},
 )
 plt.close(fig)
-print("Saved:", OUT / "openaire_funnel.png")
 print("Saved:", OUT / "openaire_funnel.pdf")

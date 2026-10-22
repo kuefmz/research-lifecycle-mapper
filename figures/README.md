@@ -6,7 +6,7 @@ source deposition reports 730,346 software records.
 
 `openaire_funnel_counts.json` is the single figure count/provenance source. The figure
 was adapted from the supplied editable generator. `openaire_funnel.svg` remains
-editable text/vector artwork; PDF is suitable for the paper and PNG for preview.
+editable text/vector artwork; PDF is the complete figure linked from the root README. PNG is intentionally not retained because its preview omits content.
 
 ```bash
 uv run --frozen --with matplotlib==3.10.8 python scripts/create_openaire_funnel.py
