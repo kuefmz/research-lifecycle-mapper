@@ -83,8 +83,9 @@
         "csv": "heuristics_documentation.csv",
         "rows_including_header": 101,
         "columns": 7,
-        "sha256": "15a842e5b59a8708f4895341124e590eadd41742e15ba802b3b1ca9c5020508a",
-        "superseded_sheet_omitted": "Hoja 14"
+        "sha256": "93b746857143d173fc87a3b10d968f0957895d42c86a52a471afe7969dae692a",
+        "superseded_sheet_omitted": "Hoja 14",
+        "source_export_sha256": "15a842e5b59a8708f4895341124e590eadd41742e15ba802b3b1ca9c5020508a"
       },
       {
         "role": "heuristics_code",
@@ -93,8 +94,9 @@
         "csv": "heuristics_code.csv",
         "rows_including_header": 101,
         "columns": 7,
-        "sha256": "c7fcf29656c30bc492775d5c9b3e0ea4c4d628775291e5a5e47a6ddb0c97da11",
-        "superseded_sheet_omitted": "Hoja 15"
+        "sha256": "af0235b8cb206582090afa233473c62797cf4820aae3128621e6a96dcb7a380b",
+        "superseded_sheet_omitted": "Hoja 15",
+        "source_export_sha256": "c7fcf29656c30bc492775d5c9b3e0ea4c4d628775291e5a5e47a6ddb0c97da11"
       },
       {
         "role": "heuristics_combined",
@@ -103,8 +105,9 @@
         "csv": "heuristics_combined.csv",
         "rows_including_header": 101,
         "columns": 7,
-        "sha256": "1f0a34a84bdb63202f1ffc246c53214712e5040a37e16012f0d1cfbbcd28d21f",
-        "superseded_sheet_omitted": "Hoja 16"
+        "sha256": "c479f5488ae227288df6253add92a42812d68e7d10eb350a67faa2f14deca9a5",
+        "superseded_sheet_omitted": "Hoja 16",
+        "source_export_sha256": "1f0a34a84bdb63202f1ffc246c53214712e5040a37e16012f0d1cfbbcd28d21f"
       }
     ],
     "conversations": [
@@ -133,6 +136,13 @@
       "cells_per_range": 707,
       "differences_after_numeric_0_1_equivalence": 0,
       "policy": "Exact supplied Google Sheets source read through connector. Exported values retain attached workbook numeric text; live sheet names containing reviewer identities are not distributed."
+    },
+    "uncertainty_restoration": {
+      "policy": "Only unknown assessment predictions restored to ?. All known binary decisions preserved. Scan completeness is retained separately, not inferred from label values.",
+      "source": "../assessment/all_modes_comparison.csv",
+      "changed_zero_labels": 58,
+      "original_blank_labels_rendered_as_question_mark": 6,
+      "changes": "../assessment/uncertainty_corrections.csv"
     }
   },
   "annotations": {
@@ -1328,103 +1338,102 @@
       }
     },
     "heuristics_documentation": {
-      "repository_count": 99,
+      "repository_count": 96,
       "per_stage": [
         {
           "stage": "Collection",
           "TP": 6,
           "FP": 2,
-          "TN": 62,
-          "FN": 29,
+          "TN": 60,
+          "FN": 28,
           "precision": 0.75,
-          "recall": 0.17142857,
-          "f1": 0.27906977,
-          "support": 35,
-          "accuracy": 0.68686869
+          "recall": 0.17647059,
+          "f1": 0.28571429,
+          "support": 34,
+          "accuracy": 0.6875
         },
         {
           "stage": "Processing",
           "TP": 23,
-          "FP": 13,
-          "TN": 43,
-          "FN": 20,
-          "precision": 0.63888889,
-          "recall": 0.53488372,
-          "f1": 0.58227848,
-          "support": 43,
-          "accuracy": 0.66666667
+          "FP": 12,
+          "TN": 42,
+          "FN": 19,
+          "precision": 0.65714286,
+          "recall": 0.54761905,
+          "f1": 0.5974026,
+          "support": 42,
+          "accuracy": 0.67708333
         },
         {
           "stage": "Method",
           "TP": 29,
           "FP": 5,
-          "TN": 24,
-          "FN": 41,
+          "TN": 23,
+          "FN": 39,
           "precision": 0.85294118,
-          "recall": 0.41428571,
-          "f1": 0.55769231,
-          "support": 70,
-          "accuracy": 0.53535354
+          "recall": 0.42647059,
+          "f1": 0.56862745,
+          "support": 68,
+          "accuracy": 0.54166667
         },
         {
           "stage": "Experimentation",
-          "TP": 74,
+          "TP": 73,
           "FP": 5,
           "TN": 7,
-          "FN": 13,
-          "precision": 0.93670886,
-          "recall": 0.85057471,
-          "f1": 0.89156627,
-          "support": 87,
-          "accuracy": 0.81818182
+          "FN": 11,
+          "precision": 0.93589744,
+          "recall": 0.86904762,
+          "f1": 0.90123457,
+          "support": 84,
+          "accuracy": 0.83333333
         },
         {
           "stage": "Evaluation",
           "TP": 22,
           "FP": 0,
-          "TN": 34,
+          "TN": 31,
           "FN": 43,
           "precision": 1.0,
           "recall": 0.33846154,
           "f1": 0.50574713,
           "support": 65,
-          "accuracy": 0.56565657
+          "accuracy": 0.55208333
         },
         {
           "stage": "Dissemination",
-          "TP": 66,
+          "TP": 65,
           "FP": 10,
           "TN": 10,
-          "FN": 13,
-          "precision": 0.86842105,
-          "recall": 0.83544304,
-          "f1": 0.8516129,
-          "support": 79,
-          "accuracy": 0.76767677
+          "FN": 11,
+          "precision": 0.86666667,
+          "recall": 0.85526316,
+          "f1": 0.86092715,
+          "support": 76,
+          "accuracy": 0.78125
         }
       ],
       "micro": {
-        "precision": 0.8627451,
-        "recall": 0.58047493,
-        "f1": 0.69400631
+        "precision": 0.86507937,
+        "recall": 0.59078591,
+        "f1": 0.7020934
       },
       "macro": {
-        "precision": 0.84116,
-        "recall": 0.52417955,
-        "f1": 0.61132781
+        "precision": 0.84377469,
+        "recall": 0.53555542,
+        "f1": 0.6199422
       },
-      "exact_match_accuracy": 0.11111111,
-      "hamming_loss": 0.32659933,
+      "exact_match_accuracy": 0.11458333,
+      "hamming_loss": 0.32118056,
       "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
       "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
-      "label_accuracy": 0.6734006734006734,
-      "coverage": 0.99,
+      "label_accuracy": 0.6788194444444444,
+      "coverage": 0.96,
       "evaluated_repository_ids": [
         "akshay-r/autoencoders_dictionaries",
         "alfredomg/adapt-mwe17",
         "allenai/openbookqa",
         "anguelos/embedding_map",
-        "aquemy/dpso_experiments",
         "aviranlab/sleq",
         "b5strbal/macaw",
         "christopherwilks/snaptron-experiments",
@@ -1475,7 +1484,6 @@
         "marksbrown/processingctrdata",
         "matejbalog/gumbel-relatives",
         "matrix-factorization-bandit/imfb-kdd2019",
-        "md-k-sarker/ecii-expr",
         "michael135/count-vector-paper-experiments",
         "michschli/tensor-lstm",
         "mspeich/forhytm",
@@ -1516,180 +1524,182 @@
         "vodolan/denotationidentification",
         "white-link/unsupervisedscalablerepresentationlearningtimeseries",
         "wmbedmands/simextargid",
-        "yakazimir/code-datasets",
         "yiyiliu1/bdchemo",
         "ztangent/norms-cogsci19"
       ],
       "excluded_repository_ids": [
-        "jmschrei/pypore"
+        "aquemy/dpso_experiments",
+        "jmschrei/pypore",
+        "md-k-sarker/ecii-expr",
+        "yakazimir/code-datasets"
       ],
-      "unknown_decisions": 4,
+      "unknown_decisions": 19,
       "baselines": {
         "always_positive": {
-          "repository_count": 99,
+          "repository_count": 96,
           "per_stage": [
             {
               "stage": "Collection",
-              "TP": 35,
-              "FP": 64,
+              "TP": 34,
+              "FP": 62,
               "TN": 0,
               "FN": 0,
-              "precision": 0.35353535,
+              "precision": 0.35416667,
               "recall": 1.0,
-              "f1": 0.52238806,
-              "support": 35,
-              "accuracy": 0.35353535
+              "f1": 0.52307692,
+              "support": 34,
+              "accuracy": 0.35416667
             },
             {
               "stage": "Processing",
-              "TP": 43,
-              "FP": 56,
+              "TP": 42,
+              "FP": 54,
               "TN": 0,
               "FN": 0,
-              "precision": 0.43434343,
+              "precision": 0.4375,
               "recall": 1.0,
-              "f1": 0.6056338,
-              "support": 43,
-              "accuracy": 0.43434343
+              "f1": 0.60869565,
+              "support": 42,
+              "accuracy": 0.4375
             },
             {
               "stage": "Method",
-              "TP": 70,
-              "FP": 29,
+              "TP": 68,
+              "FP": 28,
               "TN": 0,
               "FN": 0,
-              "precision": 0.70707071,
+              "precision": 0.70833333,
               "recall": 1.0,
-              "f1": 0.82840237,
-              "support": 70,
-              "accuracy": 0.70707071
+              "f1": 0.82926829,
+              "support": 68,
+              "accuracy": 0.70833333
             },
             {
               "stage": "Experimentation",
-              "TP": 87,
+              "TP": 84,
               "FP": 12,
               "TN": 0,
               "FN": 0,
-              "precision": 0.87878788,
+              "precision": 0.875,
               "recall": 1.0,
-              "f1": 0.93548387,
-              "support": 87,
-              "accuracy": 0.87878788
+              "f1": 0.93333333,
+              "support": 84,
+              "accuracy": 0.875
             },
             {
               "stage": "Evaluation",
               "TP": 65,
-              "FP": 34,
+              "FP": 31,
               "TN": 0,
               "FN": 0,
-              "precision": 0.65656566,
+              "precision": 0.67708333,
               "recall": 1.0,
-              "f1": 0.79268293,
+              "f1": 0.80745342,
               "support": 65,
-              "accuracy": 0.65656566
+              "accuracy": 0.67708333
             },
             {
               "stage": "Dissemination",
-              "TP": 79,
+              "TP": 76,
               "FP": 20,
               "TN": 0,
               "FN": 0,
-              "precision": 0.7979798,
+              "precision": 0.79166667,
               "recall": 1.0,
-              "f1": 0.88764045,
-              "support": 79,
-              "accuracy": 0.7979798
+              "f1": 0.88372093,
+              "support": 76,
+              "accuracy": 0.79166667
             }
           ],
           "micro": {
-            "precision": 0.63804714,
+            "precision": 0.640625,
             "recall": 1.0,
-            "f1": 0.77903392
+            "f1": 0.78095238
           },
           "macro": {
-            "precision": 0.63804714,
+            "precision": 0.640625,
             "recall": 1.0,
-            "f1": 0.76203858
+            "f1": 0.76425809
           },
-          "exact_match_accuracy": 0.12121212,
-          "hamming_loss": 0.36195286,
+          "exact_match_accuracy": 0.125,
+          "hamming_loss": 0.359375,
           "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
           "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
         },
         "always_negative": {
-          "repository_count": 99,
+          "repository_count": 96,
           "per_stage": [
             {
               "stage": "Collection",
               "TP": 0,
               "FP": 0,
-              "TN": 64,
-              "FN": 35,
+              "TN": 62,
+              "FN": 34,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 35,
-              "accuracy": 0.64646465
+              "support": 34,
+              "accuracy": 0.64583333
             },
             {
               "stage": "Processing",
               "TP": 0,
               "FP": 0,
-              "TN": 56,
-              "FN": 43,
+              "TN": 54,
+              "FN": 42,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 43,
-              "accuracy": 0.56565657
+              "support": 42,
+              "accuracy": 0.5625
             },
             {
               "stage": "Method",
               "TP": 0,
               "FP": 0,
-              "TN": 29,
-              "FN": 70,
+              "TN": 28,
+              "FN": 68,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 70,
-              "accuracy": 0.29292929
+              "support": 68,
+              "accuracy": 0.29166667
             },
             {
               "stage": "Experimentation",
               "TP": 0,
               "FP": 0,
               "TN": 12,
-              "FN": 87,
+              "FN": 84,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 87,
-              "accuracy": 0.12121212
+              "support": 84,
+              "accuracy": 0.125
             },
             {
               "stage": "Evaluation",
               "TP": 0,
               "FP": 0,
-              "TN": 34,
+              "TN": 31,
               "FN": 65,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
               "support": 65,
-              "accuracy": 0.34343434
+              "accuracy": 0.32291667
             },
             {
               "stage": "Dissemination",
               "TP": 0,
               "FP": 0,
               "TN": 20,
-              "FN": 79,
+              "FN": 76,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 79,
-              "accuracy": 0.2020202
+              "support": 76,
+              "accuracy": 0.20833333
             }
           ],
           "micro": {
@@ -1703,110 +1713,109 @@
             "f1": 0.0
           },
           "exact_match_accuracy": 0.0,
-          "hamming_loss": 0.63804714,
+          "hamming_loss": 0.640625,
           "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
           "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
         }
       }
     },
     "heuristics_code": {
-      "repository_count": 100,
+      "repository_count": 95,
       "per_stage": [
         {
           "stage": "Collection",
           "TP": 0,
           "FP": 0,
-          "TN": 64,
-          "FN": 36,
+          "TN": 62,
+          "FN": 33,
           "precision": 0.0,
           "recall": 0.0,
           "f1": 0.0,
-          "support": 36,
-          "accuracy": 0.64
+          "support": 33,
+          "accuracy": 0.65263158
         },
         {
           "stage": "Processing",
           "TP": 9,
           "FP": 1,
-          "TN": 55,
-          "FN": 35,
+          "TN": 52,
+          "FN": 33,
           "precision": 0.9,
-          "recall": 0.20454545,
-          "f1": 0.33333333,
-          "support": 44,
-          "accuracy": 0.64
+          "recall": 0.21428571,
+          "f1": 0.34615385,
+          "support": 42,
+          "accuracy": 0.64210526
         },
         {
           "stage": "Method",
-          "TP": 42,
+          "TP": 40,
           "FP": 12,
-          "TN": 17,
-          "FN": 29,
-          "precision": 0.77777778,
-          "recall": 0.5915493,
-          "f1": 0.672,
-          "support": 71,
-          "accuracy": 0.59
+          "TN": 16,
+          "FN": 27,
+          "precision": 0.76923077,
+          "recall": 0.59701493,
+          "f1": 0.67226891,
+          "support": 67,
+          "accuracy": 0.58947368
         },
         {
           "stage": "Experimentation",
-          "TP": 11,
-          "FP": 2,
+          "TP": 10,
+          "FP": 1,
           "TN": 10,
-          "FN": 77,
-          "precision": 0.84615385,
-          "recall": 0.125,
-          "f1": 0.21782178,
-          "support": 88,
-          "accuracy": 0.21
+          "FN": 74,
+          "precision": 0.90909091,
+          "recall": 0.11904762,
+          "f1": 0.21052632,
+          "support": 84,
+          "accuracy": 0.21052632
         },
         {
           "stage": "Evaluation",
           "TP": 21,
-          "FP": 8,
-          "TN": 26,
-          "FN": 45,
-          "precision": 0.72413793,
-          "recall": 0.31818182,
-          "f1": 0.44210526,
-          "support": 66,
-          "accuracy": 0.47
+          "FP": 7,
+          "TN": 24,
+          "FN": 43,
+          "precision": 0.75,
+          "recall": 0.328125,
+          "f1": 0.45652174,
+          "support": 64,
+          "accuracy": 0.47368421
         },
         {
           "stage": "Dissemination",
-          "TP": 22,
+          "TP": 21,
           "FP": 1,
-          "TN": 20,
-          "FN": 57,
-          "precision": 0.95652174,
-          "recall": 0.27848101,
-          "f1": 0.43137255,
-          "support": 79,
-          "accuracy": 0.42
+          "TN": 19,
+          "FN": 54,
+          "precision": 0.95454545,
+          "recall": 0.28,
+          "f1": 0.43298969,
+          "support": 75,
+          "accuracy": 0.42105263
         }
       ],
       "micro": {
-        "precision": 0.81395349,
-        "recall": 0.2734375,
-        "f1": 0.40935673
+        "precision": 0.82113821,
+        "recall": 0.27671233,
+        "f1": 0.41393443
       },
       "macro": {
-        "precision": 0.70076522,
-        "recall": 0.2529596,
-        "f1": 0.34943882
+        "precision": 0.71381119,
+        "recall": 0.25641221,
+        "f1": 0.35307675
       },
-      "exact_match_accuracy": 0.01,
-      "hamming_loss": 0.505,
+      "exact_match_accuracy": 0.01052632,
+      "hamming_loss": 0.50175439,
       "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
       "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
-      "label_accuracy": 0.495,
-      "coverage": 1.0,
+      "label_accuracy": 0.4982456140350877,
+      "coverage": 0.95,
       "evaluated_repository_ids": [
         "akshay-r/autoencoders_dictionaries",
         "alfredomg/adapt-mwe17",
         "allenai/openbookqa",
         "anguelos/embedding_map",
-        "aquemy/dpso_experiments",
         "aviranlab/sleq",
         "b5strbal/macaw",
         "christopherwilks/snaptron-experiments",
@@ -1835,7 +1844,6 @@
         "gzanella/multigrid",
         "h4rm/threephotons.jl",
         "huji-deep/generative-convacs",
-        "ihincks/nv-adaptive",
         "ikmlab/arct2",
         "irit-melodi/irit-rst-dt",
         "irit-melodi/irit-stac",
@@ -1843,7 +1851,6 @@
         "jebyrnes/ext-meta",
         "jermp/rdf_indexes",
         "jkeiren/pbesstategraph-experiments",
-        "jmschrei/pypore",
         "joefresna/plosone-reina2015",
         "jwcarr/flatlanders",
         "kapelner/optdesignslopeint",
@@ -1858,7 +1865,6 @@
         "marksbrown/processingctrdata",
         "matejbalog/gumbel-relatives",
         "matrix-factorization-bandit/imfb-kdd2019",
-        "md-k-sarker/ecii-expr",
         "michael135/count-vector-paper-experiments",
         "michschli/tensor-lstm",
         "mspeich/forhytm",
@@ -1899,178 +1905,183 @@
         "vodolan/denotationidentification",
         "white-link/unsupervisedscalablerepresentationlearningtimeseries",
         "wmbedmands/simextargid",
-        "yakazimir/code-datasets",
         "yiyiliu1/bdchemo",
         "ztangent/norms-cogsci19"
       ],
-      "excluded_repository_ids": [],
-      "unknown_decisions": 0,
+      "excluded_repository_ids": [
+        "aquemy/dpso_experiments",
+        "ihincks/nv-adaptive",
+        "jmschrei/pypore",
+        "md-k-sarker/ecii-expr",
+        "yakazimir/code-datasets"
+      ],
+      "unknown_decisions": 24,
       "baselines": {
         "always_positive": {
-          "repository_count": 100,
+          "repository_count": 95,
           "per_stage": [
             {
               "stage": "Collection",
-              "TP": 36,
-              "FP": 64,
+              "TP": 33,
+              "FP": 62,
               "TN": 0,
               "FN": 0,
-              "precision": 0.36,
+              "precision": 0.34736842,
               "recall": 1.0,
-              "f1": 0.52941176,
-              "support": 36,
-              "accuracy": 0.36
+              "f1": 0.515625,
+              "support": 33,
+              "accuracy": 0.34736842
             },
             {
               "stage": "Processing",
-              "TP": 44,
-              "FP": 56,
+              "TP": 42,
+              "FP": 53,
               "TN": 0,
               "FN": 0,
-              "precision": 0.44,
+              "precision": 0.44210526,
               "recall": 1.0,
-              "f1": 0.61111111,
-              "support": 44,
-              "accuracy": 0.44
+              "f1": 0.61313869,
+              "support": 42,
+              "accuracy": 0.44210526
             },
             {
               "stage": "Method",
-              "TP": 71,
-              "FP": 29,
+              "TP": 67,
+              "FP": 28,
               "TN": 0,
               "FN": 0,
-              "precision": 0.71,
+              "precision": 0.70526316,
               "recall": 1.0,
-              "f1": 0.83040936,
-              "support": 71,
-              "accuracy": 0.71
+              "f1": 0.82716049,
+              "support": 67,
+              "accuracy": 0.70526316
             },
             {
               "stage": "Experimentation",
-              "TP": 88,
-              "FP": 12,
+              "TP": 84,
+              "FP": 11,
               "TN": 0,
               "FN": 0,
-              "precision": 0.88,
+              "precision": 0.88421053,
               "recall": 1.0,
-              "f1": 0.93617021,
-              "support": 88,
-              "accuracy": 0.88
+              "f1": 0.93854749,
+              "support": 84,
+              "accuracy": 0.88421053
             },
             {
               "stage": "Evaluation",
-              "TP": 66,
-              "FP": 34,
+              "TP": 64,
+              "FP": 31,
               "TN": 0,
               "FN": 0,
-              "precision": 0.66,
+              "precision": 0.67368421,
               "recall": 1.0,
-              "f1": 0.79518072,
-              "support": 66,
-              "accuracy": 0.66
+              "f1": 0.80503145,
+              "support": 64,
+              "accuracy": 0.67368421
             },
             {
               "stage": "Dissemination",
-              "TP": 79,
-              "FP": 21,
+              "TP": 75,
+              "FP": 20,
               "TN": 0,
               "FN": 0,
-              "precision": 0.79,
+              "precision": 0.78947368,
               "recall": 1.0,
-              "f1": 0.88268156,
-              "support": 79,
-              "accuracy": 0.79
+              "f1": 0.88235294,
+              "support": 75,
+              "accuracy": 0.78947368
             }
           ],
           "micro": {
-            "precision": 0.64,
+            "precision": 0.64035088,
             "recall": 1.0,
-            "f1": 0.7804878
+            "f1": 0.78074866
           },
           "macro": {
-            "precision": 0.64,
+            "precision": 0.64035088,
             "recall": 1.0,
-            "f1": 0.76416079
+            "f1": 0.76364268
           },
-          "exact_match_accuracy": 0.12,
-          "hamming_loss": 0.36,
+          "exact_match_accuracy": 0.12631579,
+          "hamming_loss": 0.35964912,
           "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
           "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
         },
         "always_negative": {
-          "repository_count": 100,
+          "repository_count": 95,
           "per_stage": [
             {
               "stage": "Collection",
               "TP": 0,
               "FP": 0,
-              "TN": 64,
-              "FN": 36,
+              "TN": 62,
+              "FN": 33,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 36,
-              "accuracy": 0.64
+              "support": 33,
+              "accuracy": 0.65263158
             },
             {
               "stage": "Processing",
               "TP": 0,
               "FP": 0,
-              "TN": 56,
-              "FN": 44,
+              "TN": 53,
+              "FN": 42,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 44,
-              "accuracy": 0.56
+              "support": 42,
+              "accuracy": 0.55789474
             },
             {
               "stage": "Method",
               "TP": 0,
               "FP": 0,
-              "TN": 29,
-              "FN": 71,
+              "TN": 28,
+              "FN": 67,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 71,
-              "accuracy": 0.29
+              "support": 67,
+              "accuracy": 0.29473684
             },
             {
               "stage": "Experimentation",
               "TP": 0,
               "FP": 0,
-              "TN": 12,
-              "FN": 88,
+              "TN": 11,
+              "FN": 84,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 88,
-              "accuracy": 0.12
+              "support": 84,
+              "accuracy": 0.11578947
             },
             {
               "stage": "Evaluation",
               "TP": 0,
               "FP": 0,
-              "TN": 34,
-              "FN": 66,
+              "TN": 31,
+              "FN": 64,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 66,
-              "accuracy": 0.34
+              "support": 64,
+              "accuracy": 0.32631579
             },
             {
               "stage": "Dissemination",
               "TP": 0,
               "FP": 0,
-              "TN": 21,
-              "FN": 79,
+              "TN": 20,
+              "FN": 75,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 79,
-              "accuracy": 0.21
+              "support": 75,
+              "accuracy": 0.21052632
             }
           ],
           "micro": {
@@ -2084,104 +2095,104 @@
             "f1": 0.0
           },
           "exact_match_accuracy": 0.0,
-          "hamming_loss": 0.64,
+          "hamming_loss": 0.64035088,
           "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
           "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
         }
       }
     },
     "heuristics_combined": {
-      "repository_count": 99,
+      "repository_count": 95,
       "per_stage": [
         {
           "stage": "Collection",
           "TP": 6,
           "FP": 2,
-          "TN": 61,
-          "FN": 30,
+          "TN": 60,
+          "FN": 27,
           "precision": 0.75,
-          "recall": 0.16666667,
-          "f1": 0.27272727,
-          "support": 36,
-          "accuracy": 0.67676768
+          "recall": 0.18181818,
+          "f1": 0.29268293,
+          "support": 33,
+          "accuracy": 0.69473684
         },
         {
           "stage": "Processing",
-          "TP": 27,
+          "TP": 26,
           "FP": 13,
-          "TN": 42,
-          "FN": 17,
-          "precision": 0.675,
-          "recall": 0.61363636,
-          "f1": 0.64285714,
-          "support": 44,
-          "accuracy": 0.6969697
+          "TN": 40,
+          "FN": 16,
+          "precision": 0.66666667,
+          "recall": 0.61904762,
+          "f1": 0.64197531,
+          "support": 42,
+          "accuracy": 0.69473684
         },
         {
           "stage": "Method",
-          "TP": 49,
+          "TP": 47,
           "FP": 14,
-          "TN": 15,
-          "FN": 21,
-          "precision": 0.77777778,
-          "recall": 0.7,
-          "f1": 0.73684211,
-          "support": 70,
-          "accuracy": 0.64646465
+          "TN": 14,
+          "FN": 20,
+          "precision": 0.7704918,
+          "recall": 0.70149254,
+          "f1": 0.734375,
+          "support": 67,
+          "accuracy": 0.64210526
         },
         {
           "stage": "Experimentation",
           "TP": 74,
-          "FP": 6,
+          "FP": 5,
           "TN": 6,
-          "FN": 13,
-          "precision": 0.925,
-          "recall": 0.85057471,
-          "f1": 0.88622754,
-          "support": 87,
-          "accuracy": 0.80808081
+          "FN": 10,
+          "precision": 0.93670886,
+          "recall": 0.88095238,
+          "f1": 0.90797546,
+          "support": 84,
+          "accuracy": 0.84210526
         },
         {
           "stage": "Evaluation",
           "TP": 34,
           "FP": 7,
-          "TN": 26,
-          "FN": 32,
+          "TN": 24,
+          "FN": 30,
           "precision": 0.82926829,
-          "recall": 0.51515152,
-          "f1": 0.63551402,
-          "support": 66,
-          "accuracy": 0.60606061
+          "recall": 0.53125,
+          "f1": 0.64761905,
+          "support": 64,
+          "accuracy": 0.61052632
         },
         {
           "stage": "Dissemination",
-          "TP": 68,
+          "TP": 67,
           "FP": 11,
-          "TN": 10,
-          "FN": 10,
-          "precision": 0.86075949,
-          "recall": 0.87179487,
-          "f1": 0.86624204,
-          "support": 78,
-          "accuracy": 0.78787879
+          "TN": 9,
+          "FN": 8,
+          "precision": 0.85897436,
+          "recall": 0.89333333,
+          "f1": 0.87581699,
+          "support": 75,
+          "accuracy": 0.8
         }
       ],
       "micro": {
-        "precision": 0.82958199,
-        "recall": 0.67716535,
-        "f1": 0.74566474
+        "precision": 0.83006536,
+        "recall": 0.69589041,
+        "f1": 0.75707899
       },
       "macro": {
-        "precision": 0.80296759,
-        "recall": 0.61963735,
-        "f1": 0.67340169
+        "precision": 0.80201833,
+        "recall": 0.63464901,
+        "f1": 0.68340746
       },
-      "exact_match_accuracy": 0.16161616,
-      "hamming_loss": 0.2962963,
+      "exact_match_accuracy": 0.16842105,
+      "hamming_loss": 0.28596491,
       "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
       "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
-      "label_accuracy": 0.7037037037037037,
-      "coverage": 0.99,
+      "label_accuracy": 0.7140350877192982,
+      "coverage": 0.95,
       "evaluated_repository_ids": [
         "akshay-r/autoencoders_dictionaries",
         "alfredomg/adapt-mwe17",
@@ -2215,7 +2226,6 @@
         "gzanella/multigrid",
         "h4rm/threephotons.jl",
         "huji-deep/generative-convacs",
-        "ihincks/nv-adaptive",
         "ikmlab/arct2",
         "irit-melodi/irit-rst-dt",
         "irit-melodi/irit-stac",
@@ -2223,7 +2233,6 @@
         "jebyrnes/ext-meta",
         "jermp/rdf_indexes",
         "jkeiren/pbesstategraph-experiments",
-        "jmschrei/pypore",
         "joefresna/plosone-reina2015",
         "jwcarr/flatlanders",
         "kapelner/optdesignslopeint",
@@ -2238,7 +2247,6 @@
         "marksbrown/processingctrdata",
         "matejbalog/gumbel-relatives",
         "matrix-factorization-bandit/imfb-kdd2019",
-        "md-k-sarker/ecii-expr",
         "michael135/count-vector-paper-experiments",
         "michschli/tensor-lstm",
         "mspeich/forhytm",
@@ -2279,180 +2287,183 @@
         "vodolan/denotationidentification",
         "white-link/unsupervisedscalablerepresentationlearningtimeseries",
         "wmbedmands/simextargid",
-        "yakazimir/code-datasets",
         "yiyiliu1/bdchemo",
         "ztangent/norms-cogsci19"
       ],
       "excluded_repository_ids": [
-        "aquemy/dpso_experiments"
+        "aquemy/dpso_experiments",
+        "ihincks/nv-adaptive",
+        "jmschrei/pypore",
+        "md-k-sarker/ecii-expr",
+        "yakazimir/code-datasets"
       ],
-      "unknown_decisions": 2,
+      "unknown_decisions": 21,
       "baselines": {
         "always_positive": {
-          "repository_count": 99,
+          "repository_count": 95,
           "per_stage": [
             {
               "stage": "Collection",
-              "TP": 36,
-              "FP": 63,
+              "TP": 33,
+              "FP": 62,
               "TN": 0,
               "FN": 0,
-              "precision": 0.36363636,
+              "precision": 0.34736842,
               "recall": 1.0,
-              "f1": 0.53333333,
-              "support": 36,
-              "accuracy": 0.36363636
+              "f1": 0.515625,
+              "support": 33,
+              "accuracy": 0.34736842
             },
             {
               "stage": "Processing",
-              "TP": 44,
-              "FP": 55,
+              "TP": 42,
+              "FP": 53,
               "TN": 0,
               "FN": 0,
-              "precision": 0.44444444,
+              "precision": 0.44210526,
               "recall": 1.0,
-              "f1": 0.61538462,
-              "support": 44,
-              "accuracy": 0.44444444
+              "f1": 0.61313869,
+              "support": 42,
+              "accuracy": 0.44210526
             },
             {
               "stage": "Method",
-              "TP": 70,
-              "FP": 29,
+              "TP": 67,
+              "FP": 28,
               "TN": 0,
               "FN": 0,
-              "precision": 0.70707071,
+              "precision": 0.70526316,
               "recall": 1.0,
-              "f1": 0.82840237,
-              "support": 70,
-              "accuracy": 0.70707071
+              "f1": 0.82716049,
+              "support": 67,
+              "accuracy": 0.70526316
             },
             {
               "stage": "Experimentation",
-              "TP": 87,
-              "FP": 12,
+              "TP": 84,
+              "FP": 11,
               "TN": 0,
               "FN": 0,
-              "precision": 0.87878788,
+              "precision": 0.88421053,
               "recall": 1.0,
-              "f1": 0.93548387,
-              "support": 87,
-              "accuracy": 0.87878788
+              "f1": 0.93854749,
+              "support": 84,
+              "accuracy": 0.88421053
             },
             {
               "stage": "Evaluation",
-              "TP": 66,
-              "FP": 33,
+              "TP": 64,
+              "FP": 31,
               "TN": 0,
               "FN": 0,
-              "precision": 0.66666667,
+              "precision": 0.67368421,
               "recall": 1.0,
-              "f1": 0.8,
-              "support": 66,
-              "accuracy": 0.66666667
+              "f1": 0.80503145,
+              "support": 64,
+              "accuracy": 0.67368421
             },
             {
               "stage": "Dissemination",
-              "TP": 78,
-              "FP": 21,
+              "TP": 75,
+              "FP": 20,
               "TN": 0,
               "FN": 0,
-              "precision": 0.78787879,
+              "precision": 0.78947368,
               "recall": 1.0,
-              "f1": 0.88135593,
-              "support": 78,
-              "accuracy": 0.78787879
+              "f1": 0.88235294,
+              "support": 75,
+              "accuracy": 0.78947368
             }
           ],
           "micro": {
-            "precision": 0.64141414,
+            "precision": 0.64035088,
             "recall": 1.0,
-            "f1": 0.78153846
+            "f1": 0.78074866
           },
           "macro": {
-            "precision": 0.64141414,
+            "precision": 0.64035088,
             "recall": 1.0,
-            "f1": 0.76566002
+            "f1": 0.76364268
           },
-          "exact_match_accuracy": 0.12121212,
-          "hamming_loss": 0.35858586,
+          "exact_match_accuracy": 0.12631579,
+          "hamming_loss": 0.35964912,
           "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
           "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
         },
         "always_negative": {
-          "repository_count": 99,
+          "repository_count": 95,
           "per_stage": [
             {
               "stage": "Collection",
               "TP": 0,
               "FP": 0,
-              "TN": 63,
-              "FN": 36,
+              "TN": 62,
+              "FN": 33,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 36,
-              "accuracy": 0.63636364
+              "support": 33,
+              "accuracy": 0.65263158
             },
             {
               "stage": "Processing",
               "TP": 0,
               "FP": 0,
-              "TN": 55,
-              "FN": 44,
+              "TN": 53,
+              "FN": 42,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 44,
-              "accuracy": 0.55555556
+              "support": 42,
+              "accuracy": 0.55789474
             },
             {
               "stage": "Method",
               "TP": 0,
               "FP": 0,
-              "TN": 29,
-              "FN": 70,
+              "TN": 28,
+              "FN": 67,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 70,
-              "accuracy": 0.29292929
+              "support": 67,
+              "accuracy": 0.29473684
             },
             {
               "stage": "Experimentation",
               "TP": 0,
               "FP": 0,
-              "TN": 12,
-              "FN": 87,
+              "TN": 11,
+              "FN": 84,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 87,
-              "accuracy": 0.12121212
+              "support": 84,
+              "accuracy": 0.11578947
             },
             {
               "stage": "Evaluation",
               "TP": 0,
               "FP": 0,
-              "TN": 33,
-              "FN": 66,
+              "TN": 31,
+              "FN": 64,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 66,
-              "accuracy": 0.33333333
+              "support": 64,
+              "accuracy": 0.32631579
             },
             {
               "stage": "Dissemination",
               "TP": 0,
               "FP": 0,
-              "TN": 21,
-              "FN": 78,
+              "TN": 20,
+              "FN": 75,
               "precision": 0.0,
               "recall": 0.0,
               "f1": 0.0,
-              "support": 78,
-              "accuracy": 0.21212121
+              "support": 75,
+              "accuracy": 0.21052632
             }
           ],
           "micro": {
@@ -2466,7 +2477,7 @@
             "f1": 0.0
           },
           "exact_match_accuracy": 0.0,
-          "hamming_loss": 0.64141414,
+          "hamming_loss": 0.64035088,
           "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
           "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
         }
@@ -3624,97 +3635,97 @@
     },
     "heuristics": {
       "heuristics_documentation": {
-        "repository_count": 98,
+        "repository_count": 95,
         "per_stage": [
           {
             "stage": "Collection",
             "TP": 6,
             "FP": 2,
-            "TN": 61,
-            "FN": 29,
+            "TN": 60,
+            "FN": 27,
             "precision": 0.75,
-            "recall": 0.17142857,
-            "f1": 0.27906977,
-            "support": 35,
-            "accuracy": 0.68367347
+            "recall": 0.18181818,
+            "f1": 0.29268293,
+            "support": 33,
+            "accuracy": 0.69473684
           },
           {
             "stage": "Processing",
             "TP": 23,
             "FP": 12,
-            "TN": 43,
-            "FN": 20,
+            "TN": 41,
+            "FN": 19,
             "precision": 0.65714286,
-            "recall": 0.53488372,
-            "f1": 0.58974359,
-            "support": 43,
-            "accuracy": 0.67346939
+            "recall": 0.54761905,
+            "f1": 0.5974026,
+            "support": 42,
+            "accuracy": 0.67368421
           },
           {
             "stage": "Method",
             "TP": 29,
             "FP": 5,
-            "TN": 24,
-            "FN": 40,
+            "TN": 23,
+            "FN": 38,
             "precision": 0.85294118,
-            "recall": 0.42028986,
-            "f1": 0.5631068,
-            "support": 69,
-            "accuracy": 0.54081633
+            "recall": 0.43283582,
+            "f1": 0.57425743,
+            "support": 67,
+            "accuracy": 0.54736842
           },
           {
             "stage": "Experimentation",
             "TP": 73,
-            "FP": 5,
+            "FP": 4,
             "TN": 7,
-            "FN": 13,
-            "precision": 0.93589744,
-            "recall": 0.84883721,
-            "f1": 0.8902439,
-            "support": 86,
-            "accuracy": 0.81632653
+            "FN": 11,
+            "precision": 0.94805195,
+            "recall": 0.86904762,
+            "f1": 0.9068323,
+            "support": 84,
+            "accuracy": 0.84210526
           },
           {
             "stage": "Evaluation",
             "TP": 22,
             "FP": 0,
-            "TN": 33,
-            "FN": 43,
+            "TN": 31,
+            "FN": 42,
             "precision": 1.0,
-            "recall": 0.33846154,
-            "f1": 0.50574713,
-            "support": 65,
-            "accuracy": 0.56122449
+            "recall": 0.34375,
+            "f1": 0.51162791,
+            "support": 64,
+            "accuracy": 0.55789474
           },
           {
             "stage": "Dissemination",
-            "TP": 65,
+            "TP": 64,
             "FP": 10,
             "TN": 10,
-            "FN": 13,
-            "precision": 0.86666667,
-            "recall": 0.83333333,
-            "f1": 0.8496732,
-            "support": 78,
-            "accuracy": 0.76530612
+            "FN": 11,
+            "precision": 0.86486486,
+            "recall": 0.85333333,
+            "f1": 0.8590604,
+            "support": 75,
+            "accuracy": 0.77894737
           }
         ],
         "micro": {
-          "precision": 0.86507937,
-          "recall": 0.57978723,
-          "f1": 0.69426752
+          "precision": 0.868,
+          "recall": 0.59452055,
+          "f1": 0.70569106
         },
         "macro": {
-          "precision": 0.84377469,
-          "recall": 0.52453904,
-          "f1": 0.61293073
+          "precision": 0.84550014,
+          "recall": 0.53806733,
+          "f1": 0.62364393
         },
-        "exact_match_accuracy": 0.1122449,
-        "hamming_loss": 0.32653061,
+        "exact_match_accuracy": 0.11578947,
+        "hamming_loss": 0.31754386,
         "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
         "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
-        "label_accuracy": 0.673469387755102,
-        "coverage": 0.98,
+        "label_accuracy": 0.6824561403508772,
+        "coverage": 0.95,
         "evaluated_repository_ids": [
           "akshay-r/autoencoders_dictionaries",
           "alfredomg/adapt-mwe17",
@@ -3748,7 +3759,6 @@
           "gzanella/multigrid",
           "h4rm/threephotons.jl",
           "huji-deep/generative-convacs",
-          "ihincks/nv-adaptive",
           "ikmlab/arct2",
           "irit-melodi/irit-rst-dt",
           "irit-melodi/irit-stac",
@@ -3770,7 +3780,6 @@
           "marksbrown/processingctrdata",
           "matejbalog/gumbel-relatives",
           "matrix-factorization-bandit/imfb-kdd2019",
-          "md-k-sarker/ecii-expr",
           "michael135/count-vector-paper-experiments",
           "michschli/tensor-lstm",
           "mspeich/forhytm",
@@ -3811,181 +3820,183 @@
           "vodolan/denotationidentification",
           "white-link/unsupervisedscalablerepresentationlearningtimeseries",
           "wmbedmands/simextargid",
-          "yakazimir/code-datasets",
           "yiyiliu1/bdchemo",
           "ztangent/norms-cogsci19"
         ],
         "excluded_repository_ids": [
           "aquemy/dpso_experiments",
-          "jmschrei/pypore"
+          "ihincks/nv-adaptive",
+          "jmschrei/pypore",
+          "md-k-sarker/ecii-expr",
+          "yakazimir/code-datasets"
         ],
-        "unknown_decisions": 4,
+        "unknown_decisions": 19,
         "baselines": {
           "always_positive": {
-            "repository_count": 98,
+            "repository_count": 95,
             "per_stage": [
               {
                 "stage": "Collection",
-                "TP": 35,
-                "FP": 63,
+                "TP": 33,
+                "FP": 62,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.35714286,
+                "precision": 0.34736842,
                 "recall": 1.0,
-                "f1": 0.52631579,
-                "support": 35,
-                "accuracy": 0.35714286
+                "f1": 0.515625,
+                "support": 33,
+                "accuracy": 0.34736842
               },
               {
                 "stage": "Processing",
-                "TP": 43,
-                "FP": 55,
+                "TP": 42,
+                "FP": 53,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.43877551,
+                "precision": 0.44210526,
                 "recall": 1.0,
-                "f1": 0.60992908,
-                "support": 43,
-                "accuracy": 0.43877551
+                "f1": 0.61313869,
+                "support": 42,
+                "accuracy": 0.44210526
               },
               {
                 "stage": "Method",
-                "TP": 69,
-                "FP": 29,
+                "TP": 67,
+                "FP": 28,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.70408163,
+                "precision": 0.70526316,
                 "recall": 1.0,
-                "f1": 0.82634731,
-                "support": 69,
-                "accuracy": 0.70408163
+                "f1": 0.82716049,
+                "support": 67,
+                "accuracy": 0.70526316
               },
               {
                 "stage": "Experimentation",
-                "TP": 86,
-                "FP": 12,
+                "TP": 84,
+                "FP": 11,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.87755102,
+                "precision": 0.88421053,
                 "recall": 1.0,
-                "f1": 0.93478261,
-                "support": 86,
-                "accuracy": 0.87755102
+                "f1": 0.93854749,
+                "support": 84,
+                "accuracy": 0.88421053
               },
               {
                 "stage": "Evaluation",
-                "TP": 65,
-                "FP": 33,
+                "TP": 64,
+                "FP": 31,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.66326531,
+                "precision": 0.67368421,
                 "recall": 1.0,
-                "f1": 0.79754601,
-                "support": 65,
-                "accuracy": 0.66326531
+                "f1": 0.80503145,
+                "support": 64,
+                "accuracy": 0.67368421
               },
               {
                 "stage": "Dissemination",
-                "TP": 78,
+                "TP": 75,
                 "FP": 20,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.79591837,
+                "precision": 0.78947368,
                 "recall": 1.0,
-                "f1": 0.88636364,
-                "support": 78,
-                "accuracy": 0.79591837
+                "f1": 0.88235294,
+                "support": 75,
+                "accuracy": 0.78947368
               }
             ],
             "micro": {
-              "precision": 0.63945578,
+              "precision": 0.64035088,
               "recall": 1.0,
-              "f1": 0.78008299
+              "f1": 0.78074866
             },
             "macro": {
-              "precision": 0.63945578,
+              "precision": 0.64035088,
               "recall": 1.0,
-              "f1": 0.76354741
+              "f1": 0.76364268
             },
-            "exact_match_accuracy": 0.12244898,
-            "hamming_loss": 0.36054422,
+            "exact_match_accuracy": 0.12631579,
+            "hamming_loss": 0.35964912,
             "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
             "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
           },
           "always_negative": {
-            "repository_count": 98,
+            "repository_count": 95,
             "per_stage": [
               {
                 "stage": "Collection",
                 "TP": 0,
                 "FP": 0,
-                "TN": 63,
-                "FN": 35,
+                "TN": 62,
+                "FN": 33,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 35,
-                "accuracy": 0.64285714
+                "support": 33,
+                "accuracy": 0.65263158
               },
               {
                 "stage": "Processing",
                 "TP": 0,
                 "FP": 0,
-                "TN": 55,
-                "FN": 43,
+                "TN": 53,
+                "FN": 42,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 43,
-                "accuracy": 0.56122449
+                "support": 42,
+                "accuracy": 0.55789474
               },
               {
                 "stage": "Method",
                 "TP": 0,
                 "FP": 0,
-                "TN": 29,
-                "FN": 69,
+                "TN": 28,
+                "FN": 67,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 69,
-                "accuracy": 0.29591837
+                "support": 67,
+                "accuracy": 0.29473684
               },
               {
                 "stage": "Experimentation",
                 "TP": 0,
                 "FP": 0,
-                "TN": 12,
-                "FN": 86,
+                "TN": 11,
+                "FN": 84,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 86,
-                "accuracy": 0.12244898
+                "support": 84,
+                "accuracy": 0.11578947
               },
               {
                 "stage": "Evaluation",
                 "TP": 0,
                 "FP": 0,
-                "TN": 33,
-                "FN": 65,
+                "TN": 31,
+                "FN": 64,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 65,
-                "accuracy": 0.33673469
+                "support": 64,
+                "accuracy": 0.32631579
               },
               {
                 "stage": "Dissemination",
                 "TP": 0,
                 "FP": 0,
                 "TN": 20,
-                "FN": 78,
+                "FN": 75,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 78,
-                "accuracy": 0.20408163
+                "support": 75,
+                "accuracy": 0.21052632
               }
             ],
             "micro": {
@@ -3999,104 +4010,104 @@
               "f1": 0.0
             },
             "exact_match_accuracy": 0.0,
-            "hamming_loss": 0.63945578,
+            "hamming_loss": 0.64035088,
             "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
             "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
           }
         }
       },
       "heuristics_code": {
-        "repository_count": 98,
+        "repository_count": 95,
         "per_stage": [
           {
             "stage": "Collection",
             "TP": 0,
             "FP": 0,
-            "TN": 63,
-            "FN": 35,
+            "TN": 62,
+            "FN": 33,
             "precision": 0.0,
             "recall": 0.0,
             "f1": 0.0,
-            "support": 35,
-            "accuracy": 0.64285714
+            "support": 33,
+            "accuracy": 0.65263158
           },
           {
             "stage": "Processing",
             "TP": 9,
             "FP": 1,
-            "TN": 54,
-            "FN": 34,
+            "TN": 52,
+            "FN": 33,
             "precision": 0.9,
-            "recall": 0.20930233,
-            "f1": 0.33962264,
-            "support": 43,
-            "accuracy": 0.64285714
+            "recall": 0.21428571,
+            "f1": 0.34615385,
+            "support": 42,
+            "accuracy": 0.64210526
           },
           {
             "stage": "Method",
-            "TP": 41,
+            "TP": 40,
             "FP": 12,
-            "TN": 17,
-            "FN": 28,
-            "precision": 0.77358491,
-            "recall": 0.5942029,
-            "f1": 0.67213115,
-            "support": 69,
-            "accuracy": 0.59183673
+            "TN": 16,
+            "FN": 27,
+            "precision": 0.76923077,
+            "recall": 0.59701493,
+            "f1": 0.67226891,
+            "support": 67,
+            "accuracy": 0.58947368
           },
           {
             "stage": "Experimentation",
             "TP": 10,
-            "FP": 2,
+            "FP": 1,
             "TN": 10,
-            "FN": 76,
-            "precision": 0.83333333,
-            "recall": 0.11627907,
-            "f1": 0.20408163,
-            "support": 86,
-            "accuracy": 0.20408163
+            "FN": 74,
+            "precision": 0.90909091,
+            "recall": 0.11904762,
+            "f1": 0.21052632,
+            "support": 84,
+            "accuracy": 0.21052632
           },
           {
             "stage": "Evaluation",
             "TP": 21,
             "FP": 7,
-            "TN": 26,
-            "FN": 44,
+            "TN": 24,
+            "FN": 43,
             "precision": 0.75,
-            "recall": 0.32307692,
-            "f1": 0.4516129,
-            "support": 65,
-            "accuracy": 0.47959184
+            "recall": 0.328125,
+            "f1": 0.45652174,
+            "support": 64,
+            "accuracy": 0.47368421
           },
           {
             "stage": "Dissemination",
-            "TP": 22,
+            "TP": 21,
             "FP": 1,
             "TN": 19,
-            "FN": 56,
-            "precision": 0.95652174,
-            "recall": 0.28205128,
-            "f1": 0.43564356,
-            "support": 78,
-            "accuracy": 0.41836735
+            "FN": 54,
+            "precision": 0.95454545,
+            "recall": 0.28,
+            "f1": 0.43298969,
+            "support": 75,
+            "accuracy": 0.42105263
           }
         ],
         "micro": {
-          "precision": 0.81746032,
-          "recall": 0.27393617,
-          "f1": 0.41035857
+          "precision": 0.82113821,
+          "recall": 0.27671233,
+          "f1": 0.41393443
         },
         "macro": {
-          "precision": 0.70224,
-          "recall": 0.25415208,
-          "f1": 0.35051531
+          "precision": 0.71381119,
+          "recall": 0.25641221,
+          "f1": 0.35307675
         },
-        "exact_match_accuracy": 0.01020408,
-        "hamming_loss": 0.50340136,
+        "exact_match_accuracy": 0.01052632,
+        "hamming_loss": 0.50175439,
         "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
         "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
-        "label_accuracy": 0.4965986394557823,
-        "coverage": 0.98,
+        "label_accuracy": 0.4982456140350877,
+        "coverage": 0.95,
         "evaluated_repository_ids": [
           "akshay-r/autoencoders_dictionaries",
           "alfredomg/adapt-mwe17",
@@ -4130,7 +4141,6 @@
           "gzanella/multigrid",
           "h4rm/threephotons.jl",
           "huji-deep/generative-convacs",
-          "ihincks/nv-adaptive",
           "ikmlab/arct2",
           "irit-melodi/irit-rst-dt",
           "irit-melodi/irit-stac",
@@ -4152,7 +4162,6 @@
           "marksbrown/processingctrdata",
           "matejbalog/gumbel-relatives",
           "matrix-factorization-bandit/imfb-kdd2019",
-          "md-k-sarker/ecii-expr",
           "michael135/count-vector-paper-experiments",
           "michschli/tensor-lstm",
           "mspeich/forhytm",
@@ -4193,181 +4202,183 @@
           "vodolan/denotationidentification",
           "white-link/unsupervisedscalablerepresentationlearningtimeseries",
           "wmbedmands/simextargid",
-          "yakazimir/code-datasets",
           "yiyiliu1/bdchemo",
           "ztangent/norms-cogsci19"
         ],
         "excluded_repository_ids": [
           "aquemy/dpso_experiments",
-          "jmschrei/pypore"
+          "ihincks/nv-adaptive",
+          "jmschrei/pypore",
+          "md-k-sarker/ecii-expr",
+          "yakazimir/code-datasets"
         ],
-        "unknown_decisions": 0,
+        "unknown_decisions": 24,
         "baselines": {
           "always_positive": {
-            "repository_count": 98,
+            "repository_count": 95,
             "per_stage": [
               {
                 "stage": "Collection",
-                "TP": 35,
-                "FP": 63,
+                "TP": 33,
+                "FP": 62,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.35714286,
+                "precision": 0.34736842,
                 "recall": 1.0,
-                "f1": 0.52631579,
-                "support": 35,
-                "accuracy": 0.35714286
+                "f1": 0.515625,
+                "support": 33,
+                "accuracy": 0.34736842
               },
               {
                 "stage": "Processing",
-                "TP": 43,
-                "FP": 55,
+                "TP": 42,
+                "FP": 53,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.43877551,
+                "precision": 0.44210526,
                 "recall": 1.0,
-                "f1": 0.60992908,
-                "support": 43,
-                "accuracy": 0.43877551
+                "f1": 0.61313869,
+                "support": 42,
+                "accuracy": 0.44210526
               },
               {
                 "stage": "Method",
-                "TP": 69,
-                "FP": 29,
+                "TP": 67,
+                "FP": 28,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.70408163,
+                "precision": 0.70526316,
                 "recall": 1.0,
-                "f1": 0.82634731,
-                "support": 69,
-                "accuracy": 0.70408163
+                "f1": 0.82716049,
+                "support": 67,
+                "accuracy": 0.70526316
               },
               {
                 "stage": "Experimentation",
-                "TP": 86,
-                "FP": 12,
+                "TP": 84,
+                "FP": 11,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.87755102,
+                "precision": 0.88421053,
                 "recall": 1.0,
-                "f1": 0.93478261,
-                "support": 86,
-                "accuracy": 0.87755102
+                "f1": 0.93854749,
+                "support": 84,
+                "accuracy": 0.88421053
               },
               {
                 "stage": "Evaluation",
-                "TP": 65,
-                "FP": 33,
+                "TP": 64,
+                "FP": 31,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.66326531,
+                "precision": 0.67368421,
                 "recall": 1.0,
-                "f1": 0.79754601,
-                "support": 65,
-                "accuracy": 0.66326531
+                "f1": 0.80503145,
+                "support": 64,
+                "accuracy": 0.67368421
               },
               {
                 "stage": "Dissemination",
-                "TP": 78,
+                "TP": 75,
                 "FP": 20,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.79591837,
+                "precision": 0.78947368,
                 "recall": 1.0,
-                "f1": 0.88636364,
-                "support": 78,
-                "accuracy": 0.79591837
+                "f1": 0.88235294,
+                "support": 75,
+                "accuracy": 0.78947368
               }
             ],
             "micro": {
-              "precision": 0.63945578,
+              "precision": 0.64035088,
               "recall": 1.0,
-              "f1": 0.78008299
+              "f1": 0.78074866
             },
             "macro": {
-              "precision": 0.63945578,
+              "precision": 0.64035088,
               "recall": 1.0,
-              "f1": 0.76354741
+              "f1": 0.76364268
             },
-            "exact_match_accuracy": 0.12244898,
-            "hamming_loss": 0.36054422,
+            "exact_match_accuracy": 0.12631579,
+            "hamming_loss": 0.35964912,
             "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
             "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
           },
           "always_negative": {
-            "repository_count": 98,
+            "repository_count": 95,
             "per_stage": [
               {
                 "stage": "Collection",
                 "TP": 0,
                 "FP": 0,
-                "TN": 63,
-                "FN": 35,
+                "TN": 62,
+                "FN": 33,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 35,
-                "accuracy": 0.64285714
+                "support": 33,
+                "accuracy": 0.65263158
               },
               {
                 "stage": "Processing",
                 "TP": 0,
                 "FP": 0,
-                "TN": 55,
-                "FN": 43,
+                "TN": 53,
+                "FN": 42,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 43,
-                "accuracy": 0.56122449
+                "support": 42,
+                "accuracy": 0.55789474
               },
               {
                 "stage": "Method",
                 "TP": 0,
                 "FP": 0,
-                "TN": 29,
-                "FN": 69,
+                "TN": 28,
+                "FN": 67,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 69,
-                "accuracy": 0.29591837
+                "support": 67,
+                "accuracy": 0.29473684
               },
               {
                 "stage": "Experimentation",
                 "TP": 0,
                 "FP": 0,
-                "TN": 12,
-                "FN": 86,
+                "TN": 11,
+                "FN": 84,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 86,
-                "accuracy": 0.12244898
+                "support": 84,
+                "accuracy": 0.11578947
               },
               {
                 "stage": "Evaluation",
                 "TP": 0,
                 "FP": 0,
-                "TN": 33,
-                "FN": 65,
+                "TN": 31,
+                "FN": 64,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 65,
-                "accuracy": 0.33673469
+                "support": 64,
+                "accuracy": 0.32631579
               },
               {
                 "stage": "Dissemination",
                 "TP": 0,
                 "FP": 0,
                 "TN": 20,
-                "FN": 78,
+                "FN": 75,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 78,
-                "accuracy": 0.20408163
+                "support": 75,
+                "accuracy": 0.21052632
               }
             ],
             "micro": {
@@ -4381,104 +4392,104 @@
               "f1": 0.0
             },
             "exact_match_accuracy": 0.0,
-            "hamming_loss": 0.63945578,
+            "hamming_loss": 0.64035088,
             "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
             "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
           }
         }
       },
       "heuristics_combined": {
-        "repository_count": 98,
+        "repository_count": 95,
         "per_stage": [
           {
             "stage": "Collection",
             "TP": 6,
             "FP": 2,
-            "TN": 61,
-            "FN": 29,
+            "TN": 60,
+            "FN": 27,
             "precision": 0.75,
-            "recall": 0.17142857,
-            "f1": 0.27906977,
-            "support": 35,
-            "accuracy": 0.68367347
+            "recall": 0.18181818,
+            "f1": 0.29268293,
+            "support": 33,
+            "accuracy": 0.69473684
           },
           {
             "stage": "Processing",
             "TP": 26,
             "FP": 13,
-            "TN": 42,
-            "FN": 17,
+            "TN": 40,
+            "FN": 16,
             "precision": 0.66666667,
-            "recall": 0.60465116,
-            "f1": 0.63414634,
-            "support": 43,
-            "accuracy": 0.69387755
+            "recall": 0.61904762,
+            "f1": 0.64197531,
+            "support": 42,
+            "accuracy": 0.69473684
           },
           {
             "stage": "Method",
-            "TP": 48,
+            "TP": 47,
             "FP": 14,
-            "TN": 15,
-            "FN": 21,
-            "precision": 0.77419355,
-            "recall": 0.69565217,
-            "f1": 0.73282443,
-            "support": 69,
-            "accuracy": 0.64285714
+            "TN": 14,
+            "FN": 20,
+            "precision": 0.7704918,
+            "recall": 0.70149254,
+            "f1": 0.734375,
+            "support": 67,
+            "accuracy": 0.64210526
           },
           {
             "stage": "Experimentation",
             "TP": 74,
-            "FP": 6,
+            "FP": 5,
             "TN": 6,
-            "FN": 12,
-            "precision": 0.925,
-            "recall": 0.86046512,
-            "f1": 0.89156627,
-            "support": 86,
-            "accuracy": 0.81632653
+            "FN": 10,
+            "precision": 0.93670886,
+            "recall": 0.88095238,
+            "f1": 0.90797546,
+            "support": 84,
+            "accuracy": 0.84210526
           },
           {
             "stage": "Evaluation",
             "TP": 34,
             "FP": 7,
-            "TN": 26,
-            "FN": 31,
+            "TN": 24,
+            "FN": 30,
             "precision": 0.82926829,
-            "recall": 0.52307692,
-            "f1": 0.64150943,
-            "support": 65,
-            "accuracy": 0.6122449
+            "recall": 0.53125,
+            "f1": 0.64761905,
+            "support": 64,
+            "accuracy": 0.61052632
           },
           {
             "stage": "Dissemination",
-            "TP": 68,
+            "TP": 67,
             "FP": 11,
             "TN": 9,
-            "FN": 10,
-            "precision": 0.86075949,
-            "recall": 0.87179487,
-            "f1": 0.86624204,
-            "support": 78,
-            "accuracy": 0.78571429
+            "FN": 8,
+            "precision": 0.85897436,
+            "recall": 0.89333333,
+            "f1": 0.87581699,
+            "support": 75,
+            "accuracy": 0.8
           }
         ],
         "micro": {
-          "precision": 0.82847896,
-          "recall": 0.68085106,
-          "f1": 0.74744526
+          "precision": 0.83006536,
+          "recall": 0.69589041,
+          "f1": 0.75707899
         },
         "macro": {
-          "precision": 0.80098133,
-          "recall": 0.62117813,
-          "f1": 0.67422638
+          "precision": 0.80201833,
+          "recall": 0.63464901,
+          "f1": 0.68340746
         },
-        "exact_match_accuracy": 0.16326531,
-        "hamming_loss": 0.29421769,
+        "exact_match_accuracy": 0.16842105,
+        "hamming_loss": 0.28596491,
         "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
         "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations",
-        "label_accuracy": 0.70578231292517,
-        "coverage": 0.98,
+        "label_accuracy": 0.7140350877192982,
+        "coverage": 0.95,
         "evaluated_repository_ids": [
           "akshay-r/autoencoders_dictionaries",
           "alfredomg/adapt-mwe17",
@@ -4512,7 +4523,6 @@
           "gzanella/multigrid",
           "h4rm/threephotons.jl",
           "huji-deep/generative-convacs",
-          "ihincks/nv-adaptive",
           "ikmlab/arct2",
           "irit-melodi/irit-rst-dt",
           "irit-melodi/irit-stac",
@@ -4534,7 +4544,6 @@
           "marksbrown/processingctrdata",
           "matejbalog/gumbel-relatives",
           "matrix-factorization-bandit/imfb-kdd2019",
-          "md-k-sarker/ecii-expr",
           "michael135/count-vector-paper-experiments",
           "michschli/tensor-lstm",
           "mspeich/forhytm",
@@ -4575,181 +4584,183 @@
           "vodolan/denotationidentification",
           "white-link/unsupervisedscalablerepresentationlearningtimeseries",
           "wmbedmands/simextargid",
-          "yakazimir/code-datasets",
           "yiyiliu1/bdchemo",
           "ztangent/norms-cogsci19"
         ],
         "excluded_repository_ids": [
           "aquemy/dpso_experiments",
-          "jmschrei/pypore"
+          "ihincks/nv-adaptive",
+          "jmschrei/pypore",
+          "md-k-sarker/ecii-expr",
+          "yakazimir/code-datasets"
         ],
-        "unknown_decisions": 2,
+        "unknown_decisions": 21,
         "baselines": {
           "always_positive": {
-            "repository_count": 98,
+            "repository_count": 95,
             "per_stage": [
               {
                 "stage": "Collection",
-                "TP": 35,
-                "FP": 63,
+                "TP": 33,
+                "FP": 62,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.35714286,
+                "precision": 0.34736842,
                 "recall": 1.0,
-                "f1": 0.52631579,
-                "support": 35,
-                "accuracy": 0.35714286
+                "f1": 0.515625,
+                "support": 33,
+                "accuracy": 0.34736842
               },
               {
                 "stage": "Processing",
-                "TP": 43,
-                "FP": 55,
+                "TP": 42,
+                "FP": 53,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.43877551,
+                "precision": 0.44210526,
                 "recall": 1.0,
-                "f1": 0.60992908,
-                "support": 43,
-                "accuracy": 0.43877551
+                "f1": 0.61313869,
+                "support": 42,
+                "accuracy": 0.44210526
               },
               {
                 "stage": "Method",
-                "TP": 69,
-                "FP": 29,
+                "TP": 67,
+                "FP": 28,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.70408163,
+                "precision": 0.70526316,
                 "recall": 1.0,
-                "f1": 0.82634731,
-                "support": 69,
-                "accuracy": 0.70408163
+                "f1": 0.82716049,
+                "support": 67,
+                "accuracy": 0.70526316
               },
               {
                 "stage": "Experimentation",
-                "TP": 86,
-                "FP": 12,
+                "TP": 84,
+                "FP": 11,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.87755102,
+                "precision": 0.88421053,
                 "recall": 1.0,
-                "f1": 0.93478261,
-                "support": 86,
-                "accuracy": 0.87755102
+                "f1": 0.93854749,
+                "support": 84,
+                "accuracy": 0.88421053
               },
               {
                 "stage": "Evaluation",
-                "TP": 65,
-                "FP": 33,
+                "TP": 64,
+                "FP": 31,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.66326531,
+                "precision": 0.67368421,
                 "recall": 1.0,
-                "f1": 0.79754601,
-                "support": 65,
-                "accuracy": 0.66326531
+                "f1": 0.80503145,
+                "support": 64,
+                "accuracy": 0.67368421
               },
               {
                 "stage": "Dissemination",
-                "TP": 78,
+                "TP": 75,
                 "FP": 20,
                 "TN": 0,
                 "FN": 0,
-                "precision": 0.79591837,
+                "precision": 0.78947368,
                 "recall": 1.0,
-                "f1": 0.88636364,
-                "support": 78,
-                "accuracy": 0.79591837
+                "f1": 0.88235294,
+                "support": 75,
+                "accuracy": 0.78947368
               }
             ],
             "micro": {
-              "precision": 0.63945578,
+              "precision": 0.64035088,
               "recall": 1.0,
-              "f1": 0.78008299
+              "f1": 0.78074866
             },
             "macro": {
-              "precision": 0.63945578,
+              "precision": 0.64035088,
               "recall": 1.0,
-              "f1": 0.76354741
+              "f1": 0.76364268
             },
-            "exact_match_accuracy": 0.12244898,
-            "hamming_loss": 0.36054422,
+            "exact_match_accuracy": 0.12631579,
+            "hamming_loss": 0.35964912,
             "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
             "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
           },
           "always_negative": {
-            "repository_count": 98,
+            "repository_count": 95,
             "per_stage": [
               {
                 "stage": "Collection",
                 "TP": 0,
                 "FP": 0,
-                "TN": 63,
-                "FN": 35,
+                "TN": 62,
+                "FN": 33,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 35,
-                "accuracy": 0.64285714
+                "support": 33,
+                "accuracy": 0.65263158
               },
               {
                 "stage": "Processing",
                 "TP": 0,
                 "FP": 0,
-                "TN": 55,
-                "FN": 43,
+                "TN": 53,
+                "FN": 42,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 43,
-                "accuracy": 0.56122449
+                "support": 42,
+                "accuracy": 0.55789474
               },
               {
                 "stage": "Method",
                 "TP": 0,
                 "FP": 0,
-                "TN": 29,
-                "FN": 69,
+                "TN": 28,
+                "FN": 67,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 69,
-                "accuracy": 0.29591837
+                "support": 67,
+                "accuracy": 0.29473684
               },
               {
                 "stage": "Experimentation",
                 "TP": 0,
                 "FP": 0,
-                "TN": 12,
-                "FN": 86,
+                "TN": 11,
+                "FN": 84,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 86,
-                "accuracy": 0.12244898
+                "support": 84,
+                "accuracy": 0.11578947
               },
               {
                 "stage": "Evaluation",
                 "TP": 0,
                 "FP": 0,
-                "TN": 33,
-                "FN": 65,
+                "TN": 31,
+                "FN": 64,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 65,
-                "accuracy": 0.33673469
+                "support": 64,
+                "accuracy": 0.32631579
               },
               {
                 "stage": "Dissemination",
                 "TP": 0,
                 "FP": 0,
                 "TN": 20,
-                "FN": 78,
+                "FN": 75,
                 "precision": 0.0,
                 "recall": 0.0,
                 "f1": 0.0,
-                "support": 78,
-                "accuracy": 0.20408163
+                "support": 75,
+                "accuracy": 0.21052632
               }
             ],
             "micro": {
@@ -4763,7 +4774,7 @@
               "f1": 0.0
             },
             "exact_match_accuracy": 0.0,
-            "hamming_loss": 0.63945578,
+            "hamming_loss": 0.64035088,
             "undefined_metric_convention": "zero; empty evaluation flagged by repository_count=0",
             "rounding": "round to 8 decimal places; JSON numbers and CSV decimal representations"
           }
@@ -4777,160 +4788,160 @@
       "role": "heuristics_documentation",
       "metric": "repositories",
       "paper": 96,
-      "computed": 99,
-      "rounded_3dp": 99,
-      "status": "differs"
+      "computed": 96,
+      "rounded_3dp": 96,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_documentation",
       "metric": "micro_precision",
       "paper": 0.865,
-      "computed": 0.8627451,
-      "rounded_3dp": 0.863,
-      "status": "differs"
+      "computed": 0.86507937,
+      "rounded_3dp": 0.865,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_documentation",
       "metric": "micro_recall",
       "paper": 0.591,
-      "computed": 0.58047493,
-      "rounded_3dp": 0.58,
-      "status": "differs"
+      "computed": 0.59078591,
+      "rounded_3dp": 0.591,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_documentation",
       "metric": "micro_f1",
       "paper": 0.702,
-      "computed": 0.69400631,
-      "rounded_3dp": 0.694,
-      "status": "differs"
+      "computed": 0.7020934,
+      "rounded_3dp": 0.702,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_documentation",
       "metric": "macro_f1",
       "paper": 0.62,
-      "computed": 0.61132781,
-      "rounded_3dp": 0.611,
-      "status": "differs"
+      "computed": 0.6199422,
+      "rounded_3dp": 0.62,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_documentation",
       "metric": "exact_match",
       "paper": 0.115,
-      "computed": 0.11111111,
-      "rounded_3dp": 0.111,
-      "status": "differs"
+      "computed": 0.11458333,
+      "rounded_3dp": 0.115,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_documentation",
       "metric": "label_accuracy",
       "paper": 0.679,
-      "computed": 0.6734006734006734,
-      "rounded_3dp": 0.673,
-      "status": "differs"
+      "computed": 0.6788194444444444,
+      "rounded_3dp": 0.679,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_documentation",
       "metric": "coverage",
       "paper": 0.96,
-      "computed": 0.99,
-      "rounded_3dp": 0.99,
-      "status": "differs"
+      "computed": 0.96,
+      "rounded_3dp": 0.96,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_code",
       "metric": "repositories",
       "paper": 95,
-      "computed": 100,
-      "rounded_3dp": 100,
-      "status": "differs"
+      "computed": 95,
+      "rounded_3dp": 95,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_code",
       "metric": "micro_precision",
       "paper": 0.821,
-      "computed": 0.81395349,
-      "rounded_3dp": 0.814,
-      "status": "differs"
+      "computed": 0.82113821,
+      "rounded_3dp": 0.821,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_code",
       "metric": "micro_recall",
       "paper": 0.277,
-      "computed": 0.2734375,
-      "rounded_3dp": 0.273,
-      "status": "differs"
+      "computed": 0.27671233,
+      "rounded_3dp": 0.277,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_code",
       "metric": "micro_f1",
       "paper": 0.414,
-      "computed": 0.40935673,
-      "rounded_3dp": 0.409,
-      "status": "differs"
+      "computed": 0.41393443,
+      "rounded_3dp": 0.414,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_code",
       "metric": "macro_f1",
       "paper": 0.353,
-      "computed": 0.34943882,
-      "rounded_3dp": 0.349,
-      "status": "differs"
+      "computed": 0.35307675,
+      "rounded_3dp": 0.353,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_code",
       "metric": "exact_match",
       "paper": 0.011,
-      "computed": 0.01,
-      "rounded_3dp": 0.01,
-      "status": "differs"
+      "computed": 0.01052632,
+      "rounded_3dp": 0.011,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_code",
       "metric": "label_accuracy",
       "paper": 0.498,
-      "computed": 0.495,
-      "rounded_3dp": 0.495,
-      "status": "differs"
+      "computed": 0.4982456140350877,
+      "rounded_3dp": 0.498,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_code",
       "metric": "coverage",
       "paper": 0.95,
-      "computed": 1.0,
-      "rounded_3dp": 1.0,
-      "status": "differs"
+      "computed": 0.95,
+      "rounded_3dp": 0.95,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_combined",
       "metric": "repositories",
       "paper": 95,
-      "computed": 99,
-      "rounded_3dp": 99,
-      "status": "differs"
+      "computed": 95,
+      "rounded_3dp": 95,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_combined",
       "metric": "micro_precision",
       "paper": 0.83,
-      "computed": 0.82958199,
+      "computed": 0.83006536,
       "rounded_3dp": 0.83,
       "status": "matches"
     },
@@ -4939,54 +4950,54 @@
       "role": "heuristics_combined",
       "metric": "micro_recall",
       "paper": 0.696,
-      "computed": 0.67716535,
-      "rounded_3dp": 0.677,
-      "status": "differs"
+      "computed": 0.69589041,
+      "rounded_3dp": 0.696,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_combined",
       "metric": "micro_f1",
       "paper": 0.757,
-      "computed": 0.74566474,
-      "rounded_3dp": 0.746,
-      "status": "differs"
+      "computed": 0.75707899,
+      "rounded_3dp": 0.757,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_combined",
       "metric": "macro_f1",
       "paper": 0.683,
-      "computed": 0.67340169,
-      "rounded_3dp": 0.673,
-      "status": "differs"
+      "computed": 0.68340746,
+      "rounded_3dp": 0.683,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_combined",
       "metric": "exact_match",
       "paper": 0.168,
-      "computed": 0.16161616,
-      "rounded_3dp": 0.162,
-      "status": "differs"
+      "computed": 0.16842105,
+      "rounded_3dp": 0.168,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_combined",
       "metric": "label_accuracy",
       "paper": 0.714,
-      "computed": 0.7037037037037037,
-      "rounded_3dp": 0.704,
-      "status": "differs"
+      "computed": 0.7140350877192982,
+      "rounded_3dp": 0.714,
+      "status": "matches"
     },
     {
       "table": "table_4",
       "role": "heuristics_combined",
       "metric": "coverage",
       "paper": 0.95,
-      "computed": 0.99,
-      "rounded_3dp": 0.99,
-      "status": "differs"
+      "computed": 0.95,
+      "rounded_3dp": 0.95,
+      "status": "matches"
     },
     {
       "table": "table_6",
@@ -5156,8 +5167,8 @@
   "corpus_stage_counts": null,
   "corpus_paper_comparison": null,
   "limitations": [
-    "Workbook CSV binary completeness does not establish runtime scan completeness.",
-    "Paper Table 4 requires original result.json files to reconstruct the 96/95/95 scan-complete cohorts.",
+    "Heuristic evaluation uses original assessment scan-completeness flags; known positives in incomplete scans are retained in CSVs.",
+    "Paper Table 4 is reproduced from restored CSV predictions and original assessment completeness flags (96/95/95 repositories).",
     "Paper Table 5 requires the original 386-repository predictions export.",
     "Paper Table 7 retains superseded heuristic values and is inconsistent with Table 4.",
     "The combined LLM micro-F1 rounds to 0.795; the paper prints 0.794.",

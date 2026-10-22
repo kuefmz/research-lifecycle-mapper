@@ -5,7 +5,7 @@ snapshot: one header row, 100 repositories, seven columns per file. Source workb
 CSV SHA-256 hashes are recorded in `manifest.json`. The original Google Sheet and attached
 workbook were not edited. The ten selected ranges were also checked against the exact
 live Google Sheet on 2026-10-22: no value differences after treating numeric 0/1 and
-0.0/1.0 as equivalent. CSVs preserve the attached values. This is not continuous live sync.
+0.0/1.0 as equivalent. Human and LLM CSVs preserve the attached values. The three heuristic CSVs restore unknown decisions from the original assessment, as described below. This is not continuous live sync.
 
 | CSV | Source worksheet | Meaning |
 |---|---|---|
@@ -54,11 +54,17 @@ Run [the notebook](../reproduce_paper.ipynb) or its standard-library Python equi
 uv run --frozen python results/benchmark-100/reproduce_paper.py
 ```
 
-The selected latest heuristic sheets yield 99/100/99 six-binary-label repositories;
-the paper reports 96/95/95 scan-complete repositories. CSV label completeness alone does
-not encode scan completeness, so these are **not interchangeable evaluation cohorts**.
-The notebook reports this discrepancy and never selects repositories to force the paper's
-scores. Original checksum-bound per-repository run files are required to reproduce Table 4.
+The heuristic CSVs restore **58 zero-filled unknown decisions** to `?` and render six
+existing blanks as `?`. All genuine binary decisions and the supplied repository order
+are unchanged. Original assessment predictions and independent scan-completeness flags
+are retained in `../assessment/`; its correction log lists every changed cell.
+`manifest.json` records both the original source-export and corrected CSV hashes.
+The source workbook and live Google Sheet were not changed.
+
+Evaluation uses the original scan-completeness flags: **96 documentation, 95 code,
+95 combined repositories**, reproducing Table 4. A known positive remains 1 even if
+its scan is incomplete; incomplete scans are excluded from complete-scan metrics.
+
 The LLM sheets reproduce Table 6 to the printed precision except that combined micro-F1
 is 0.79454927, which rounds to **0.795** rather than the draft's 0.794.
 
@@ -67,8 +73,9 @@ Re-export from the exact supplied workbook:
 ```bash
 uv run --frozen python scripts/export_workbook_results.py \
   --workbook /path/to/the/source-workbook.xlsx \
-  --output results/benchmark-100/workbook
+  --output /path/to/raw-workbook-export
 ```
 
 The source mapping and workbook hash must be reviewed when the input changes. This
-command regenerates CSVs and their manifest; it does not change the source workbook.
+command regenerates the uncorrected source snapshot in a separate directory. It does not
+restore uncertainty; do not overwrite the corrected submission CSVs with raw exports.

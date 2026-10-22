@@ -1,0 +1,4 @@
+mode,evaluated_repositories,coverage,label_accuracy,exact_match_accuracy,macro_f1,micro_precision,micro_recall,micro_f1,interpretation
+documentation-only,96,0.96000000,0.67881944,0.11458333,0.61994220,0.86507937,0.59078591,0.70209340,documentation evidence agreement with mixed-source final agreement; no documentation-only ground-truth claim
+code-only,95,0.95000000,0.49824561,0.01052632,0.35307675,0.82113821,0.27671233,0.41393443,cross-scope code evidence agreement with mixed-source final agreement; no code-ground-truth accuracy claim
+combined,95,0.95000000,0.71403509,0.16842105,0.68340746,0.83006536,0.69589041,0.75707899,"union of documentation/code evidence, not an average; mixed-source reference agreement"

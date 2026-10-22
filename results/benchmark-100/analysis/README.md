@@ -8,8 +8,8 @@ Computed from the selected workbook CSVs:
 
 ## Material differences from the draft
 
-- Workbook CSV binary completeness does not establish runtime scan completeness.
-- Paper Table 4 requires original result.json files to reconstruct the 96/95/95 scan-complete cohorts.
+- Heuristic evaluation uses original assessment scan-completeness flags; known positives in incomplete scans are retained in CSVs.
+- Paper Table 4 is reproduced from restored CSV predictions and original assessment completeness flags (96/95/95 repositories).
 - Paper Table 5 requires the original 386-repository predictions export.
 - Paper Table 7 retains superseded heuristic values and is inconsistent with Table 4.
 - The combined LLM micro-F1 rounds to 0.795; the paper prints 0.794.

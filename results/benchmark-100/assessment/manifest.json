@@ -1,0 +1,12 @@
+{
+  "files": {
+    "all_modes_comparison.csv": "e66728d8cb6f8a40b2bf57d4b0f678c9ae7f176a2f32c4e67ea0d00900674ca9",
+    "mode_summary.csv": "4ee82aa13706101ed4eb4660d719510a28517f50e02f9c775dba95e66588f408",
+    "per_stage_metrics.csv": "0e47866138a9ae5fdaafa05b26e2d3a34ef04f152fceae043c3431a8e891f994",
+    "repository_summary.csv": "c222a988dcf2c24c5167c0a7feb8f9b518a68db52c587dc33a144b6fde29b24f",
+    "uncertainty_corrections.csv": "1c2c3dab8ef438cda6ad228d42df749959c5c7e35caec71d189e2ed24990a526"
+  },
+  "source": "Original assessment files supplied by the authors on 2026-10-22.",
+  "unknown_encoding": "Empty prediction in all_modes_comparison.csv means unknown; workbook heuristic CSVs display it as ?.",
+  "partition_policy": "Historical operational groups are not independent held-out validation."
+}

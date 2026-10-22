@@ -82,8 +82,9 @@
       "csv": "heuristics_documentation.csv",
       "rows_including_header": 101,
       "columns": 7,
-      "sha256": "15a842e5b59a8708f4895341124e590eadd41742e15ba802b3b1ca9c5020508a",
-      "superseded_sheet_omitted": "Hoja 14"
+      "sha256": "93b746857143d173fc87a3b10d968f0957895d42c86a52a471afe7969dae692a",
+      "superseded_sheet_omitted": "Hoja 14",
+      "source_export_sha256": "15a842e5b59a8708f4895341124e590eadd41742e15ba802b3b1ca9c5020508a"
     },
     {
       "role": "heuristics_code",
@@ -92,8 +93,9 @@
       "csv": "heuristics_code.csv",
       "rows_including_header": 101,
       "columns": 7,
-      "sha256": "c7fcf29656c30bc492775d5c9b3e0ea4c4d628775291e5a5e47a6ddb0c97da11",
-      "superseded_sheet_omitted": "Hoja 15"
+      "sha256": "af0235b8cb206582090afa233473c62797cf4820aae3128621e6a96dcb7a380b",
+      "superseded_sheet_omitted": "Hoja 15",
+      "source_export_sha256": "c7fcf29656c30bc492775d5c9b3e0ea4c4d628775291e5a5e47a6ddb0c97da11"
     },
     {
       "role": "heuristics_combined",
@@ -102,8 +104,9 @@
       "csv": "heuristics_combined.csv",
       "rows_including_header": 101,
       "columns": 7,
-      "sha256": "1f0a34a84bdb63202f1ffc246c53214712e5040a37e16012f0d1cfbbcd28d21f",
-      "superseded_sheet_omitted": "Hoja 16"
+      "sha256": "c479f5488ae227288df6253add92a42812d68e7d10eb350a67faa2f14deca9a5",
+      "superseded_sheet_omitted": "Hoja 16",
+      "source_export_sha256": "1f0a34a84bdb63202f1ffc246c53214712e5040a37e16012f0d1cfbbcd28d21f"
     }
   ],
   "conversations": [
@@ -132,5 +135,12 @@
     "cells_per_range": 707,
     "differences_after_numeric_0_1_equivalence": 0,
     "policy": "Exact supplied Google Sheets source read through connector. Exported values retain attached workbook numeric text; live sheet names containing reviewer identities are not distributed."
+  },
+  "uncertainty_restoration": {
+    "policy": "Only unknown assessment predictions restored to ?. All known binary decisions preserved. Scan completeness is retained separately, not inferred from label values.",
+    "source": "../assessment/all_modes_comparison.csv",
+    "changed_zero_labels": 58,
+    "original_blank_labels_rendered_as_question_mark": 6,
+    "changes": "../assessment/uncertainty_corrections.csv"
   }
 }

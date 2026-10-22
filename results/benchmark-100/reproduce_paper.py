@@ -29,7 +29,7 @@ def binary(value):
         return 0
     if value in ("1", "1.0"):
         return 1
-    if value in ("", "Unverified"):
+    if value in ("", "Unverified", "?"):
         return None
     raise ValueError(f"Unrecognized source label: {value!r}")
 
@@ -85,6 +85,43 @@ def evaluate(predictions, reference, cohort=None):
         ),
     }
     return metrics
+
+
+def assessment_cohorts(tables):
+    """Validate original assessment decisions and retain independent completeness flags."""
+    folder = HERE / "assessment"
+    manifest = json.loads((folder / "manifest.json").read_text())
+    for name, digest in manifest["files"].items():
+        assert hashlib.sha256((folder / name).read_bytes()).hexdigest() == digest, name
+    roles = {
+        "documentation-only": "heuristics_documentation",
+        "code-only": "heuristics_code",
+        "combined": "heuristics_combined",
+    }
+    flags = {}
+    seen = set()
+    with (folder / "all_modes_comparison.csv").open(newline="") as handle:
+        for row in csv.DictReader(handle):
+            repo, role, stage = (
+                identity(
+                    "https://github.com/" + row["repository"].removeprefix("https://github.com/")
+                ),
+                roles[row["mode"]],
+                row["stage"],
+            )
+            key = (role, repo, stage)
+            assert key not in seen
+            seen.add(key)
+            assert tables[role][repo][stage] == binary(row["prediction"]), key
+            assert tables["final_agreement"][repo][stage] == binary(row["human_documentation"]), key
+            assert row["scan_complete"] in ("True", "False")
+            complete = row["scan_complete"] == "True"
+            assert flags.setdefault((role, repo), complete) == complete
+    assert len(seen) == 1800 and len(flags) == 300
+    return {
+        role: {repo for (name, repo), complete in flags.items() if name == role and complete}
+        for role in roles.values()
+    }
 
 
 def annotation_statistics(tables):
@@ -244,8 +281,9 @@ def analyze(run=None, corpus_predictions=None):
     claims = json.loads((HERE / "paper_claims.json").read_text())
     annotations = annotation_statistics(tables)
     reference = tables["final_agreement"]
+    cohorts = assessment_cohorts(tables)
     classifications = {
-        name: evaluate(table, reference)
+        name: evaluate(table, reference, cohorts.get(name))
         for name, table in tables.items()
         if name.startswith(("llm_", "heuristics_"))
     }
@@ -256,7 +294,9 @@ def analyze(run=None, corpus_predictions=None):
             repo
             for repo in reference
             if all(
-                all(value is not None for value in tables[role][repo].values()) for role in roles
+                all(value is not None for value in tables[role][repo].values())
+                and (role not in cohorts or repo in cohorts[role])
+                for role in roles
             )
         ]
         common[family] = {role: evaluate(tables[role], reference, cohort) for role in roles}
@@ -290,8 +330,8 @@ def analyze(run=None, corpus_predictions=None):
         "corpus_stage_counts": corpus,
         "corpus_paper_comparison": corpus_comparison,
         "limitations": [
-            "Workbook CSV binary completeness does not establish runtime scan completeness.",
-            "Paper Table 4 requires original result.json files to reconstruct the 96/95/95 scan-complete cohorts.",
+            "Heuristic evaluation uses original assessment scan-completeness flags; known positives in incomplete scans are retained in CSVs.",
+            "Paper Table 4 is reproduced from restored CSV predictions and original assessment completeness flags (96/95/95 repositories).",
             "Paper Table 5 requires the original 386-repository predictions export.",
             "Paper Table 7 retains superseded heuristic values and is inconsistent with Table 4.",
             "The combined LLM micro-F1 rounds to 0.795; the paper prints 0.794.",

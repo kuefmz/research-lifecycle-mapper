@@ -31,12 +31,15 @@ uv run --frozen --with jupyterlab jupyter lab results/benchmark-100/reproduce_pa
 - The selected latest workbook predictions, with complete-vector metrics, confusion counts, common-cohort comparisons and always-positive/negative baselines.
 - LLM Table 6 from 98/63/99 eligible repositories, with the combined micro-F1 rounding discrepancy reported.
 
-## What still needs original run data
+## Original assessment and restored uncertainty
 
-The latest worksheet exports do not encode the original scan-completeness flags used
-for the paper's heuristic Table 4. Their binary-complete counts are 99/100/99, not the
-paper's 96/95/95. The notebook computes the source tables as supplied and flags the
-mismatch; it does not force the paper's numbers or treat missing values as zero.
+`assessment/` retains the supplied original prediction/completeness tables, metrics,
+checksums and cell correction log. The three heuristic CSVs restore 58 zero-filled
+unknowns to `?`, plus six existing blanks. Genuine 0/1 values and row order are unchanged.
+The notebook verifies every decision against the assessment and uses its scan flags,
+reproducing Table 4's **96/95/95** cohorts. The original workbook is not modified.
+
+## Optional raw run and 386-repository data
 
 To reproduce the original scan-complete evaluation and Table 5's 386-repository counts:
 
@@ -49,8 +52,8 @@ uv run --frozen python results/benchmark-100/reproduce_paper.py \
 The first option reads original checksum-bound result.json files, requiring exactly the
 100 reference identities. It performs no acquisition or reanalysis. The second requires
 386 distinct repository identities and all 18 exported decisions per repository.
-Without these optional inputs, the corresponding original-run tables are explicitly
-marked unavailable. Table 7's heuristic rows still contain superseded scores and need
+Without these optional inputs, raw-run verification and the 386-repository table are
+marked unavailable. Table 4 already reproduces using the supplied assessment files. Table 7's heuristic rows still contain superseded scores and need
 editorial correction; the older heuristic sheets are omitted from the selected exports.
 
 The final labels are a mixed-source adjudicated reference, and all 100 repositories

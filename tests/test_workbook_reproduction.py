@@ -58,16 +58,16 @@ def test_llm_paper_cohorts_and_metrics_recomputed_from_csv():
     assert rounding[0]["rounded_3dp"] == 0.795
 
 
-def test_latest_csvs_do_not_fabricate_paper_scan_complete_cohorts():
+def test_restored_csvs_use_original_scan_complete_cohorts():
     report = analysis.analyze()
     counts = [
         report["workbook_metrics"]["heuristics_" + mode]["repository_count"]
         for mode in ("documentation", "code", "combined")
     ]
-    assert counts == [99, 100, 99]
+    assert counts == [96, 95, 95]
     assert report["original_run_metrics"] is None and report["corpus_stage_counts"] is None
-    assert any(
-        row["metric"] == "repositories" and row["status"] == "differs"
+    assert not any(
+        row["table"] == "table_4" and row["status"] != "matches"
         for row in report["paper_comparison"]
     )
     tables, _ = analysis.load_tables()
@@ -116,3 +116,33 @@ def test_raw_run_completeness_excludes_partial_even_when_labels_are_binary(tmp_p
     (tmp_path / "repositories/partial/result.sha256").write_text("bad")
     with pytest.raises(AssertionError):
         analysis.evaluate_original_run(tmp_path, reference)
+
+
+def test_restoration_preserves_all_known_labels_and_original_aggregate_metrics():
+    import hashlib
+
+    folder = ROOT / "results/benchmark-100/assessment"
+    corrections = list(csv.DictReader((folder / "uncertainty_corrections.csv").open()))
+    assert len(corrections) == 64
+    assert sum(row["previous"] in ("0", "0.0") for row in corrections) == 58
+    assert all(row["restored"] == "?" for row in corrections)
+    tables, _ = analysis.load_tables()
+    cohorts = analysis.assessment_cohorts(tables)
+    report = analysis.analyze()
+    modes = {"documentation-only": "documentation", "code-only": "code", "combined": "combined"}
+    targets = list(csv.DictReader((folder / "mode_summary.csv").open()))
+    for row in targets:
+        result = report["workbook_metrics"]["heuristics_" + modes[row["mode"]]]
+        assert result["repository_count"] == int(row["evaluated_repositories"])
+        assert result["micro"]["f1"] == float(row["micro_f1"])
+    # Completeness is independent of whether some positive evidence was already captured.
+    assert any(
+        repo not in cohorts[role] and 1 in labels.values()
+        for role in cohorts
+        for repo, labels in tables[role].items()
+    )
+    manifest = json.loads((folder / "manifest.json").read_text())
+    assert all(
+        hashlib.sha256((folder / name).read_bytes()).hexdigest() == digest
+        for name, digest in manifest["files"].items()
+    )
